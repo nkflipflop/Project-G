@@ -410,6 +410,7 @@ public class DungeonManager : MonoBehaviour
         DrawBridges(rootSubDungeon);
         DrawCorridors(rootSubDungeon);
         DrawWalls();
+        SetupPlayerSpawn();
         System.DateTime end = System.DateTime.Now;
         Debug.Log(end.Subtract(start).Milliseconds);
     }
