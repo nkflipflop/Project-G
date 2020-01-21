@@ -20,15 +20,18 @@ public class DungeonManager : MonoBehaviour
                         Special_13_21, Special_13_31, Special_21_33, Special_23_31 };
 
     private enum Tiles { Bridges, Corridors, Floors, Walls }
+    public GameObject Player;
     public GameObject FloorTile;
     public GameObject CorridorTile;
     public GameObject BridgeTile;
     public GameObject[] WallTiles;
+    public GameObject ExitTile;
     private GameObject[,] _dungeonFloorPositions;
     private bool[,] _dungeonTilesBinary;
     public int DungeonRows, DungeonColumns;
     public int DungeonPadding;
     public int MinRoomSize, MaxRoomSize;
+    private Vector3 _playerSpawnPos;
 
     public class SubDungeon {
         public SubDungeon left, right;
@@ -398,6 +401,47 @@ public class DungeonManager : MonoBehaviour
         }
     }
 
+    void SetSpawnPos(SubDungeon subDungeon) {
+        if (subDungeon == null)
+            return;
+
+        if (subDungeon.IAmLeaf()) {
+            int spawnPosX, spawnPosY;
+            int padding = (int)(((int)subDungeon.room.xMax - (int)subDungeon.room.x) / 4);
+            do {
+                spawnPosX = Random.Range((int)subDungeon.room.x + padding, (int)subDungeon.room.xMax - padding);
+                spawnPosY = Random.Range((int)subDungeon.room.y + padding, (int)subDungeon.room.yMax - padding);
+            } while(_dungeonTilesBinary[spawnPosX, spawnPosY] == false);
+            _playerSpawnPos = new Vector3(spawnPosX, spawnPosY, 0f);
+        }
+        else
+            SetSpawnPos(subDungeon.left);
+    }
+
+    void SetExitPos(SubDungeon subDungeon) {
+        if (subDungeon == null)
+            return;
+
+        if (subDungeon.IAmLeaf()) {
+            int exitPosX, exitPosY;
+            do {
+                exitPosX = Random.Range((int)subDungeon.room.x, (int)subDungeon.room.xMax);
+                exitPosY = Random.Range((int)subDungeon.room.y, (int)subDungeon.room.yMax);
+            } while(_dungeonTilesBinary[exitPosX, exitPosY] == false);
+            GameObject instance = Instantiate(ExitTile, new Vector3(exitPosX, exitPosY, 0f), Quaternion.identity) as GameObject;
+            instance.transform.SetParent(transform);
+        }
+        else
+            SetExitPos(subDungeon.right);
+    }
+
+    void SetupPlayerSpawn(SubDungeon rootSubDungeon) {
+        SetSpawnPos(rootSubDungeon);
+        Player.transform.position = _playerSpawnPos;
+        SetExitPos(rootSubDungeon);
+
+    }
+
     void Start() {
         System.DateTime start = System.DateTime.Now;
         SubDungeon rootSubDungeon = new SubDungeon(new Rect(DungeonPadding, DungeonPadding, DungeonRows, DungeonColumns));
@@ -410,6 +454,7 @@ public class DungeonManager : MonoBehaviour
         DrawBridges(rootSubDungeon);
         DrawCorridors(rootSubDungeon);
         DrawWalls();
+        SetupPlayerSpawn(rootSubDungeon);
         System.DateTime end = System.DateTime.Now;
         Debug.Log(end.Subtract(start).Milliseconds);
     }
