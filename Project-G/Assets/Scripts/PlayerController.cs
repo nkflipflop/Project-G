@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
-    private float _moveSpeed = 10f;
+    private float _moveSpeed = 3f;
     private float _moveLatency = 0.05f;
 
     private float _horizontalInput;
@@ -44,8 +44,8 @@ public class PlayerController : MonoBehaviour {
 
     // Take Action
     void PlayerMovement(){
-        if (_attackInput)    // when pressed left mouse
-            PlayerAttack();
+        /*if (_attackInput)    // when pressed left mouse
+            PlayerAttack();*/
         if (_isRun)          // when holding direction keys WASD
             PlayerRun();
     }
