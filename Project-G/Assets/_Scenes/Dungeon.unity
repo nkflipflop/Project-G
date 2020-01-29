@@ -228,11 +228,11 @@ MonoBehaviour:
   - {fileID: 7922414397138788848, guid: b9904358184471340add533a50aa83ad, type: 3}
   ExitTile: {fileID: 4260368798550124252, guid: 0eada2ed2b86f1345bec2cd31d52c97c,
     type: 3}
-  DungeonRows: 32
-  DungeonColumns: 32
+  DungeonRows: 24
+  DungeonColumns: 24
   DungeonPadding: 2
-  MinRoomSize: 6
-  MaxRoomSize: 5
+  MinRoomSize: 4
+  MaxRoomSize: 4
 --- !u!4 &229953797
 Transform:
   m_ObjectHideFlags: 0
