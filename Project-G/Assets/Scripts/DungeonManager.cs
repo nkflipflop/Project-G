@@ -4,21 +4,6 @@ using UnityEngine;
 
 public class DungeonManager : MonoBehaviour
 {
-	/*private enum Wall { InnerBottomLeft, InnerBottomMiddle, InnerBottomRight, 
-						InnerMiddleLeft, InnerMiddleRight, 
-						InnerTopLeft, InnerTopMiddle, InnerTopRight, 
-						InOutBottomLeft, InOutBottomMiddle, InOutBottomRight,
-						InOutMiddleLeft, InOutMiddleRight, 
-						InOutTopLeft, InOutTopMiddle, InOutTopRight,
-						OuterBottomLeft, OuterBottomMiddle, OuterBottomRight, 
-						OuterMiddleLeft, OuterMiddleMiddle, OuterMiddleRight,
-						OuterTopLeft, OuterTopMiddle, OuterTopRight,
-						Single,
-						SingleBottom, SingleMiddle, SingleTop,
-						Special_, 
-						Special_11_23, Special_11_33, Special_12_31, Special_12_33, 
-						Special_13_21, Special_13_31, Special_21_33, Special_23_31 };*/
-
 	private enum Tiles { Bridges, Corridors, Floors, Walls }
 	public GameObject Player;
 	public GameObject FloorTile;
@@ -307,15 +292,9 @@ public class DungeonManager : MonoBehaviour
 	}
 
 	void DrawWalls() {
-		int matrixSize = 3;
+		int matrixSize = 3, index;
 
-		int [,] kernelMatrix = {{4, 64, 2}, 
-								{128, 0, 32}, 
-								{8, 16, 1}};
-
-		int index;
-
-		//bool up = false, down = false, left = false, right = false, upperLeft = false, upperRight = false, downLeft = false, downRight = false;
+		int [,] kernelMatrix = {{4, 64, 2}, {128, 0, 32}, {8, 16, 1}};
 		
 		for (int j = DungeonColumns + (2 * DungeonPadding) - matrixSize; j >= 0; j--) {
 			for (int i = 0; i <= DungeonRows + (2 * DungeonPadding) - matrixSize; i++) {
