@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
-	[SerializeField]
-	private float _moveSpeed = 3f;
-	[SerializeField]
-	private float _moveLatency = 0.05f;
+	[SerializeField] private float _moveSpeed = 3f;
+	[SerializeField] private float _moveLatency = 0.05f;
 
 	private float _horizontalInput;
 	private float _verticalInput;

@@ -691,6 +691,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab321eb2a408c934fbf1998c164c7da1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _moveSpeed: 3
+  _moveLatency: 0.05
 --- !u!95 &8005256322282322021
 Animator:
   serializedVersion: 3
@@ -809,6 +811,6 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.010000003, y: -0.21872368}
-  m_Size: {x: 0.23000015, y: 0.10422082}
+  m_Offset: {x: 0.010000002, y: -0.22923231}
+  m_Size: {x: 0.23000021, y: 0.08346591}
   m_Direction: 1
