@@ -295,11 +295,13 @@ public class DungeonManager : MonoBehaviour
 		foreach (Rect corridor in subDungeon.corridors) {
 			for (int i = (int)corridor.x; i < corridor.xMax; i++) {
 				for (int j = (int)corridor.y; j < corridor.yMax; j++) {
-					if (_dungeonFloorPositions[i, j] == null) {
-						GameObject instance = Instantiate(CorridorTile, new Vector3 (i, j, 0f), Quaternion.identity) as GameObject;
-						instance.transform.SetParent(transform.GetChild((int)Tiles.Corridors).gameObject.transform);
-						_dungeonFloorPositions[i, j] = instance;
-						_dungeonTilesBinary[i, j] = true;
+					if (_dungeonFloorPositions[i, j] == null) {		// check if the tile is empty
+						if (!(i < DungeonPadding || i >= DungeonRows + DungeonPadding || j < DungeonPadding || j >= DungeonColumns + DungeonPadding)) {		// check if the position is inside of the padding area
+							GameObject instance = Instantiate(CorridorTile, new Vector3 (i, j, 0f), Quaternion.identity) as GameObject;
+							instance.transform.SetParent(transform.GetChild((int)Tiles.Corridors).gameObject.transform);
+							_dungeonFloorPositions[i, j] = instance;
+							_dungeonTilesBinary[i, j] = true;
+						}
 					}
 				}
 			}
@@ -369,9 +371,9 @@ public class DungeonManager : MonoBehaviour
 						instance = Instantiate(WallTiles[(int)Wall.InOutTopLeft], new Vector3 (wallPosX, wallPosY, 0f), Quaternion.identity) as GameObject;
 					else if (up && !down && !left && right && downLeft && upperLeft && downRight && upperRight)
 						instance = Instantiate(WallTiles[(int)Wall.InOutTopRight], new Vector3 (wallPosX, wallPosY, 0f), Quaternion.identity) as GameObject;
-					else if (!up && down && !left && right && downLeft && upperLeft && downRight && upperRight)
+					else if (!up && down && !left && right && downLeft && upperLeft && downRight)
 						instance = Instantiate(WallTiles[(int)Wall.InOutBottomRight], new Vector3 (wallPosX, wallPosY, 0f), Quaternion.identity) as GameObject;
-					else if (!up && down && left && !right && downLeft && upperLeft && downRight && upperRight)
+					else if (!up && down && left && !right && downLeft && downRight && upperRight)
 						instance = Instantiate(WallTiles[(int)Wall.InOutBottomLeft], new Vector3 (wallPosX, wallPosY, 0f), Quaternion.identity) as GameObject;
 					else if (!up && down && !left && !right && !downLeft && !downRight && (upperLeft != upperRight))
 						instance = Instantiate(WallTiles[(int)Wall.Special_], new Vector3 (wallPosX, wallPosY, 0f), Quaternion.identity) as GameObject;
