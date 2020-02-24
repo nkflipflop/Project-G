@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour {
 	private float _horizontalInput;
 	private float _verticalInput;
 	private bool _attackInput;
+	private Vector3 _mousePosition;
 
 	private bool _isAttack = false;
 	private bool _isRun = false;
@@ -32,6 +33,9 @@ public class PlayerController : MonoBehaviour {
 		_horizontalInput = Input.GetAxisRaw("Horizontal");   // held direction keys WASD
 		_verticalInput = Input.GetAxisRaw("Vertical");
 
+		_mousePosition = Input.mousePosition;				// for determining player direction
+		_mousePosition = Camera.main.ScreenToWorldPoint(_mousePosition);
+
 		_attackInput = Input.GetMouseButton(0);              // pressed left mouse
 		if (_attackInput)                                    // starts attack and its animation
 			_isAttack = _attackInput;
@@ -50,6 +54,14 @@ public class PlayerController : MonoBehaviour {
 	void PlayerMovement(){
 		/*if (_attackInput)    // when pressed left mouse
 			PlayerAttack();*/
+		
+		// Flipping the sprite vertically with respect to mouse
+		float direction = _mousePosition.x - transform.position.x;
+		if (direction < 0)
+			transform.localScale = new Vector3(-1, 1, 1);
+		else
+			transform.localScale = new Vector3(1, 1, 1);
+		
 		if (_isRun)          // when holding direction keys WASD
 			PlayerRun();
 	}
@@ -63,13 +75,6 @@ public class PlayerController : MonoBehaviour {
 		else
 			unitSpeed = _moveSpeed;
 
-		// Flipping the sprite vertically with respect to the player's direction
-		if (_horizontalInput < -0.1f) {
-			transform.localScale = new Vector3(-1, 1, 1);
-		}
-		if (_horizontalInput > 0.1f) {
-			transform.localScale = new Vector3(1, 1, 1);
-		}      
 
 		// Moving in 8 Directions
 		if (Mathf.Abs(_horizontalInput) > 0.9f || Mathf.Abs(_verticalInput) > 0.9f){
