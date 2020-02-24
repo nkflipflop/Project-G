@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DungeonManager : MonoBehaviour
 {
-	private enum Wall { InnerBottomLeft, InnerBottomMiddle, InnerBottomRight, 
+	/*private enum Wall { InnerBottomLeft, InnerBottomMiddle, InnerBottomRight, 
 						InnerMiddleLeft, InnerMiddleRight, 
 						InnerTopLeft, InnerTopMiddle, InnerTopRight, 
 						InOutBottomLeft, InOutBottomMiddle, InOutBottomRight,
@@ -17,7 +17,7 @@ public class DungeonManager : MonoBehaviour
 						SingleBottom, SingleMiddle, SingleTop,
 						Special_, 
 						Special_11_23, Special_11_33, Special_12_31, Special_12_33, 
-						Special_13_21, Special_13_31, Special_21_33, Special_23_31 };
+						Special_13_21, Special_13_31, Special_21_33, Special_23_31 };*/
 
 	private enum Tiles { Bridges, Corridors, Floors, Walls }
 	public GameObject Player;
@@ -27,7 +27,7 @@ public class DungeonManager : MonoBehaviour
 	public GameObject[] WallTiles;
 	public GameObject ExitTile;
 	private GameObject[,] _dungeonFloorPositions;
-	private bool[,] _dungeonTilesBinary;
+	private int[,] _dungeonTilesBinary;
 	public int DungeonRows, DungeonColumns;
 	public int DungeonPadding;
 	public int MinRoomSize, MaxRoomSize;
@@ -243,7 +243,7 @@ public class DungeonManager : MonoBehaviour
 						GameObject instance = Instantiate(FloorTile, new Vector3(i, j, 0f), Quaternion.identity) as GameObject;
 						instance.transform.SetParent(transform.GetChild((int)Tiles.Floors).gameObject.transform);
 						_dungeonFloorPositions[i, j] = instance;
-						_dungeonTilesBinary[i, j] = true;
+						_dungeonTilesBinary[i, j] = 1;
 					}
 				}
 			}
@@ -268,17 +268,17 @@ public class DungeonManager : MonoBehaviour
 						GameObject instance = Instantiate(BridgeTile, new Vector3 (i, j, 0f), Quaternion.identity) as GameObject;
 						instance.transform.SetParent(transform.GetChild((int)Tiles.Bridges).gameObject.transform);
 						_dungeonFloorPositions[i, j] = instance;
-						_dungeonTilesBinary[i, j] = true;
+						_dungeonTilesBinary[i, j] = 1;
 
 						// 1 block space around the bridge
 						if (_dungeonFloorPositions[i - 1, j] == null)
-							_dungeonTilesBinary[i - 1, j] = _dungeonTilesBinary[i - 1, j + 1] = true;       // left and upper-left
+							_dungeonTilesBinary[i - 1, j] = _dungeonTilesBinary[i - 1, j + 1] = 1;       // left and upper-left
 						if (_dungeonFloorPositions[i + 1, j] == null)
-							_dungeonTilesBinary[i + 1, j] = _dungeonTilesBinary[i + 1, j + 1] = true;       // right and upper-right
+							_dungeonTilesBinary[i + 1, j] = _dungeonTilesBinary[i + 1, j + 1] = 1;       // right and upper-right
 						if (_dungeonFloorPositions[i, j - 1] == null)
-							_dungeonTilesBinary[i, j - 1] = _dungeonTilesBinary[i + 1, j - 1] = true;       // down and down-right
+							_dungeonTilesBinary[i, j - 1] = _dungeonTilesBinary[i + 1, j - 1] = 1;       // down and down-right
 						if (_dungeonFloorPositions[i, j + 1] == null)
-							_dungeonTilesBinary[i, j + 1] = _dungeonTilesBinary[i - 1, j - 1] = true;       // down and down-left
+							_dungeonTilesBinary[i, j + 1] = _dungeonTilesBinary[i - 1, j - 1] = 1;       // down and down-left
 					}
 				}
 			}
@@ -299,7 +299,7 @@ public class DungeonManager : MonoBehaviour
 						GameObject instance = Instantiate(CorridorTile, new Vector3 (i, j, 0f), Quaternion.identity) as GameObject;
 						instance.transform.SetParent(transform.GetChild((int)Tiles.Corridors).gameObject.transform);
 						_dungeonFloorPositions[i, j] = instance;
-						_dungeonTilesBinary[i, j] = true;
+						_dungeonTilesBinary[i, j] = 1;
 					}
 				}
 			}
@@ -309,88 +309,27 @@ public class DungeonManager : MonoBehaviour
 	void DrawWalls() {
 		int matrixSize = 3;
 
-		bool up = false, down = false, left = false, right = false, upperLeft = false, upperRight = false, downLeft = false, downRight = false;
+		int [,] kernelMatrix = {{4, 64, 2}, 
+								{128, 0, 32}, 
+								{8, 16, 1}};
+
+		int index;
+
+		//bool up = false, down = false, left = false, right = false, upperLeft = false, upperRight = false, downLeft = false, downRight = false;
 		
 		for (int j = DungeonColumns + (2 * DungeonPadding) - matrixSize; j >= 0; j--) {
 			for (int i = 0; i <= DungeonRows + (2 * DungeonPadding) - matrixSize; i++) {
-				down = _dungeonTilesBinary[i + 1, j + 0];
-				up = _dungeonTilesBinary[i + 1, j + 2];
-				left = _dungeonTilesBinary[i + 0, j + 1];
-				right = _dungeonTilesBinary[i + 2, j + 1];
-				downLeft = _dungeonTilesBinary[i + 0, j + 0];
-				upperLeft = _dungeonTilesBinary[i + 0, j + 2];
-				downRight = _dungeonTilesBinary[i + 2, j + 0];
-				upperRight = _dungeonTilesBinary[i + 2, j + 2];
+				index = 0;
+				for (int l = 0; l < matrixSize; l++) {
+					for (int k = 0; k < matrixSize; k++) {
+						index += _dungeonTilesBinary[i + k, j + l] * kernelMatrix[l, k];
+					}
+				}
 
 				GameObject instance = null;
 				int wallPosX = i + 1, wallPosY = j + 1;
-				if (_dungeonFloorPositions[wallPosX, j + 1] == null && _dungeonTilesBinary[wallPosX, wallPosY] == false) {
-					if (up && down && left && right && downLeft && upperLeft && downRight && upperRight)
-						instance = Instantiate(WallTiles[(int)Wall.Single], new Vector3 (wallPosX, wallPosY, 0f), Quaternion.identity) as GameObject;
-					else if (!up && !down && !left && !right && !downLeft && !upperLeft && !downRight && !upperRight)
-						instance = Instantiate(WallTiles[(int)Wall.OuterMiddleMiddle], new Vector3 (wallPosX, wallPosY, 0f), Quaternion.identity) as GameObject;
-					else if (up && down)
-						instance = Instantiate(WallTiles[(int)Wall.InOutTopMiddle], new Vector3 (wallPosX, wallPosY, 0f), Quaternion.identity) as GameObject;
-					else if (!up && !down && !left && !right && !downLeft && !upperLeft && downRight && !upperRight)
-						instance = Instantiate(WallTiles[(int)Wall.InnerTopLeft], new Vector3 (wallPosX, wallPosY, 0f), Quaternion.identity) as GameObject;
-					else if (!up && down && !left && !right && !downLeft && !upperLeft && !downRight && !upperRight)
-						instance = Instantiate(WallTiles[(int)Wall.InnerTopMiddle], new Vector3 (wallPosX, wallPosY, 0f), Quaternion.identity) as GameObject;
-					else if (!up && !down && !left && !right && downLeft && !upperLeft && !downRight && !upperRight)
-						instance = Instantiate(WallTiles[(int)Wall.InnerTopRight], new Vector3 (wallPosX, wallPosY, 0f), Quaternion.identity) as GameObject;
-					else if (!up && !down && !left && !right && !downLeft && upperLeft && !downRight && !upperRight)
-						instance = Instantiate(WallTiles[(int)Wall.InnerBottomRight], new Vector3 (wallPosX, wallPosY, 0f), Quaternion.identity) as GameObject;
-					else if (up && !down && !left && !right && !downLeft && !upperLeft && !downRight && !upperRight)
-						instance = Instantiate(WallTiles[(int)Wall.InnerBottomMiddle], new Vector3 (wallPosX, wallPosY, 0f), Quaternion.identity) as GameObject;
-					else if (!up && !down && !left && !right && !downLeft && !upperLeft && !downRight && upperRight)
-						instance = Instantiate(WallTiles[(int)Wall.InnerBottomLeft], new Vector3 (wallPosX, wallPosY, 0f), Quaternion.identity) as GameObject;
-					else if (up && !down && left && !right && upperLeft && !downRight)
-						instance = Instantiate(WallTiles[(int)Wall.OuterTopLeft], new Vector3 (wallPosX, wallPosY, 0f), Quaternion.identity) as GameObject;
-					else if (up && !down && !left && !right && !downLeft && !downRight)
-						instance = Instantiate(WallTiles[(int)Wall.OuterTopMiddle], new Vector3 (wallPosX, wallPosY, 0f), Quaternion.identity) as GameObject;
-					else if (up && !down && left && right && upperLeft && upperRight)
-						instance = Instantiate(WallTiles[(int)Wall.SingleTop], new Vector3 (wallPosX, wallPosY, 0f), Quaternion.identity) as GameObject;
-					else if (up && !down && !left && right && !downLeft && upperRight)
-						instance = Instantiate(WallTiles[(int)Wall.OuterTopRight], new Vector3 (wallPosX, wallPosY, 0f), Quaternion.identity) as GameObject;
-					else if (!up && !down && !left && right && !downLeft && !upperLeft)
-						instance = Instantiate(WallTiles[(int)Wall.OuterMiddleRight], new Vector3 (wallPosX, wallPosY, 0f), Quaternion.identity) as GameObject;
-					else if (!up && down && !left && right && !upperLeft && downRight)
-						instance = Instantiate(WallTiles[(int)Wall.OuterBottomRight], new Vector3 (wallPosX, wallPosY, 0f), Quaternion.identity) as GameObject;
-					else if (!up && down && !left && !right && !upperLeft && !upperRight)
-						instance = Instantiate(WallTiles[(int)Wall.OuterBottomMiddle], new Vector3 (wallPosX, wallPosY, 0f), Quaternion.identity) as GameObject;
-					else if (!up && down && left && !right && downLeft && !upperRight)
-						instance = Instantiate(WallTiles[(int)Wall.OuterBottomLeft], new Vector3 (wallPosX, wallPosY, 0f), Quaternion.identity) as GameObject;
-					else if (!up && !down && left && !right && !downRight && !upperRight)
-						instance = Instantiate(WallTiles[(int)Wall.OuterMiddleLeft], new Vector3 (wallPosX, wallPosY, 0f), Quaternion.identity) as GameObject;
-					else if (!up && !down && left && right)
-						instance = Instantiate(WallTiles[(int)Wall.SingleMiddle], new Vector3 (wallPosX, wallPosY, 0f), Quaternion.identity) as GameObject;
-					else if (!up && down && left && right && downLeft && downRight)
-						instance = Instantiate(WallTiles[(int)Wall.SingleBottom], new Vector3 (wallPosX, wallPosY, 0f), Quaternion.identity) as GameObject;
-					else if (up && !down && left && !right && downLeft && upperLeft && downRight && upperRight)
-						instance = Instantiate(WallTiles[(int)Wall.InOutTopLeft], new Vector3 (wallPosX, wallPosY, 0f), Quaternion.identity) as GameObject;
-					else if (up && !down && !left && right && downLeft && upperLeft && downRight && upperRight)
-						instance = Instantiate(WallTiles[(int)Wall.InOutTopRight], new Vector3 (wallPosX, wallPosY, 0f), Quaternion.identity) as GameObject;
-					else if (!up && down && !left && right && downLeft && upperLeft && downRight && upperRight)
-						instance = Instantiate(WallTiles[(int)Wall.InOutBottomRight], new Vector3 (wallPosX, wallPosY, 0f), Quaternion.identity) as GameObject;
-					else if (!up && down && left && !right && downLeft && upperLeft && downRight && upperRight)
-						instance = Instantiate(WallTiles[(int)Wall.InOutBottomLeft], new Vector3 (wallPosX, wallPosY, 0f), Quaternion.identity) as GameObject;
-					else if (!up && down && !left && !right && !downLeft && !downRight && (upperLeft != upperRight))
-						instance = Instantiate(WallTiles[(int)Wall.Special_], new Vector3 (wallPosX, wallPosY, 0f), Quaternion.identity) as GameObject;
-					else if (!up && !down && !left && right && !downLeft && upperLeft)
-						instance = Instantiate(WallTiles[(int)Wall.Special_11_23], new Vector3 (wallPosX, wallPosY, 0f), Quaternion.identity) as GameObject;
-					else if (!up && !down && !left && !right && !downLeft && upperLeft && downRight && !upperRight)
-						instance = Instantiate(WallTiles[(int)Wall.Special_11_33], new Vector3 (wallPosX, wallPosY, 0f), Quaternion.identity) as GameObject;
-					else if (up && !down && !left && !right && downLeft && !downRight)
-						instance = Instantiate(WallTiles[(int)Wall.Special_12_31], new Vector3 (wallPosX, wallPosY, 0f), Quaternion.identity) as GameObject;
-					else if (up && !down && !left && !right && !downLeft && downRight)
-						instance = Instantiate(WallTiles[(int)Wall.Special_12_33], new Vector3 (wallPosX, wallPosY, 0f), Quaternion.identity) as GameObject;
-					else if (!up && !down && left && !right && !downRight && upperRight)
-						instance = Instantiate(WallTiles[(int)Wall.Special_13_21], new Vector3 (wallPosX, wallPosY, 0f), Quaternion.identity) as GameObject;
-					else if (!up && !down && !left && !right && downLeft && !upperLeft && !downRight && upperRight)
-						instance = Instantiate(WallTiles[(int)Wall.Special_13_31], new Vector3 (wallPosX, wallPosY, 0f), Quaternion.identity) as GameObject;
-					else if (!up && !down && left && !right && downRight && !upperRight)
-						instance = Instantiate(WallTiles[(int)Wall.Special_21_33], new Vector3 (wallPosX, wallPosY, 0f), Quaternion.identity) as GameObject;
-					else if (!up && !down && !left && right && downLeft && !upperLeft)
-						instance = Instantiate(WallTiles[(int)Wall.Special_23_31], new Vector3 (wallPosX, wallPosY, 0f), Quaternion.identity) as GameObject;
+				if (_dungeonFloorPositions[wallPosX, j + 1] == null && _dungeonTilesBinary[wallPosX, wallPosY] == 0) {
+					if (WallTiles[index] != null)	instance = Instantiate(WallTiles[index], new Vector3 (wallPosX, wallPosY, 0f), Quaternion.identity) as GameObject;
 					
 					if (instance != null) {
 						instance.transform.SetParent(transform.GetChild((int)Tiles.Walls).gameObject.transform);
@@ -411,7 +350,7 @@ public class DungeonManager : MonoBehaviour
 			do {
 				spawnPosX = Random.Range((int)subDungeon.room.x + padding, (int)subDungeon.room.xMax - padding);
 				spawnPosY = Random.Range((int)subDungeon.room.y + padding, (int)subDungeon.room.yMax - padding);
-			} while(_dungeonTilesBinary[spawnPosX, spawnPosY] == false);
+			} while(_dungeonTilesBinary[spawnPosX, spawnPosY] == 0);
 			_playerSpawnPos = new Vector3(spawnPosX, spawnPosY, 0f);
 		}
 		else
@@ -427,7 +366,7 @@ public class DungeonManager : MonoBehaviour
 			do {
 				exitPosX = Random.Range((int)subDungeon.room.x, (int)subDungeon.room.xMax);
 				exitPosY = Random.Range((int)subDungeon.room.y, (int)subDungeon.room.yMax);
-			} while(_dungeonTilesBinary[exitPosX, exitPosY] == false);
+			} while(_dungeonTilesBinary[exitPosX, exitPosY] == 0);
 			GameObject instance = Instantiate(ExitTile, new Vector3(exitPosX, exitPosY, 0f), Quaternion.identity) as GameObject;
 			instance.transform.SetParent(transform);
 		}
@@ -449,7 +388,7 @@ public class DungeonManager : MonoBehaviour
 		rootSubDungeon.CreateRoom();
 
 		_dungeonFloorPositions = new GameObject[DungeonRows + (2 * DungeonPadding), DungeonColumns + (2 * DungeonPadding)];
-		_dungeonTilesBinary = new bool[DungeonRows + (2 * DungeonPadding), DungeonColumns + (2 * DungeonPadding)];
+		_dungeonTilesBinary = new int[DungeonRows + (2 * DungeonPadding), DungeonColumns + (2 * DungeonPadding)];
 		DrawRooms(rootSubDungeon);
 		DrawBridges(rootSubDungeon);
 		DrawCorridors(rootSubDungeon);
