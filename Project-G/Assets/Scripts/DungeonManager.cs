@@ -81,14 +81,27 @@ public class DungeonManager : MonoBehaviour
 
 			// if the points are not aligned horizontally
 			if ( w != 0) {
-				// go up or down
-				if (h < 0)
-					connections.Add(new Rect(lpoint.x, lpoint.y, thickness, Mathf.Abs (h)));
-				else
-					connections.Add(new Rect(lpoint.x, rpoint.y, thickness, Mathf.Abs (h)));
+				if (Random.Range (0, 2) > 0) {
+      				// add a corridor to the right
+					connections.Add(new Rect(lpoint.x, lpoint.y, Mathf.Abs(w) + 1, thickness));
 
-				// then go right
-				connections.Add(new Rect(lpoint.x, rpoint.y, Mathf.Abs(w) + 1, thickness));
+					// if left point is below right point go up
+					// otherwise go down
+					if (h < 0)
+						connections.Add(new Rect(rpoint.x, lpoint.y, thickness, Mathf.Abs(h)));
+					else
+						connections.Add(new Rect(rpoint.x, rpoint.y, thickness, Mathf.Abs(h)));
+				}
+				else {
+					// go up or down
+					if (h < 0)
+						connections.Add(new Rect(lpoint.x, lpoint.y, thickness, Mathf.Abs(h)));
+					else
+						connections.Add(new Rect(lpoint.x, rpoint.y, thickness, Mathf.Abs(h)));
+
+					// then go right
+					connections.Add(new Rect(lpoint.x, rpoint.y, Mathf.Abs(w) + 1, thickness));
+				}
 			}
 			else {
 				// if the points are aligned horizontally

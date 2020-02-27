@@ -449,8 +449,8 @@ MonoBehaviour:
   DungeonRows: 24
   DungeonColumns: 24
   DungeonPadding: 2
-  MinRoomSize: 4
-  MaxRoomSize: 4
+  MinRoomSize: 5
+  MaxRoomSize: 5
 --- !u!4 &229953797
 Transform:
   m_ObjectHideFlags: 0
