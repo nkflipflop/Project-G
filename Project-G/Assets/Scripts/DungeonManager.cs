@@ -61,8 +61,8 @@ public class DungeonManager : MonoBehaviour
 			//Debug.Log("Creating corridor(s) between " + left.debugId + "(" + lroom + ") and " + right.debugId + " (" + rroom + ")");
 
 			// attach the corridor to a random point in each room
-			Vector2 lpoint = new Vector2((int)Random.Range(lroom.x + 1, lroom.xMax - 1), (int)Random.Range (lroom.y + 1, lroom.yMax - 1));
-			Vector2 rpoint = new Vector2((int)Random.Range (rroom.x + 1, rroom.xMax - 1), (int)Random.Range (rroom.y + 1, rroom.yMax - 1));
+			Vector2 lpoint = new Vector2((int)Random.Range(lroom.x + 1, lroom.xMax - 1), (int)Random.Range(lroom.y + 1, lroom.yMax - 1));
+			Vector2 rpoint = new Vector2((int)Random.Range(rroom.x + 1, rroom.xMax - 1), (int)Random.Range(rroom.y + 1, rroom.yMax - 1));
 
 			// always be sure that left point is on the left to simplyfy code
 			if (lpoint.x > rpoint.x) {
@@ -107,9 +107,9 @@ public class DungeonManager : MonoBehaviour
 				// if the points are aligned horizontally
 				// go up or down depending on the positions
 				if (h < 0)
-					connections.Add(new Rect ((int)lpoint.x, (int)lpoint.y, thickness, Mathf.Abs (h)));
+					connections.Add(new Rect((int)lpoint.x, (int)lpoint.y, thickness, Mathf.Abs(h)));
 				else
-					connections.Add(new Rect ((int)rpoint.x, (int)rpoint.y, thickness, Mathf.Abs (h)));
+					connections.Add(new Rect((int)rpoint.x, (int)rpoint.y, thickness, Mathf.Abs(h)));
 			}
 
 			/*Debug.Log("Corridors: ");
