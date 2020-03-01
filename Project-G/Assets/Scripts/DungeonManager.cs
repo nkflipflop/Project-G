@@ -6,6 +6,7 @@ public class DungeonManager : MonoBehaviour
 {
 	private enum Tiles { Bridges, Corridors, Floors, Walls }
 	public GameObject Player;
+	public GameObject Dungeon;
 	public GameObject FloorTile;
 	public GameObject CorridorTile;
 	public GameObject BridgeTile;
@@ -239,7 +240,7 @@ public class DungeonManager : MonoBehaviour
 				for (int j = (int)subDungeon.room.y; j < subDungeon.room.yMax; j++) {
 					if (!(i >= x && i <= xMax && j >= y && j <= yMax)) {
 						GameObject instance = Instantiate(FloorTile, new Vector3(i, j, 0f), Quaternion.identity) as GameObject;
-						instance.transform.SetParent(transform.GetChild((int)Tiles.Floors).gameObject.transform);
+						instance.transform.SetParent(Dungeon.transform.GetChild((int)Tiles.Floors).gameObject.transform);
 						_dungeonFloorPositions[i, j] = instance;
 						_dungeonTilesBinary[i, j] = 1;
 					}
@@ -264,7 +265,7 @@ public class DungeonManager : MonoBehaviour
 				for (int j = (int)bridge.y; j < bridge.yMax; j++) {
 					if (_dungeonFloorPositions[i, j] == null) {
 						GameObject instance = Instantiate(BridgeTile, new Vector3 (i, j, 0f), Quaternion.identity) as GameObject;
-						instance.transform.SetParent(transform.GetChild((int)Tiles.Bridges).gameObject.transform);
+						instance.transform.SetParent(Dungeon.transform.GetChild((int)Tiles.Bridges).gameObject.transform);
 						_dungeonFloorPositions[i, j] = instance;
 						_dungeonTilesBinary[i, j] = 1;
 
@@ -295,7 +296,7 @@ public class DungeonManager : MonoBehaviour
 				for (int j = (int)corridor.y; j < corridor.yMax; j++) {
 					if (_dungeonFloorPositions[i, j] == null) {
 						GameObject instance = Instantiate(CorridorTile, new Vector3 (i, j, 0f), Quaternion.identity) as GameObject;
-						instance.transform.SetParent(transform.GetChild((int)Tiles.Corridors).gameObject.transform);
+						instance.transform.SetParent(Dungeon.transform.GetChild((int)Tiles.Corridors).gameObject.transform);
 						_dungeonFloorPositions[i, j] = instance;
 						_dungeonTilesBinary[i, j] = 1;
 					}
@@ -324,7 +325,7 @@ public class DungeonManager : MonoBehaviour
 					if (WallTiles[index] != null)	instance = Instantiate(WallTiles[index], new Vector3 (wallPosX, wallPosY, 0f), Quaternion.identity) as GameObject;
 					
 					if (instance != null) {
-						instance.transform.SetParent(transform.GetChild((int)Tiles.Walls).gameObject.transform);
+						instance.transform.SetParent(Dungeon.transform.GetChild((int)Tiles.Walls).gameObject.transform);
 						_dungeonFloorPositions[wallPosX, wallPosY] = instance;
 					}
 				}
@@ -360,7 +361,7 @@ public class DungeonManager : MonoBehaviour
 				exitPosY = Random.Range((int)subDungeon.room.y, (int)subDungeon.room.yMax);
 			} while(_dungeonTilesBinary[exitPosX, exitPosY] == 0);
 			GameObject instance = Instantiate(ExitTile, new Vector3(exitPosX, exitPosY, 0f), Quaternion.identity) as GameObject;
-			instance.transform.SetParent(transform);
+			instance.transform.SetParent(Dungeon.transform);
 		}
 		else
 			SetExitPos(subDungeon.right);
