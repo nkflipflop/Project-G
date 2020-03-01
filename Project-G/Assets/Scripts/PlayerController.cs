@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
-	private float _moveSpeed = 3f;
-	private float _moveLatency = 0.05f;
+	[SerializeField] private float _moveSpeed = 3f;
+	[SerializeField] private float _moveLatency = 0.05f;
 
 	private float _horizontalInput;
 	private float _verticalInput;
@@ -14,9 +14,11 @@ public class PlayerController : MonoBehaviour {
 	private bool _isRun = false;
 	
 	private Animator _animator;
+	private Rigidbody2D _rb2D;
 
 	private void Start() {
 		_animator = gameObject.GetComponent<Animator>();
+		_rb2D = gameObject.GetComponent<Rigidbody2D>();
 	}
 
 	void Update() {
@@ -75,9 +77,11 @@ public class PlayerController : MonoBehaviour {
 		if (Mathf.Abs(_horizontalInput) > 0.9f || Mathf.Abs(_verticalInput) > 0.9f){
 			_moveLatency -= Time.deltaTime;
 			if(_moveLatency <= 0)
-				transform.Translate ( new Vector3 (_horizontalInput, _verticalInput, 0f) * unitSpeed * Time.deltaTime);
+				_rb2D.velocity = new Vector2(_horizontalInput, _verticalInput) * unitSpeed;
+				//transform.Translate ( new Vector3 (_horizontalInput, _verticalInput, 0f) * unitSpeed * Time.deltaTime);
 		}
 		else {
+			_rb2D.velocity = new Vector2(0f, 0f);
 			_moveLatency = 0.05f;
 			_isRun = false;
 		}
