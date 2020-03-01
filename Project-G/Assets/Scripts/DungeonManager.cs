@@ -6,6 +6,7 @@ public class DungeonManager : MonoBehaviour
 {
 	private enum Tiles { Bridges, Corridors, Floors, Walls }
 	public GameObject Player;
+	public GameObject Enemy;
 	public GameObject Dungeon;
 	public GameObject FloorTile;
 	public GameObject CorridorTile;
@@ -371,7 +372,11 @@ public class DungeonManager : MonoBehaviour
 		SetSpawnPos(rootSubDungeon);
 		Player.transform.position = _playerSpawnPos;
 		SetExitPos(rootSubDungeon);
+	}
 
+	void PlaceEnemy(SubDungeon rootSubDungeon) {
+		SetSpawnPos(rootSubDungeon);
+		Enemy.transform.position = _playerSpawnPos;
 	}
 
 	void Start() {
@@ -387,6 +392,7 @@ public class DungeonManager : MonoBehaviour
 		DrawCorridors(rootSubDungeon);
 		DrawWalls();
 		SetupPlayerSpawn(rootSubDungeon);
+		PlaceEnemy(rootSubDungeon);
 		System.DateTime end = System.DateTime.Now;
 		Debug.Log(end.Subtract(start).Milliseconds);
 	}
