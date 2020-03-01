@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
-	private float _moveSpeed = 3f;
+	private float _moveSpeed = 4f;
 	private float _moveLatency = 0.05f;
 
 	private float _horizontalInput;
@@ -15,9 +15,11 @@ public class PlayerController : MonoBehaviour {
 	private bool _isRun = false;
 	
 	private Animator _animator;
-
+	SpriteRenderer _sprite;
+	
 	private void Start() {
 		_animator = gameObject.GetComponent<Animator>();
+		_sprite = GetComponent<SpriteRenderer>();
 	}
 
 	void Update() {
@@ -46,7 +48,6 @@ public class PlayerController : MonoBehaviour {
 
 	// Animate Player
 	void PlayerAnimate() {
-		_animator.SetBool("Attack", _isAttack);   // for attack animation // when pressed left mouse
 		_animator.SetBool("Run", _isRun);         // for run animation    // when holding direction keys WASD
 	}
 
@@ -58,9 +59,9 @@ public class PlayerController : MonoBehaviour {
 		// Flipping the sprite vertically with respect to mouse
 		float direction = _mousePosition.x - transform.position.x;
 		if (direction < 0)
-			transform.localScale = new Vector3(-1, 1, 1);
+			_sprite.flipX = true;
 		else
-			transform.localScale = new Vector3(1, 1, 1);
+			_sprite.flipX = false;
 		
 		if (_isRun)          // when holding direction keys WASD
 			PlayerRun();
@@ -89,14 +90,7 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	// Player Attack State
-	void PlayerAttack() {
-		_animator.SetBool("Attack", _isAttack);   
-	}
 	
 	// When Attack Animation stops
-	void PlayerAttackEnd() {
-		_isAttack = false;
-		_animator.SetBool("Attack", _isAttack);
-	}
 
 }
