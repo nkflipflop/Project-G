@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
   
-	[SerializeField] private float _moveSpeed = 3f;
+	[SerializeField] private float _moveSpeed = 4f;
 	[SerializeField] private float _moveLatency = 0.05f;
 
 	private float _horizontalInput;
@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour {
 	private bool _isRun = false;
 	
 	private Animator _animator;
-  private Rigidbody2D _rb2D;
+  	private Rigidbody2D _rb2D;
 	SpriteRenderer _sprite;
 	
 	private void Start() {
@@ -66,7 +66,8 @@ public class PlayerController : MonoBehaviour {
 		else
 			_sprite.flipX = false;
 		
-		if (_isRun)          // when holding direction keys WASD
+		// when holding direction keys WASD
+		if (_isRun)
 			PlayerRun();
 	}
 
@@ -96,6 +97,5 @@ public class PlayerController : MonoBehaviour {
 
 	// Player Attack State
 	
-	// When Attack Animation stops
 
 }
