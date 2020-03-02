@@ -14,11 +14,13 @@ public class DungeonManager : MonoBehaviour
 	public GameObject[] WallTiles;
 	public GameObject ExitTile;
 	private GameObject[,] _dungeonFloorPositions;
-	private int[,] _dungeonTilesBinary;
+	private int[,] _dungeonTiles;
 	public int DungeonRows, DungeonColumns;
 	public int DungeonPadding;
 	public int MinRoomSize, MaxRoomSize;
 	private Vector3 _playerSpawnPos;
+
+	public int[,] DungeonMap { get {return _dungeonTiles;} }
 
 	public class SubDungeon {
 		public SubDungeon left, right;
@@ -243,7 +245,7 @@ public class DungeonManager : MonoBehaviour
 						GameObject instance = Instantiate(FloorTile, new Vector3(i, j, 0f), Quaternion.identity) as GameObject;
 						instance.transform.SetParent(Dungeon.transform.GetChild((int)Tiles.Floors).gameObject.transform);
 						_dungeonFloorPositions[i, j] = instance;
-						_dungeonTilesBinary[i, j] = 1;
+						_dungeonTiles[i, j] = 1;
 					}
 				}
 			}
@@ -268,17 +270,17 @@ public class DungeonManager : MonoBehaviour
 						GameObject instance = Instantiate(BridgeTile, new Vector3 (i, j, 0f), Quaternion.identity) as GameObject;
 						instance.transform.SetParent(Dungeon.transform.GetChild((int)Tiles.Bridges).gameObject.transform);
 						_dungeonFloorPositions[i, j] = instance;
-						_dungeonTilesBinary[i, j] = 1;
+						_dungeonTiles[i, j] = 1;
 
 						// 1 block space around the bridge
 						if (_dungeonFloorPositions[i - 1, j] == null)
-							_dungeonTilesBinary[i - 1, j] = _dungeonTilesBinary[i - 1, j + 1] = 1;       // left and upper-left
+							_dungeonTiles[i - 1, j] = _dungeonTiles[i - 1, j + 1] = 1;       // left and upper-left
 						if (_dungeonFloorPositions[i + 1, j] == null)
-							_dungeonTilesBinary[i + 1, j] = _dungeonTilesBinary[i + 1, j + 1] = 1;       // right and upper-right
+							_dungeonTiles[i + 1, j] = _dungeonTiles[i + 1, j + 1] = 1;       // right and upper-right
 						if (_dungeonFloorPositions[i, j - 1] == null)
-							_dungeonTilesBinary[i, j - 1] = _dungeonTilesBinary[i + 1, j - 1] = 1;       // down and down-right
+							_dungeonTiles[i, j - 1] = _dungeonTiles[i + 1, j - 1] = 1;       // down and down-right
 						if (_dungeonFloorPositions[i, j + 1] == null)
-							_dungeonTilesBinary[i, j + 1] = _dungeonTilesBinary[i - 1, j - 1] = 1;       // down and down-left
+							_dungeonTiles[i, j + 1] = _dungeonTiles[i - 1, j - 1] = 1;       // down and down-left
 					}
 				}
 			}
@@ -299,7 +301,7 @@ public class DungeonManager : MonoBehaviour
 						GameObject instance = Instantiate(CorridorTile, new Vector3 (i, j, 0f), Quaternion.identity) as GameObject;
 						instance.transform.SetParent(Dungeon.transform.GetChild((int)Tiles.Corridors).gameObject.transform);
 						_dungeonFloorPositions[i, j] = instance;
-						_dungeonTilesBinary[i, j] = 1;
+						_dungeonTiles[i, j] = 1;
 					}
 				}
 			}
@@ -316,13 +318,13 @@ public class DungeonManager : MonoBehaviour
 				index = 0;
 				for (int l = 0; l < matrixSize; l++) {
 					for (int k = 0; k < matrixSize; k++) {
-						index += _dungeonTilesBinary[i + k, j + l] * kernelMatrix[l, k];
+						index += _dungeonTiles[i + k, j + l] * kernelMatrix[l, k];
 					}
 				}
 
 				GameObject instance = null;
 				int wallPosX = i + 1, wallPosY = j + 1;
-				if (_dungeonFloorPositions[wallPosX, j + 1] == null && _dungeonTilesBinary[wallPosX, wallPosY] == 0) {
+				if (_dungeonFloorPositions[wallPosX, j + 1] == null && _dungeonTiles[wallPosX, wallPosY] == 0) {
 					if (WallTiles[index] != null)	instance = Instantiate(WallTiles[index], new Vector3 (wallPosX, wallPosY, 0f), Quaternion.identity) as GameObject;
 					
 					if (instance != null) {
@@ -344,7 +346,7 @@ public class DungeonManager : MonoBehaviour
 			do {
 				spawnPosX = Random.Range((int)subDungeon.room.x + padding, (int)subDungeon.room.xMax - padding);
 				spawnPosY = Random.Range((int)subDungeon.room.y + padding, (int)subDungeon.room.yMax - padding);
-			} while(_dungeonTilesBinary[spawnPosX, spawnPosY] == 0);
+			} while(_dungeonTiles[spawnPosX, spawnPosY] == 0);
 			_playerSpawnPos = new Vector3(spawnPosX, spawnPosY, 0f);
 		}
 		else
@@ -360,7 +362,7 @@ public class DungeonManager : MonoBehaviour
 			do {
 				exitPosX = Random.Range((int)subDungeon.room.x, (int)subDungeon.room.xMax);
 				exitPosY = Random.Range((int)subDungeon.room.y, (int)subDungeon.room.yMax);
-			} while(_dungeonTilesBinary[exitPosX, exitPosY] == 0);
+			} while(_dungeonTiles[exitPosX, exitPosY] == 0);
 			GameObject instance = Instantiate(ExitTile, new Vector3(exitPosX, exitPosY, 0f), Quaternion.identity) as GameObject;
 			instance.transform.SetParent(Dungeon.transform);
 		}
@@ -371,12 +373,31 @@ public class DungeonManager : MonoBehaviour
 	void SetupPlayerSpawn(SubDungeon rootSubDungeon) {
 		SetSpawnPos(rootSubDungeon);
 		Player.transform.position = _playerSpawnPos;
+		Enemy.GetComponent<AStarPathfinding>().GoalPos = new Vector3Int((int)_playerSpawnPos.x, (int)_playerSpawnPos.y, (int)_playerSpawnPos.z);
 		SetExitPos(rootSubDungeon);
 	}
 
+void SetPos(SubDungeon subDungeon) {
+	if (subDungeon == null)
+		return;
+
+	if (subDungeon.IAmLeaf()) {
+		int spawnPosX, spawnPosY;
+		int padding = (int)(((int)subDungeon.room.xMax - (int)subDungeon.room.x) / 4);
+		do {
+			spawnPosX = Random.Range((int)subDungeon.room.x + padding, (int)subDungeon.room.xMax - padding);
+			spawnPosY = Random.Range((int)subDungeon.room.y + padding, (int)subDungeon.room.yMax - padding);
+		} while(_dungeonTiles[spawnPosX, spawnPosY] == 0);
+		_playerSpawnPos = new Vector3(spawnPosX, spawnPosY, 0f);
+	}
+	else
+		SetPos(subDungeon.right);
+	}
+
 	void PlaceEnemy(SubDungeon rootSubDungeon) {
-		SetSpawnPos(rootSubDungeon);
+		SetPos(rootSubDungeon);
 		Enemy.transform.position = _playerSpawnPos;
+		Enemy.GetComponent<AStarPathfinding>().StartPos = new Vector3Int((int)_playerSpawnPos.x, (int)_playerSpawnPos.y, (int)_playerSpawnPos.z);
 	}
 
 	void Start() {
@@ -386,7 +407,7 @@ public class DungeonManager : MonoBehaviour
 		rootSubDungeon.CreateRoom();
 
 		_dungeonFloorPositions = new GameObject[DungeonRows + (2 * DungeonPadding), DungeonColumns + (2 * DungeonPadding)];
-		_dungeonTilesBinary = new int[DungeonRows + (2 * DungeonPadding), DungeonColumns + (2 * DungeonPadding)];
+		_dungeonTiles = new int[DungeonRows + (2 * DungeonPadding), DungeonColumns + (2 * DungeonPadding)];
 		DrawRooms(rootSubDungeon);
 		DrawBridges(rootSubDungeon);
 		DrawCorridors(rootSubDungeon);
