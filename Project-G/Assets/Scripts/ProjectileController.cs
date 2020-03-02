@@ -5,35 +5,51 @@ using UnityEngine;
 public class ProjectileController : MonoBehaviour {
 
     public float speed;
-    public float lifeTime;
     public int damage;
-    public GameObject projectile;
-
+    public Sprite snappedArrow;
+    
+    private SpriteRenderer _renderer;
+    private float _lifeTime = 50;
+    
   //  public GameObject destroyEffect;
 
     private void Start() {
-        // TO DESTROY WHEN HIT
-        Invoke("DestroyProjectile", lifeTime);
+        _renderer = GetComponent<SpriteRenderer>();
+        // Destroying when hit
+        StartCoroutine(DestroyArrow());
     }
 
     private void Update() {
-        // RAY COLLIDER
+        // Ray collider controlling
         RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, Vector3.right, .1f);
-        // WHEN RAY COLLIDE WITH ANOTHER COLLIDER
-        if (hitInfo.collider != null){
-            // IF ENEMY
-            if (hitInfo.collider.CompareTag("Enemy")){
-                Debug.Log("ENEMYYYY!!");
-                hitInfo.collider.GetComponent<EnemyController>().TakeDamage(damage);
+        
+        // Range controlling for arrow
+        if (_lifeTime > 0){
+            _lifeTime -= 1;
+            // When ray collides with another collider
+            if (hitInfo.collider != null){
+                // If it is enemy
+                if (hitInfo.collider.CompareTag("Enemy")){
+                    Debug.Log("ENEMYYYY!!");
+                    hitInfo.collider.GetComponent<EnemyController>().TakeDamage(damage);
+                }
+                _lifeTime = 0;
             }
-            DestroyProjectile();
+            else {
+                transform.Translate(Vector3.right * speed * Time.deltaTime);
+            }
         }
-        transform.Translate(Vector3.right * speed * Time.deltaTime);
+        else if (_lifeTime == 0){
+            _lifeTime -= 1;
+            _renderer.sprite = snappedArrow;
+            //Instantiate(destroyEffect, transform.position, Quaternion.identity);
+        }
     }
-
-    void DestroyProjectile() {
-    //    Instantiate(destroyEffect, transform.position, Quaternion.identity);
-                Instantiate(projectile, transform.position, transform.rotation);
+    
+    // Waits and destroys the object
+    IEnumerator DestroyArrow() {
+        //yield on a new YieldInstruction that waits for 5 seconds.
+        yield return new WaitForSeconds(5);
         Destroy(gameObject);
     }
 }

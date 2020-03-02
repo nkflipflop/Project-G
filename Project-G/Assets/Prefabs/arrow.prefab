@@ -94,8 +94,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5da278b819ce7dd42a0bd72d69f0c3f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 12
-  lifeTime: 0.3
+  speed: 15
   damage: 1
-  projectile: {fileID: 4538176676277396804, guid: 75e797ec2a3f050458e160689c1eb72d,
-    type: 3}
+  snappedArrow: {fileID: 21300000, guid: 57ccef935a9d7ca4182a655b1e293577, type: 3}
