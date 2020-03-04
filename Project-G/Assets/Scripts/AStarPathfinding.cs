@@ -4,58 +4,45 @@ using System.Linq;
 using UnityEngine;
 
 public class AStarPathfinding : MonoBehaviour {
-	private static AStarPathfinding _instance;
-
-	public static AStarPathfinding MyInstance {
-		get {
-			if (_instance == null)
-				_instance = FindObjectOfType<AStarPathfinding>();
-
-			return _instance;
-		}
-	}
 
 	public DungeonManager DungeonManager;
 	private HashSet<Node> _openList, _closedList;
 	private Stack<Vector3Int> _path;
 	private Dictionary<Vector3Int, Node> _allNodes = new Dictionary<Vector3Int, Node>();
 	public Vector3Int StartPos, GoalPos;
-	private Node _current;      // current position of the enemy
-
-	public Vector3Int Current { get { return _current.Position; } }
-	public Stack<Vector3Int> Path { get { return _path; } }
+	public Node Current;      // current position of the enemy
+	public Stack<Vector3Int> Path { 
+		get { return _path; } 
+		set { _path = value; } 
+	}
 
 	private void Initialize() {
-		_current = GetNode(StartPos);
+		Current = GetNode(StartPos);
 
 		_openList = new HashSet<Node>();
 		_closedList = new HashSet<Node>();
 		
-		_openList.Add(_current);
+		_openList.Add(Current);
 	}
 
 	public void PathFinding() {		// main algorithm
-		if (_current == null)
+		if (Current == null)
 			Initialize();
-		Debug.Log("StartPos: " + StartPos);
-		Debug.Log("Goal: " + GoalPos);
+
 		while (_openList.Count > 0 && _path == null) {
-			Debug.Log("Current: " + _current.Position);
-			List<Node> neighbors = FindNeighbors(_current.Position);
+			
+			List<Node> neighbors = FindNeighbors(Current.Position);
 
-			ExamineNeighbors(neighbors, _current);
+			ExamineNeighbors(neighbors, Current);
 
-			UpdateCurrentTile(ref _current);
+			UpdateCurrentTile(ref Current);
 
-			_path = GeneratePath(_current);
+			_path = GeneratePath(Current);
 		}
-		foreach (Vector3Int pos in _path)
-            Debug.Log("In stack: " + pos);
 	}
 
 	private List<Node> FindNeighbors(Vector3Int parentPos) {
 		List<Node> neighbors = new List<Node>();
-		//Debug.Log("----------------------");
 		for (int x = -1; x <= 1; x++) {
 			for (int y = -1; y <= 1; y++) {
 				if (x != 0 || y != 0) {		// skipping the parent node
@@ -69,13 +56,11 @@ public class AStarPathfinding : MonoBehaviour {
 				}
 			}
 		}
-		//Debug.Log("----------------------");
 
 		return neighbors;
 	}
 
 	private void ExamineNeighbors(List<Node> neighbors, Node current) {
-		Debug.Log("ExamineNeighbors Func");
 		for (int i = 0; i < neighbors.Count; i++) {
 			Node neighbor = neighbors[i];
 
@@ -85,7 +70,7 @@ public class AStarPathfinding : MonoBehaviour {
 			int gScore = DetermineGScore(neighbors[i].Position, current.Position);		// calculating G score
 
 			if (_openList.Contains(neighbor)) {
-				if (_current.G + gScore < neighbor.G) {
+				if (Current.G + gScore < neighbor.G) {
 					CalculateValues(current, neighbor, gScore);
 				}
 			}
@@ -94,8 +79,6 @@ public class AStarPathfinding : MonoBehaviour {
 
 				_openList.Add(neighbor);
 			}
-			//foreach ( Node node in _closedList)
-				//Debug.Log("Closed List: " + node.Position);
 		}
 	}
 
@@ -125,19 +108,12 @@ public class AStarPathfinding : MonoBehaviour {
 	}
 
 	private void UpdateCurrentTile(ref Node current) {
-		Debug.Log("UpdateCurrentTile Func");
 		_openList.Remove(current);
 		_closedList.Add(current);
 
 		if (_openList.Count > 0) {
-			_current = _openList.OrderBy(x => x.F).First();		// sort the list and find the node with lowest F value
+			Current = _openList.OrderBy(x => x.F).First();		// sort the list and find the node with lowest F value
 		}
-		Debug.Log("Updated current: " + _current.Position);
-
-		// foreach ( Node node in _openList)
-		// 	Debug.Log("Open List: " + node.Position);
-		// foreach ( Node node in _closedList)
-		// 	Debug.Log("Closed List: " + node.Position);
 	}
 
 	private Node GetNode(Vector3Int position) {
@@ -164,12 +140,12 @@ public class AStarPathfinding : MonoBehaviour {
 	}
 
 	private Stack<Vector3Int> GeneratePath(Node current) {
-		if (_current.Position == GoalPos) {
+		if (Current.Position == GoalPos) {
 			Stack<Vector3Int> finalPath = new Stack<Vector3Int>();
 
-			while (_current.Position != StartPos) {
+			while (current.Position != StartPos) {
 				finalPath.Push(current.Position);
-				_current = _current.Parent;
+				current = current.Parent;
 			}
 
 			return finalPath;

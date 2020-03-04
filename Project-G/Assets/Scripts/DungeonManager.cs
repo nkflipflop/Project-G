@@ -377,21 +377,21 @@ public class DungeonManager : MonoBehaviour
 		SetExitPos(rootSubDungeon);
 	}
 
-void SetPos(SubDungeon subDungeon) {
-	if (subDungeon == null)
-		return;
+	void SetPos(SubDungeon subDungeon) {
+		if (subDungeon == null)
+			return;
 
-	if (subDungeon.IAmLeaf()) {
-		int spawnPosX, spawnPosY;
-		int padding = (int)(((int)subDungeon.room.xMax - (int)subDungeon.room.x) / 4);
-		do {
-			spawnPosX = Random.Range((int)subDungeon.room.x + padding, (int)subDungeon.room.xMax - padding);
-			spawnPosY = Random.Range((int)subDungeon.room.y + padding, (int)subDungeon.room.yMax - padding);
-		} while(_dungeonTiles[spawnPosX, spawnPosY] == 0);
-		_playerSpawnPos = new Vector3(spawnPosX, spawnPosY, 0f);
-	}
-	else
-		SetPos(subDungeon.right);
+		if (subDungeon.IAmLeaf()) {
+			int spawnPosX, spawnPosY;
+			int padding = (int)(((int)subDungeon.room.xMax - (int)subDungeon.room.x) / 4);
+			do {
+				spawnPosX = Random.Range((int)subDungeon.room.x + padding, (int)subDungeon.room.xMax - padding);
+				spawnPosY = Random.Range((int)subDungeon.room.y + padding, (int)subDungeon.room.yMax - padding);
+			} while(_dungeonTiles[spawnPosX, spawnPosY] == 0);
+			_playerSpawnPos = new Vector3(spawnPosX, spawnPosY, 0f);
+		}
+		else
+			SetPos(subDungeon.right);
 	}
 
 	void PlaceEnemy(SubDungeon rootSubDungeon) {

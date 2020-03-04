@@ -1,6 +1,6 @@
 using UnityEngine;
 
-class Node {
+public class Node {
 	public int G { get; set; }
 	public int H { get; set; }
 	public int F { get; set; }

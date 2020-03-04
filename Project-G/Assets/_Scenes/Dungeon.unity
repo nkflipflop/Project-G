@@ -609,7 +609,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Player: {fileID: 8005256322282322018}
-  smoothTime: 10
+  _speed: 3
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
