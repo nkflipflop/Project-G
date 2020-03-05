@@ -6,7 +6,6 @@ public class DungeonManager : MonoBehaviour
 {
 	private enum Tiles { Bridges, Corridors, Floors, Walls }
 	public GameObject Player;
-	public GameObject Enemy;
 	public GameObject Dungeon;
 	public GameObject FloorTile;
 	public GameObject CorridorTile;
@@ -373,31 +372,7 @@ public class DungeonManager : MonoBehaviour
 	void SetupPlayerSpawn(SubDungeon rootSubDungeon) {
 		SetSpawnPos(rootSubDungeon);
 		Player.transform.position = _playerSpawnPos;
-		Enemy.GetComponent<AStarPathfinding>().GoalPos = new Vector3Int((int)_playerSpawnPos.x, (int)_playerSpawnPos.y, (int)_playerSpawnPos.z);		//TODO: this line will be deleted
 		SetExitPos(rootSubDungeon);
-	}
-
-	void SetPos(SubDungeon subDungeon) {		// temp function to test enemy pathfinding
-		if (subDungeon == null)
-			return;
-
-		if (subDungeon.IAmLeaf()) {
-			int spawnPosX, spawnPosY;
-			int padding = (int)(((int)subDungeon.room.xMax - (int)subDungeon.room.x) / 4);
-			do {
-				spawnPosX = Random.Range((int)subDungeon.room.x + padding, (int)subDungeon.room.xMax - padding);
-				spawnPosY = Random.Range((int)subDungeon.room.y + padding, (int)subDungeon.room.yMax - padding);
-			} while(_dungeonTiles[spawnPosX, spawnPosY] == 0);
-			_playerSpawnPos = new Vector3(spawnPosX, spawnPosY, 0f);
-		}
-		else
-			SetPos(subDungeon.right);
-	}
-
-	void PlaceEnemy(SubDungeon rootSubDungeon) {	// temp function to test enemy pathfinding
-		SetPos(rootSubDungeon);
-		Enemy.transform.position = _playerSpawnPos;
-		Enemy.GetComponent<AStarPathfinding>().StartPos = new Vector3Int((int)_playerSpawnPos.x, (int)_playerSpawnPos.y, (int)_playerSpawnPos.z);
 	}
 
 	void Start() {
@@ -413,8 +388,7 @@ public class DungeonManager : MonoBehaviour
 		DrawCorridors(rootSubDungeon);
 		DrawWalls();
 		SetupPlayerSpawn(rootSubDungeon);
-		PlaceEnemy(rootSubDungeon);		// temp function
 		System.DateTime end = System.DateTime.Now;
-		Debug.Log(end.Subtract(start).Milliseconds);
+		Debug.Log("Dungeon Creation Time: " + end.Subtract(start).Milliseconds);
 	}
 }
