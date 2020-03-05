@@ -28,9 +28,8 @@ public class AStarPathfinding : MonoBehaviour {
 	public void PathFinding() {		// main algorithm
 		if (Current == null)
 			Initialize();
-
+		Debug.Log("------------------------");
 		while (_openList.Count > 0 && _path == null) {
-			
 			List<Node> neighbors = FindNeighbors(Current.Position);
 
 			ExamineNeighbors(neighbors, Current);
@@ -49,7 +48,6 @@ public class AStarPathfinding : MonoBehaviour {
 					Vector3Int neighborPos = new Vector3Int(parentPos.x + x, parentPos.y + y, parentPos.z);
 					
 					if (neighborPos != StartPos && DungeonManager.DungeonMap[neighborPos.x, neighborPos.y] == 1) {
-						//Debug.Log(neighborPos);
 						Node neighbor = GetNode(neighborPos);
 						neighbors.Add(neighbor);
 					}
@@ -100,9 +98,9 @@ public class AStarPathfinding : MonoBehaviour {
 		int y = current.y - neighbor.y;
 
 		if (Mathf.Abs(x - y) % 2 == 1)
-			gScore = 10;
+			gScore = 10;		// horizontal or vertical
 		else
-			gScore = 14;
+			gScore = 14;		// cross direction
 		
 		return gScore;
 	}
@@ -111,9 +109,8 @@ public class AStarPathfinding : MonoBehaviour {
 		_openList.Remove(current);
 		_closedList.Add(current);
 
-		if (_openList.Count > 0) {
+		if (_openList.Count > 0)
 			Current = _openList.OrderBy(x => x.F).First();		// sort the list and find the node with lowest F value
-		}
 	}
 
 	private Node GetNode(Vector3Int position) {
@@ -132,9 +129,8 @@ public class AStarPathfinding : MonoBehaviour {
 		Vector2Int first = new Vector2Int(current.Position.x + (direction.x * -1), current.Position.y);
 		Vector2Int second = new Vector2Int(current.Position.x, current.Position.y + (direction.y * -1));
 
-		if (DungeonManager.DungeonMap[first.x, first.y] == 0 || DungeonManager.DungeonMap[second.x, second.y] == 0) {
+		if (DungeonManager.DungeonMap[first.x, first.y] == 0 || DungeonManager.DungeonMap[second.x, second.y] == 0)
 			return false;
-		}
 
 		return true;
 	}

@@ -373,11 +373,11 @@ public class DungeonManager : MonoBehaviour
 	void SetupPlayerSpawn(SubDungeon rootSubDungeon) {
 		SetSpawnPos(rootSubDungeon);
 		Player.transform.position = _playerSpawnPos;
-		Enemy.GetComponent<AStarPathfinding>().GoalPos = new Vector3Int((int)_playerSpawnPos.x, (int)_playerSpawnPos.y, (int)_playerSpawnPos.z);
+		Enemy.GetComponent<AStarPathfinding>().GoalPos = new Vector3Int((int)_playerSpawnPos.x, (int)_playerSpawnPos.y, (int)_playerSpawnPos.z);		//TODO: this line will be deleted
 		SetExitPos(rootSubDungeon);
 	}
 
-	void SetPos(SubDungeon subDungeon) {
+	void SetPos(SubDungeon subDungeon) {		// temp function to test enemy pathfinding
 		if (subDungeon == null)
 			return;
 
@@ -394,7 +394,7 @@ public class DungeonManager : MonoBehaviour
 			SetPos(subDungeon.right);
 	}
 
-	void PlaceEnemy(SubDungeon rootSubDungeon) {
+	void PlaceEnemy(SubDungeon rootSubDungeon) {	// temp function to test enemy pathfinding
 		SetPos(rootSubDungeon);
 		Enemy.transform.position = _playerSpawnPos;
 		Enemy.GetComponent<AStarPathfinding>().StartPos = new Vector3Int((int)_playerSpawnPos.x, (int)_playerSpawnPos.y, (int)_playerSpawnPos.z);
@@ -413,7 +413,7 @@ public class DungeonManager : MonoBehaviour
 		DrawCorridors(rootSubDungeon);
 		DrawWalls();
 		SetupPlayerSpawn(rootSubDungeon);
-		PlaceEnemy(rootSubDungeon);
+		PlaceEnemy(rootSubDungeon);		// temp function
 		System.DateTime end = System.DateTime.Now;
 		Debug.Log(end.Subtract(start).Milliseconds);
 	}
