@@ -27,7 +27,7 @@ public class ProjectileController : MonoBehaviour {
         if (_lifeTime > 0){
             _lifeTime -= 1;
             // When ray collides with another collider
-            if (hitInfo.collider != null){
+            if (hitInfo.collider != null && hitInfo.collider.IsTouchingLayers(8)){
                 // If it is enemy
                 if (hitInfo.collider.CompareTag("Enemy")){
                     Debug.Log("ENEMYYYY!!");
@@ -46,9 +46,8 @@ public class ProjectileController : MonoBehaviour {
         }
     }
     
-    // Waits and destroys the object
+    // Waits for seconds.
     IEnumerator DestroyArrow() {
-        //yield on a new YieldInstruction that waits for 5 seconds.
         yield return new WaitForSeconds(5);
         Destroy(gameObject);
     }
