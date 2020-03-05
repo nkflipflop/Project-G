@@ -27,7 +27,7 @@ public class ProjectileController : MonoBehaviour {
         if (_lifeTime > 0){
             _lifeTime -= 1;
             // When ray collides with another collider
-            if (hitInfo.collider != null){
+            if (hitInfo.collider != null && hitInfo.collider.IsTouchingLayers(8)){
                 // If it is enemy
                 if (hitInfo.collider.CompareTag("Enemy")){
                     Debug.Log("ENEMYYYY!!");

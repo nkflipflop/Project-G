@@ -3,24 +3,29 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class WeaponBase : MonoBehaviour {
+    
+    private SpriteRenderer _renderer;
+    private float _timeBtwShots;
+
     protected float reloadTime;
     protected float fireRate;
     protected float damage;
 
-    private float _timeBtwShots;
+    public GameObject projectile;
 
-    public WeaponBase() {
-        reloadTime = 1;
-        fireRate = 1;
-        damage = 1;
-        Debug.Log("Weapon Constructor");
+    public void flip(bool flip) {
+        _renderer = gameObject.GetComponent<SpriteRenderer>();
+        _renderer.flipY = !flip; 
     }
-    public void Shoot(GameObject arrow, Transform aimTransform, Transform shootPoint){
+
+    // Shoots the weapon
+    public void Shoot(){
+        Transform shootPoint = transform.Find("Shoot Point");
         if (_timeBtwShots <= 0){
             if (Input.GetMouseButtonDown(0)){
-                // CREATING ARROW
-                Instantiate(arrow, shootPoint.position, aimTransform.rotation);
                 Debug.Log("Damage: " + damage);
+                // Creatimg projectile
+                Instantiate(projectile, shootPoint.position, transform.rotation);
                 _timeBtwShots = fireRate;
             }
         }
