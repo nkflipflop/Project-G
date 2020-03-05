@@ -11,6 +11,7 @@ public class EnemyController : MonoBehaviour
     private Vector3 _targetPos;
     private Vector3 _distanceBtwTarget;
     private int _maxPathLength = 6;
+    private int _health = 5;
 
     /*  
     *   IMPORTANT NOTES:
@@ -27,6 +28,13 @@ public class EnemyController : MonoBehaviour
         _targetPos = new Vector3Int(1000, 0, 0);        // null value
 
         InvokeRepeating("CheckTargetPosition", 5.0f, 0.5f);     // run this function every 0.5 sec
+    }
+    
+    private void Update() {
+        if (_health <= 0) {
+            //Instantiate(deathEffect, transform.position, Quaternion.identity);
+            Destroy(gameObject);
+        }
     }
 
     // Update is called once per frame
@@ -60,5 +68,9 @@ public class EnemyController : MonoBehaviour
             _aStar.Path = null;
             _aStar.PathFinding();
         }
+    }
+    
+    public void TakeDamage(int damage){
+        _health -= damage;
     }
 }
