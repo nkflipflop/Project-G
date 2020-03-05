@@ -47,8 +47,8 @@ public class PlayerHandController : MonoBehaviour {
     void InterractWithNewWeapon(){
         if(_canTake){
             _takeWeapon = Input.GetKeyDown("e");
+            Debug.Log("Çok istiyorsan 'E' ye bas. ;(");
             if(_takeWeapon) {
-                Debug.Log("Silah buldum, alıyorum ben bunu.");
                 // Dropping the current weapon
                 _currentWeapon.transform.SetParent(null);
                 // Equipping the new weapon
