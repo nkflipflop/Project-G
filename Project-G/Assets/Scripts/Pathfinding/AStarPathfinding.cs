@@ -28,7 +28,6 @@ public class AStarPathfinding : MonoBehaviour {
 	public void PathFinding() {		// main algorithm
 		if (Current == null)
 			Initialize();
-		Debug.Log("------------------------");
 		while (_openList.Count > 0 && _path == null) {
 			List<Node> neighbors = FindNeighbors(Current.Position);
 
