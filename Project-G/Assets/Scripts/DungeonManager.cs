@@ -4,16 +4,18 @@ using UnityEngine;
 
 public class DungeonManager : MonoBehaviour
 {
-	private enum Tiles { Bridges, Corridors, Floors, Walls }
+	private enum Tiles { Bridges, Corridors, Floors, Walls, Waters }
 	public GameObject Player;
 	public GameObject Dungeon;
 	public GameObject FloorTile;
 	public GameObject CorridorTile;
 	public GameObject BridgeTile;
+	public GameObject WaterTile;
 	public GameObject[] WallTiles;
 	public GameObject ExitTile;
 	private GameObject[,] _dungeonFloorPositions;
-	private int[,] _dungeonTiles;
+	private int[,] _dungeonTiles;		// the tiles that players and other NPCs can walk on
+	List<Vector2Int> _bridgeTilesPos;
 	public int DungeonRows, DungeonColumns;
 	public int DungeonPadding;
 	public int MinRoomSize, MaxRoomSize;
@@ -269,17 +271,8 @@ public class DungeonManager : MonoBehaviour
 						GameObject instance = Instantiate(BridgeTile, new Vector3 (i, j, 0f), Quaternion.identity) as GameObject;
 						instance.transform.SetParent(Dungeon.transform.GetChild((int)Tiles.Bridges).gameObject.transform);
 						_dungeonFloorPositions[i, j] = instance;
+						_bridgeTilesPos.Add(new Vector2Int(i, j));
 						_dungeonTiles[i, j] = 1;
-
-						// 1 block space around the bridge
-						if (_dungeonFloorPositions[i - 1, j] == null)
-							_dungeonTiles[i - 1, j] = _dungeonTiles[i - 1, j + 1] = 1;       // left and upper-left
-						if (_dungeonFloorPositions[i + 1, j] == null)
-							_dungeonTiles[i + 1, j] = _dungeonTiles[i + 1, j + 1] = 1;       // right and upper-right
-						if (_dungeonFloorPositions[i, j - 1] == null)
-							_dungeonTiles[i, j - 1] = _dungeonTiles[i + 1, j - 1] = 1;       // down and down-right
-						if (_dungeonFloorPositions[i, j + 1] == null)
-							_dungeonTiles[i, j + 1] = _dungeonTiles[i - 1, j - 1] = 1;       // down and down-left
 					}
 				}
 			}
@@ -317,7 +310,7 @@ public class DungeonManager : MonoBehaviour
 				index = 0;
 				for (int l = 0; l < matrixSize; l++) {
 					for (int k = 0; k < matrixSize; k++) {
-						index += _dungeonTiles[i + k, j + l] * kernelMatrix[l, k];
+						index += Mathf.Abs(_dungeonTiles[i + k, j + l]) * kernelMatrix[l, k];
 					}
 				}
 
@@ -329,6 +322,24 @@ public class DungeonManager : MonoBehaviour
 					if (instance != null) {
 						instance.transform.SetParent(Dungeon.transform.GetChild((int)Tiles.Walls).gameObject.transform);
 						_dungeonFloorPositions[wallPosX, wallPosY] = instance;
+					}
+				}
+			}
+		}
+	}
+
+	void DrawWaters() {
+		foreach (var bridgePos in _bridgeTilesPos) {
+			for (int i = -1; i <= 1; i++) {
+				for (int j = -1; j <= 1; j++) {
+					if (i == 0 && j == 0)		// skip the bridge tile
+						continue;
+					Debug.LogFormat("x: {0}, y: {1}", bridgePos.x + i, bridgePos.y + j);
+					if (_dungeonFloorPositions[bridgePos.x + i, bridgePos.y + j] == null) {
+						GameObject instance = Instantiate(WaterTile, new Vector3 (bridgePos.x + i, bridgePos.y + j, 0f), Quaternion.identity) as GameObject;
+						instance.transform.SetParent(Dungeon.transform.GetChild((int)Tiles.Waters).gameObject.transform);
+						_dungeonFloorPositions[bridgePos.x + i, bridgePos.y + j] = instance;
+						_dungeonTiles[bridgePos.x + i, bridgePos.y + j] = -1;
 					}
 				}
 			}
@@ -375,7 +386,7 @@ public class DungeonManager : MonoBehaviour
 		SetExitPos(rootSubDungeon);
 	}
 
-	void Start() {
+	public void CreateDungeon() {
 		System.DateTime start = System.DateTime.Now;
 		SubDungeon rootSubDungeon = new SubDungeon(new Rect(DungeonPadding, DungeonPadding, DungeonRows, DungeonColumns));
 		CreateBSP(rootSubDungeon);
@@ -383,9 +394,12 @@ public class DungeonManager : MonoBehaviour
 
 		_dungeonFloorPositions = new GameObject[DungeonRows + (2 * DungeonPadding), DungeonColumns + (2 * DungeonPadding)];
 		_dungeonTiles = new int[DungeonRows + (2 * DungeonPadding), DungeonColumns + (2 * DungeonPadding)];
+		_bridgeTilesPos = new List<Vector2Int>();
 		DrawRooms(rootSubDungeon);
 		DrawBridges(rootSubDungeon);
 		DrawCorridors(rootSubDungeon);
+		DrawWaters();
+		_bridgeTilesPos.Clear();		// deleting the list since it completes its purpose
 		DrawWalls();
 		SetupPlayerSpawn(rootSubDungeon);
 		System.DateTime end = System.DateTime.Now;
