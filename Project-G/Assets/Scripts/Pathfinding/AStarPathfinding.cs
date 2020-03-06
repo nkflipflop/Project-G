@@ -128,7 +128,7 @@ public class AStarPathfinding : MonoBehaviour {
 		Vector2Int first = new Vector2Int(current.Position.x + (direction.x * -1), current.Position.y);
 		Vector2Int second = new Vector2Int(current.Position.x, current.Position.y + (direction.y * -1));
 
-		if (DungeonManager.DungeonMap[first.x, first.y] == 0 || DungeonManager.DungeonMap[second.x, second.y] == 0)
+		if (DungeonManager.DungeonMap[first.x, first.y] != 1 || DungeonManager.DungeonMap[second.x, second.y] != 1)
 			return false;
 
 		return true;
