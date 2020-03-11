@@ -614,7 +614,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0.05490196, g: 0.07058824, b: 0.09803922, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -1233,6 +1233,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bow
       objectReference: {fileID: 0}
+    - target: {fileID: 6065440442576662039, guid: 0f94873dd960e034597fba75b51a297e,
+        type: 3}
+      propertyPath: Projectile
+      value: 
+      objectReference: {fileID: 692808828056768861, guid: ec17052c012fa0544bb2ba97674fd1e9,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0f94873dd960e034597fba75b51a297e, type: 3}
 --- !u!1 &8005256322282322018
