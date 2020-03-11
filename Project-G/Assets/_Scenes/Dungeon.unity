@@ -493,8 +493,8 @@ MonoBehaviour:
   - {fileID: 3751531024357851219, guid: d975ddaeafd61174db4a359e6cad664f, type: 3}
   ExitTile: {fileID: 4260368798550124252, guid: 0eada2ed2b86f1345bec2cd31d52c97c,
     type: 3}
-  DungeonRows: 96
-  DungeonColumns: 96
+  DungeonRows: 24
+  DungeonColumns: 24
   DungeonPadding: 2
   MinRoomSize: 4
   MaxRoomSize: 4
