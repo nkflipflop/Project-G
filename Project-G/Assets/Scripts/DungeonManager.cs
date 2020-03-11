@@ -334,7 +334,6 @@ public class DungeonManager : MonoBehaviour
 				for (int j = -1; j <= 1; j++) {
 					if (i == 0 && j == 0)		// skip the bridge tile
 						continue;
-					Debug.LogFormat("x: {0}, y: {1}", bridgePos.x + i, bridgePos.y + j);
 					if (_dungeonFloorPositions[bridgePos.x + i, bridgePos.y + j] == null) {
 						GameObject instance = Instantiate(WaterTile, new Vector3 (bridgePos.x + i, bridgePos.y + j, 0f), Quaternion.identity) as GameObject;
 						instance.transform.SetParent(Dungeon.transform.GetChild((int)Tiles.Waters).gameObject.transform);
