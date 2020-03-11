@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class WeaponSling : WeaponBase {
 	public WeaponSling() {
-		reloadTime = 0.1f;
-		fireRate = 0.1f;
-		damage = 5;
+		ReloadTime = 0.1f;
+		FireRate = 0.1f;
+		Damage = 5;
 	}
 }

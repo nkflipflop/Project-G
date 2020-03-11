@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class WeaponBow : WeaponBase {
 	public WeaponBow() {
-		reloadTime = 2;
-		fireRate = 2;
-		damage = 2;
+		ReloadTime = 2;
+		FireRate = 2;
+		Damage = 2;
+
+		MaxAmmo = 7;
+		CurrentAmmo = MaxAmmo;
 	}
 }
