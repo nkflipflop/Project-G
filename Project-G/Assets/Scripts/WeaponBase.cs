@@ -7,11 +7,13 @@ public class WeaponBase : MonoBehaviour {
 	private SpriteRenderer _renderer;
 	private float _timeBtwShots;
 
-	protected float reloadTime;
-	protected float fireRate;
-	protected float damage;
+	protected float ReloadTime;
+	protected float FireRate;
+	protected float Damage;
+	protected int MaxAmmo;
+	public int CurrentAmmo { get; protected set; }
 
-	public GameObject projectile;
+	public GameObject Projectile;
 
 	public void flip(bool flip) {
 		_renderer = gameObject.GetComponent<SpriteRenderer>();
@@ -24,8 +26,8 @@ public class WeaponBase : MonoBehaviour {
 		if (_timeBtwShots <= 0){
 			if (Input.GetMouseButtonDown(0)){
 				// Creatimg projectile
-				Instantiate(projectile, shootPoint.position, transform.rotation);
-				_timeBtwShots = fireRate;
+				Instantiate(Projectile, shootPoint.position, transform.rotation);
+				_timeBtwShots = FireRate;
 			}
 		}
 		else {
