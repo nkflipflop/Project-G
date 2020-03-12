@@ -19,7 +19,7 @@ public class DungeonManager : MonoBehaviour
 	public int DungeonRows, DungeonColumns;
 	public int DungeonPadding;
 	public int MinRoomSize, MaxRoomSize;
-	private Vector3 _playerSpawnPos;
+	private Vector3 _randomPos;
 
 	public int[,] DungeonMap { get {return _dungeonTiles;} }
 
@@ -316,12 +316,14 @@ public class DungeonManager : MonoBehaviour
 
 				GameObject instance = null;
 				int wallPosX = i + 1, wallPosY = j + 1;
-				if (_dungeonFloorPositions[wallPosX, j + 1] == null && _dungeonTiles[wallPosX, wallPosY] == 0) {
-					if (WallTiles[index] != null)	instance = Instantiate(WallTiles[index], new Vector3 (wallPosX, wallPosY, 0f), Quaternion.identity) as GameObject;
-					
-					if (instance != null) {
-						instance.transform.SetParent(Dungeon.transform.GetChild((int)Tiles.Walls).gameObject.transform);
-						_dungeonFloorPositions[wallPosX, wallPosY] = instance;
+				if (_dungeonFloorPositions[wallPosX, wallPosY] == null && _dungeonTiles[wallPosX, wallPosY] == 0) {
+					instance = Instantiate(WallTiles[index], new Vector3 (wallPosX, wallPosY, 0f), Quaternion.identity) as GameObject;
+					instance.transform.SetParent(Dungeon.transform.GetChild((int)Tiles.Walls).gameObject.transform);
+					_dungeonFloorPositions[wallPosX, wallPosY] = instance;
+
+					if (index != 0) {		// placing floor tile under the walls
+						instance = Instantiate(FloorTile, new Vector3 (wallPosX, wallPosY, 0f), Quaternion.identity) as GameObject;
+						instance.transform.SetParent(Dungeon.transform.GetChild((int)Tiles.Floors).gameObject.transform);
 					}
 				}
 			}
@@ -345,44 +347,33 @@ public class DungeonManager : MonoBehaviour
 		}
 	}
 
-	void SetSpawnPos(SubDungeon subDungeon) {
+	void GetRandomPos(SubDungeon subDungeon) {
 		if (subDungeon == null)
 			return;
 
 		if (subDungeon.IAmLeaf()) {
-			int spawnPosX, spawnPosY;
-			int padding = (int)(((int)subDungeon.room.xMax - (int)subDungeon.room.x) / 4);
+			int randPosX, randPosY;
 			do {
-				spawnPosX = Random.Range((int)subDungeon.room.x + padding, (int)subDungeon.room.xMax - padding);
-				spawnPosY = Random.Range((int)subDungeon.room.y + padding, (int)subDungeon.room.yMax - padding);
-			} while(_dungeonTiles[spawnPosX, spawnPosY] == 0);
-			_playerSpawnPos = new Vector3(spawnPosX, spawnPosY, 0f);
+				randPosX = Random.Range((int)subDungeon.room.x, (int)subDungeon.room.xMax);
+				randPosY = Random.Range((int)subDungeon.room.y, (int)subDungeon.room.yMax);
+			}while (_dungeonTiles[randPosX, randPosY]!= 1);
+			_randomPos = new Vector3(randPosX, randPosY, 0);
 		}
-		else
-			SetSpawnPos(subDungeon.left);
-	}
-
-	void SetExitPos(SubDungeon subDungeon) {
-		if (subDungeon == null)
-			return;
-
-		if (subDungeon.IAmLeaf()) {
-			int exitPosX, exitPosY;
-			do {
-				exitPosX = Random.Range((int)subDungeon.room.x, (int)subDungeon.room.xMax);
-				exitPosY = Random.Range((int)subDungeon.room.y, (int)subDungeon.room.yMax);
-			} while(_dungeonTiles[exitPosX, exitPosY] == 0);
-			GameObject instance = Instantiate(ExitTile, new Vector3(exitPosX, exitPosY, 0f), Quaternion.identity) as GameObject;
-			instance.transform.SetParent(Dungeon.transform);
+		else {
+			if (Random.Range(0, 2) == 0)
+				GetRandomPos(subDungeon.left);
+			else
+				GetRandomPos(subDungeon.right);
 		}
-		else
-			SetExitPos(subDungeon.right);
 	}
 
 	void SetupPlayerSpawn(SubDungeon rootSubDungeon) {
-		SetSpawnPos(rootSubDungeon);
-		Player.transform.position = _playerSpawnPos;
-		SetExitPos(rootSubDungeon);
+		GetRandomPos(rootSubDungeon);		// getting random position in the dungeon for the player
+		Player.transform.position = _randomPos;
+
+		GetRandomPos(rootSubDungeon);		// getting random position in the dungeon for the exit
+		GameObject instance = Instantiate(ExitTile, new Vector3(_randomPos.x, _randomPos.y, 0f), Quaternion.identity) as GameObject;
+		instance.transform.SetParent(Dungeon.transform);
 	}
 
 	public void CreateDungeon() {
