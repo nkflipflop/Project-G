@@ -281,7 +281,7 @@ MonoBehaviour:
   - {fileID: 557619458606808036, guid: 3f2e7668fd88f9147bf2c38c96ca919a, type: 3}
   - {fileID: 5355239881916949638, guid: 389e4db36c52f5245a432a03426f13c4, type: 3}
   - {fileID: 5355239881916949638, guid: 389e4db36c52f5245a432a03426f13c4, type: 3}
-  - {fileID: 5355239881916949638, guid: 389e4db36c52f5245a432a03426f13c4, type: 3}
+  - {fileID: 7922414397138788848, guid: b9904358184471340add533a50aa83ad, type: 3}
   - {fileID: 1294921649730520545, guid: 35e48f07cd5a81b44a69a0ac646a0100, type: 3}
   - {fileID: 7160315453989859997, guid: e823fcccf2008454f86420475eb6728e, type: 3}
   - {fileID: 7160315453989859997, guid: e823fcccf2008454f86420475eb6728e, type: 3}
@@ -495,7 +495,7 @@ MonoBehaviour:
     type: 3}
   DungeonRows: 24
   DungeonColumns: 24
-  DungeonPadding: 2
+  DungeonPadding: 4
   MinRoomSize: 4
   MaxRoomSize: 4
 --- !u!4 &229953797
