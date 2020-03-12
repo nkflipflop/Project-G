@@ -316,12 +316,14 @@ public class DungeonManager : MonoBehaviour
 
 				GameObject instance = null;
 				int wallPosX = i + 1, wallPosY = j + 1;
-				if (_dungeonFloorPositions[wallPosX, j + 1] == null && _dungeonTiles[wallPosX, wallPosY] == 0) {
-					if (WallTiles[index] != null)	instance = Instantiate(WallTiles[index], new Vector3 (wallPosX, wallPosY, 0f), Quaternion.identity) as GameObject;
-					
-					if (instance != null) {
-						instance.transform.SetParent(Dungeon.transform.GetChild((int)Tiles.Walls).gameObject.transform);
-						_dungeonFloorPositions[wallPosX, wallPosY] = instance;
+				if (_dungeonFloorPositions[wallPosX, wallPosY] == null && _dungeonTiles[wallPosX, wallPosY] == 0) {
+					instance = Instantiate(WallTiles[index], new Vector3 (wallPosX, wallPosY, 0f), Quaternion.identity) as GameObject;
+					instance.transform.SetParent(Dungeon.transform.GetChild((int)Tiles.Walls).gameObject.transform);
+					_dungeonFloorPositions[wallPosX, wallPosY] = instance;
+
+					if (index != 0) {		// placing floor tile under the walls
+						instance = Instantiate(FloorTile, new Vector3 (wallPosX, wallPosY, 0f), Quaternion.identity) as GameObject;
+						instance.transform.SetParent(Dungeon.transform.GetChild((int)Tiles.Floors).gameObject.transform);
 					}
 				}
 			}
