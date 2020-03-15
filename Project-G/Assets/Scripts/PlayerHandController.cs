@@ -12,6 +12,10 @@ public class PlayerHandController : MonoBehaviour {
 	private bool _takeWeapon;
 	private bool _canTake = false;
 
+	private void Start() {
+		_currentWeapon.transform.localPosition = _weaponPosition;
+	}
+
 	private void Update() {
 		GetInputs();
 		// Controls the weapon
