@@ -18,12 +18,14 @@ public class PlayerController : MonoBehaviour {
 	
 	private Animator _animator;
   	private Rigidbody2D _rb2D;
-	SpriteRenderer _sprite;
+	private SpriteRenderer _sprite;
+	public GameObject DustParticles;
 	
 	private void Start() {
 		_animator = gameObject.GetComponent<Animator>();
 		_sprite = GetComponent<SpriteRenderer>();
 		_rb2D = gameObject.GetComponent<Rigidbody2D>();
+		DustParticles.SetActive(false);
 	}
 
 	void Update() {
@@ -73,6 +75,8 @@ public class PlayerController : MonoBehaviour {
 		// when holding direction keys WASD
 		if (_isRun)
 			PlayerRun();
+		else
+			StartCoroutine(DisableParticles());
 	}
 
 	// Player Run State
@@ -97,9 +101,12 @@ public class PlayerController : MonoBehaviour {
 			_moveLatency = 0.05f;
 			_isRun = false;
 		}
+
+		DustParticles.SetActive(true);
 	}
 
-	// Player Attack State
-	
-
+	IEnumerator DisableParticles() {
+		yield return new WaitForSeconds(0.3f);
+		DustParticles.SetActive(false);
+	}
 }
