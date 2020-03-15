@@ -307,8 +307,9 @@ MonoBehaviour:
     type: 3}
   BridgeTile: {fileID: 4250224137073205220, guid: e88216fc28356bb418eefb8f9cdf0b3e,
     type: 3}
-  WaterTile: {fileID: 7684401844026812628, guid: 7d9c21a259ecced4f80bbfdfe5d13414,
-    type: 3}
+  WaterTiles:
+  - {fileID: 7684401844026812628, guid: 7d9c21a259ecced4f80bbfdfe5d13414, type: 3}
+  - {fileID: 5489409630154003630, guid: 3d3df9e1329d63344bc4d3208313f671, type: 3}
   WallTiles:
   - {fileID: 4973932704201190057, guid: 03a642ab8507902458a68c25ca9bda1f, type: 3}
   - {fileID: 5603969963750407520, guid: 36706ed42bda07544b7d9bc4bde69176, type: 3}
@@ -6162,7 +6163,7 @@ CapsuleCollider2D:
   m_GameObject: {fileID: 8005256322282322018}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: 832d4fb3eedc61b489fe1b7b58d23d81, type: 2}
+  m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
