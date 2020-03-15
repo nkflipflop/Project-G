@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class WeaponBase : MonoBehaviour {
-	
+
+
+	private WeaponRecoiler _weaponRecoiler;
 	private SpriteRenderer _renderer;
 	private float _timeBtwShots;
 
@@ -15,8 +17,8 @@ public class WeaponBase : MonoBehaviour {
 
 	public GameObject Projectile;
 
+	// Flips the sprite
 	public void flip(bool flip) {
-		_renderer = gameObject.GetComponent<SpriteRenderer>();
 		_renderer.flipY = !flip; 
 	}
 
@@ -26,6 +28,7 @@ public class WeaponBase : MonoBehaviour {
 		if (_timeBtwShots <= 0){
 			if (Input.GetMouseButtonDown(0)){
 				// Creating projectile
+				_weaponRecoiler.AddRecoil();
 				Instantiate(Projectile, shootPoint.position, transform.rotation);
 				_timeBtwShots = FireRate;
 			}
@@ -33,5 +36,11 @@ public class WeaponBase : MonoBehaviour {
 		else {
 			_timeBtwShots -= Time.deltaTime;
 		}
+	}
+
+
+	private void Start() {
+		_renderer = gameObject.GetComponent<SpriteRenderer>();
+		_weaponRecoiler = GetComponent<WeaponRecoiler>();
 	}
 }
