@@ -45,9 +45,16 @@ public class PlayerHandController : MonoBehaviour {
 
 		// Getting mouse position and direction of player to mouse
 		Vector3 aimDirection = (_mousePosition - transform.position).normalized;
-		// Rotating the hand
+		// Rotating the current weapon
 		float angle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
-		transform.eulerAngles = new Vector3(0, 0, angle);
+		_currentWeapon.transform.eulerAngles = new Vector3(0, 0, angle);
+	}
+
+	// Gets Inputs
+	private void GetInputs() {
+		// Taking mouse position
+		_mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+		_mousePosition.z = 0f;
 	}
 
 	private void Start() {
@@ -64,14 +71,6 @@ public class PlayerHandController : MonoBehaviour {
 
 		InterractWithNewWeapon();
 	}
-	
-	// Gets Inputs
-	private void GetInputs() {
-		// Taking mouse position
-		_mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-		_mousePosition.z = 0f;
-	}
-
 
 	private void OnTriggerEnter2D(Collider2D other) {
 		if (other.gameObject.CompareTag("Weapon")){
