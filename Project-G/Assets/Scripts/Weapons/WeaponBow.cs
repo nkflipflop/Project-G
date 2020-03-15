@@ -5,7 +5,7 @@ using UnityEngine;
 public class WeaponBow : WeaponBase {
 	public WeaponBow() {
 		ReloadTime = 2;
-		FireRate = 2;
+		FireRate = .2f;
 		Damage = 2;
 
 		MaxAmmo = 7;

@@ -25,7 +25,7 @@ public class WeaponBase : MonoBehaviour {
 		Transform shootPoint = transform.Find("Shoot Point");
 		if (_timeBtwShots <= 0){
 			if (Input.GetMouseButtonDown(0)){
-				// Creatimg projectile
+				// Creating projectile
 				Instantiate(Projectile, shootPoint.position, transform.rotation);
 				_timeBtwShots = FireRate;
 			}
