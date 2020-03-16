@@ -301,10 +301,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: {fileID: 8005256322282322018}
   Dungeon: {fileID: 1575737062}
-  FloorTile: {fileID: 8612478510496900971, guid: 88b2163becdf45f4c8b4441bea4b6921,
-    type: 3}
-  CorridorTile: {fileID: 8612478510496900971, guid: 88b2163becdf45f4c8b4441bea4b6921,
-    type: 3}
+  FloorTiles:
+  - {fileID: 3340991808600749764, guid: b514fb2ede14b9e4aad314987d71d2fe, type: 3}
+  - {fileID: 2269708039003513901, guid: f44b0c47e166672478bdafb5b95f6ac0, type: 3}
+  - {fileID: 8901251646445971735, guid: 4cc18da01c7da284d8eaf49ad7199fe6, type: 3}
+  - {fileID: 2111738546601606441, guid: 1e31ec869e170344a891e2a5b6eaae95, type: 3}
+  - {fileID: 3712104634968537371, guid: bbc46c9630edc11498ac6e5652efe14b, type: 3}
   BridgeTile: {fileID: 4250224137073205220, guid: e88216fc28356bb418eefb8f9cdf0b3e,
     type: 3}
   WaterTiles:
