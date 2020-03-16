@@ -23,10 +23,10 @@ public class WeaponBase : MonoBehaviour {
 	}
 
 	// Shoots the weapon
-	public void Shoot(){
-		Transform shootPoint = transform.Find("Shoot Point");
-		if (_timeBtwShots <= 0){
-			if (Input.GetMouseButtonDown(0)){
+	public void Shoot() {
+		Transform shootPoint = transform.GetChild(0);
+		if (_timeBtwShots <= 0) {
+			if (Input.GetMouseButtonDown(0)) {
 				// Creating projectile
 				_weaponRecoiler.AddRecoil();
 				Instantiate(Projectile, shootPoint.position, transform.rotation);
