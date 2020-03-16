@@ -22,9 +22,11 @@ public class ProjectileController : MonoBehaviour {
 
 	private void Update() {
 		// Ray collider controlling
-		RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, Vector3.right, .1f);
-		
-		// Range controlling for arrow
+		Vector3 direction = transform.rotation * Vector3.right;
+		RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, direction, .1f);
+		Debug.DrawRay(transform.position, direction, Color.blue, .1f);
+
+		// Range controlling for arrow	
 		if (lifeTime > 0) {
 			lifeTime -= 1;
 			// When ray collides with another collider
@@ -43,7 +45,6 @@ public class ProjectileController : MonoBehaviour {
 			lifeTime -= 1;
 			_renderer.sprite = hittedSprite;
 			// Creating After Effect
-			//Debug.Log(transform.rotation);
 			Instantiate(destroyEffect, transform.position, transform.rotation, transform);
 		}
 	}

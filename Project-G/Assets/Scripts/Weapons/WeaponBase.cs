@@ -26,8 +26,9 @@ public class WeaponBase : MonoBehaviour {
 
 	// Shoots the weapon
 	public void Shoot() {
-		Transform shootPoint = transform.Find("Shoot Point");
-		if (_timeBtwShots <= 0){
+
+		Transform shootPoint = transform.GetChild(0);
+		if (_timeBtwShots <= 0) {
 			if (Input.GetMouseButtonDown(0) || IsAutomatic == true) {
 				// Creating projectile
 				if (HasRecoil) _weaponRecoiler.AddRecoil();
