@@ -16,7 +16,7 @@ public class PlayerHandController : MonoBehaviour {
 	void InterractWithNewWeapon(){
 		if(_canTake){
 			_takeWeapon = Input.GetKeyDown("e");
-			Debug.Log("Çok istiyorsan 'E' ye bas. ;(");
+			//Debug.Log("Çok istiyorsan 'E' ye bas. ;(");
 			if(_takeWeapon) {
 				// Dropping the current weapon
 				_currentWeapon.transform.SetParent(null);
@@ -78,6 +78,7 @@ public class PlayerHandController : MonoBehaviour {
 			_newWeapon = other.gameObject.GetComponent<WeaponBase>();
 		}
 	}
+	
 	private void OnTriggerExit2D(Collider2D other) {
 		if (other.gameObject.CompareTag("Weapon")){
 			_canTake = false;

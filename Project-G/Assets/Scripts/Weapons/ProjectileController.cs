@@ -43,7 +43,7 @@ public class ProjectileController : MonoBehaviour {
 			lifeTime -= 1;
 			_renderer.sprite = hittedSprite;
 			// Creating After Effect
-			Debug.Log(transform.rotation);
+			//Debug.Log(transform.rotation);
 			Instantiate(destroyEffect, transform.position, transform.rotation, transform);
 		}
 	}

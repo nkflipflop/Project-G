@@ -23,7 +23,7 @@ public class WeaponBase : MonoBehaviour {
 	}
 
 	// Shoots the weapon
-	public void Shoot(){
+	public void Shoot() {
 		Transform shootPoint = transform.Find("Shoot Point");
 		if (_timeBtwShots <= 0){
 			if (Input.GetMouseButtonDown(0)){
