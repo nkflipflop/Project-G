@@ -8,8 +8,7 @@ public class DungeonManager : MonoBehaviour
 	private enum Tiles { Bridges, Corridors, Floors, Walls, Waters }
 	public GameObject Player;
 	public GameObject Dungeon;
-	public GameObject FloorTile;
-	public GameObject CorridorTile;
+	public GameObject[] FloorTiles;
 	public GameObject BridgeTile;
 	public GameObject[] WaterTiles;
 	public GameObject[] WallTiles;
@@ -244,7 +243,7 @@ public class DungeonManager : MonoBehaviour
 			for (int i = (int)subDungeon.room.x; i < subDungeon.room.xMax; i++) {
 				for (int j = (int)subDungeon.room.y; j < subDungeon.room.yMax; j++) {
 					if (!(i >= x && i <= xMax && j >= y && j <= yMax)) {
-						GameObject instance = Instantiate(FloorTile, new Vector3(i, j, 0f), Quaternion.identity) as GameObject;
+						GameObject instance = Instantiate(FloorTiles[(int)Random.Range(0, FloorTiles.Length)], new Vector3(i, j, 0f), Quaternion.identity) as GameObject;
 						instance.transform.SetParent(Dungeon.transform.GetChild((int)Tiles.Floors).gameObject.transform);
 						_dungeonFloorPositions[i, j] = instance;
 						_dungeonTiles[i, j] = 1;
@@ -291,7 +290,7 @@ public class DungeonManager : MonoBehaviour
 			for (int i = (int)corridor.x; i < corridor.xMax; i++) {
 				for (int j = (int)corridor.y; j < corridor.yMax; j++) {
 					if (_dungeonFloorPositions[i, j] == null) {
-						GameObject instance = Instantiate(CorridorTile, new Vector3 (i, j, 0f), Quaternion.identity) as GameObject;
+						GameObject instance = Instantiate(FloorTiles[(int)Random.Range(0, FloorTiles.Length)], new Vector3 (i, j, 0f), Quaternion.identity) as GameObject;
 						instance.transform.SetParent(Dungeon.transform.GetChild((int)Tiles.Corridors).gameObject.transform);
 						_dungeonFloorPositions[i, j] = instance;
 						_dungeonTiles[i, j] = 1;
@@ -323,7 +322,7 @@ public class DungeonManager : MonoBehaviour
 					_dungeonFloorPositions[wallPosX, wallPosY] = instance;
 
 					if (index != 0) {		// placing floor tile under the walls
-						instance = Instantiate(FloorTile, new Vector3 (wallPosX, wallPosY, 0f), Quaternion.identity) as GameObject;
+						instance = Instantiate(FloorTiles[(int)Random.Range(0, FloorTiles.Length)], new Vector3 (wallPosX, wallPosY, 0f), Quaternion.identity) as GameObject;
 						instance.transform.SetParent(Dungeon.transform.GetChild((int)Tiles.Floors).gameObject.transform);
 					}
 				}
