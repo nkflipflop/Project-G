@@ -8,6 +8,9 @@ public class WeaponPistol : WeaponBase {
 		FireRate = .1f;
 		Damage = 2;
 
+		IsAutomatic = false;
+		HasRecoil = true;
+
 		MaxAmmo = 7;
 		CurrentAmmo = MaxAmmo;
 	}

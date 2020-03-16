@@ -3,35 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class TurretController : MonoBehaviour {
-
-	[SerializeField] private float _fireRate = 0f;
-	private float _timeBtwShots;
-	private Vector3 _shootPoint;
-
+	
+	private float _health = 25;
+	private Transform _shootPoint;
+	[SerializeField] private WeaponBase _weapon = null;
 	public GameObject Target;
-	[SerializeField] private GameObject _weapon = null;
-	public GameObject Projectile;
+
 	// Start is called before the first frame update
 	void Start() {
-		_shootPoint = _weapon.transform.GetChild(0).position;
-		Debug.Log(_shootPoint);
-	}
-
-	// Update is called once per frame
-	void Update() {
-		
-	}
-
-	private void OnTriggerEnter2D(Collider2D other) {
-		if (other.gameObject.CompareTag("Player")) {
-			Shoot();
-		}
-	}
-
-	private void OnTriggerStay2D(Collider2D other) {
-		if (other.gameObject.CompareTag("Player")) {
-			Shoot();
-		}
+		_shootPoint = _weapon.transform.GetChild(0);
 	}
 
 	private void Shoot() {
@@ -49,13 +29,23 @@ public class TurretController : MonoBehaviour {
 			float angle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
 			_weapon.transform.eulerAngles = new Vector3(0, 0, angle);
 
-			if (_timeBtwShots <= 0) {
-				Instantiate(Projectile, _shootPoint, _weapon.transform.rotation);
-				_timeBtwShots = _fireRate;
-			}
-			else {
-				_timeBtwShots -= Time.deltaTime;
-			}
+			_weapon.Shoot();
+		}
+	}
+
+	public void TakeDamage(float damage) {
+		_health -= damage;
+	}
+
+	private void OnTriggerEnter2D(Collider2D other) {
+		if (other.gameObject.CompareTag("Player")) {
+			Shoot();
+		}
+	}
+
+	private void OnTriggerStay2D(Collider2D other) {
+		if (other.gameObject.CompareTag("Player")) {
+			Shoot();
 		}
 	}
 }
