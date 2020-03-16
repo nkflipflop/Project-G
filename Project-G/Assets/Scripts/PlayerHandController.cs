@@ -44,7 +44,7 @@ public class PlayerHandController : MonoBehaviour {
 			transform.localPosition = new Vector3(Mathf.Abs(transform.localPosition.x), transform.localPosition.y, 0f);
 
 		// Getting mouse position and direction of player to mouse
-		Vector3 aimDirection = (_mousePosition - transform.position).normalized;
+		Vector3 aimDirection = (_mousePosition - _currentWeapon.transform.position).normalized;
 		// Rotating the current weapon
 		float angle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
 		_currentWeapon.transform.eulerAngles = new Vector3(0, 0, angle);

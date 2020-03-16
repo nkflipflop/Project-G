@@ -16,15 +16,8 @@ public class TurretController : MonoBehaviour {
 
 	private void Shoot() {
 		if (Target != null) {
-			bool onRight = (Target.transform.position.x - transform.position.x) > 0 ? true : false;
-			_weapon.GetComponent<WeaponBase>().flip(onRight);	// change this
-			if (onRight)
-				_weapon.transform.localPosition = new Vector3(-Mathf.Abs(_weapon.transform.localPosition.x), _weapon.transform.localPosition.y, 0f);
-			else
-				_weapon.transform.localPosition = new Vector3(Mathf.Abs(_weapon.transform.localPosition.x), _weapon.transform.localPosition.y, 0f);
-
 			// Getting player position
-			Vector3 aimDirection = (Target.transform.position - transform.position).normalized;
+			Vector3 aimDirection = (Target.transform.position - _weapon.transform.position).normalized;
 			// Rotating the current weapon
 			float angle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
 			_weapon.transform.eulerAngles = new Vector3(0, 0, angle);

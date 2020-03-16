@@ -5,7 +5,7 @@
 		Damage = 5;
 
 		IsAutomatic = true;
-		HasRecoil = false;
+		HasRecoil = true;
 
 		MaxAmmo = 1;
 		CurrentAmmo = MaxAmmo;
