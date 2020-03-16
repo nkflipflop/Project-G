@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class WeaponRecoiler : MonoBehaviour {
     
-    public float maxOffsetDistance;
-    public float recoilAcceleration;
-    public float weaponRecoilStartSpeed;
+    [SerializeField] private float maxOffsetDistance;
+    [SerializeField] private float recoilAcceleration;
+    [SerializeField] private float weaponRecoilStartSpeed;
 
     private bool _recoilInEffect = false;
     private bool _weaponHeadedBackToStartPosition = false;

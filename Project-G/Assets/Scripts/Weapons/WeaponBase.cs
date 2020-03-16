@@ -11,6 +11,8 @@ public class WeaponBase : MonoBehaviour {
 
 	protected float ReloadTime;
 	protected float FireRate;
+	protected bool IsAutomatic;
+	protected bool HasRecoil;
 	protected float Damage;
 	protected int MaxAmmo;
 	public int CurrentAmmo { get; protected set; }
@@ -24,11 +26,12 @@ public class WeaponBase : MonoBehaviour {
 
 	// Shoots the weapon
 	public void Shoot() {
+
 		Transform shootPoint = transform.GetChild(0);
 		if (_timeBtwShots <= 0) {
-			if (Input.GetMouseButtonDown(0)) {
+			if (Input.GetMouseButtonDown(0) || IsAutomatic == true) {
 				// Creating projectile
-				_weaponRecoiler.AddRecoil();
+				if (HasRecoil) _weaponRecoiler.AddRecoil();
 				Instantiate(Projectile, shootPoint.position, transform.rotation);
 				_timeBtwShots = FireRate;
 			}
