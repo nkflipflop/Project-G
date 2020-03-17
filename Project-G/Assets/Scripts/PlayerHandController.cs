@@ -5,7 +5,8 @@ using UnityEngine;
 public class PlayerHandController : MonoBehaviour {
 	private Vector3 _mousePosition;
 	private Vector3 _weaponPosition = new Vector3 (0.0167f, -0.0183f, 0);
-	public WeaponBase _currentWeapon;
+	private SpriteRenderer _currentWeaponSpriteRenderer;
+	private WeaponBase _currentWeapon;
 	private WeaponBase _newWeapon;
 
 	
@@ -30,6 +31,7 @@ public class PlayerHandController : MonoBehaviour {
 			weapon.transform.SetParent(transform, false);
 			weapon.transform.localPosition = _weaponPosition;
 			weapon.transform.rotation = transform.rotation;
+
 			_currentWeapon = weapon;
 	}
 
@@ -50,6 +52,13 @@ public class PlayerHandController : MonoBehaviour {
 		_currentWeapon.transform.eulerAngles = new Vector3(0, 0, angle);
 	}
 
+	private void ControlWeapon(){
+		if(_currentWeapon != null){
+			_currentWeapon.WeaponUpdate();
+			AimWeapon();
+		}
+	}
+
 	// Gets Inputs
 	private void GetInputs() {
 		// Taking mouse position
@@ -58,17 +67,13 @@ public class PlayerHandController : MonoBehaviour {
 	}
 
 	private void Start() {
+		_currentWeapon = transform.GetChild(0).GetComponent<WeaponBase>();
 		_currentWeapon.transform.localPosition = _weaponPosition;
 	}
-
 	private void Update() {
 		GetInputs();
 		// Controls the weapon
-		if(_currentWeapon != null){
-			_currentWeapon.Shoot();
-			AimWeapon();
-		}
-
+		ControlWeapon();
 		InterractWithNewWeapon();
 	}
 

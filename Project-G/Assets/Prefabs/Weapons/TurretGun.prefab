@@ -42,6 +42,8 @@ GameObject:
   - component: {fileID: 7741170184100664110}
   - component: {fileID: 827960770257164601}
   - component: {fileID: 1557459940323735342}
+  - component: {fileID: -2171701435749290827}
+  - component: {fileID: 762648450}
   m_Layer: 0
   m_Name: TurretGun
   m_TagString: Untagged
@@ -102,7 +104,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 9881cc5c1e748584fa44a616466590a1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -154,3 +156,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Projectile: {fileID: 8024592333845191033, guid: fb83bf975619b5244a73294a493f4c29,
     type: 3}
+  FireEffect: {fileID: 8386142174366488335, guid: 8ca38b1ea12c45541b2bcd676ebeb4ce,
+    type: 3}
+--- !u!114 &-2171701435749290827
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6355700462619779414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b61cd7195226a214b8ba5500d6b9f2c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &762648450
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6355700462619779414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6126d48a749a9f8459fc9920e4b8befd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxOffsetDistance: 0.18
+  recoilAcceleration: 50
+  weaponRecoilStartSpeed: -5

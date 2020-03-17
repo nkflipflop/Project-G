@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6065440442576662033}
   - component: {fileID: 6065440442576662034}
   - component: {fileID: 6065440442576662039}
+  - component: {fileID: -3948410204228873995}
   m_Layer: 0
   m_Name: Bow
   m_TagString: Weapon
@@ -124,6 +125,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Projectile: {fileID: 692808828056768861, guid: ec17052c012fa0544bb2ba97674fd1e9,
     type: 3}
+--- !u!114 &-3948410204228873995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6065440442576662035}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b61cd7195226a214b8ba5500d6b9f2c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6065440443095398183
 GameObject:
   m_ObjectHideFlags: 0

@@ -8,7 +8,6 @@ public class WeaponBow : WeaponBase {
 		FireRate = .2f;
 		Damage = 2;
 
-		IsAutomatic = false;
 		HasRecoil = true;
 
 		MaxAmmo = 7;

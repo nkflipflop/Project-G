@@ -22,7 +22,7 @@ public class TurretController : MonoBehaviour {
 			float angle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
 			_weapon.transform.eulerAngles = new Vector3(0, 0, angle);
 
-			_weapon.Shoot();
+			_weapon.WeaponUpdate();
 		}
 	}
 
