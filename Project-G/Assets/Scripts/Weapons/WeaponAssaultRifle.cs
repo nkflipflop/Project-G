@@ -15,7 +15,7 @@ public class WeaponAssaultRifle : WeaponBase {
 	}
 	
 	public override void TriggerWeapon(){
-		if (Input.GetMouseButton(0)){
+		if (Input.GetMouseButton(0) && CurrentAmmo > 0) {
 			Fire();
 		}
 	}

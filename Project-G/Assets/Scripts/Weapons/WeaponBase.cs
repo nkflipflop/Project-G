@@ -38,8 +38,9 @@ public class WeaponBase : MonoBehaviour {
 		_timeBtwShots = FireRate;
 	}
 
-	public virtual void TriggerWeapon(){
-		if (Input.GetMouseButtonDown(0)){
+	public virtual void TriggerWeapon() {
+		Debug.Log(CurrentAmmo);
+		if (Input.GetMouseButtonDown(0) && CurrentAmmo > 0){
 			Fire();
 		}
 	}

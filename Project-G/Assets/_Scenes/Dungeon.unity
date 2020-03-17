@@ -633,6 +633,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 592281812}
     m_Modifications:
+    - target: {fileID: 762648450, guid: 5945e33681ba17449959579a82b26cbf, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2767044571816068074, guid: 5945e33681ba17449959579a82b26cbf,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -693,7 +697,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: TurretGun
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: -2171701435749290827, guid: 5945e33681ba17449959579a82b26cbf, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 5945e33681ba17449959579a82b26cbf, type: 3}
 --- !u!114 &450460189 stripped
 MonoBehaviour:
