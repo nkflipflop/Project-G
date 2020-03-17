@@ -4,11 +4,10 @@ using UnityEngine;
 
 public class WeaponPistol : WeaponBase {
 	public WeaponPistol() {
-		ReloadTime = 2;
+		ReloadTime = 3f;
 		FireRate = .1f;
 		Damage = 2;
 
-		IsAutomatic = false;
 		HasRecoil = true;
 
 		MaxAmmo = 7;
