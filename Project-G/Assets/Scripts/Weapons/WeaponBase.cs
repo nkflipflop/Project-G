@@ -39,7 +39,6 @@ public class WeaponBase : MonoBehaviour {
 	}
 
 	public virtual void TriggerWeapon() {
-		Debug.Log(CurrentAmmo);
 		if (Input.GetMouseButtonDown(0) && CurrentAmmo > 0){
 			Fire();
 		}

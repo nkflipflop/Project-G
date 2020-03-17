@@ -11,6 +11,6 @@
 	}
 
 	public override void TriggerWeapon() {
-		if (CurrentAmmo > 0 ) Fire();
+		if (CurrentAmmo > 0) Fire();
 	}
 }
