@@ -6,10 +6,11 @@ using UnityEngine;
 public class DungeonManager : MonoBehaviour
 {
 	private enum Tiles { Bridges, Corridors, Floors, Walls, Waters }
+	private enum Bridges { Horizontal, Vertical, TopLeft, TopRight, DownLeft, DownRight }
 	public GameObject Player;
 	public GameObject Dungeon;
 	public GameObject[] FloorTiles;
-	public GameObject BridgeTile;
+	public GameObject[] BridgeTiles;
 	public GameObject[] WaterTiles;
 	public GameObject[] WallTiles;
 	public GameObject ExitTile;
@@ -258,24 +259,41 @@ public class DungeonManager : MonoBehaviour
 		}
 	}
 	
-	void DrawBridges(SubDungeon subDungeon) {
+	void DetermineBridges(SubDungeon subDungeon) {
 		if (subDungeon == null)
 			return;
 		
-		DrawBridges(subDungeon.left);
-		DrawBridges(subDungeon.right);
+		DetermineBridges(subDungeon.left);
+		DetermineBridges(subDungeon.right);
 
 		foreach (Rect bridge in subDungeon.bridges) {
 			for (int i = (int)bridge.x; i < bridge.xMax; i++) {
 				for (int j = (int)bridge.y; j < bridge.yMax; j++) {
 					if (_dungeonFloorPositions[i, j] == null) {
-						GameObject instance = Instantiate(BridgeTile, new Vector3 (i, j, 0f), Quaternion.identity) as GameObject;
-						instance.transform.SetParent(Dungeon.transform.GetChild((int)Tiles.Bridges).gameObject.transform);
-						_dungeonFloorPositions[i, j] = instance;
 						_bridgeTilesPos.Add(new Vector2Int(i, j));
-						_dungeonTiles[i, j] = 1;
+						_dungeonTiles[i, j] = -1;
 					}
 				}
+			}
+		}
+	}
+
+	void DrawBridges() {
+		int index;
+
+		int [,] kernelMatrix = {{0, 1, 0}, {8, 0, 2}, {0, 4, 0}};
+
+		foreach (var bridgePos in _bridgeTilesPos) {
+			index = 0;
+			for (int j = 1; j >= -1; j--) {
+				for (int i = -1; i <= 1; i++) {
+					index += Mathf.Abs(_dungeonTiles[bridgePos.x + i, bridgePos.y + j]) * kernelMatrix[1 - j, i + 1];
+				}
+			}
+			if (_dungeonFloorPositions[bridgePos.x, bridgePos.y] == null) {
+				GameObject instance = Instantiate(BridgeTiles[index], new Vector3 (bridgePos.x, bridgePos.y, 0f), Quaternion.identity) as GameObject;
+				instance.transform.SetParent(Dungeon.transform.GetChild((int)Tiles.Bridges).gameObject.transform);
+				_dungeonFloorPositions[bridgePos.x, bridgePos.y] = instance;
 			}
 		}
 	}
@@ -336,9 +354,7 @@ public class DungeonManager : MonoBehaviour
 		foreach (var bridgePos in _bridgeTilesPos) {
 			for (int j = 1; j >= -1; j--) {
 				for (int i = -1; i <= 1; i++) {
-					if (i == 0 && j == 0)		// skip the bridge tile
-						continue;
-					if (_dungeonFloorPositions[bridgePos.x + i, bridgePos.y + j] == null) {
+					if (_dungeonFloorPositions[bridgePos.x + i, bridgePos.y + j] == null || (i == 0 && j == 0)) {
 						GameObject instance;
 						if (_dungeonTiles[bridgePos.x + i, bridgePos.y + j + 1] != -1)
 							instance = Instantiate(WaterTiles[0], new Vector3 (bridgePos.x + i, bridgePos.y + j, 0f), Quaternion.identity) as GameObject;
@@ -350,6 +366,9 @@ public class DungeonManager : MonoBehaviour
 					}
 				}
 			}
+		}
+		foreach (var bridgePos in _bridgeTilesPos) {
+			_dungeonTiles[bridgePos.x, bridgePos.y] = 1;
 		}
 	}
 
@@ -395,7 +414,8 @@ public class DungeonManager : MonoBehaviour
 		_dungeonTiles = new int[DungeonRows + (2 * DungeonPadding), DungeonColumns + (2 * DungeonPadding)];
 		_bridgeTilesPos = new List<Vector2Int>();
 		DrawRooms(rootSubDungeon);
-		DrawBridges(rootSubDungeon);
+		DetermineBridges(rootSubDungeon);
+		DrawBridges();
 		DrawCorridors(rootSubDungeon);
 		DrawWaters();
 		_bridgeTilesPos.Clear();		// deleting the list since it completes its purpose
