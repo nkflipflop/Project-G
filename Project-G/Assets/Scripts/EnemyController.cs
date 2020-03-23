@@ -56,7 +56,8 @@ public class EnemyController : MonoBehaviour
 		else if (_aStar.Path != null && _aStar.Path.Count > _maxPathLength)
 			_targetPos = new Vector3Int((int)transform.position.x, (int)transform.position.y, (int)transform.position.z);       // if not chasing the Target, stay where you are
 
-		transform.position = Vector3.MoveTowards(transform.position, _targetPos, Time.deltaTime * _speed);      // moving the enemy towards to target
+		if (_targetPos != new Vector3Int(1000, 0, 0)) 
+			transform.position = Vector3.MoveTowards(transform.position, _targetPos, Time.deltaTime * _speed);      // moving the enemy towards to target
 	}
 
 	private void CheckTargetPosition() {
