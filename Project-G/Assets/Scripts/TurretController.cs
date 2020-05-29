@@ -4,14 +4,22 @@ using UnityEngine;
 
 public class TurretController : MonoBehaviour {
 	
-	private float _health = 25;
+	[SerializeField] private float _health = 25;
 	private Transform _shootPoint;
 	[SerializeField] private WeaponBase _weapon = null;
 	public GameObject Target;
 
+	public Dissolve DissolveEffect;
+
 	// Start is called before the first frame update
 	void Start() {
 		_shootPoint = _weapon.transform.GetChild(0);
+	}
+
+	private void Update() {		// !!!! DELETE this func. It is only for testing the dissolve effect
+		if (_health <= 0f) {
+			DissolveEffect.IsDissolving = true;
+		}
 	}
 
 	private void Shoot() {
@@ -28,6 +36,9 @@ public class TurretController : MonoBehaviour {
 
 	public void TakeDamage(float damage) {
 		_health -= damage;
+		if (_health <= 0f) {
+			DissolveEffect.IsDissolving = true;
+		}
 	}
 
 	private void OnTriggerEnter2D(Collider2D other) {
