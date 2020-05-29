@@ -712,6 +712,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TurretGun
       objectReference: {fileID: 0}
+    - target: {fileID: 7741170184100664110, guid: 5945e33681ba17449959579a82b26cbf,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 8731b3bef0b12044381118bb5f69a921, type: 2}
     m_RemovedComponents:
     - {fileID: -2171701435749290827, guid: 5945e33681ba17449959579a82b26cbf, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 5945e33681ba17449959579a82b26cbf, type: 3}
@@ -5500,6 +5505,7 @@ GameObject:
   - component: {fileID: 519420029}
   - component: {fileID: 519420030}
   - component: {fileID: 519420033}
+  - component: {fileID: 519420034}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -5626,6 +5632,37 @@ MonoBehaviour:
   m_CropFrameX: 0
   m_CropFrameY: 0
   m_StretchFill: 0
+--- !u!114 &519420034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_CameraOutput: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
 --- !u!1 &592281809
 GameObject:
   m_ObjectHideFlags: 0
@@ -5638,11 +5675,12 @@ GameObject:
   - component: {fileID: 592281811}
   - component: {fileID: 592281810}
   - component: {fileID: 592281813}
+  - component: {fileID: 592281816}
   - component: {fileID: 592281815}
   - component: {fileID: 592281814}
   m_Layer: 0
   m_Name: Turret
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5681,7 +5719,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 8731b3bef0b12044381118bb5f69a921, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5756,8 +5794,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4ca2a21f7e2ec842800d7d8bdc559bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _health: 25
   _weapon: {fileID: 450460189}
   Target: {fileID: 8005256322282322018}
+  DissolveEffect: {fileID: 592281816}
 --- !u!114 &592281815
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5768,6 +5808,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b61cd7195226a214b8ba5500d6b9f2c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &592281816
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 592281809}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a26a8f1685a6d044b23c832729f9a3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &609681514
