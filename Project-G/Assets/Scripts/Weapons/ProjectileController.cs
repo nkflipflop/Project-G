@@ -9,28 +9,36 @@ public class ProjectileController : MonoBehaviour {
 	public int damage;
 	
 	private SpriteRenderer _renderer;
-
 	
     public GameObject destroyEffect;
 	public Sprite hittedSprite;
+
+    private int _enemyLayer = 8;
+    private int _environmentLayer = 9;
+	private int _playerLayer = 10;
+	private LayerMask _hittableLayers;
 
 	private void Start() {
 		_renderer = GetComponent<SpriteRenderer>();
 		// Destroying when hit
 		StartCoroutine(DestroyProjectile());
+
+		_hittableLayers = (1 << _enemyLayer) | (1 << _environmentLayer);
+        _hittableLayers = _hittableLayers | (1 << _playerLayer);
 	}
 
 	private void Update() {
 		// Ray collider controlling
 		Vector3 direction = transform.rotation * Vector3.right;
-		RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, direction, .1f);
+		RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, direction, .1f, _hittableLayers);
 		Debug.DrawRay(transform.position, direction, Color.blue, .1f);
 
 		// Range controlling for arrow	
 		if (lifeTime > 0) {
 			lifeTime -= 1;
 			// When ray collides with another collider
-			if ( hitInfo.collider != null && hitInfo.collider.IsTouchingLayers(LayerMask.GetMask("Environment", "Enemy"))) {
+			if ( hitInfo.collider != null) {
+				Debug.Log(hitInfo.collider.name);
 				// If it is enemy
 				if (hitInfo.collider.CompareTag("Enemy"))
 					hitInfo.collider.GetComponent<EnemyController>().TakeDamage(damage);
