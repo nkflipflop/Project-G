@@ -57,7 +57,11 @@ public class PlayerController : MonoBehaviour {
 
 	// Animate Player
 	void PlayerAnimate() {
-		_animator.SetBool("Run", _isRun);         // for run animation    // when holding direction keys WASD
+		_animator.SetBool("Run", _isRun);         			// for run animation    // when holding direction keys WASD
+		
+		Vector2 mouseDir = _mousePosition - transform.position;
+		_animator.SetFloat("Horizontal", mouseDir.x); 
+		_animator.SetFloat("Vertical", mouseDir.y);
 	}
 
 	// Take Action
@@ -66,12 +70,13 @@ public class PlayerController : MonoBehaviour {
 			PlayerAttack();*/
 		
 		// Flipping the sprite vertically with respect to mouse
-		float direction = _mousePosition.x - transform.position.x;
+		/*float direction = _mousePosition.x - transform.position.x;
 		if (direction < 0)
 			_sprite.flipX = true;
 		else
 			_sprite.flipX = false;
-		
+		*/
+
 		// when holding direction keys WASD
 		if (_isRun)
 			PlayerRun();

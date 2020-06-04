@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerHandController : MonoBehaviour {
 	private Vector3 _mousePosition;
-	private Vector3 _weaponPosition = new Vector3 (0.0167f, -0.0183f, 0);
+	private Vector3 _weaponPosition = new Vector3 (0, 0, 0);
 	private SpriteRenderer _currentWeaponSpriteRenderer;
 	private WeaponBase _currentWeapon;
 	private WeaponBase _newWeapon;

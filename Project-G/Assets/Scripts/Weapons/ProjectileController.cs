@@ -24,8 +24,7 @@ public class ProjectileController : MonoBehaviour {
 		// Ray collider controlling
 		Vector3 direction = transform.rotation * Vector3.right;
 		RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, direction, .1f);
-		Debug.DrawRay(transform.position, direction, Color.blue, .1f);
-
+		
 		// Range controlling for arrow	
 		if (lifeTime > 0) {
 			lifeTime -= 1;
