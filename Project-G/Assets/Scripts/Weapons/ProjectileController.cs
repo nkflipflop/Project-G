@@ -7,6 +7,7 @@ public class ProjectileController : MonoBehaviour {
 	public float lifeTime = 50;
 	public float speed;
 	public int damage;
+	public bool ShotByPlayer = true;
 	
 	private SpriteRenderer _renderer;
 	
@@ -16,32 +17,33 @@ public class ProjectileController : MonoBehaviour {
     private int _enemyLayer = 8;
     private int _environmentLayer = 9;
 	private int _playerLayer = 10;
-	private LayerMask _hittableLayers;
+	private LayerMask _hittableLayersByPlayer;
+	private LayerMask _hittableLayersByEnemy;
 
 	private void Start() {
 		_renderer = GetComponent<SpriteRenderer>();
 		// Destroying when hit
 		StartCoroutine(DestroyProjectile());
 
-		_hittableLayers = (1 << _enemyLayer) | (1 << _environmentLayer);
-        _hittableLayers = _hittableLayers | (1 << _playerLayer);
+		_hittableLayersByPlayer = (1 << _enemyLayer) | (1 << _environmentLayer);
+        _hittableLayersByEnemy = (1 << _playerLayer) | (1 << _environmentLayer);
 	}
 
 	private void Update() {
 		// Ray collider controlling
 		Vector3 direction = transform.rotation * Vector3.right;
-		RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, direction, .1f, _hittableLayers);
-		Debug.DrawRay(transform.position, direction, Color.blue, .1f);
+		RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, direction, .1f, ShotByPlayer ? _hittableLayersByPlayer : _hittableLayersByEnemy);
+		// Debug.DrawRay(transform.position, direction, Color.blue, .1f);
 
 		// Range controlling for arrow	
 		if (lifeTime > 0) {
 			lifeTime -= 1;
 			// When ray collides with another collider
 			if ( hitInfo.collider != null) {
-				Debug.Log(hitInfo.collider.name);
+				//Debug.Log(hitInfo.collider.name);
 				// If it is enemy
 				if (hitInfo.collider.CompareTag("Enemy"))
-					hitInfo.collider.GetComponent<EnemyController>().TakeDamage(damage);
+					hitInfo.collider.GetComponent<TurretController>().TakeDamage(damage);
 				// Stopping the projectile
 				lifeTime = 0;
 			}
