@@ -7,6 +7,8 @@ public class Dissolve : MonoBehaviour
     private Material _material;
 
     private bool _isDissolving = false;
+    private bool _childDissolveStarted = false;
+    [SerializeField] private bool _hasChild = false;
 
     private float _fade = 1f;
 
@@ -22,6 +24,10 @@ public class Dissolve : MonoBehaviour
     // Update is called once per frame
     private void Update() {
         if (_isDissolving) {
+            if(!_childDissolveStarted && _hasChild) {
+                _childDissolveStarted = true;
+                transform.GetChild (0).gameObject.GetComponent<Dissolve>().IsDissolving = true;
+            }
             _fade -= Time.deltaTime;
 
             if (_fade <= 0f) {
