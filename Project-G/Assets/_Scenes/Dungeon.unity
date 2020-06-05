@@ -511,7 +511,7 @@ MonoBehaviour:
   - {fileID: 3751531024357851219, guid: d975ddaeafd61174db4a359e6cad664f, type: 3}
   ExitTile: {fileID: 4260368798550124252, guid: 0eada2ed2b86f1345bec2cd31d52c97c,
     type: 3}
-  Turret: {fileID: 693822117}
+  Turret: {fileID: 592281809}
   DungeonRows: 24
   DungeonColumns: 24
   DungeonPadding: 4
@@ -707,10 +707,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4174898307737127730, guid: 5945e33681ba17449959579a82b26cbf,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 6355700462619779414, guid: 5945e33681ba17449959579a82b26cbf,
         type: 3}
       propertyPath: m_Name
       value: TurretGun
+      objectReference: {fileID: 0}
+    - target: {fileID: 6355700462619779414, guid: 5945e33681ba17449959579a82b26cbf,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 7741170184100664110, guid: 5945e33681ba17449959579a82b26cbf,
         type: 3}
@@ -5678,7 +5688,7 @@ GameObject:
   - component: {fileID: 592281816}
   - component: {fileID: 592281815}
   - component: {fileID: 592281814}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Turret
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -5773,7 +5783,7 @@ CircleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 592281809}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
@@ -5822,6 +5832,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a26a8f1685a6d044b23c832729f9a3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _hasChild: 1
 --- !u!1 &609681514
 GameObject:
   m_ObjectHideFlags: 0
@@ -5903,7 +5914,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &693822118
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5916,6 +5927,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a26a8f1685a6d044b23c832729f9a3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _hasChild: 0
 --- !u!114 &693822119
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6403,7 +6415,7 @@ GameObject:
   - component: {fileID: 1923094851}
   - component: {fileID: 1923094852}
   - component: {fileID: 1923094853}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Hand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
