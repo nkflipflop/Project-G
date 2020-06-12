@@ -10,11 +10,9 @@ public class PlayerController : MonoBehaviour {
 
 	private float _horizontalInput;
 	private float _verticalInput;
-	private bool _attackInput;
 	private Vector3 _mousePosition;
 
-	private bool _isAttack = false;
-	private bool _isRun = false;
+	public bool isRun = false;
 	
 	private Animator _animator;
   	private Rigidbody2D _rb2D;
@@ -44,12 +42,8 @@ public class PlayerController : MonoBehaviour {
 		_mousePosition = Input.mousePosition;				// for determining player direction
 		_mousePosition = Camera.main.ScreenToWorldPoint(_mousePosition);
 
-		_attackInput = Input.GetMouseButton(0);              // pressed left mouse
-		if (_attackInput)                                    // starts attack and its animation
-			_isAttack = _attackInput;
-
 		if (Mathf.Abs(_horizontalInput) > 0 ||  Mathf.Abs(_verticalInput) > 0)    // starts run and its animation
-			_isRun = true;
+			isRun = true;
 		if (Input.GetKeyDown(KeyCode.Space)) {
 			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 		}
@@ -57,7 +51,7 @@ public class PlayerController : MonoBehaviour {
 
 	// Animate Player
 	void PlayerAnimate() {
-		_animator.SetBool("Run", _isRun);         			// for run animation    // when holding direction keys WASD
+		_animator.SetBool("Run", isRun);         			// for run animation    // when holding direction keys WASD
 		
 		Vector2 mouseDir = _mousePosition - transform.position;
 		_animator.SetFloat("Horizontal", mouseDir.x); 
@@ -66,19 +60,8 @@ public class PlayerController : MonoBehaviour {
 
 	// Take Action
 	void PlayerMovement(){
-		/*if (_attackInput)    // when pressed left mouse
-			PlayerAttack();*/
-		
-		// Flipping the sprite vertically with respect to mouse
-		/*float direction = _mousePosition.x - transform.position.x;
-		if (direction < 0)
-			_sprite.flipX = true;
-		else
-			_sprite.flipX = false;
-		*/
-
 		// when holding direction keys WASD
-		if (_isRun)
+		if (isRun)
 			PlayerRun();
 		else
 			StartCoroutine(DisableParticles());
@@ -104,7 +87,7 @@ public class PlayerController : MonoBehaviour {
 		else {
 			_rb2D.velocity = new Vector2(0f, 0f);
 			_moveLatency = 0.05f;
-			_isRun = false;
+			isRun = false;
 		}
 
 		DustParticles.SetActive(true);

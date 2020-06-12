@@ -16,17 +16,28 @@ public class WeaponBase : MonoBehaviour {
 	
 	public int CurrentAmmo { get; protected set; }
 	public SpriteRenderer Renderer;
+	public SpriteRenderer LeftHand;
+	public SpriteRenderer RightHand;
 	public GameObject Projectile;
 	public GameObject FireEffect;
 	
 	// Changes layer of the sprite
 	public void SetSortingOrder(int order){
 		Renderer.sortingOrder = order;
+		if(LeftHand)
+			LeftHand.sortingOrder = order + 2;
+
+		if(RightHand)
+			RightHand.sortingOrder = order + 2;
 	}
 
 	// Flips the sprite
-	public void Flip(bool flip) {
-		Renderer.flipY = !flip; 
+	public void ScaleInverse() {
+		Debug.Log(true);
+
+		Vector3 scale = transform.localScale;
+		scale.y *= -1;
+		transform.localScale = scale; 
 	}
 
 	// Fires the Weapon
@@ -54,6 +65,7 @@ public class WeaponBase : MonoBehaviour {
 
 	// Update the weapon
 	public void WeaponUpdate() {
+		// For firing
 		if (_timeBtwShots <= 0 && CurrentAmmo > 0)
 			TriggerWeapon();
 		else

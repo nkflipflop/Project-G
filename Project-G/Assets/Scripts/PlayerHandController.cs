@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerHandController : MonoBehaviour {
 
 	public SpriteRenderer RendererPlayer;
+	public PlayerController PlayerController;
 
 	private Vector3 _mousePosition;
 	private Vector3 _weaponPosition = new Vector3 (0, 0, 0);
@@ -14,10 +15,11 @@ public class PlayerHandController : MonoBehaviour {
 	
 	private bool _takeWeapon;
 	private bool _canTake = false;
+	private float _verticalTrigger = 1;	// for inverse scaling of the weapon
 
 
-	private void InterractWithNewWeapon(){
-		if(_canTake){
+	private void InterractWithNewWeapon() {
+		if(_canTake) {
 			_takeWeapon = Input.GetKeyDown("e");
 			//Debug.Log("Çok istiyorsan 'E' ye bas. ;(");
 			if(_takeWeapon) {
@@ -40,29 +42,32 @@ public class PlayerHandController : MonoBehaviour {
 
 	// Adjusts the sorting order of the weapon according to mouse position (player's direction)
 	private void AdjustSortingOrder(){
-		Vector2 mouseDir = _mousePosition - transform.parent.position;
-		float horizontal = mouseDir.x;
-		float vertical = mouseDir.y;
-		float slope = horizontal / vertical;
-		
 		int sortingOrder = RendererPlayer.sortingOrder;
-		if (-1 < slope && slope < 1 && vertical > 0)	
-			sortingOrder -= 2;
-		else	
-			sortingOrder += 2;
-
+		if(PlayerController.isRun == true) {
+			Vector2 mouseDir = _mousePosition - transform.parent.position;
+			float horizontal = mouseDir.x;
+			float vertical = mouseDir.y;
+			float slope = horizontal / vertical;
+			
+			if (-1 < slope && slope < 1 && vertical > 0)	
+				sortingOrder -= 4;
+			else	
+				sortingOrder += 4;
+		}
+		else {
+			sortingOrder += 4;
+		}
+		
 		_currentWeapon.SetSortingOrder(sortingOrder);
 	}
 
 	// Aims the weapon
 	private void AimWeapon() {
 		// Flipping hand position and weapon direction
-		bool onRight = (_mousePosition.x - transform.position.x) > 0 ? true : false;
-		_currentWeapon.Flip(onRight);
-		if (onRight)
-			transform.localPosition = new Vector3(-Mathf.Abs(transform.localPosition.x), transform.localPosition.y, 0f);
-		else
-			transform.localPosition = new Vector3(Mathf.Abs(transform.localPosition.x), transform.localPosition.y, 0f);
+		float verticalAxis = _mousePosition.x - transform.position.x;	
+		bool scale = _verticalTrigger * verticalAxis > 0 ? false : true;
+		_verticalTrigger = verticalAxis;
+		if(scale) _currentWeapon.ScaleInverse();
 
 		// Getting mouse position and direction of player to mouse
 		Vector3 aimDirection = (_mousePosition - _currentWeapon.transform.position).normalized;
