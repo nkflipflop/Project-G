@@ -210,7 +210,7 @@ public class DungeonManager : MonoBehaviour
 			return;
 
 		if (subDungeon.IAmLeaf()) {
-			int editRoom = Random.Range(0,4);       // 25% chance for editing the room
+			int editRoom = Random.Range(0,4);       // 25% chance for editing the shape of the room
 			int x = 0, y = 0, xMax = 0, yMax = 0;
 			if (editRoom == 0) {
 				int randWidth = Random.Range(1, (int)(subDungeon.room.width / 2));
@@ -258,6 +258,27 @@ public class DungeonManager : MonoBehaviour
 			DrawRooms(subDungeon.right);
 		}
 	}
+
+	void DrawCorridors(SubDungeon subDungeon) {
+		if (subDungeon == null)
+			return;
+		
+		DrawCorridors(subDungeon.left);
+		DrawCorridors(subDungeon.right);
+
+		foreach (Rect corridor in subDungeon.corridors) {
+			for (int i = (int)corridor.x; i < corridor.xMax; i++) {
+				for (int j = (int)corridor.y; j < corridor.yMax; j++) {
+					if (_dungeonFloorPositions[i, j] == null) {
+						GameObject instance = Instantiate(FloorTiles[(int)Random.Range(0, FloorTiles.Length)], new Vector3 (i, j, 0f), Quaternion.identity) as GameObject;
+						instance.transform.SetParent(Dungeon.transform.GetChild((int)Tiles.Corridors).gameObject.transform);
+						_dungeonFloorPositions[i, j] = instance;
+						_dungeonTiles[i, j] = 1;
+					}
+				}
+			}
+		} 
+	}
 	
 	void DetermineBridges(SubDungeon subDungeon) {
 		if (subDungeon == null)
@@ -296,27 +317,6 @@ public class DungeonManager : MonoBehaviour
 				_dungeonFloorPositions[bridgePos.x, bridgePos.y] = instance;
 			}
 		}
-	}
-	
-	void DrawCorridors(SubDungeon subDungeon) {
-		if (subDungeon == null)
-			return;
-		
-		DrawCorridors(subDungeon.left);
-		DrawCorridors(subDungeon.right);
-
-		foreach (Rect corridor in subDungeon.corridors) {
-			for (int i = (int)corridor.x; i < corridor.xMax; i++) {
-				for (int j = (int)corridor.y; j < corridor.yMax; j++) {
-					if (_dungeonFloorPositions[i, j] == null) {
-						GameObject instance = Instantiate(FloorTiles[(int)Random.Range(0, FloorTiles.Length)], new Vector3 (i, j, 0f), Quaternion.identity) as GameObject;
-						instance.transform.SetParent(Dungeon.transform.GetChild((int)Tiles.Corridors).gameObject.transform);
-						_dungeonFloorPositions[i, j] = instance;
-						_dungeonTiles[i, j] = 1;
-					}
-				}
-			}
-		} 
 	}
 
 	void DrawWalls() {
