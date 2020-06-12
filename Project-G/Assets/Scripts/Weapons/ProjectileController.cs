@@ -40,10 +40,9 @@ public class ProjectileController : MonoBehaviour {
 			lifeTime -= 1;
 			// When ray collides with another collider
 			if ( hitInfo.collider != null) {
-				//Debug.Log(hitInfo.collider.name);
 				// If it is enemy
-				if (hitInfo.collider.CompareTag("Enemy"))
-					hitInfo.collider.GetComponent<TurretController>().TakeDamage(damage);
+				if (hitInfo.collider.CompareTag("Player") || hitInfo.collider.CompareTag("Enemy"))
+					hitInfo.collider.GetComponent<DamageHelper>().TakeDamage(damage);
 				// Stopping the projectile
 				lifeTime = 0;
 			}
