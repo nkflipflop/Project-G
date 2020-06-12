@@ -297,6 +297,24 @@ public class DungeonManager : MonoBehaviour
 			}
 		}
 	}
+
+	void DetermineCorridors(SubDungeon subDungeon) {
+		if (subDungeon == null)
+			return;
+
+		DetermineCorridors(subDungeon.left);
+		DetermineCorridors(subDungeon.right);
+
+		foreach (Rect corridor in subDungeon.corridors) {
+			for (int i = (int)corridor.x; i < corridor.xMax; i++) {
+				for (int j = (int)corridor.y; j < corridor.yMax; j++) {
+					if (_dungeonFloorPositions[i, j] == null) {
+						_dungeonTiles[i, j] = 1;
+					}
+				}
+			}
+		} 
+	}
 	
 	void DrawCorridors(SubDungeon subDungeon) {
 		if (subDungeon == null)
@@ -312,7 +330,6 @@ public class DungeonManager : MonoBehaviour
 						GameObject instance = Instantiate(FloorTiles[(int)Random.Range(0, FloorTiles.Length)], new Vector3 (i, j, 0f), Quaternion.identity) as GameObject;
 						instance.transform.SetParent(Dungeon.transform.GetChild((int)Tiles.Corridors).gameObject.transform);
 						_dungeonFloorPositions[i, j] = instance;
-						_dungeonTiles[i, j] = 1;
 					}
 				}
 			}
@@ -414,9 +431,10 @@ public class DungeonManager : MonoBehaviour
 		_dungeonTiles = new int[DungeonRows + (2 * DungeonPadding), DungeonColumns + (2 * DungeonPadding)];
 		_bridgeTilesPos = new List<Vector2Int>();
 		DrawRooms(rootSubDungeon);
-		DrawCorridors(rootSubDungeon);
 		DetermineBridges(rootSubDungeon);
+		DetermineCorridors(rootSubDungeon);
 		DrawBridges();
+		DrawCorridors(rootSubDungeon);
 		DrawWaters();
 		_bridgeTilesPos.Clear();		// deleting the list since it completes its purpose
 		DrawWalls();
