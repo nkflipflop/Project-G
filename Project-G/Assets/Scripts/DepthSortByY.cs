@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class DepthSortByY : MonoBehaviour {
-	private const int IsometricRangePerYUnit = 10;
+	private const int IsometricRangePerYUnit = 12;
 
 	void Update() {
 		Renderer renderer = GetComponent<Renderer>();
