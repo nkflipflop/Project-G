@@ -43,7 +43,6 @@ GameObject:
   - component: {fileID: 2797684667468425341}
   - component: {fileID: -61764821303913716}
   - component: {fileID: 8709025274589178941}
-  - component: {fileID: 4153087330021045969}
   m_Layer: 0
   m_Name: Pistol
   m_TagString: Weapon
@@ -154,6 +153,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b3bdbfca5f69b445b64aed4d6ac6d0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Renderer: {fileID: 0}
   Projectile: {fileID: 8024592333845191033, guid: fb83bf975619b5244a73294a493f4c29,
     type: 3}
   FireEffect: {fileID: 8386142174366488335, guid: 8ca38b1ea12c45541b2bcd676ebeb4ce,
@@ -173,15 +173,3 @@ MonoBehaviour:
   maxOffsetDistance: 0.2
   recoilAcceleration: 50
   weaponRecoilStartSpeed: -10
---- !u!114 &4153087330021045969
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2797684667468425343}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b61cd7195226a214b8ba5500d6b9f2c9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

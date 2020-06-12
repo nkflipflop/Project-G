@@ -1,25 +1,55 @@
 fileFormatVersion: 2
-guid: 35c82a0479612f14888751daf99fd56a
+guid: 511b045d437112d4694f71eef447ab62
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2227060902098458453
-    second: attackSmall_0
+      213: -1189564142739583781
+    second: player-run-down_0
   - first:
-      213: 1541159618760331448
-    second: attackSmall_1
+      213: 2888982340797413403
+    second: player-run-down_1
   - first:
-      213: 8596310929776944717
-    second: attackSmall_2
+      213: 1251026553745671902
+    second: player-run-down_2
   - first:
-      213: -3905574378416527904
-    second: attackSmall_3
+      213: 7950015853069839501
+    second: player-run-down_3
   - first:
-      213: -7095662910236089414
-    second: attackSmall_4
+      213: 6993790831146939608
+    second: player-run-down_4
   - first:
-      213: 6562956898751050495
-    second: attackSmall_5
+      213: -4111506818496443759
+    second: player-run-down_5
+  - first:
+      213: -3715089533278919465
+    second: player-run-down_6
+  - first:
+      213: -3093906156042890525
+    second: player-run-down_7
+  - first:
+      213: 4190591877398773786
+    second: player-run-down_0
+  - first:
+      213: 5218361225369574737
+    second: player-run-down_1
+  - first:
+      213: 3711979471206918175
+    second: player-run-down_2
+  - first:
+      213: -4147949364013009731
+    second: player-run-down_3
+  - first:
+      213: 6584719037560909362
+    second: player-run-down_4
+  - first:
+      213: 3107793605297655175
+    second: player-run-down_5
+  - first:
+      213: 1755019740017538756
+    second: player-run-down_6
+  - first:
+      213: -2907832312004856133
+    second: player-run-down_7
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -104,127 +134,169 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: attackSmall_0
+      name: player-run-down_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 38
+        width: 26
         height: 32
-      alignment: 9
-      pivot: {x: 0.4210526, y: 0.5}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ba8a245b8e3e711e0800000000000000
-      internalID: -2227060902098458453
+      spriteID: a10cdfa1c19f72a30800000000000000
+      internalID: 4190591877398773786
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: attackSmall_1
+      name: player-run-down_1
       rect:
         serializedVersion: 2
-        x: 38
+        x: 26
         y: 0
-        width: 38
+        width: 26
         height: 32
-      alignment: 9
-      pivot: {x: 0.4210526, y: 0.5}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8b0d262028c436510800000000000000
-      internalID: 1541159618760331448
+      spriteID: 15d53dbe2e75b6840800000000000000
+      internalID: 5218361225369574737
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: attackSmall_2
+      name: player-run-down_2
       rect:
         serializedVersion: 2
-        x: 76
+        x: 52
         y: 0
-        width: 38
+        width: 26
         height: 32
-      alignment: 9
-      pivot: {x: 0.4210526, y: 0.5}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d46a924de3b3c4770800000000000000
-      internalID: 8596310929776944717
+      spriteID: f18a4d289a9938330800000000000000
+      internalID: 3711979471206918175
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: attackSmall_3
+      name: player-run-down_3
       rect:
         serializedVersion: 2
-        x: 114
+        x: 78
         y: 0
-        width: 38
+        width: 26
         height: 32
-      alignment: 9
-      pivot: {x: 0.4210526, y: 0.5}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0e5ad92abcc9cc9c0800000000000000
-      internalID: -3905574378416527904
+      spriteID: db472bbb7068f66c0800000000000000
+      internalID: -4147949364013009731
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: attackSmall_4
+      name: player-run-down_4
       rect:
         serializedVersion: 2
-        x: 152
+        x: 104
         y: 0
-        width: 38
+        width: 26
         height: 32
-      alignment: 9
-      pivot: {x: 0.4210526, y: 0.5}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ab3a6757d24278d90800000000000000
-      internalID: -7095662910236089414
+      spriteID: 23ee19bc31f916b50800000000000000
+      internalID: 6584719037560909362
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: attackSmall_5
+      name: player-run-down_5
       rect:
         serializedVersion: 2
-        x: 190
+        x: 130
         y: 0
-        width: 38
+        width: 26
         height: 32
-      alignment: 9
-      pivot: {x: 0.4210526, y: 0.5}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ff27142078e441b50800000000000000
-      internalID: 6562956898751050495
+      spriteID: 78d4ff671d9112b20800000000000000
+      internalID: 3107793605297655175
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player-run-down_6
+      rect:
+        serializedVersion: 2
+        x: 156
+        y: 0
+        width: 26
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4c63b81b7251b5810800000000000000
+      internalID: 1755019740017538756
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player-run-down_7
+      rect:
+        serializedVersion: 2
+        x: 182
+        y: 0
+        width: 26
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bb63c882bed45a7d0800000000000000
+      internalID: -2907832312004856133
       vertices: []
       indices: 
       edges: []

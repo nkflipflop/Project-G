@@ -6,7 +6,6 @@ public class WeaponBase : MonoBehaviour {
 
 
 	private WeaponRecoiler _weaponRecoiler;
-	private SpriteRenderer _renderer;
 	private float _timeBtwShots;
 
 	protected float ReloadTime;
@@ -14,14 +13,20 @@ public class WeaponBase : MonoBehaviour {
 	protected bool HasRecoil;
 	protected float Damage;
 	protected int MaxAmmo;
+	
 	public int CurrentAmmo { get; protected set; }
-
+	public SpriteRenderer Renderer;
 	public GameObject Projectile;
 	public GameObject FireEffect;
+	
+	// Changes layer of the sprite
+	public void SetSortingOrder(int order){
+		Renderer.sortingOrder = order;
+	}
 
 	// Flips the sprite
-	public void flip(bool flip) {
-		_renderer.flipY = !flip; 
+	public void Flip(bool flip) {
+		Renderer.flipY = !flip; 
 	}
 
 	// Fires the Weapon
@@ -63,7 +68,6 @@ public class WeaponBase : MonoBehaviour {
 
 
 	private void Start() {
-		_renderer = gameObject.GetComponent<SpriteRenderer>();
 		_weaponRecoiler = GetComponent<WeaponRecoiler>();
 	}
 

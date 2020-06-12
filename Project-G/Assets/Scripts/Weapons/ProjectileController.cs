@@ -35,6 +35,7 @@ public class ProjectileController : MonoBehaviour {
 		RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, direction, .1f, ShotByPlayer ? _hittableLayersByPlayer : _hittableLayersByEnemy);
 		// Debug.DrawRay(transform.position, direction, Color.blue, .1f);
 
+
 		// Range controlling for arrow	
 		if (lifeTime > 0) {
 			lifeTime -= 1;

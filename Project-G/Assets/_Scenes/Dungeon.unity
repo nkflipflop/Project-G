@@ -538,6 +538,15 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1923094851}
     m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3879933217403580072, guid: de1d88ca4980ec343bfca770485c2db2,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 6447835031427417211, guid: de1d88ca4980ec343bfca770485c2db2,
         type: 3}
       propertyPath: m_Name
@@ -551,12 +560,12 @@ PrefabInstance:
     - target: {fileID: 7349297353471190684, guid: de1d88ca4980ec343bfca770485c2db2,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.225
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7349297353471190684, guid: de1d88ca4980ec343bfca770485c2db2,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.24400002
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7349297353471190684, guid: de1d88ca4980ec343bfca770485c2db2,
         type: 3}
@@ -603,7 +612,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: de1d88ca4980ec343bfca770485c2db2, type: 3}
 --- !u!4 &249246507 stripped
 Transform:
@@ -6090,7 +6100,6 @@ GameObject:
   - component: {fileID: 934962437}
   - component: {fileID: 934962436}
   - component: {fileID: 934962438}
-  - component: {fileID: 934962439}
   m_Layer: 0
   m_Name: CM vcam1
   m_TagString: Untagged
@@ -6160,21 +6169,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a8a05de0ac134f4f9d01bef6b9da077, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &934962439
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 934962435}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00b2d199b96b516448144ab30fb26aed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ChannelMask: 1
-  m_Gain: 1
-  m_Use2DDistance: 0
 --- !u!1 &1190333001
 GameObject:
   m_ObjectHideFlags: 0
@@ -6443,8 +6437,9 @@ GameObject:
   - component: {fileID: 1923094851}
   - component: {fileID: 1923094852}
   - component: {fileID: 1923094853}
-  m_Layer: 0
-  m_Name: Hand
+
+  m_Layer: 10
+  m_Name: Hands
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6458,7 +6453,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1923094850}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.08, y: -0.105, z: 0}
+  m_LocalPosition: {x: -0.075, y: 0.01, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 249246507}
@@ -6493,6 +6488,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3770355bf5c134f48be55f2679f94f99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  RendererPlayer: {fileID: 8005256322282322023}
 --- !u!1 &8005256322282322018
 GameObject:
   m_ObjectHideFlags: 0
@@ -6618,16 +6614,16 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 8793639957104055765, guid: cab9402b4c8e86a42bda8cb95e05692d,
+  m_Sprite: {fileID: -1882347247711912902, guid: b3d28aa6a4956c64c8cd0c0a1753ca54,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.7916667, y: 0.6666667}
+  m_Size: {x: 0.5416667, y: 0.6666667}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!50 &8005256322282322024
