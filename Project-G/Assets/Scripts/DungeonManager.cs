@@ -414,9 +414,9 @@ public class DungeonManager : MonoBehaviour
 		_dungeonTiles = new int[DungeonRows + (2 * DungeonPadding), DungeonColumns + (2 * DungeonPadding)];
 		_bridgeTilesPos = new List<Vector2Int>();
 		DrawRooms(rootSubDungeon);
+		DrawCorridors(rootSubDungeon);
 		DetermineBridges(rootSubDungeon);
 		DrawBridges();
-		DrawCorridors(rootSubDungeon);
 		DrawWaters();
 		_bridgeTilesPos.Clear();		// deleting the list since it completes its purpose
 		DrawWalls();
