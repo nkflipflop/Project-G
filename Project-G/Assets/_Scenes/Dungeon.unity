@@ -6437,7 +6437,6 @@ GameObject:
   - component: {fileID: 1923094851}
   - component: {fileID: 1923094852}
   - component: {fileID: 1923094853}
-
   m_Layer: 10
   m_Name: Hands
   m_TagString: Untagged
@@ -6614,7 +6613,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: -1882347247711912902, guid: b3d28aa6a4956c64c8cd0c0a1753ca54,
+  m_Sprite: {fileID: 6476892446304447728, guid: ffcc2faf9544142448a58b2e11ccdafc,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -6623,7 +6622,7 @@ SpriteRenderer:
   m_Size: {x: 0.5416667, y: 0.6666667}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!50 &8005256322282322024
