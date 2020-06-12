@@ -25,7 +25,7 @@ public class TurretController : MonoBehaviour {
 			Vector3 direction = Target.transform.position - transform.position;
 			direction.y -= .23f;
 			RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, direction, 4f, _hittableLayersByEnemy);
-			Debug.DrawRay(transform.position, direction, Color.blue, .1f);
+			//Debug.DrawRay(transform.position, direction, Color.blue, .1f);
 	
 			if (hitInfo.collider != null) {
 				if (hitInfo.collider.tag == "Player") {
