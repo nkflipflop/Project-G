@@ -12,9 +12,8 @@ public class EnemyController : MonoBehaviour
 	private Vector3 _distanceBtwTarget;
 	private int _maxPathLength = 6;
 	[SerializeField] private int _health = 15;
-	private bool _isDead = false;
 
-	public Dissolve DissolveEffect;
+	public DamageHelper DamageHelper;
 
 	/*  
 	*   IMPORTANT NOTES:
@@ -32,19 +31,10 @@ public class EnemyController : MonoBehaviour
 
 		InvokeRepeating("CheckTargetPosition", 5.0f, 0.5f);     // run this function every 0.5 sec
 	}
-	
-	private void Update() {
-		if (_health <= 0) {
-			//Instantiate(deathEffect, transform.position, Quaternion.identity);
-			_isDead = true;
-			DissolveEffect.IsDissolving = true;
-			//Destroy(gameObject);
-		}
-	}
 
 	// Update is called once per frame
 	void FixedUpdate() {
-		if (!_isDead)
+		if (DamageHelper.IsDead)
 			Movement();
 	}
 
