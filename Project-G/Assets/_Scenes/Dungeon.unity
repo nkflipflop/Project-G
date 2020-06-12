@@ -5685,6 +5685,7 @@ GameObject:
   - component: {fileID: 592281811}
   - component: {fileID: 592281810}
   - component: {fileID: 592281813}
+  - component: {fileID: 592281817}
   - component: {fileID: 592281816}
   - component: {fileID: 592281815}
   - component: {fileID: 592281814}
@@ -5804,10 +5805,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4ca2a21f7e2ec842800d7d8bdc559bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _health: 25
   _weapon: {fileID: 450460189}
   Target: {fileID: 8005256322282322018}
-  DissolveEffect: {fileID: 592281816}
 --- !u!114 &592281815
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5833,6 +5832,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hasChild: 1
+--- !u!114 &592281817
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 592281809}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df6fb28ad9cbb484c9d905d52d4dfa92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _health: 25
+  DissolveEffect: {fileID: 592281816}
 --- !u!1 &609681514
 GameObject:
   m_ObjectHideFlags: 0
@@ -5906,6 +5919,7 @@ GameObject:
   - component: {fileID: 693822124}
   - component: {fileID: 693822120}
   - component: {fileID: 693822119}
+  - component: {fileID: 693822125}
   - component: {fileID: 693822118}
   - component: {fileID: 693822123}
   m_Layer: 8
@@ -5943,7 +5957,7 @@ MonoBehaviour:
   Target: {fileID: 8005256322282322018}
   _speed: 2
   _health: 15
-  DissolveEffect: {fileID: 693822118}
+  DamageHelper: {fileID: 693822125}
 --- !u!114 &693822120
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6051,6 +6065,20 @@ CapsuleCollider2D:
   m_Offset: {x: -0.014236811, y: -0.2591164}
   m_Size: {x: 0.41400558, y: 0.23176858}
   m_Direction: 1
+--- !u!114 &693822125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 693822117}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df6fb28ad9cbb484c9d905d52d4dfa92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _health: 25
+  DissolveEffect: {fileID: 693822118}
 --- !u!1 &934962435
 GameObject:
   m_ObjectHideFlags: 0
@@ -6479,6 +6507,8 @@ GameObject:
   - component: {fileID: 8005256322282322025}
   - component: {fileID: 8005256322282322024}
   - component: {fileID: 8005256322282322020}
+  - component: {fileID: 8005256322282322027}
+  - component: {fileID: 8005256322282322026}
   - component: {fileID: 8005256322282322019}
   m_Layer: 10
   m_Name: Player
@@ -6567,7 +6597,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 8731b3bef0b12044381118bb5f69a921, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -6637,3 +6667,30 @@ CapsuleCollider2D:
   m_Offset: {x: 0.010000002, y: -0.22923231}
   m_Size: {x: 0.23000021, y: 0.08346591}
   m_Direction: 1
+--- !u!114 &8005256322282322026
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8005256322282322018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a26a8f1685a6d044b23c832729f9a3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _hasChild: 0
+--- !u!114 &8005256322282322027
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8005256322282322018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df6fb28ad9cbb484c9d905d52d4dfa92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _health: 50
+  DissolveEffect: {fileID: 8005256322282322026}
