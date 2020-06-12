@@ -11,7 +11,9 @@ public class EnemyController : MonoBehaviour
 	private Vector3 _targetPos;
 	private Vector3 _distanceBtwTarget;
 	private int _maxPathLength = 6;
-	private int _health = 5;
+	[SerializeField] private int _health = 15;
+
+	public DamageHelper DamageHelper;
 
 	/*  
 	*   IMPORTANT NOTES:
@@ -29,17 +31,11 @@ public class EnemyController : MonoBehaviour
 
 		InvokeRepeating("CheckTargetPosition", 5.0f, 0.5f);     // run this function every 0.5 sec
 	}
-	
-	private void Update() {
-		if (_health <= 0) {
-			//Instantiate(deathEffect, transform.position, Quaternion.identity);
-			Destroy(gameObject);
-		}
-	}
 
 	// Update is called once per frame
 	void FixedUpdate() {
-		Movement();
+		if (DamageHelper.IsDead)
+			Movement();
 	}
 
 	private void Movement() {

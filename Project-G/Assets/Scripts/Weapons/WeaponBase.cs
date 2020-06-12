@@ -38,6 +38,9 @@ public class WeaponBase : MonoBehaviour {
 		StartCoroutine(FireEffector(shootPoint.position));
 		// Creating projectile
 		Instantiate(Projectile, shootPoint.position, transform.rotation);
+		
+		Projectile.GetComponent<ProjectileController>().ShotByPlayer = (transform.root.tag == "Player");
+
 
 		CurrentAmmo -= 1;
 		_timeBtwShots = FireRate;
