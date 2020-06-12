@@ -1,22 +1,55 @@
 fileFormatVersion: 2
-guid: cab9402b4c8e86a42bda8cb95e05692d
+guid: 511b045d437112d4694f71eef447ab62
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8793639957104055765
-    second: idle_0
+      213: -1189564142739583781
+    second: player-run-down_0
   - first:
-      213: 6084859605308855041
-    second: idle_1
+      213: 2888982340797413403
+    second: player-run-down_1
   - first:
-      213: 8603369663158992956
-    second: idle_2
+      213: 1251026553745671902
+    second: player-run-down_2
   - first:
-      213: -5906421172241655209
-    second: idle_3
+      213: 7950015853069839501
+    second: player-run-down_3
   - first:
-      213: 5704420531145803721
-    second: idle_4
+      213: 6993790831146939608
+    second: player-run-down_4
+  - first:
+      213: -4111506818496443759
+    second: player-run-down_5
+  - first:
+      213: -3715089533278919465
+    second: player-run-down_6
+  - first:
+      213: -3093906156042890525
+    second: player-run-down_7
+  - first:
+      213: 4190591877398773786
+    second: player-run-down_0
+  - first:
+      213: 5218361225369574737
+    second: player-run-down_1
+  - first:
+      213: 3711979471206918175
+    second: player-run-down_2
+  - first:
+      213: -4147949364013009731
+    second: player-run-down_3
+  - first:
+      213: 6584719037560909362
+    second: player-run-down_4
+  - first:
+      213: 3107793605297655175
+    second: player-run-down_5
+  - first:
+      213: 1755019740017538756
+    second: player-run-down_6
+  - first:
+      213: -2907832312004856133
+    second: player-run-down_7
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -101,106 +134,169 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: idle_0
+      name: player-run-down_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 38
+        width: 26
         height: 32
-      alignment: 9
-      pivot: {x: 0.4210526, y: 0.5}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5d55ed543f8490a70800000000000000
-      internalID: 8793639957104055765
+      spriteID: a10cdfa1c19f72a30800000000000000
+      internalID: 4190591877398773786
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: idle_1
+      name: player-run-down_1
       rect:
         serializedVersion: 2
-        x: 38
+        x: 26
         y: 0
-        width: 38
+        width: 26
         height: 32
-      alignment: 9
-      pivot: {x: 0.4210526, y: 0.5}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 103de827293c17450800000000000000
-      internalID: 6084859605308855041
+      spriteID: 15d53dbe2e75b6840800000000000000
+      internalID: 5218361225369574737
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: idle_2
+      name: player-run-down_2
       rect:
         serializedVersion: 2
-        x: 76
+        x: 52
         y: 0
-        width: 38
+        width: 26
         height: 32
-      alignment: 9
-      pivot: {x: 0.4210526, y: 0.5}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c30c6f3402f456770800000000000000
-      internalID: 8603369663158992956
+      spriteID: f18a4d289a9938330800000000000000
+      internalID: 3711979471206918175
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: idle_3
+      name: player-run-down_3
       rect:
         serializedVersion: 2
-        x: 114
+        x: 78
         y: 0
-        width: 38
+        width: 26
         height: 32
-      alignment: 9
-      pivot: {x: 0.4210526, y: 0.5}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 75a90b6cc3d280ea0800000000000000
-      internalID: -5906421172241655209
+      spriteID: db472bbb7068f66c0800000000000000
+      internalID: -4147949364013009731
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: idle_4
+      name: player-run-down_4
       rect:
         serializedVersion: 2
-        x: 152
+        x: 104
         y: 0
-        width: 38
+        width: 26
         height: 32
-      alignment: 9
-      pivot: {x: 0.4210526, y: 0.5}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9c70460ff3c2a2f40800000000000000
-      internalID: 5704420531145803721
+      spriteID: 23ee19bc31f916b50800000000000000
+      internalID: 6584719037560909362
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player-run-down_5
+      rect:
+        serializedVersion: 2
+        x: 130
+        y: 0
+        width: 26
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 78d4ff671d9112b20800000000000000
+      internalID: 3107793605297655175
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player-run-down_6
+      rect:
+        serializedVersion: 2
+        x: 156
+        y: 0
+        width: 26
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4c63b81b7251b5810800000000000000
+      internalID: 1755019740017538756
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player-run-down_7
+      rect:
+        serializedVersion: 2
+        x: 182
+        y: 0
+        width: 26
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bb63c882bed45a7d0800000000000000
+      internalID: -2907832312004856133
       vertices: []
       indices: 
       edges: []

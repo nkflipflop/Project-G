@@ -1,25 +1,67 @@
 fileFormatVersion: 2
-guid: 35c82a0479612f14888751daf99fd56a
+guid: b0243d1539c7ae14eb97cce3d75dfbfe
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2227060902098458453
-    second: attackSmall_0
+      213: -2325883851137985749
+    second: player-idle-left_0
   - first:
-      213: 1541159618760331448
-    second: attackSmall_1
+      213: 6604734348878759037
+    second: player-idle-left_1
   - first:
-      213: 8596310929776944717
-    second: attackSmall_2
+      213: 9079425238221880116
+    second: player-idle-left_2
   - first:
-      213: -3905574378416527904
-    second: attackSmall_3
+      213: -5231172892372842945
+    second: player-idle-left_3
   - first:
-      213: -7095662910236089414
-    second: attackSmall_4
+      213: 1223604057845419818
+    second: player-idle-left_4
   - first:
-      213: 6562956898751050495
-    second: attackSmall_5
+      213: 1845254660183455305
+    second: player-idle-left_5
+  - first:
+      213: -3325987777094235214
+    second: player-idle-left_6
+  - first:
+      213: 6124094124726528778
+    second: player-idle-left_7
+  - first:
+      213: -6491929020980220907
+    second: player-idle-left_8
+  - first:
+      213: -2848208739312703424
+    second: player-idle-left_9
+  - first:
+      213: 8993340952663278384
+    second: player-idle-left_10
+  - first:
+      213: 7825461239345728358
+    second: player-idle-left_0
+  - first:
+      213: -2727751498646552506
+    second: player-idle-left_1
+  - first:
+      213: 2347518486423111615
+    second: player-idle-left_2
+  - first:
+      213: -2110812890264689661
+    second: player-idle-left_3
+  - first:
+      213: 7863091855095395251
+    second: player-idle-left_4
+  - first:
+      213: -5980155133836840891
+    second: player-idle-left_5
+  - first:
+      213: -6726934101377904437
+    second: player-idle-left_6
+  - first:
+      213: -5686567176878163977
+    second: player-idle-left_7
+  - first:
+      213: 3238046432700570315
+    second: player-idle-left_8
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -104,127 +146,190 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: attackSmall_0
+      name: player-idle-left_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 38
+        width: 26
         height: 32
       alignment: 9
-      pivot: {x: 0.4210526, y: 0.5}
+      pivot: {x: 0.6153846, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ba8a245b8e3e711e0800000000000000
-      internalID: -2227060902098458453
+      spriteID: 66b4ace398f999c60800000000000000
+      internalID: 7825461239345728358
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: attackSmall_1
+      name: player-idle-left_1
       rect:
         serializedVersion: 2
-        x: 38
+        x: 26
         y: 0
-        width: 38
+        width: 26
         height: 32
       alignment: 9
-      pivot: {x: 0.4210526, y: 0.5}
+      pivot: {x: 0.6153846, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8b0d262028c436510800000000000000
-      internalID: 1541159618760331448
+      spriteID: 64002a7d674152ad0800000000000000
+      internalID: -2727751498646552506
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: attackSmall_2
+      name: player-idle-left_2
       rect:
         serializedVersion: 2
-        x: 76
+        x: 52
         y: 0
-        width: 38
+        width: 26
         height: 32
       alignment: 9
-      pivot: {x: 0.4210526, y: 0.5}
+      pivot: {x: 0.6153846, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d46a924de3b3c4770800000000000000
-      internalID: 8596310929776944717
+      spriteID: fb789ee20af049020800000000000000
+      internalID: 2347518486423111615
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: attackSmall_3
+      name: player-idle-left_3
       rect:
         serializedVersion: 2
-        x: 114
+        x: 78
         y: 0
-        width: 38
+        width: 26
         height: 32
       alignment: 9
-      pivot: {x: 0.4210526, y: 0.5}
+      pivot: {x: 0.6153846, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0e5ad92abcc9cc9c0800000000000000
-      internalID: -3905574378416527904
+      spriteID: 30425702cd2e4b2e0800000000000000
+      internalID: -2110812890264689661
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: attackSmall_4
+      name: player-idle-left_4
       rect:
         serializedVersion: 2
-        x: 152
+        x: 104
         y: 0
-        width: 38
+        width: 26
         height: 32
       alignment: 9
-      pivot: {x: 0.4210526, y: 0.5}
+      pivot: {x: 0.6153846, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ab3a6757d24278d90800000000000000
-      internalID: -7095662910236089414
+      spriteID: 3b37a3bb1605f1d60800000000000000
+      internalID: 7863091855095395251
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: attackSmall_5
+      name: player-idle-left_5
       rect:
         serializedVersion: 2
-        x: 190
+        x: 130
         y: 0
-        width: 38
+        width: 26
         height: 32
       alignment: 9
-      pivot: {x: 0.4210526, y: 0.5}
+      pivot: {x: 0.6153846, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ff27142078e441b50800000000000000
-      internalID: 6562956898751050495
+      spriteID: 5403de90798320da0800000000000000
+      internalID: -5980155133836840891
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player-idle-left_6
+      rect:
+        serializedVersion: 2
+        x: 156
+        y: 0
+        width: 26
+        height: 32
+      alignment: 9
+      pivot: {x: 0.6153846, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bc098eb531125a2a0800000000000000
+      internalID: -6726934101377904437
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player-idle-left_7
+      rect:
+        serializedVersion: 2
+        x: 182
+        y: 0
+        width: 26
+        height: 32
+      alignment: 9
+      pivot: {x: 0.6153846, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7f7f7c608414511b0800000000000000
+      internalID: -5686567176878163977
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player-idle-left_8
+      rect:
+        serializedVersion: 2
+        x: 208
+        y: 0
+        width: 26
+        height: 32
+      alignment: 9
+      pivot: {x: 0.6153846, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bca965b131adfec20800000000000000
+      internalID: 3238046432700570315
       vertices: []
       indices: 
       edges: []

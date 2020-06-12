@@ -538,10 +538,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1923094851}
     m_Modifications:
-    - target: {fileID: 1424215494084366351, guid: de1d88ca4980ec343bfca770485c2db2,
-        type: 3}
+    - target: {fileID: 0}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3879933217403580072, guid: de1d88ca4980ec343bfca770485c2db2,
         type: 3}
@@ -613,7 +612,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: de1d88ca4980ec343bfca770485c2db2, type: 3}
 --- !u!4 &249246507 stripped
 Transform:
@@ -6238,6 +6238,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3770355bf5c134f48be55f2679f94f99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  RendererPlayer: {fileID: 8005256322282322023}
 --- !u!1 &8005256322282322018
 GameObject:
   m_ObjectHideFlags: 0
@@ -6367,10 +6368,10 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.7916667, y: 0.6666667}
+  m_Size: {x: 0.5416667, y: 0.6666667}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!50 &8005256322282322024

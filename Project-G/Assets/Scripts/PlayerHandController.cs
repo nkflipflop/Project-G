@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerHandController : MonoBehaviour {
+
+	public SpriteRenderer RendererPlayer;
+
 	private Vector3 _mousePosition;
 	private Vector3 _weaponPosition = new Vector3 (0, 0, 0);
-	private SpriteRenderer _currentWeaponSpriteRenderer;
 	private WeaponBase _currentWeapon;
 	private WeaponBase _newWeapon;
 
@@ -14,7 +16,7 @@ public class PlayerHandController : MonoBehaviour {
 	private bool _canTake = false;
 
 
-	void InterractWithNewWeapon(){
+	private void InterractWithNewWeapon(){
 		if(_canTake){
 			_takeWeapon = Input.GetKeyDown("e");
 			//Debug.Log("Çok istiyorsan 'E' ye bas. ;(");
@@ -27,7 +29,8 @@ public class PlayerHandController : MonoBehaviour {
 		}
 	}
 
-	void EquipWeapon(WeaponBase weapon){
+	// Equips the new weapon from ground
+	private void EquipWeapon(WeaponBase weapon){
 			weapon.transform.SetParent(transform, false);
 			weapon.transform.localPosition = _weaponPosition;
 			weapon.transform.rotation = transform.rotation;
@@ -35,11 +38,27 @@ public class PlayerHandController : MonoBehaviour {
 			_currentWeapon = weapon;
 	}
 
+	// Adjusts the sorting order of the weapon according to mouse position (player's direction)
+	private void AdjustSortingOrder(){
+		Vector2 mouseDir = _mousePosition - transform.parent.position;
+		float horizontal = mouseDir.x;
+		float vertical = mouseDir.y;
+		float slope = horizontal / vertical;
+		
+		int sortingOrder = RendererPlayer.sortingOrder;
+		if (-1 < slope && slope < 1 && vertical > 0)	
+			sortingOrder -= 2;
+		else	
+			sortingOrder += 2;
+
+		_currentWeapon.SetSortingOrder(sortingOrder);
+	}
+
 	// Aims the weapon
 	private void AimWeapon() {
 		// Flipping hand position and weapon direction
 		bool onRight = (_mousePosition.x - transform.position.x) > 0 ? true : false;
-		_currentWeapon.flip(onRight);
+		_currentWeapon.Flip(onRight);
 		if (onRight)
 			transform.localPosition = new Vector3(-Mathf.Abs(transform.localPosition.x), transform.localPosition.y, 0f);
 		else
@@ -47,6 +66,7 @@ public class PlayerHandController : MonoBehaviour {
 
 		// Getting mouse position and direction of player to mouse
 		Vector3 aimDirection = (_mousePosition - _currentWeapon.transform.position).normalized;
+
 		// Rotating the current weapon
 		float angle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
 		_currentWeapon.transform.eulerAngles = new Vector3(0, 0, angle);
@@ -56,6 +76,7 @@ public class PlayerHandController : MonoBehaviour {
 		if(_currentWeapon != null){
 			_currentWeapon.WeaponUpdate();
 			AimWeapon();
+			AdjustSortingOrder();
 		}
 	}
 
