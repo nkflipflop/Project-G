@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class ProjectileController : MonoBehaviour {
 
-	public float lifeTime = 50;
-	public float speed;
-	public int damage;
+	public SpriteRenderer Renderer;
+    public GameObject DestroyEffect;
+	public Sprite HittedSprite;
+
+	public float LifeTime = 50;
+	public float Speed = 30;
+	public int Damage;
 	public bool ShotByPlayer = true;
 	
-	private SpriteRenderer _renderer;
-	
-    public GameObject destroyEffect;
-	public Sprite hittedSprite;
 
     private int _enemyLayer = 8;
     private int _environmentLayer = 9;
@@ -21,7 +21,6 @@ public class ProjectileController : MonoBehaviour {
 	private LayerMask _hittableLayersByEnemy;
 
 	private void Start() {
-		_renderer = GetComponent<SpriteRenderer>();
 		// Destroying when hit
 		StartCoroutine(DestroyProjectile());
 
@@ -33,29 +32,28 @@ public class ProjectileController : MonoBehaviour {
 		// Ray collider controlling
 		Vector3 direction = transform.rotation * Vector3.right;
 		RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, direction, .1f, ShotByPlayer ? _hittableLayersByPlayer : _hittableLayersByEnemy);
-		// Debug.DrawRay(transform.position, direction, Color.blue, .1f);
-
 
 		// Range controlling for arrow	
-		if (lifeTime > 0) {
-			lifeTime -= 1;
+		if (LifeTime > 0) {
+			LifeTime -= 1;
 			// When ray collides with another collider
 			if ( hitInfo.collider != null) {
 				// If it is enemy
 				if (hitInfo.collider.CompareTag("Player") || hitInfo.collider.CompareTag("Enemy"))
-					hitInfo.collider.GetComponent<DamageHelper>().TakeDamage(damage);
+					hitInfo.collider.GetComponent<DamageHelper>().TakeDamage(Damage);
 				// Stopping the projectile
-				lifeTime = 0;
+				LifeTime = 0;
 			}
 			else {
-				transform.Translate(Vector3.right * speed * Time.deltaTime);
+				transform.Translate(Vector3.right * Speed * Time.deltaTime);
 			}
 		}
-		else if (lifeTime == 0){
-			lifeTime -= 1;
-			_renderer.sprite = hittedSprite;
+		else if (LifeTime == 0){
+			LifeTime -= 1;
+			Renderer.sprite = HittedSprite;
+			
 			// Creating After Effect
-			Instantiate(destroyEffect, transform.position, transform.rotation, transform);
+			Instantiate(DestroyEffect, transform.position, transform.rotation, transform);
 		}
 	}
 	

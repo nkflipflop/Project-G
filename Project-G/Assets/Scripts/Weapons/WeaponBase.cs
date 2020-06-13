@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class WeaponBase : MonoBehaviour {
 
-
 	private WeaponRecoiler _weaponRecoiler;
 	private float _timeBtwShots;
 
@@ -14,7 +13,7 @@ public class WeaponBase : MonoBehaviour {
 	protected float Damage;
 	protected int MaxAmmo;
 	
-	public int CurrentAmmo { get; protected set; }
+	public int CurrentAmmo { get; set; }
 	public SpriteRenderer Renderer;
 	public SpriteRenderer LeftHand;
 	public SpriteRenderer RightHand;
@@ -33,8 +32,6 @@ public class WeaponBase : MonoBehaviour {
 
 	// Flips the sprite
 	public void ScaleInverse() {
-		Debug.Log(true);
-
 		Vector3 scale = transform.localScale;
 		scale.y *= -1;
 		transform.localScale = scale; 
@@ -42,19 +39,18 @@ public class WeaponBase : MonoBehaviour {
 
 	// Fires the Weapon
 	public void Fire() {
+		CurrentAmmo -= 1;
+		_timeBtwShots = FireRate;
+
 		Transform shootPoint = transform.GetChild(0);
 		// Recoiling the weapon
 		if (HasRecoil) _weaponRecoiler.AddRecoil();
 		// Creating Fire Effect
 		StartCoroutine(FireEffector(shootPoint.position));
 		// Creating projectile
-		Instantiate(Projectile, shootPoint.position, transform.rotation);
+		Instantiate(Projectile, shootPoint.position, shootPoint.rotation);
 		
 		Projectile.GetComponent<ProjectileController>().ShotByPlayer = (transform.root.tag == "Player");
-
-
-		CurrentAmmo -= 1;
-		_timeBtwShots = FireRate;
 	}
 
 	public virtual void TriggerWeapon() {
