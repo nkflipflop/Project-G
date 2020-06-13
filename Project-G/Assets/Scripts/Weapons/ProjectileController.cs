@@ -8,9 +8,9 @@ public class ProjectileController : MonoBehaviour {
     public GameObject DestroyEffect;
 	public Sprite HittedSprite;
 
-	public float LifeTime = 50;
-	public float Speed = 30;
-	public int Damage;
+	public float _lifetime = 50;
+	public float _speed = 30;
+	public int _damage;
 	public bool ShotByPlayer = true;
 	
 
@@ -32,24 +32,25 @@ public class ProjectileController : MonoBehaviour {
 		// Ray collider controlling
 		Vector3 direction = transform.rotation * Vector3.right;
 		RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, direction, .1f, ShotByPlayer ? _hittableLayersByPlayer : _hittableLayersByEnemy);
-
+		//Debug.DrawRay(transform.position, direction, Color.green);
 		// Range controlling for arrow	
-		if (LifeTime > 0) {
-			LifeTime -= 1;
+		if (_lifetime > 0) {
+			_lifetime -= 1;
 			// When ray collides with another collider
 			if ( hitInfo.collider != null) {
 				// If it is enemy
-				if (hitInfo.collider.CompareTag("Player") || hitInfo.collider.CompareTag("Enemy"))
-					hitInfo.collider.GetComponent<DamageHelper>().TakeDamage(Damage);
+				if (hitInfo.collider.CompareTag("Player") || hitInfo.collider.CompareTag("Enemy")) {
+					hitInfo.collider.gameObject.GetComponent<DamageHelper>().TakeDamage(_damage);
+				}
 				// Stopping the projectile
-				LifeTime = 0;
+				_lifetime = 0;
 			}
 			else {
-				transform.Translate(Vector3.right * Speed * Time.deltaTime);
+				transform.Translate(Vector3.right * _speed * Time.deltaTime);
 			}
 		}
-		else if (LifeTime == 0){
-			LifeTime -= 1;
+		else if (_lifetime == 0){
+			_lifetime -= 1;
 			Renderer.sprite = HittedSprite;
 			
 			// Creating After Effect
