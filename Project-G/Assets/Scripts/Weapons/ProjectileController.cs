@@ -8,9 +8,9 @@ public class ProjectileController : MonoBehaviour {
     public GameObject DestroyEffect;
 	public Sprite HittedSprite;
 
-	public float _lifetime = 50;
-	public float _speed = 30;
-	public int _damage;
+	private float _lifetime = 50;
+	private float _speed = 30;
+	[SerializeField] private int _damage = 2;
 	public bool ShotByPlayer = true;
 	
 
