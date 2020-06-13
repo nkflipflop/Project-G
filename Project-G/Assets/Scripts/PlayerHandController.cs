@@ -6,6 +6,7 @@ public class PlayerHandController : MonoBehaviour {
 
 	public SpriteRenderer RendererPlayer;
 	public PlayerController PlayerController;
+	public CursorController Cursor;
 
 	private Vector3 _mousePosition;
 	private Vector3 _weaponPosition = new Vector3 (0, 0, 0);
@@ -38,6 +39,9 @@ public class PlayerHandController : MonoBehaviour {
 			weapon.transform.rotation = transform.rotation;
 
 			_currentWeapon = weapon;
+
+			// Assigning current weapon to cursor to know current ammo
+			Cursor.CurrentWeapon = _currentWeapon;
 	}
 
 	// Adjusts the sorting order of the weapon according to mouse position (player's direction)
@@ -95,6 +99,9 @@ public class PlayerHandController : MonoBehaviour {
 	private void Start() {
 		_currentWeapon = transform.GetChild(0).GetComponent<WeaponBase>();
 		_currentWeapon.transform.localPosition = _weaponPosition;
+
+		// Assigning current weapon to cursor to know current ammo
+		Cursor.CurrentWeapon = _currentWeapon;
 	}
 	private void Update() {
 		GetInputs();
