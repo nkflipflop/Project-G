@@ -17,7 +17,7 @@ public class EnemyController : MonoBehaviour
 
 	private Vector2 _sightDir;
 	private bool _isAttacking = false;
-	private float _attackRange = 0.45f;
+	private float _attackRange = 0.4f;
 
 	/*  
 	*   IMPORTANT NOTES:
@@ -51,6 +51,7 @@ public class EnemyController : MonoBehaviour
 		_sightDir = Target.transform.position - transform.position;
 
 		if (_distanceBtwTarget < _attackRange) {			// close enough to attack
+			_targetPos = new Vector3Int(1000, 0, 0);
 			_isAttacking = true;
 		}
 		else {
