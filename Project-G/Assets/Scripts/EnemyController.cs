@@ -9,15 +9,15 @@ public class EnemyController : MonoBehaviour
 	[SerializeField] private float _speed = 1f;
 
 	private Vector3 _targetPos;
-	private Vector3 _distanceBtwTarget;
+	private float _distanceBtwTarget;
 	private int _maxPathLength = 6;
 
 	public DamageHelper DamageHelper;
 	private Animator _animator;
 
-	private Vector2 _sightPos;
+	private Vector2 _sightDir;
 	private bool _isAttacking = false;
-	private float _attackRange = 0.5f;
+	private float _attackRange = 0.45f;
 
 	/*  
 	*   IMPORTANT NOTES:
@@ -47,18 +47,17 @@ public class EnemyController : MonoBehaviour
 	}
 
 	private void Movement() {
-		_distanceBtwTarget = Target.transform.position - transform.position;
+		_distanceBtwTarget = (Target.transform.position - transform.position).magnitude;
+		_sightDir = Target.transform.position - transform.position;
 
-		if (_distanceBtwTarget.magnitude < _attackRange) {			// close enough to attack
+		if (_distanceBtwTarget < _attackRange) {			// close enough to attack
 			_isAttacking = true;
-		}
-		else if (_distanceBtwTarget.magnitude < 0.7f) {				// get closer to the target
-			_isAttacking = false;
-			_targetPos = Target.transform.position;
 		}
 		else {
 			_isAttacking = false;
-			if (_aStar.Path != null && _aStar.Path.Count > 0 && _aStar.Path.Count <= _maxPathLength) {
+			if (_distanceBtwTarget < 0.6f)				// get closer to attack
+				_targetPos = Target.transform.position;
+			else if (_aStar.Path != null && _aStar.Path.Count > 0 && _aStar.Path.Count <= _maxPathLength) {
 				if (_targetPos == new Vector3Int(1000, 0, 0) || transform.position == _targetPos) {
 					_targetPos = _aStar.Path.Pop();
 				}
@@ -69,7 +68,6 @@ public class EnemyController : MonoBehaviour
 
 		if (_targetPos != new Vector3Int(1000, 0, 0)) {
 			transform.position = Vector3.MoveTowards(transform.position, _targetPos, Time.deltaTime * _speed);      			// moving the enemy towards to target
-			_sightPos = _targetPos - transform.position;
 		}
 	}
 
@@ -86,7 +84,7 @@ public class EnemyController : MonoBehaviour
 
 	private void EnemyAnimate() {
 		_animator.SetBool("IsAttacking", _isAttacking);
-		_animator.SetFloat("Horizontal", _sightPos.x); 
-		_animator.SetFloat("Vertical", _sightPos.y);
+		_animator.SetFloat("Horizontal", _sightDir.x); 
+		_animator.SetFloat("Vertical", _sightDir.y);
 	}
 }
