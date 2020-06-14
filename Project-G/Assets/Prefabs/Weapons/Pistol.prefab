@@ -83,7 +83,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -154,6 +154,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Renderer: {fileID: 0}
+  LeftHand: {fileID: 0}
+  RightHand: {fileID: 0}
   Projectile: {fileID: 8024592333845191033, guid: fb83bf975619b5244a73294a493f4c29,
     type: 3}
   FireEffect: {fileID: 8386142174366488335, guid: 8ca38b1ea12c45541b2bcd676ebeb4ce,
