@@ -361,6 +361,8 @@ public class DungeonManager : MonoBehaviour
 						else
 							instance = Instantiate(WaterTiles[1], new Vector3 (bridgePos.x + i, bridgePos.y + j, 0f), Quaternion.identity) as GameObject;
 						instance.transform.SetParent(Dungeon.transform.GetChild((int)Tiles.Waters).gameObject.transform);
+						if (i == 0 && j == 0)
+							instance.gameObject.GetComponent<BoxCollider2D>().enabled = false;
 						_dungeonFloorPositions[bridgePos.x + i, bridgePos.y + j] = instance;
 						_dungeonTiles[bridgePos.x + i, bridgePos.y + j] = -1;
 					}
