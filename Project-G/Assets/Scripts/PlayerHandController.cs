@@ -115,6 +115,9 @@ public class PlayerHandController : MonoBehaviour {
 			_canTake = true;
 			_newWeapon = other.gameObject.GetComponent<WeaponBase>();
 		}
+		else if (other.gameObject.CompareTag("Key")) {
+			other.gameObject.SetActive(false);
+		}
 	}
 	
 	private void OnTriggerExit2D(Collider2D other) {
