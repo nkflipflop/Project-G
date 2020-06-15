@@ -19,7 +19,7 @@ public class EnemyController : MonoBehaviour
 	private bool _isAttacking = false;
 	[SerializeField] private float _attackRange = 0.4f;
 
-	[SerializeField] private CircleCollider2D _attackRangeCollider;
+	public EnemyCloseRangeAttackController AttackController;
 
 	/*  
 	*   IMPORTANT NOTES:
@@ -75,13 +75,15 @@ public class EnemyController : MonoBehaviour
 	}
 
 	private void CheckTargetPosition() {
-		Vector3Int TargetPos = new Vector3Int(Mathf.RoundToInt(Target.transform.position.x), Mathf.RoundToInt(Target.transform.position.y), Mathf.RoundToInt(Target.transform.position.z));
-		if (_aStar.GoalPos != TargetPos) {
-			_aStar.Current = null;
-			_aStar.StartPos = new Vector3Int((int)transform.position.x, (int)transform.position.y, (int)transform.position.z);
-			_aStar.GoalPos = TargetPos;
-			_aStar.Path = null;
-			_aStar.PathFinding();
+		if (Target != null) {
+			Vector3Int TargetPos = new Vector3Int(Mathf.RoundToInt(Target.transform.position.x), Mathf.RoundToInt(Target.transform.position.y), Mathf.RoundToInt(Target.transform.position.z));
+			if (_aStar.GoalPos != TargetPos) {
+				_aStar.Current = null;
+				_aStar.StartPos = new Vector3Int((int)transform.position.x, (int)transform.position.y, (int)transform.position.z);
+				_aStar.GoalPos = TargetPos;
+				_aStar.Path = null;
+				_aStar.PathFinding();
+			}
 		}
 	}
 
@@ -91,11 +93,11 @@ public class EnemyController : MonoBehaviour
 		_animator.SetFloat("Vertical", _sightDir.y);
 	}
 
-	public void EnableCollider() {
-		_attackRangeCollider.enabled = true;
+	private void EnableAttackCollider() {
+		AttackController.EnableCollider();
 	}
 
-	public void DisableCollider() {
-		_attackRangeCollider.enabled = false;
+	private void DisableeAttackCollider() {
+		AttackController.DisableCollider();
 	}
 }

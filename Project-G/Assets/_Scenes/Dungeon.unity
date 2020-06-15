@@ -5988,7 +5988,7 @@ MonoBehaviour:
   _speed: 2
   DamageHelper: {fileID: 693822125}
   _attackRange: 0.4
-  _attackRangeCollider: {fileID: 0}
+  AttackController: {fileID: 0}
 --- !u!114 &693822120
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6609,7 +6609,7 @@ MonoBehaviour:
   _speed: 1.8
   DamageHelper: {fileID: 1363067906}
   _attackRange: 0.4
-  _attackRangeCollider: {fileID: 0}
+  AttackController: {fileID: 0}
 --- !u!114 &1363067906
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6799,7 +6799,7 @@ MonoBehaviour:
   _speed: 2
   DamageHelper: {fileID: 1706242352}
   _attackRange: 0.3
-  _attackRangeCollider: {fileID: 1238256382}
+  AttackController: {fileID: 1238256383}
 --- !u!114 &1706242352
 MonoBehaviour:
   m_ObjectHideFlags: 0
