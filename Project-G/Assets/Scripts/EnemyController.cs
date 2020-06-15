@@ -18,6 +18,9 @@ public class EnemyController : MonoBehaviour
 	private Vector2 _sightDir;
 	private bool _isAttacking = false;
 	private float _attackRange = 0.4f;
+	[SerializeField] private float _damage = 3f;
+
+	private CircleCollider2D _circleCollider;
 
 	/*  
 	*   IMPORTANT NOTES:
@@ -29,6 +32,7 @@ public class EnemyController : MonoBehaviour
 	// Start is called before the first frame update
 	void Start() {
 		_animator = gameObject.GetComponent<Animator>();
+		_circleCollider = gameObject.GetComponent<CircleCollider2D>();
 
 		_aStar = gameObject.GetComponent<AStarPathfinding>();
 		_aStar.StartPos = new Vector3Int((int)transform.position.x, (int)transform.position.y, (int)transform.position.z);
@@ -87,5 +91,19 @@ public class EnemyController : MonoBehaviour
 		_animator.SetBool("IsAttacking", _isAttacking);
 		_animator.SetFloat("Horizontal", _sightDir.x); 
 		_animator.SetFloat("Vertical", _sightDir.y);
+	}
+
+	private void OnTriggerEnter2D(Collider2D other) {
+		if (other.gameObject.CompareTag("Player")) {
+            other.gameObject.GetComponent<DamageHelper>().TakeDamage(_damage);
+        }
+	}
+
+	public void EnableCollider() {
+		_circleCollider.enabled = true;
+	}
+
+	public void DisableCollider() {
+		_circleCollider.enabled = false;
 	}
 }
