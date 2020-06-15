@@ -17,7 +17,7 @@ public class EnemyController : MonoBehaviour
 
 	private Vector2 _sightDir;
 	private bool _isAttacking = false;
-	private float _attackRange = 0.4f;
+	[SerializeField] private float _attackRange = 0.4f;
 	[SerializeField] private float _damage = 3f;
 
 	private CircleCollider2D _circleCollider;
