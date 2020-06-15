@@ -6,7 +6,8 @@ public class ProjectileController : MonoBehaviour {
 
 	public SpriteRenderer Renderer;
     public GameObject DestroyEffect;
-	public Sprite HittedSprite;
+	public Sprite NoneSprite;
+	public GameObject Light;
 
 	private float _lifetime = 50;
 	private float _speed = 30;
@@ -51,7 +52,8 @@ public class ProjectileController : MonoBehaviour {
 		}
 		else if (_lifetime == 0){
 			_lifetime -= 1;
-			Renderer.sprite = HittedSprite;
+			Renderer.sprite = NoneSprite;
+			Light.SetActive(false);
 			
 			// Creating After Effect
 			Instantiate(DestroyEffect, transform.position, transform.rotation, transform);
