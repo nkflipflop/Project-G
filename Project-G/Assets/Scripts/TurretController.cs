@@ -7,13 +7,15 @@ public class TurretController : MonoBehaviour {
 	private int _playerLayer = 10;
 	private Transform _shootPoint;
 	[SerializeField] private WeaponBase _weapon = null;
-	public GameObject Target;
+	private GameObject _target;
 	private LayerMask _hittableLayersByEnemy;
 
 	// Start is called before the first frame update
 	void Start() {
 		_shootPoint = _weapon.transform.GetChild(0);
 		_hittableLayersByEnemy = (1 << _playerLayer) | (1 << _environmentLayer);
+
+		_target = GameObject.FindWithTag("Player");
 	}
 
 	private void FixedUpdate() {
@@ -21,8 +23,8 @@ public class TurretController : MonoBehaviour {
 	}
 
 	private void CheckPlayerInRange() {
-		if (Target != null) {
-			Vector3 direction = Target.transform.position - transform.position;
+		if (_target != null) {
+			Vector3 direction = _target.transform.position - transform.position;
 			direction.y -= .23f;
 			RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, direction, 4f, _hittableLayersByEnemy);
 			//Debug.DrawRay(transform.position, direction, Color.blue, .1f);
@@ -36,9 +38,9 @@ public class TurretController : MonoBehaviour {
 	}
 
 	private void Shoot() {
-		if (Target != null) {
+		if (_target != null) {
 			// Getting player position
-			Vector3 targetPos = new Vector3(Target.transform.position.x, Target.transform.position.y - 0.2f, Target.transform.position.z);
+			Vector3 targetPos = new Vector3(_target.transform.position.x, _target.transform.position.y - 0.2f, _target.transform.position.z);
 			Vector3 aimDirection = (targetPos - _weapon.transform.position).normalized;
 			// Rotating the current weapon
 			float angle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;

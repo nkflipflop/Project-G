@@ -44,7 +44,7 @@ public class PlayerController : MonoBehaviour {
 
 		if (Mathf.Abs(_horizontalInput) > 0 ||  Mathf.Abs(_verticalInput) > 0)    // starts run and its animation
 			isRun = true;
-		if (Input.GetKeyDown(KeyCode.Space)) {
+		if (Input.GetKeyDown(KeyCode.Space)) {		// restarting the scene
 			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 		}
 	}

@@ -6,6 +6,7 @@ using UnityEngine;
 public class DungeonManager : MonoBehaviour
 {
 	private enum Tiles { Bridges, Corridors, Floors, Walls, Waters }
+	private enum Objects { Enemies = 5, Traps }
 	private enum Bridges { Horizontal, Vertical, TopLeft, TopRight, DownLeft, DownRight }
 	public GameObject Player;
 	public GameObject Dungeon;
@@ -14,7 +15,7 @@ public class DungeonManager : MonoBehaviour
 	public GameObject[] WaterTiles;
 	public GameObject[] WallTiles;
 	public GameObject ExitTile;
-	public GameObject Turret;
+	public GameObject[] Enemies;
 	public GameObject Key;
 	private GameObject[,] _dungeonFloorPositions;
 	private int[,] _dungeonTiles;		// the tiles that players and other NPCs can walk on
@@ -22,7 +23,12 @@ public class DungeonManager : MonoBehaviour
 	public int DungeonRows, DungeonColumns;
 	public int DungeonPadding;
 	public int MinRoomSize, MaxRoomSize;
+	private int _totalArea = 0;
+	private int _totalRooms = 0;
+	private int _maxEnemy = 25;		// max number of enemies that are allowed in a level
+	private int _spawnedEnemies = 0;
 	private Vector3 _randomPos;
+	private SubDungeon _rootSubDungeon;
 
 	public int[,] DungeonMap { get {return _dungeonTiles;} }
 
@@ -213,6 +219,7 @@ public class DungeonManager : MonoBehaviour
 		if (subDungeon.IAmLeaf()) {
 			int editRoom = Random.Range(0,4);       // 25% chance for editing the shape of the room
 			int x = 0, y = 0, xMax = 0, yMax = 0;
+			_totalRooms++;
 			if (editRoom == 0) {
 				int randWidth = Random.Range(1, (int)(subDungeon.room.width / 2));
 				int randHeight = Random.Range(1, (int)(subDungeon.room.height / 2));
@@ -250,6 +257,7 @@ public class DungeonManager : MonoBehaviour
 						instance.transform.SetParent(Dungeon.transform.GetChild((int)Tiles.Floors).gameObject.transform);
 						_dungeonFloorPositions[i, j] = instance;
 						_dungeonTiles[i, j] = 1;
+						_totalArea++;
 					}
 				}
 			}
@@ -275,6 +283,7 @@ public class DungeonManager : MonoBehaviour
 						instance.transform.SetParent(Dungeon.transform.GetChild((int)Tiles.Corridors).gameObject.transform);
 						_dungeonFloorPositions[i, j] = instance;
 						_dungeonTiles[i, j] = 1;
+						_totalArea++;
 					}
 				}
 			}
@@ -395,39 +404,77 @@ public class DungeonManager : MonoBehaviour
 		}
 	}
 
-	void SetupPlayerSpawn(SubDungeon rootSubDungeon) {
-		GetRandomPos(rootSubDungeon);		// getting random position in the dungeon for the player
+	void SetupPlayerSpawn(SubDungeon _rootSubDungeon) {
+		GetRandomPos(_rootSubDungeon);		// getting random position in the dungeon for the player
 		Player.transform.position = _randomPos;
 
-		GetRandomPos(rootSubDungeon);		// getting random position in the dungeon for the exit
+		GetRandomPos(_rootSubDungeon);		// getting random position in the dungeon for the exit
 		GameObject instance = Instantiate(ExitTile, new Vector3(_randomPos.x, _randomPos.y, 0f), Quaternion.identity) as GameObject;
 		instance.transform.SetParent(Dungeon.transform);
 
-		GetRandomPos(rootSubDungeon);		// getting random position in the dungeon for the object
-		Turret.gameObject.transform.position = _randomPos;
+		GetRandomPos(_rootSubDungeon);		// getting random position in the dungeon for the object
+		Enemies[0].gameObject.transform.position = _randomPos;
 
-		GetRandomPos(rootSubDungeon);		// getting random position in the dungeon for the object
+		GetRandomPos(_rootSubDungeon);		// getting random position in the dungeon for the object
 		Key.gameObject.transform.position = _randomPos;
 	}
 
 	public void CreateDungeon() {
 		System.DateTime start = System.DateTime.Now;
-		SubDungeon rootSubDungeon = new SubDungeon(new Rect(DungeonPadding, DungeonPadding, DungeonRows, DungeonColumns));
-		CreateBSP(rootSubDungeon);
-		rootSubDungeon.CreateRoom();
+		_rootSubDungeon = new SubDungeon(new Rect(DungeonPadding, DungeonPadding, DungeonRows, DungeonColumns));
+		CreateBSP(_rootSubDungeon);
+		_rootSubDungeon.CreateRoom();
 
 		_dungeonFloorPositions = new GameObject[DungeonRows + (2 * DungeonPadding), DungeonColumns + (2 * DungeonPadding)];
 		_dungeonTiles = new int[DungeonRows + (2 * DungeonPadding), DungeonColumns + (2 * DungeonPadding)];
 		_bridgeTilesPos = new List<Vector2Int>();
-		DrawRooms(rootSubDungeon);
-		DrawCorridors(rootSubDungeon);
-		DetermineBridges(rootSubDungeon);
+		DrawRooms(_rootSubDungeon);
+		DrawCorridors(_rootSubDungeon);
+		DetermineBridges(_rootSubDungeon);
 		DrawBridges();
 		DrawWaters();
 		_bridgeTilesPos.Clear();		// deleting the list since it completes its purpose
 		DrawWalls();
-		SetupPlayerSpawn(rootSubDungeon);
+		SetupPlayerSpawn(_rootSubDungeon);
 		System.DateTime end = System.DateTime.Now;
 		Debug.Log("Dungeon Creation Time: " + end.Subtract(start).Milliseconds);
+		Debug.Log("Area: "+ _totalArea);
+	}
+
+	public void RandomEnemySpawner(int dungeonLevel) {
+		int enemiesPerRoom = (int)(_totalArea / _totalRooms);
+		SpawnEnemies(_rootSubDungeon, enemiesPerRoom, dungeonLevel);
+	}
+
+	private void SpawnEnemies(SubDungeon subDungeon, int enemiesPerRoom, int dungeonLevel) {
+		if (subDungeon == null)
+			return;
+
+		if (subDungeon.IAmLeaf()) {
+			if (_spawnedEnemies <= _maxEnemy) {
+				int minEnemyNumber = (int)((subDungeon.room.width * subDungeon.room.height) / 8);
+				int enemyNumberForThisRoom = Random.Range(minEnemyNumber, minEnemyNumber+1);
+				for (int i = 0; i < enemyNumberForThisRoom; i++) {
+					_randomPos = GetRandomPosInRoom(subDungeon.room);
+					GameObject instance = Instantiate(Enemies[(int)Random.Range(0, Enemies.Length)], _randomPos, Quaternion.identity) as GameObject;
+					instance.transform.SetParent(Dungeon.transform.GetChild((int)Objects.Enemies).gameObject.transform);
+					_spawnedEnemies++;
+				}
+			}
+		}
+		else {
+			SpawnEnemies(subDungeon.left, enemiesPerRoom, dungeonLevel);
+			SpawnEnemies(subDungeon.right, enemiesPerRoom, dungeonLevel);
+		}
+	}
+
+	private Vector3 GetRandomPosInRoom(Rect room) {
+		int randPosX, randPosY;
+		do {
+			randPosX = Random.Range((int)room.x, (int)room.xMax);
+			randPosY = Random.Range((int)room.y, (int)room.yMax);
+		}while (_dungeonTiles[randPosX, randPosY]!= 1);
+
+		return new Vector3(randPosX, randPosY, 0);
 	}
 }

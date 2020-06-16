@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-	public GameObject Target;
+	private GameObject _target;
 	private AStarPathfinding _aStar;
 	[SerializeField] private float _speed = 1f;
 
@@ -32,11 +32,9 @@ public class EnemyController : MonoBehaviour
 	void Start() {
 		_animator = gameObject.GetComponent<Animator>();
 
-		_aStar = gameObject.GetComponent<AStarPathfinding>();
-		_aStar.StartPos = new Vector3Int((int)transform.position.x, (int)transform.position.y, (int)transform.position.z);
-		_aStar.GoalPos = new Vector3Int(Mathf.RoundToInt(Target.transform.position.x), Mathf.RoundToInt(Target.transform.position.y), Mathf.RoundToInt(Target.transform.position.z));
-		_targetPos = new Vector3Int(1000, 0, 0);        // null value
+		_target = GameObject.FindWithTag("Player");
 
+		AStarSetup();
 		InvokeRepeating("CheckTargetPosition", 5.0f, 0.5f);     // run this function every 0.5 sec
 	}
 
@@ -44,13 +42,21 @@ public class EnemyController : MonoBehaviour
 	void FixedUpdate() {
 		if (!DamageHelper.IsDead) {
 			EnemyAnimate();
-			Movement();
+			if (_target != null)
+				Movement();
 		}
 	}
 
+	private void AStarSetup() {
+		_aStar = gameObject.GetComponent<AStarPathfinding>();
+		_aStar.StartPos = new Vector3Int((int)transform.position.x, (int)transform.position.y, (int)transform.position.z);
+		_aStar.GoalPos = new Vector3Int(Mathf.RoundToInt(_target.transform.position.x), Mathf.RoundToInt(_target.transform.position.y), Mathf.RoundToInt(_target.transform.position.z));
+		_targetPos = new Vector3Int(1000, 0, 0);        // null value
+	}
+
 	private void Movement() {
-		_distanceBtwTarget = (Target.transform.position - transform.position).magnitude;
-		_sightDir = Target.transform.position - transform.position;
+		_distanceBtwTarget = (_target.transform.position - transform.position).magnitude;
+		_sightDir = _target.transform.position - transform.position;
 
 		if (_distanceBtwTarget < _attackRange) {			// close enough to attack
 			_targetPos = new Vector3Int(1000, 0, 0);
@@ -59,14 +65,14 @@ public class EnemyController : MonoBehaviour
 		else {
 			_isAttacking = false;
 			if (_distanceBtwTarget < 0.6f)				// get closer to attack
-				_targetPos = Target.transform.position;
+				_targetPos = _target.transform.position;
 			else if (_aStar.Path != null && _aStar.Path.Count > 0 && _aStar.Path.Count <= _maxPathLength) {
 				if (_targetPos == new Vector3Int(1000, 0, 0) || transform.position == _targetPos) {
 					_targetPos = _aStar.Path.Pop();
 				}
 			}
 			else if (_aStar.Path != null && _aStar.Path.Count > _maxPathLength)
-				_targetPos = new Vector3Int((int)transform.position.x, (int)transform.position.y, (int)transform.position.z);       // if not chasing the Target, stay where you are
+				_targetPos = new Vector3Int((int)transform.position.x, (int)transform.position.y, (int)transform.position.z);       // if not chasing the _target, stay where you are
 		}
 
 		if (_targetPos != new Vector3Int(1000, 0, 0)) {
@@ -75,8 +81,8 @@ public class EnemyController : MonoBehaviour
 	}
 
 	private void CheckTargetPosition() {
-		if (Target != null) {
-			Vector3Int TargetPos = new Vector3Int(Mathf.RoundToInt(Target.transform.position.x), Mathf.RoundToInt(Target.transform.position.y), Mathf.RoundToInt(Target.transform.position.z));
+		if (_target != null) {
+			Vector3Int TargetPos = new Vector3Int(Mathf.RoundToInt(_target.transform.position.x), Mathf.RoundToInt(_target.transform.position.y), Mathf.RoundToInt(_target.transform.position.z));
 			if (_aStar.GoalPos != TargetPos) {
 				_aStar.Current = null;
 				_aStar.StartPos = new Vector3Int((int)transform.position.x, (int)transform.position.y, (int)transform.position.z);

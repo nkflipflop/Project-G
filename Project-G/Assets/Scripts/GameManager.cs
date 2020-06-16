@@ -6,10 +6,11 @@ public class GameManager : MonoBehaviour
 {
     public DungeonManager DungeonManager;
 
-    private int _dungeonLevel;
+    private int _dungeonLevel = 0;
 
     private void Awake() {
         DungeonManager.CreateDungeon();
+        DungeonManager.RandomEnemySpawner(_dungeonLevel);
     }
 
     // Start is called before the first frame update
