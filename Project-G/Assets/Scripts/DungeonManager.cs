@@ -23,8 +23,6 @@ public class DungeonManager : MonoBehaviour
 	public int DungeonRows, DungeonColumns;
 	public int DungeonPadding;
 	public int MinRoomSize, MaxRoomSize;
-	private int _totalArea = 0;
-	private int _totalRooms = 0;
 	private int _maxEnemy = 25;		// max number of enemies that are allowed in a level
 	private int _spawnedEnemies = 0;
 	private Vector3 _randomPos;
@@ -39,6 +37,7 @@ public class DungeonManager : MonoBehaviour
 		public List<Rect> corridors = new List<Rect>();
 		public List<Rect> bridges = new List<Rect>();
 		public int debugId;
+		public bool hasTurret;
 
 		private static int debugCounter = 0;
 
@@ -46,6 +45,7 @@ public class DungeonManager : MonoBehaviour
 			rect = mrect;
 			debugId = debugCounter;
 			debugCounter++;
+			hasTurret = false;
 		}
 
 		public void CreateRoom() {
@@ -219,7 +219,6 @@ public class DungeonManager : MonoBehaviour
 		if (subDungeon.IAmLeaf()) {
 			int editRoom = Random.Range(0,4);       // 25% chance for editing the shape of the room
 			int x = 0, y = 0, xMax = 0, yMax = 0;
-			_totalRooms++;
 			if (editRoom == 0) {
 				int randWidth = Random.Range(1, (int)(subDungeon.room.width / 2));
 				int randHeight = Random.Range(1, (int)(subDungeon.room.height / 2));
@@ -257,7 +256,6 @@ public class DungeonManager : MonoBehaviour
 						instance.transform.SetParent(Dungeon.transform.GetChild((int)Tiles.Floors).gameObject.transform);
 						_dungeonFloorPositions[i, j] = instance;
 						_dungeonTiles[i, j] = 1;
-						_totalArea++;
 					}
 				}
 			}
@@ -283,7 +281,6 @@ public class DungeonManager : MonoBehaviour
 						instance.transform.SetParent(Dungeon.transform.GetChild((int)Tiles.Corridors).gameObject.transform);
 						_dungeonFloorPositions[i, j] = instance;
 						_dungeonTiles[i, j] = 1;
-						_totalArea++;
 					}
 				}
 			}
@@ -413,9 +410,6 @@ public class DungeonManager : MonoBehaviour
 		instance.transform.SetParent(Dungeon.transform);
 
 		GetRandomPos(_rootSubDungeon);		// getting random position in the dungeon for the object
-		Enemies[0].gameObject.transform.position = _randomPos;
-
-		GetRandomPos(_rootSubDungeon);		// getting random position in the dungeon for the object
 		Key.gameObject.transform.position = _randomPos;
 	}
 
@@ -438,15 +432,13 @@ public class DungeonManager : MonoBehaviour
 		SetupPlayerSpawn(_rootSubDungeon);
 		System.DateTime end = System.DateTime.Now;
 		Debug.Log("Dungeon Creation Time: " + end.Subtract(start).Milliseconds);
-		Debug.Log("Area: "+ _totalArea);
 	}
 
 	public void RandomEnemySpawner(int dungeonLevel) {
-		int enemiesPerRoom = (int)(_totalArea / _totalRooms);
-		SpawnEnemies(_rootSubDungeon, enemiesPerRoom, dungeonLevel);
+		SpawnEnemies(_rootSubDungeon, dungeonLevel);
 	}
 
-	private void SpawnEnemies(SubDungeon subDungeon, int enemiesPerRoom, int dungeonLevel) {
+	private void SpawnEnemies(SubDungeon subDungeon, int dungeonLevel) {
 		if (subDungeon == null)
 			return;
 
@@ -456,15 +448,23 @@ public class DungeonManager : MonoBehaviour
 				int enemyNumberForThisRoom = Random.Range(minEnemyNumber, minEnemyNumber+1);
 				for (int i = 0; i < enemyNumberForThisRoom; i++) {
 					_randomPos = GetRandomPosInRoom(subDungeon.room);
-					GameObject instance = Instantiate(Enemies[(int)Random.Range(0, Enemies.Length)], _randomPos, Quaternion.identity) as GameObject;
+
+					int enemyIndex = 0;
+					do {		// make sure that there is only one turret in a room
+						enemyIndex = (int)Random.Range(0, Enemies.Length);
+					} while(subDungeon.hasTurret && enemyIndex == 2);
+
+					GameObject instance = Instantiate(Enemies[enemyIndex], _randomPos, Quaternion.identity) as GameObject;
 					instance.transform.SetParent(Dungeon.transform.GetChild((int)Objects.Enemies).gameObject.transform);
 					_spawnedEnemies++;
+					if (enemyIndex == 2)
+						subDungeon.hasTurret = true;
 				}
 			}
 		}
 		else {
-			SpawnEnemies(subDungeon.left, enemiesPerRoom, dungeonLevel);
-			SpawnEnemies(subDungeon.right, enemiesPerRoom, dungeonLevel);
+			SpawnEnemies(subDungeon.left, dungeonLevel);
+			SpawnEnemies(subDungeon.right, dungeonLevel);
 		}
 	}
 
