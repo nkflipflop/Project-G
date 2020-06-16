@@ -14,10 +14,26 @@ public class PlayerHandController : MonoBehaviour {
 	private WeaponBase _newWeapon;
 
 	
+	private bool _hasKey = false;			// dungeon_level exit key
+	private bool _onExitDoor = false;		// player is on the exit door or not
 	private bool _takeWeapon;
 	private bool _canTake = false;
-	private float _verticalTrigger = 1;	// for inverse scaling of the weapon
+	private float _verticalTrigger = 1;		// for inverse scaling of the weapon
 
+	private void Start() {
+		_currentWeapon = transform.GetChild(0).GetComponent<WeaponBase>();
+		_currentWeapon.transform.localPosition = _weaponPosition;
+
+		// Assigning current weapon to cursor to know current ammo
+		Cursor.CurrentWeapon = _currentWeapon;
+	}
+	private void Update() {
+		GetInputs();
+		// Controls the weapon
+		ControlWeapon();
+		InterractWithNewWeapon();
+		InterractWithExitDoor();
+	}
 
 	private void InterractWithNewWeapon() {
 		if(_canTake) {
@@ -28,6 +44,15 @@ public class PlayerHandController : MonoBehaviour {
 				_currentWeapon.transform.SetParent(null);
 				// Equipping the new weapon
 				EquipWeapon(_newWeapon);
+			}
+		}
+	}
+
+	private void InterractWithExitDoor() {
+		if(_hasKey && _onExitDoor) {		// if the player has the key and on the door, he can open it by pressing 'E'
+			bool isDoorOpened = Input.GetKeyDown("e");
+			if (isDoorOpened) {
+				Debug.Log("Door opened. Next level.");
 			}
 		}
 	}
@@ -96,20 +121,6 @@ public class PlayerHandController : MonoBehaviour {
 		_mousePosition.z = 0f;
 	}
 
-	private void Start() {
-		_currentWeapon = transform.GetChild(0).GetComponent<WeaponBase>();
-		_currentWeapon.transform.localPosition = _weaponPosition;
-
-		// Assigning current weapon to cursor to know current ammo
-		Cursor.CurrentWeapon = _currentWeapon;
-	}
-	private void Update() {
-		GetInputs();
-		// Controls the weapon
-		ControlWeapon();
-		InterractWithNewWeapon();
-	}
-
 	private void OnTriggerEnter2D(Collider2D other) {
 		if (other.gameObject.CompareTag("Weapon")){
 			_canTake = true;
@@ -117,6 +128,7 @@ public class PlayerHandController : MonoBehaviour {
 		}
 		else if (other.gameObject.CompareTag("Key")) {
 			other.gameObject.SetActive(false);
+			_hasKey = true;
 		}
 	}
 	
