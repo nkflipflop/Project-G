@@ -19,6 +19,7 @@ public class DungeonManager : MonoBehaviour
 	public GameObject Key;
 	private GameObject[,] _dungeonFloorPositions;
 	private int[,] _dungeonTiles;		// the tiles that players and other NPCs can walk on
+	private int[,] _enemyIndexes;
 	List<Vector2Int> _bridgeTilesPos;
 	public int DungeonRows, DungeonColumns;
 	public int DungeonPadding;
@@ -432,10 +433,16 @@ public class DungeonManager : MonoBehaviour
 		SetupPlayerSpawn(_rootSubDungeon);
 		System.DateTime end = System.DateTime.Now;
 		Debug.Log("Dungeon Creation Time: " + end.Subtract(start).Milliseconds);
+
+		_enemyIndexes = new int[,] {{0, 1}, {0, 2}, {0, 3}, {1, 4}, {2, 5}};		// start and end indexes of Enemies array accorcding to the dungeon level
 	}
 
 	public void RandomEnemySpawner(int dungeonLevel) {
 		SpawnEnemies(_rootSubDungeon, dungeonLevel);
+		// after creating copies, disable the original ones
+		foreach (var enemy in Enemies) {
+			enemy.SetActive(false);
+		}
 	}
 
 	private void SpawnEnemies(SubDungeon subDungeon, int dungeonLevel) {
@@ -451,8 +458,8 @@ public class DungeonManager : MonoBehaviour
 
 					int enemyIndex = 0;
 					do {		// make sure that there is only one turret in a room
-						enemyIndex = (int)Random.Range(0, Enemies.Length);
-					} while(subDungeon.hasTurret && enemyIndex == 2);
+						enemyIndex = (int)Random.Range(_enemyIndexes[dungeonLevel, 0], _enemyIndexes[dungeonLevel, 1] + 1);
+					} while (subDungeon.hasTurret && enemyIndex == 2);		// check if the room has a turret and new enemy is turret
 
 					GameObject instance = Instantiate(Enemies[enemyIndex], _randomPos, Quaternion.identity) as GameObject;
 					instance.transform.SetParent(Dungeon.transform.GetChild((int)Objects.Enemies).gameObject.transform);

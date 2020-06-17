@@ -33,7 +33,7 @@ public class EnemyController : MonoBehaviour
 		_animator = gameObject.GetComponent<Animator>();
 
 		AStarSetup();
-		InvokeRepeating("CheckTargetPosition", 5.0f, 0.5f);     // run this function every 0.5 sec
+		InvokeRepeating("CheckTargetPosition", 5.0f, 0.6f);     // run this function every 0.6 sec && wait 5 sec at the start
 	}
 
 	// Update is called once per frame
