@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 7853060995398382686}
   - component: {fileID: 8740240420516249382}
   - component: {fileID: 4486451164503310317}
-  - component: {fileID: -1758393392528260396}
   m_Layer: 0
   m_Name: special_1.3_2.1
   m_TagString: Untagged
@@ -110,32 +109,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.75, y: 1}
   m_EdgeRadius: 0
---- !u!114 &-1758393392528260396
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5332462982913125752}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ShadowGroup: 0
-  m_HasRenderer: 1
-  m_UseRendererSilhouette: 0
-  m_CastsShadows: 1
-  m_SelfShadows: 1
-  m_ApplyToSortingLayers: 00000000
-  m_ShapePath:
-  - {x: -0.45, y: -0.5, z: 0}
-  - {x: 0.5, y: -0.5, z: 0}
-  - {x: 0.5, y: 0.5, z: 0}
-  - {x: -0.45, y: 0.5, z: 0}
-  m_ShapePathHash: -49454827
-  m_Mesh: {fileID: 0}
-  m_InstanceId: 43334
 --- !u!1 &8663849669129900937
 GameObject:
   m_ObjectHideFlags: 0

@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 5640539014746802179}
   - component: {fileID: 7214412707094193960}
   - component: {fileID: 9162736592111878194}
-  - component: {fileID: -1594612117942872940}
   m_Layer: 0
   m_Name: special_with_light
   m_TagString: Untagged
@@ -125,32 +124,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &-1594612117942872940
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1813409977021738062}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ShadowGroup: 0
-  m_HasRenderer: 1
-  m_UseRendererSilhouette: 0
-  m_CastsShadows: 1
-  m_SelfShadows: 1
-  m_ApplyToSortingLayers: 00000000
-  m_ShapePath:
-  - {x: 0.5, y: 0.27, z: 0}
-  - {x: -0.5, y: 0.27, z: 0}
-  - {x: -0.5, y: 0.5, z: 0}
-  - {x: 0.5, y: 0.5, z: 0}
-  m_ShapePathHash: -282947315
-  m_Mesh: {fileID: 0}
-  m_InstanceId: 22222
 --- !u!1 &3036319015754623288
 GameObject:
   m_ObjectHideFlags: 0
@@ -175,8 +148,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3036319015754623288}
-  m_LocalRotation: {x: -0, y: -0, z: -1, w: 0}
-  m_LocalPosition: {x: -0.072, y: -0.2, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: -1, w: 0}
+  m_LocalPosition: {x: 0, y: 0.16, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3207557496702407241}
@@ -196,34 +169,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_LightType: 3
   m_BlendStyleIndex: 0
-  m_FalloffIntensity: 0.5
+  m_FalloffIntensity: 1
   m_Color: {r: 1, g: 0.8358016, b: 0.6839622, a: 1}
-  m_Intensity: 1
+  m_Intensity: 2.5
   m_LightVolumeOpacity: 0
   m_ApplyToSortingLayers: 00000000
   m_LightCookieSprite: {fileID: 0}
   m_UseNormalMap: 0
   m_LightOrder: 0
-  m_AlphaBlendOnOverlap: 0
-  m_ShadowIntensity: 0.5
+  m_AlphaBlendOnOverlap: 1
+  m_ShadowIntensity: 0
   m_ShadowVolumeIntensity: 0
-  m_PointLightInnerAngle: 360
+  m_PointLightInnerAngle: 180
   m_PointLightOuterAngle: 360
-  m_PointLightInnerRadius: 0.7
-  m_PointLightOuterRadius: 5
+  m_PointLightInnerRadius: 0.5
+  m_PointLightOuterRadius: 3.5
   m_PointLightDistance: 3
   m_PointLightQuality: 1
   m_ShapeLightParametricSides: 5
   m_ShapeLightParametricAngleOffset: 0
   m_ShapeLightParametricRadius: 1
-  m_ShapeLightFalloffSize: 0.5
-  m_ShapeLightFalloffOffset: {x: 0, y: 0}
+  m_ShapeLightFalloffSize: 0.42
+  m_ShapeLightFalloffOffset: {x: 0.25, y: -0.25}
   m_ShapePath:
-  - {x: -1.1830652, y: -1.2093365, z: 0}
-  - {x: 0.3948282, y: -1.757403, z: 0}
-  - {x: 1.2706373, y: -0.99040574, z: 0}
-  - {x: 0.3248552, y: 0.21101105, z: 0}
-  - {x: -0.37739837, y: 0.22852564, z: 0}
+  - {x: -0.5, y: 0.2, z: 0}
+  - {x: -0.50567615, y: -1.5, z: 0}
+  - {x: 1.5, y: -1.5, z: 0}
+  - {x: 1.5, y: 0.2, z: 0}
 --- !u!1 &3092601789491641361
 GameObject:
   m_ObjectHideFlags: 0
