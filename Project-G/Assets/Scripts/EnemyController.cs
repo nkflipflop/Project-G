@@ -21,13 +21,6 @@ public class EnemyController : MonoBehaviour
 
 	public EnemyCloseRangeAttackController AttackController;
 
-	/*  
-	*   IMPORTANT NOTES:
-	*   Enemy needs to be initiated in the dungeon
-	*   Don't forget to set _aStar.StartPos to its value
-	*   StartPos and GoalPos will no be set to anything in Start(). Delete them in the future.
-	*/
-
 	// Start is called before the first frame update
 	void Start() {
 		_animator = gameObject.GetComponent<Animator>();
