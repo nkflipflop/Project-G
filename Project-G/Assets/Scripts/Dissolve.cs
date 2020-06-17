@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class Dissolve : MonoBehaviour
 {
-    private Material _material;
-
+    public SpriteRenderer Renderer;
+    public Material DissolveMaterial;
+    
+    private bool _initted = false;
     private bool _isDissolving = false;
     private bool _childDissolveStarted = false;
     [SerializeField] private bool _hasChild = false;
@@ -17,13 +19,15 @@ public class Dissolve : MonoBehaviour
         set { _isDissolving = value; }
     }
 
-    private void Start() {
-        _material = GetComponent<SpriteRenderer>().material;
-    }
-
     // Update is called once per frame
     private void Update() {
         if (_isDissolving) {
+            // Assigning dissolve material to renderer
+            if (!_initted){
+                Renderer.material = DissolveMaterial;
+                _initted = true;
+            }
+            
             if(!_childDissolveStarted && _hasChild) {
                 _childDissolveStarted = true;
                 transform.GetChild (0).gameObject.GetComponent<Dissolve>().IsDissolving = true;
@@ -36,7 +40,7 @@ public class Dissolve : MonoBehaviour
                 Destroy(gameObject);
             }
 
-            _material.SetFloat("_Fade", _fade);      // setting the property
+            Renderer.material.SetFloat("_Fade", _fade);      // setting the property
         }
     }
 }
