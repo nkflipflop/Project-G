@@ -15,6 +15,7 @@ public class DungeonManager : MonoBehaviour
 	public GameObject[] WallTiles;
 	public GameObject ExitTile;
 	public GameObject Turret;
+	public GameObject Key;
 	private GameObject[,] _dungeonFloorPositions;
 	private int[,] _dungeonTiles;		// the tiles that players and other NPCs can walk on
 	List<Vector2Int> _bridgeTilesPos;
@@ -402,8 +403,11 @@ public class DungeonManager : MonoBehaviour
 		GameObject instance = Instantiate(ExitTile, new Vector3(_randomPos.x, _randomPos.y, 0f), Quaternion.identity) as GameObject;
 		instance.transform.SetParent(Dungeon.transform);
 
-		GetRandomPos(rootSubDungeon);		// getting random position in the dungeon for the exit
+		GetRandomPos(rootSubDungeon);		// getting random position in the dungeon for the object
 		Turret.gameObject.transform.position = _randomPos;
+
+		GetRandomPos(rootSubDungeon);		// getting random position in the dungeon for the object
+		Key.gameObject.transform.position = _randomPos;
 	}
 
 	public void CreateDungeon() {

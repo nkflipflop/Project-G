@@ -32,7 +32,7 @@ public class ProjectileController : MonoBehaviour {
 	private void Update() {
 		// Ray collider controlling
 		Vector3 direction = transform.rotation * Vector3.right;
-		RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, direction, .1f, ShotByPlayer ? _hittableLayersByPlayer : _hittableLayersByEnemy);
+		RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, direction, .2f, ShotByPlayer ? _hittableLayersByPlayer : _hittableLayersByEnemy);
 		//Debug.DrawRay(transform.position, direction, Color.green);
 		// Range controlling for arrow	
 		if (_lifetime > 0) {
