@@ -32,20 +32,24 @@ public class EnemyController : MonoBehaviour
 	void Start() {
 		_animator = gameObject.GetComponent<Animator>();
 
-		_aStar = gameObject.GetComponent<AStarPathfinding>();
-		_aStar.StartPos = new Vector3Int((int)transform.position.x, (int)transform.position.y, (int)transform.position.z);
-		_aStar.GoalPos = new Vector3Int(Mathf.RoundToInt(Target.transform.position.x), Mathf.RoundToInt(Target.transform.position.y), Mathf.RoundToInt(Target.transform.position.z));
-		_targetPos = new Vector3Int(1000, 0, 0);        // null value
-
-		InvokeRepeating("CheckTargetPosition", 5.0f, 0.5f);     // run this function every 0.5 sec
+		AStarSetup();
+		InvokeRepeating("CheckTargetPosition", 5.0f, 0.6f);     // run this function every 0.6 sec && wait 5 sec at the start
 	}
 
 	// Update is called once per frame
 	void FixedUpdate() {
 		if (!DamageHelper.IsDead) {
 			EnemyAnimate();
-			Movement();
+			if (Target != null)
+				Movement();
 		}
+	}
+
+	private void AStarSetup() {
+		_aStar = gameObject.GetComponent<AStarPathfinding>();
+		_aStar.StartPos = new Vector3Int((int)transform.position.x, (int)transform.position.y, (int)transform.position.z);
+		_aStar.GoalPos = new Vector3Int(Mathf.RoundToInt(Target.transform.position.x), Mathf.RoundToInt(Target.transform.position.y), Mathf.RoundToInt(Target.transform.position.z));
+		_targetPos = new Vector3Int(1000, 0, 0);        // null value
 	}
 
 	private void Movement() {
@@ -77,7 +81,8 @@ public class EnemyController : MonoBehaviour
 	private void CheckTargetPosition() {
 		if (Target != null) {
 			Vector3Int TargetPos = new Vector3Int(Mathf.RoundToInt(Target.transform.position.x), Mathf.RoundToInt(Target.transform.position.y), Mathf.RoundToInt(Target.transform.position.z));
-			if (_aStar.GoalPos != TargetPos) {
+			_distanceBtwTarget = (Target.transform.position - transform.position).magnitude;
+			if (_aStar.GoalPos != TargetPos || _distanceBtwTarget < 7) {
 				_aStar.Current = null;
 				_aStar.StartPos = new Vector3Int((int)transform.position.x, (int)transform.position.y, (int)transform.position.z);
 				_aStar.GoalPos = TargetPos;
