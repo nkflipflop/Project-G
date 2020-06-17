@@ -45,8 +45,10 @@ public class AStarPathfinding : MonoBehaviour {
 			for (int y = -1; y <= 1; y++) {
 				if (x != 0 || y != 0) {		// skipping the parent node
 					Vector3Int neighborPos = new Vector3Int(parentPos.x + x, parentPos.y + y, parentPos.z);
+
+					bool neighborInDungeon = !(neighborPos.x < 0 || neighborPos.y < 0 || neighborPos.x >= DungeonManager.DungeonRows || neighborPos.y >= DungeonManager.DungeonColumns);
 					
-					if (neighborPos != StartPos && DungeonManager.DungeonMap[neighborPos.x, neighborPos.y] == 1) {
+					if (neighborInDungeon && neighborPos != StartPos && DungeonManager.DungeonMap[neighborPos.x, neighborPos.y] == 1) {
 						Node neighbor = GetNode(neighborPos);
 						neighbors.Add(neighbor);
 					}

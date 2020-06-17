@@ -6,6 +6,7 @@ using UnityEngine;
 public class DungeonManager : MonoBehaviour
 {
 	private enum Tiles { Bridges, Corridors, Floors, Walls, Waters }
+	private enum Objects { Enemies = 5, Traps }
 	private enum Bridges { Horizontal, Vertical, TopLeft, TopRight, DownLeft, DownRight }
 	public GameObject Player;
 	public GameObject Dungeon;
@@ -14,15 +15,19 @@ public class DungeonManager : MonoBehaviour
 	public GameObject[] WaterTiles;
 	public GameObject[] WallTiles;
 	public GameObject ExitTile;
-	public GameObject Turret;
+	public GameObject[] Enemies;
 	public GameObject Key;
 	private GameObject[,] _dungeonFloorPositions;
 	private int[,] _dungeonTiles;		// the tiles that players and other NPCs can walk on
+	private int[,] _enemyIndexes;
 	List<Vector2Int> _bridgeTilesPos;
 	public int DungeonRows, DungeonColumns;
 	public int DungeonPadding;
 	public int MinRoomSize, MaxRoomSize;
+	private int _maxEnemy = 25;		// max number of enemies that are allowed in a level
+	private int _spawnedEnemies = 0;
 	private Vector3 _randomPos;
+	private SubDungeon _rootSubDungeon;
 
 	public int[,] DungeonMap { get {return _dungeonTiles;} }
 
@@ -33,6 +38,7 @@ public class DungeonManager : MonoBehaviour
 		public List<Rect> corridors = new List<Rect>();
 		public List<Rect> bridges = new List<Rect>();
 		public int debugId;
+		public bool hasTurret;
 
 		private static int debugCounter = 0;
 
@@ -40,6 +46,7 @@ public class DungeonManager : MonoBehaviour
 			rect = mrect;
 			debugId = debugCounter;
 			debugCounter++;
+			hasTurret = false;
 		}
 
 		public void CreateRoom() {
@@ -395,39 +402,86 @@ public class DungeonManager : MonoBehaviour
 		}
 	}
 
-	void SetupPlayerSpawn(SubDungeon rootSubDungeon) {
-		GetRandomPos(rootSubDungeon);		// getting random position in the dungeon for the player
+	void SetupPlayerSpawn(SubDungeon _rootSubDungeon) {
+		GetRandomPos(_rootSubDungeon);		// getting random position in the dungeon for the player
 		Player.transform.position = _randomPos;
 
-		GetRandomPos(rootSubDungeon);		// getting random position in the dungeon for the exit
+		GetRandomPos(_rootSubDungeon);		// getting random position in the dungeon for the exit
 		GameObject instance = Instantiate(ExitTile, new Vector3(_randomPos.x, _randomPos.y, 0f), Quaternion.identity) as GameObject;
 		instance.transform.SetParent(Dungeon.transform);
 
-		GetRandomPos(rootSubDungeon);		// getting random position in the dungeon for the object
-		Turret.gameObject.transform.position = _randomPos;
-
-		GetRandomPos(rootSubDungeon);		// getting random position in the dungeon for the object
+		GetRandomPos(_rootSubDungeon);		// getting random position in the dungeon for the object
 		Key.gameObject.transform.position = _randomPos;
 	}
 
 	public void CreateDungeon() {
 		System.DateTime start = System.DateTime.Now;
-		SubDungeon rootSubDungeon = new SubDungeon(new Rect(DungeonPadding, DungeonPadding, DungeonRows, DungeonColumns));
-		CreateBSP(rootSubDungeon);
-		rootSubDungeon.CreateRoom();
+		_rootSubDungeon = new SubDungeon(new Rect(DungeonPadding, DungeonPadding, DungeonRows, DungeonColumns));
+		CreateBSP(_rootSubDungeon);
+		_rootSubDungeon.CreateRoom();
 
 		_dungeonFloorPositions = new GameObject[DungeonRows + (2 * DungeonPadding), DungeonColumns + (2 * DungeonPadding)];
 		_dungeonTiles = new int[DungeonRows + (2 * DungeonPadding), DungeonColumns + (2 * DungeonPadding)];
 		_bridgeTilesPos = new List<Vector2Int>();
-		DrawRooms(rootSubDungeon);
-		DrawCorridors(rootSubDungeon);
-		DetermineBridges(rootSubDungeon);
+		DrawRooms(_rootSubDungeon);
+		DrawCorridors(_rootSubDungeon);
+		DetermineBridges(_rootSubDungeon);
 		DrawBridges();
 		DrawWaters();
 		_bridgeTilesPos.Clear();		// deleting the list since it completes its purpose
 		DrawWalls();
-		SetupPlayerSpawn(rootSubDungeon);
+		SetupPlayerSpawn(_rootSubDungeon);
 		System.DateTime end = System.DateTime.Now;
 		Debug.Log("Dungeon Creation Time: " + end.Subtract(start).Milliseconds);
+
+		_enemyIndexes = new int[,] {{0, 1}, {0, 2}, {0, 3}, {1, 4}, {2, 5}};		// start and end indexes of Enemies array accorcding to the dungeon level
+	}
+
+	public void RandomEnemySpawner(int dungeonLevel) {
+		SpawnEnemies(_rootSubDungeon, dungeonLevel);
+		// after creating copies, disable the original ones
+		foreach (var enemy in Enemies) {
+			enemy.SetActive(false);
+		}
+	}
+
+	private void SpawnEnemies(SubDungeon subDungeon, int dungeonLevel) {
+		if (subDungeon == null)
+			return;
+
+		if (subDungeon.IAmLeaf()) {
+			if (_spawnedEnemies <= _maxEnemy) {
+				int minEnemyNumber = (int)((subDungeon.room.width * subDungeon.room.height) / 8);
+				int enemyNumberForThisRoom = Random.Range(minEnemyNumber, minEnemyNumber+1);
+				for (int i = 0; i < enemyNumberForThisRoom; i++) {
+					_randomPos = GetRandomPosInRoom(subDungeon.room);
+
+					int enemyIndex = 0;
+					do {		// make sure that there is only one turret in a room
+						enemyIndex = (int)Random.Range(_enemyIndexes[dungeonLevel, 0], _enemyIndexes[dungeonLevel, 1] + 1);
+					} while (subDungeon.hasTurret && enemyIndex == 2);		// check if the room has a turret and new enemy is turret
+
+					GameObject instance = Instantiate(Enemies[enemyIndex], _randomPos, Quaternion.identity) as GameObject;
+					instance.transform.SetParent(Dungeon.transform.GetChild((int)Objects.Enemies).gameObject.transform);
+					_spawnedEnemies++;
+					if (enemyIndex == 2)
+						subDungeon.hasTurret = true;
+				}
+			}
+		}
+		else {
+			SpawnEnemies(subDungeon.left, dungeonLevel);
+			SpawnEnemies(subDungeon.right, dungeonLevel);
+		}
+	}
+
+	private Vector3 GetRandomPosInRoom(Rect room) {
+		int randPosX, randPosY;
+		do {
+			randPosX = Random.Range((int)room.x, (int)room.xMax);
+			randPosY = Random.Range((int)room.y, (int)room.yMax);
+		}while (_dungeonTiles[randPosX, randPosY]!= 1);
+
+		return new Vector3(randPosX, randPosY, 0);
 	}
 }
