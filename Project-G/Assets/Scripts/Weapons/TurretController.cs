@@ -9,6 +9,7 @@ public class TurretController : MonoBehaviour {
 	[SerializeField] private WeaponBase _weapon = null;
 	public GameObject Target;
 	private LayerMask _hittableLayersByEnemy;
+	private float _spreadFactor = 0.1f;
 
 	// Start is called before the first frame update
 	void Start() {
@@ -37,15 +38,24 @@ public class TurretController : MonoBehaviour {
 
 	private void Shoot() {
 		if (Target != null) {
-			// Getting player position
-			Vector3 targetPos = new Vector3(Target.transform.position.x, Target.transform.position.y - 0.2f, Target.transform.position.z);
-			Vector3 aimDirection = (targetPos - _weapon.transform.position).normalized;
+			Vector3 aimDirection = GetAimDirection();
+
+
 			// Rotating the current weapon
 			float angle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
 			_weapon.transform.eulerAngles = new Vector3(0, 0, angle);
 
 			_weapon.WeaponUpdate();
 		}
+	}
+
+	private Vector3 GetAimDirection() {
+		// Getting player position
+		Vector3 targetPos = new Vector3(Target.transform.position.x, Target.transform.position.y - 0.2f, Target.transform.position.z);
+		Vector3 aimDirection = (targetPos - _weapon.transform.position).normalized;
+		aimDirection.x += Random.Range(-_spreadFactor, _spreadFactor);
+		aimDirection.y += Random.Range(-_spreadFactor, _spreadFactor);
+		return aimDirection;
 	}
 
 	private void OnTriggerEnter2D(Collider2D other) {
