@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -6765,8 +6765,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a26a8f1685a6d044b23c832729f9a3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
-  DissolveMaterial: {fileID: 0}
+  Renderer: {fileID: 1706242355}
+  DissolveMaterial: {fileID: 2100000, guid: 8731b3bef0b12044381118bb5f69a921, type: 2}
   _hasChild: 0
 --- !u!114 &1706242351
 MonoBehaviour:
@@ -6853,7 +6853,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8731b3bef0b12044381118bb5f69a921, type: 2}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
