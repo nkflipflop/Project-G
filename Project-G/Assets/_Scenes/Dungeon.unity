@@ -165,7 +165,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  
 --- !u!1 &88617627
 GameObject:
   m_ObjectHideFlags: 0
@@ -296,9 +295,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  
 --- !u!1 &208318249
 GameObject:
   m_ObjectHideFlags: 0
@@ -695,7 +693,7 @@ PrefabInstance:
     - target: {fileID: 6447835031427417211, guid: de1d88ca4980ec343bfca770485c2db2,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7349297353471190684, guid: de1d88ca4980ec343bfca770485c2db2,
         type: 3}
@@ -6144,6 +6142,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _health: 25
   DissolveEffect: {fileID: 592281816}
+  Renderer: {fileID: 0}
 --- !u!1 &609681514
 GameObject:
   m_ObjectHideFlags: 0
@@ -6334,7 +6333,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &693822123
 MonoBehaviour:
@@ -6378,6 +6377,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _health: 25
   DissolveEffect: {fileID: 693822118}
+  Renderer: {fileID: 0}
 --- !u!1 &934962435
 GameObject:
   m_ObjectHideFlags: 0
@@ -6665,7 +6665,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  
 --- !u!1 &1363067898
 GameObject:
   m_ObjectHideFlags: 0
@@ -6773,7 +6772,7 @@ Transform:
   m_Children:
   - {fileID: 358594207}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1363067902
 MonoBehaviour:
@@ -6846,6 +6845,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _health: 10
   DissolveEffect: {fileID: 1363067903}
+  Renderer: {fileID: 1363067900}
 --- !u!58 &1363067907
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -6862,7 +6862,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.2
-  
 --- !u!1 &1472256105
 GameObject:
   m_ObjectHideFlags: 0
@@ -7037,6 +7036,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _health: 20
   DissolveEffect: {fileID: 1706242350}
+  Renderer: {fileID: 0}
 --- !u!95 &1706242353
 Animator:
   serializedVersion: 3
@@ -7136,7 +7136,7 @@ Transform:
   m_Children:
   - {fileID: 1238256384}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1766734261
 GameObject:
@@ -7199,7 +7199,6 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1380132924}
   - {fileID: 249246507}
   m_Father: {fileID: 8005256322282322022}
   m_RootOrder: 0
@@ -7624,3 +7623,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _health: 50
   DissolveEffect: {fileID: 8005256322282322026}
+  Renderer: {fileID: 8005256322282322023}
