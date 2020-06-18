@@ -16,13 +16,25 @@ public class AStarPathfinding : MonoBehaviour {
 		set { _path = value; } 
 	}
 
-	private void Initialize() {
-		Current = GetNode(StartPos);
-
+	private void Start() {
 		_openList = new HashSet<Node>();
 		_closedList = new HashSet<Node>();
+	}
+
+	private void Initialize() {
+		Current = GetNode(StartPos);
 		
 		_openList.Add(Current);
+	}
+
+	public void SetupVariables(Vector3 seekerPos, Vector3Int targetPos) {
+		Current = null;
+		StartPos = new Vector3Int((int)seekerPos.x, (int)seekerPos.y, (int)seekerPos.z);
+		GoalPos = targetPos;
+		Path = null;
+
+		_openList.Clear();
+		_closedList.Clear();
 	}
 
 	public void PathFinding() {		// main algorithm
