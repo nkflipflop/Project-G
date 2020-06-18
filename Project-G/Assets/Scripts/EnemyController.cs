@@ -11,7 +11,7 @@ public class EnemyController : MonoBehaviour
 	private Vector3 _targetPos;
 	private float _distanceBtwTarget;
 	private int _maxPathLength = 6;
-	private Vector3Int _nullVector = new Vector3Int(1000, 0, 0);        // null value
+	private Vector3Int _nullVector = new Vector3Int(0, 0, -1000);        // null value
 
 	public DamageHelper DamageHelper;
 	private Animator _animator;
@@ -81,7 +81,8 @@ public class EnemyController : MonoBehaviour
 		if (Target != null && gameObject.activeSelf) {
 			Vector3Int TargetPos = Vector3Int.RoundToInt(Target.transform.position);
 			bool targetInRange = _distanceBtwTarget < _sightRange;
-			if ((_aStar.GoalPos != TargetPos && targetInRange) || targetInRange) {			// if the player is in range, try to find a path				_aStar.SetupVariables(transform.position, TargetPos);
+			if ((_aStar.GoalPos != TargetPos && targetInRange) || targetInRange) {			// if the player is in range, try to find a path				
+				_aStar.SetupVariables(transform.position, TargetPos);
 				_aStar.PathFinding();
 			}
 		}
