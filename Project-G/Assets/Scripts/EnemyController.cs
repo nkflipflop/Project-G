@@ -11,6 +11,7 @@ public class EnemyController : MonoBehaviour
 	private Vector3 _targetPos;
 	private float _distanceBtwTarget;
 	private int _maxPathLength = 6;
+	private Vector3Int _nullVector = new Vector3Int(1000, 0, 0);        // null value
 
 	public DamageHelper DamageHelper;
 	private Animator _animator;
@@ -42,7 +43,7 @@ public class EnemyController : MonoBehaviour
 		_aStar = gameObject.GetComponent<AStarPathfinding>();
 		_aStar.StartPos = new Vector3Int((int)transform.position.x, (int)transform.position.y, (int)transform.position.z);
 		_aStar.GoalPos = new Vector3Int(Mathf.RoundToInt(Target.transform.position.x), Mathf.RoundToInt(Target.transform.position.y), Mathf.RoundToInt(Target.transform.position.z));
-		_targetPos = new Vector3Int(1000, 0, 0);        // null value
+		_targetPos = _nullVector;        // null value
 	}
 
 	private void Movement() {
@@ -51,7 +52,7 @@ public class EnemyController : MonoBehaviour
 			_sightDir = Target.transform.position - transform.position;
 
 			if (_distanceBtwTarget < _attackRange) {			// close enough to attack
-				_targetPos = new Vector3Int(1000, 0, 0);
+				_targetPos = _nullVector;
 				_isAttacking = true;
 			}
 			else {
@@ -60,14 +61,14 @@ public class EnemyController : MonoBehaviour
 					_targetPos = Target.transform.position;
 				}
 				else if (_aStar.Path != null && _aStar.Path.Count > 0 && _aStar.Path.Count <= _maxPathLength) {
-					if (_targetPos == new Vector3Int(1000, 0, 0) || transform.position == _targetPos)
+					if (_targetPos == _nullVector || transform.position == _targetPos)
 						_targetPos = _aStar.Path.Pop();
 				}
 				else if (_aStar.Path != null && _aStar.Path.Count > _maxPathLength)
-					_targetPos = new Vector3Int((int)transform.position.x, (int)transform.position.y, (int)transform.position.z);       // if not chasing the Target, stay where you are
+					_targetPos = Vector3Int.RoundToInt(transform.position);       	// if not chasing the Target, stay where you are
 			}
 
-			if (_targetPos != new Vector3Int(1000, 0, 0)) {
+			if (_targetPos != _nullVector) {
 				transform.position = Vector3.MoveTowards(transform.position, _targetPos, Time.deltaTime * _speed);      			// moving the enemy towards to target
 			}
 		}
@@ -79,8 +80,7 @@ public class EnemyController : MonoBehaviour
 		if (Target != null && gameObject.activeSelf) {
 			Vector3Int TargetPos = Vector3Int.RoundToInt(Target.transform.position);
 			bool targetInRange = _distanceBtwTarget < _sightRange;
-			if ((_aStar.GoalPos != TargetPos && targetInRange) || targetInRange) {			// if the player is in range, try to find a path
-				_aStar.SetupVariables(transform.position, TargetPos);
+			if ((_aStar.GoalPos != TargetPos && targetInRange) || targetInRange) {			// if the player is in range, try to find a path				_aStar.SetupVariables(transform.position, TargetPos);
 				_aStar.PathFinding();
 			}
 		}
