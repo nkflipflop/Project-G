@@ -47,7 +47,7 @@ public class EnemyController : MonoBehaviour
 	}
 
 	private void Movement() {
-		_distanceBtwTarget = (Target.transform.position - transform.position).magnitude;
+		_distanceBtwTarget = Vector3.Distance(Target.transform.position, transform.position);
 		_sightDir = Target.transform.position - transform.position;
 
 		if (_distanceBtwTarget < _attackRange) {			// close enough to attack
@@ -56,12 +56,12 @@ public class EnemyController : MonoBehaviour
 		}
 		else {
 			_isAttacking = false;
-			if (_distanceBtwTarget < 0.6f)				// get closer to attack
+			if (_distanceBtwTarget < 0.6f) {	 			// get closer to attack
 				_targetPos = Target.transform.position;
+			}
 			else if (_aStar.Path != null && _aStar.Path.Count > 0 && _aStar.Path.Count <= _maxPathLength) {
-				if (_targetPos == new Vector3Int(1000, 0, 0) || transform.position == _targetPos) {
+				if (_targetPos == new Vector3Int(1000, 0, 0) || transform.position == _targetPos)
 					_targetPos = _aStar.Path.Pop();
-				}
 			}
 			else if (_aStar.Path != null && _aStar.Path.Count > _maxPathLength)
 				_targetPos = new Vector3Int((int)transform.position.x, (int)transform.position.y, (int)transform.position.z);       // if not chasing the Target, stay where you are
@@ -73,11 +73,10 @@ public class EnemyController : MonoBehaviour
 	}
 
 	private void CheckTargetPosition() {
-		if (Target != null) {
+		if (Target != null && gameObject.activeSelf) {
 			Vector3Int TargetPos = Vector3Int.RoundToInt(Target.transform.position);
-			_distanceBtwTarget = (Target.transform.position - transform.position).magnitude;
 			bool targetInRange = _distanceBtwTarget < _sightRange;
-			if ((_aStar.GoalPos != TargetPos && targetInRange) || targetInRange) {		// if the player is in range, try to find a path
+			if ((_aStar.GoalPos != TargetPos && targetInRange) || targetInRange) {			// if the player is in range, try to find a path
 				_aStar.SetupVariables(transform.position, TargetPos);
 				_aStar.PathFinding();
 			}

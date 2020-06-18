@@ -6,7 +6,7 @@ using UnityEngine;
 public class AStarPathfinding : MonoBehaviour {
 
 	public DungeonManager DungeonManager;
-	private HashSet<Node> _openList, _closedList;
+	private HashSet<Node> _openList = new HashSet<Node>(), _closedList = new HashSet<Node>();
 	private Stack<Vector3Int> _path;
 	private Dictionary<Vector3Int, Node> _allNodes = new Dictionary<Vector3Int, Node>();
 	public Vector3Int StartPos, GoalPos;
@@ -14,11 +14,6 @@ public class AStarPathfinding : MonoBehaviour {
 	public Stack<Vector3Int> Path { 
 		get { return _path; } 
 		set { _path = value; } 
-	}
-
-	private void Start() {
-		_openList = new HashSet<Node>();
-		_closedList = new HashSet<Node>();
 	}
 
 	private void Initialize() {
@@ -29,7 +24,7 @@ public class AStarPathfinding : MonoBehaviour {
 
 	public void SetupVariables(Vector3 seekerPos, Vector3Int targetPos) {
 		Current = null;
-		StartPos = new Vector3Int((int)seekerPos.x, (int)seekerPos.y, (int)seekerPos.z);
+		StartPos = StartPos = Vector3Int.RoundToInt(seekerPos);
 		GoalPos = targetPos;
 		Path = null;
 
@@ -58,7 +53,7 @@ public class AStarPathfinding : MonoBehaviour {
 				if (x != 0 || y != 0) {		// skipping the parent node
 					Vector3Int neighborPos = new Vector3Int(parentPos.x + x, parentPos.y + y, parentPos.z);
 
-					bool neighborInDungeon = !(neighborPos.x < 0 || neighborPos.y < 0 || neighborPos.x >= DungeonManager.DungeonRows || neighborPos.y >= DungeonManager.DungeonColumns);
+					bool neighborInDungeon = !(neighborPos.x < 0 || neighborPos.y < 0 || neighborPos.x >= DungeonManager.DungeonMap.GetLength(0) || neighborPos.y >= DungeonManager.DungeonMap.GetLength(1));
 					
 					if (neighborInDungeon && neighborPos != StartPos && DungeonManager.DungeonMap[neighborPos.x, neighborPos.y] == 1) {
 						Node neighbor = GetNode(neighborPos);
