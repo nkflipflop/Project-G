@@ -34,8 +34,7 @@ public class EnemyController : MonoBehaviour
 	void FixedUpdate() {
 		if (!DamageHelper.IsDead) {
 			EnemyAnimate();
-			if (Target != null)
-				Movement();
+			Movement();
 		}
 	}
 
@@ -47,29 +46,33 @@ public class EnemyController : MonoBehaviour
 	}
 
 	private void Movement() {
-		_distanceBtwTarget = Vector3.Distance(Target.transform.position, transform.position);
-		_sightDir = Target.transform.position - transform.position;
+		if (Target != null) {
+			_distanceBtwTarget = Vector3.Distance(Target.transform.position, transform.position);
+			_sightDir = Target.transform.position - transform.position;
 
-		if (_distanceBtwTarget < _attackRange) {			// close enough to attack
-			_targetPos = new Vector3Int(1000, 0, 0);
-			_isAttacking = true;
+			if (_distanceBtwTarget < _attackRange) {			// close enough to attack
+				_targetPos = new Vector3Int(1000, 0, 0);
+				_isAttacking = true;
+			}
+			else {
+				_isAttacking = false;
+				if (_distanceBtwTarget < 0.6f) {	 			// get closer to attack
+					_targetPos = Target.transform.position;
+				}
+				else if (_aStar.Path != null && _aStar.Path.Count > 0 && _aStar.Path.Count <= _maxPathLength) {
+					if (_targetPos == new Vector3Int(1000, 0, 0) || transform.position == _targetPos)
+						_targetPos = _aStar.Path.Pop();
+				}
+				else if (_aStar.Path != null && _aStar.Path.Count > _maxPathLength)
+					_targetPos = new Vector3Int((int)transform.position.x, (int)transform.position.y, (int)transform.position.z);       // if not chasing the Target, stay where you are
+			}
+
+			if (_targetPos != new Vector3Int(1000, 0, 0)) {
+				transform.position = Vector3.MoveTowards(transform.position, _targetPos, Time.deltaTime * _speed);      			// moving the enemy towards to target
+			}
 		}
-		else {
+		else		// if the player is dead, stop attacking
 			_isAttacking = false;
-			if (_distanceBtwTarget < 0.6f) {	 			// get closer to attack
-				_targetPos = Target.transform.position;
-			}
-			else if (_aStar.Path != null && _aStar.Path.Count > 0 && _aStar.Path.Count <= _maxPathLength) {
-				if (_targetPos == new Vector3Int(1000, 0, 0) || transform.position == _targetPos)
-					_targetPos = _aStar.Path.Pop();
-			}
-			else if (_aStar.Path != null && _aStar.Path.Count > _maxPathLength)
-				_targetPos = new Vector3Int((int)transform.position.x, (int)transform.position.y, (int)transform.position.z);       // if not chasing the Target, stay where you are
-		}
-
-		if (_targetPos != new Vector3Int(1000, 0, 0)) {
-			transform.position = Vector3.MoveTowards(transform.position, _targetPos, Time.deltaTime * _speed);      			// moving the enemy towards to target
-		}
 	}
 
 	private void CheckTargetPosition() {
