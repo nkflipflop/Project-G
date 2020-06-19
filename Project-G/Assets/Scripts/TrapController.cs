@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TrapController : MonoBehaviour {
 
-    private int _damage = 2;
+    [SerializeField] private int _damage = 2;
     private float _coolDown = 0.8f;
     private bool _didDamage = false;
     private BoxCollider2D _boxCollider2D;
