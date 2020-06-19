@@ -12,8 +12,9 @@ public class HandControllerBase : MonoBehaviour
     protected bool CharacterIsRunning = false;
     protected WeaponBase CurrentWeapon;
     protected Vector3 WeaponPosition = new Vector3 (0, 0, 0);
+	protected float AimDeviation;			// ability to hit the bull's eye (if 0, you are best)
 
-    private Vector3 _aimPosition;
+    private Vector3 _aimPosition;			
 	private float _verticalTrigger = 1;		// for inverse scaling of the weapon
     
 
@@ -58,6 +59,16 @@ public class HandControllerBase : MonoBehaviour
 		CurrentWeapon.SetSortingOrder(sortingOrder);
 	}
 
+	// This is default Trigger the weapon fitting to player, you must override for NPCs
+	public virtual void UseWeapon() {
+		if (Input.GetMouseButton(0)){
+			CurrentWeapon.Trigger();
+		}
+		else {
+			CurrentWeapon.ReleaseTrigger();
+		}
+	}
+
 	// Aims the weapon
 	private void AimWeapon() {
 		// Flipping hand position and weapon direction
@@ -79,6 +90,7 @@ public class HandControllerBase : MonoBehaviour
 			CurrentWeapon.WeaponUpdate();
 			AimWeapon();
 			AdjustSortingOrder();
+			UseWeapon();
 		}
 	}
 
@@ -86,7 +98,8 @@ public class HandControllerBase : MonoBehaviour
 	private void GetInputs() {
 		// Taking aim position
         if(TargetObject){
-		    _aimPosition = TargetObject.transform.position;
+			float distance = Vector3.Distance(_aimPosition, transform.position) / 2;
+		    _aimPosition = TargetObject.transform.position + UnityEngine.Random.insideUnitSphere * UnityEngine.Random.Range(0, distance) * AimDeviation;
 		    _aimPosition.z = 0f;
 	    }
     }

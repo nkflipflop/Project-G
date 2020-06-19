@@ -5,12 +5,13 @@
 		Damage = 5;
 
 		HasRecoil = false;
+		Automatic = true;
 
 		MaxAmmo = 1;
 		CurrentAmmo = MaxAmmo;
 	}
 
-	public override void TriggerWeapon() {
+	public override void Trigger() {
 		if (CurrentAmmo > 0) Fire();
 	}
 }

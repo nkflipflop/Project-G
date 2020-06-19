@@ -9,14 +9,9 @@ public class WeaponAssaultRifle : WeaponBase {
 		Damage = 3;
 
 		HasRecoil = true;
-
+		Automatic = true;
+		
 		MaxAmmo = 30;
 		CurrentAmmo = MaxAmmo;
-	}
-	
-	public override void TriggerWeapon(){
-		if (Input.GetMouseButton(0) && CurrentAmmo > 0) {
-			Fire();
-		}
 	}
 }

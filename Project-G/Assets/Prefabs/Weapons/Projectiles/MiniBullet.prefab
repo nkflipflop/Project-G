@@ -224,6 +224,7 @@ MonoBehaviour:
     type: 3}
   NoneSprite: {fileID: 0}
   Light: {fileID: 1306297443189673106}
+  DefaultSpeed: 10
   _damage: 5
   ShotByPlayer: 1
 --- !u!114 &1185499262873553907
@@ -240,7 +241,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ImpulseDefinition:
     m_ImpulseChannel: -1
-    m_RawSignal: {fileID: 11400000, guid: 01b71103ddadd5144b7bb44c4720c240, type: 2}
+    m_RawSignal: {fileID: 0}
     m_AmplitudeGain: 0.05
     m_FrequencyGain: 0
     m_RepeatMode: 0
@@ -322,3 +323,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b61cd7195226a214b8ba5500d6b9f2c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _walkingObject: 0

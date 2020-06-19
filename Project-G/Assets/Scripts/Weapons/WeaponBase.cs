@@ -6,10 +6,12 @@ public class WeaponBase : MonoBehaviour {
 
 	private WeaponRecoiler _weaponRecoiler;
 	private float _timeBtwShots;
+	private bool _CanTrigger = true;
 
 	protected float ReloadTime;
 	protected float FireRate;
 	protected bool HasRecoil;
+	protected bool Automatic;
 	protected float Damage;
 	protected int MaxAmmo;
 	
@@ -37,7 +39,7 @@ public class WeaponBase : MonoBehaviour {
 		transform.localScale = scale; 
 	}
 
-	// Fires the Weapon
+	// Fires the Weapon	
 	public void Fire() {
 		CurrentAmmo -= 1;
 		_timeBtwShots = FireRate;
@@ -48,24 +50,29 @@ public class WeaponBase : MonoBehaviour {
 		// Creating Fire Effect
 		StartCoroutine(FireEffector(shootPoint.position));
 		// Creating projectile
-		Instantiate(Projectile, shootPoint.position, shootPoint.rotation);
+		GameObject tempProj = Instantiate(Projectile, shootPoint.position, shootPoint.rotation);
 		
-		Projectile.GetComponent<ProjectileController>().ShotByPlayer = (transform.root.tag == "Player");
+		if (transform.root.tag == "Player"){
+			ProjectileController projCont = tempProj.GetComponent<ProjectileController>();
+			projCont.ShottedByPlayer();
+		}
 	}
 
-	public virtual void TriggerWeapon() {
-		if (Input.GetMouseButtonDown(0) && CurrentAmmo > 0){
+	public virtual void Trigger() {
+		if (_CanTrigger && _timeBtwShots <= 0 && CurrentAmmo > 0){
 			Fire();
+			_CanTrigger = Automatic == true ? true : false;			// if weapon is not automatic, you need to release trigger
 		}
+	}
+
+	public void ReleaseTrigger(){
+		_CanTrigger = true;
 	}
 
 	// Update the weapon
 	public void WeaponUpdate() {
 		// For firing
-		if (_timeBtwShots <= 0 && CurrentAmmo > 0)
-			TriggerWeapon();
-		else
-			_timeBtwShots -= Time.deltaTime;
+		_timeBtwShots -= Time.deltaTime;
 
 		// Reloading
 		if (CurrentAmmo == 0) {

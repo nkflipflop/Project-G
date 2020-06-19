@@ -646,7 +646,7 @@ MonoBehaviour:
     type: 3}
   Enemies:
   - {fileID: 1363067898}
-  - {fileID: 1706242347}
+  - {fileID: 341482499}
   - {fileID: 592281809}
   - {fileID: 341482499}
   Key: {fileID: 88617627}
@@ -781,9 +781,9 @@ GameObject:
   - component: {fileID: 341482505}
   - component: {fileID: 341482504}
   - component: {fileID: 341482508}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Soldier
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -847,7 +847,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 341482499}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1, y: -0.5, z: 0}
+  m_LocalPosition: {x: -1.5, y: -0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1457314505}
@@ -901,7 +901,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b61cd7195226a214b8ba5500d6b9f2c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _walkingObject: 0
+  _walkingObject: 1
 --- !u!114 &341482505
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -914,8 +914,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a26a8f1685a6d044b23c832729f9a3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Renderer: {fileID: 0}
-  DissolveMaterial: {fileID: 0}
+  Renderer: {fileID: 341482500}
+  DissolveMaterial: {fileID: 2100000, guid: 8731b3bef0b12044381118bb5f69a921, type: 2}
   _hasChild: 0
 --- !u!114 &341482506
 MonoBehaviour:
@@ -930,8 +930,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _health: 25
-  DissolveEffect: {fileID: 0}
-  Renderer: {fileID: 0}
+  DissolveEffect: {fileID: 341482505}
+  Renderer: {fileID: 341482500}
 --- !u!114 &341482507
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -945,9 +945,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Target: {fileID: 8005256322282322018}
-  _speed: 1
+  _speed: 1.5
+  DistanceBtwTarget: 0
   DamageHelper: {fileID: 341482506}
-  IsRun: 0
+  IsRunning: 0
   _attackRange: 0.4
   AttackController: {fileID: 358594205}
 --- !u!114 &341482508
@@ -6462,6 +6463,16 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 625569415562995085, guid: de1d88ca4980ec343bfca770485c2db2,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2564251660403829790, guid: de1d88ca4980ec343bfca770485c2db2,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 3879933217403580072, guid: de1d88ca4980ec343bfca770485c2db2,
         type: 3}
       propertyPath: m_SortingOrder
@@ -6472,6 +6483,11 @@ PrefabInstance:
       propertyPath: m_FlipX
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4461844161097460203, guid: de1d88ca4980ec343bfca770485c2db2,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 6447835031427417211, guid: de1d88ca4980ec343bfca770485c2db2,
         type: 3}
       propertyPath: m_Name
@@ -6481,6 +6497,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6447835031427417211, guid: de1d88ca4980ec343bfca770485c2db2,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 7349297353471190684, guid: de1d88ca4980ec343bfca770485c2db2,
         type: 3}
@@ -6882,8 +6903,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Target: {fileID: 8005256322282322018}
   _speed: 1.8
+  DistanceBtwTarget: 0
   DamageHelper: {fileID: 1363067906}
-  IsRun: 0
+  IsRunning: 0
   _attackRange: 0.4
   AttackController: {fileID: 358594205}
 --- !u!114 &1363067906
@@ -6934,7 +6956,7 @@ GameObject:
   - component: {fileID: 1457314505}
   - component: {fileID: 1457314507}
   - component: {fileID: 1457314506}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Hands
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6978,7 +7000,7 @@ CircleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1457314504}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
@@ -7148,8 +7170,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Target: {fileID: 8005256322282322018}
   _speed: 2
+  DistanceBtwTarget: 0
   DamageHelper: {fileID: 1706242352}
-  IsRun: 0
+  IsRunning: 0
   _attackRange: 0.3
   AttackController: {fileID: 1238256383}
 --- !u!114 &1706242352
@@ -7340,7 +7363,7 @@ CircleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1923094850}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1

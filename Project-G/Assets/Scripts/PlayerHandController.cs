@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerHandController : HandControllerBase {
 
+
 	public PlayerController PlayerController;
 	public CursorController Cursor;
 
@@ -14,7 +15,9 @@ public class PlayerHandController : HandControllerBase {
 	private bool _canTake = false;
 	
 
-	public override void SpecialStart(){
+	public override void SpecialStart() {
+		AimDeviation = 0;
+
 		// Assigning current weapon to cursor to know current ammo
 		Cursor.CurrentWeapon = CurrentWeapon;
 	}
