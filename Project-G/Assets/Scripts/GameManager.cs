@@ -9,8 +9,10 @@ public class GameManager : MonoBehaviour
     private int _dungeonLevel = 0;
 
     private void Awake() {
-        DungeonManager.CreateDungeon();
-        DungeonManager.RandomEnemySpawner(_dungeonLevel);
+        System.DateTime start = System.DateTime.Now;
+        LoadDungeon();
+        System.DateTime end = System.DateTime.Now;
+		Debug.Log("Dungeon Loading Time: " + end.Subtract(start).Milliseconds + "ms");
     }
 
     // Start is called before the first frame update
@@ -23,5 +25,12 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         
+    }
+
+    private void LoadDungeon() {
+        DungeonManager.CreateDungeon();
+        DungeonManager.PlayerSpawner();
+        DungeonManager.RandomEnemySpawner(_dungeonLevel);
+        DungeonManager.RandomTrapSpawner(_dungeonLevel);
     }
 }
