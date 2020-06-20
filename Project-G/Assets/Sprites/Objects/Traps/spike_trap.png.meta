@@ -1,16 +1,28 @@
 fileFormatVersion: 2
-guid: caaa29aa7c8137840982c59574e53d92
+guid: f6eb4a657373618418dbbf04387e0a72
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 5151962614583625095
-    second: traps_0
+      213: 1267997466789973777
+    second: spike_trap_0
   - first:
-      213: 7382210792774636493
-    second: traps_1
+      213: -1352397676652071882
+    second: spike_trap_1
   - first:
-      213: 1677892837291520079
-    second: traps_2
+      213: -4317575240271982671
+    second: spike_trap_2
+  - first:
+      213: 6216971889954247071
+    second: spike_trap_3
+  - first:
+      213: -3581882678996813913
+    second: spike_trap_4
+  - first:
+      213: -6730052584705050645
+    second: spike_trap_5
+  - first:
+      213: -6046682735148160022
+    second: spike_trap_6
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -95,7 +107,91 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: traps_0
+      name: spike_trap_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 48
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 11f8c185af4d89110800000000000000
+      internalID: 1267997466789973777
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spike_trap_1
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 48
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 634f6187a715b3de0800000000000000
+      internalID: -1352397676652071882
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spike_trap_2
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 48
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1bf0198c134e414c0800000000000000
+      internalID: -4317575240271982671
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spike_trap_3
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 48
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f91df47befe174650800000000000000
+      internalID: 6216971889954247071
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spike_trap_4
       rect:
         serializedVersion: 2
         x: 0
@@ -109,14 +205,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7858952a3b27f7740800000000000000
-      internalID: 5151962614583625095
+      spriteID: 7a7354b5ea89a4ec0800000000000000
+      internalID: -3581882678996813913
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: traps_1
+      name: spike_trap_5
       rect:
         serializedVersion: 2
         x: 48
@@ -130,14 +226,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: dc313687a91e27660800000000000000
-      internalID: 7382210792774636493
+      spriteID: be7b4f0e4dc0a92a0800000000000000
+      internalID: -6730052584705050645
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: traps_2
+      name: spike_trap_6
       rect:
         serializedVersion: 2
         x: 96
@@ -151,8 +247,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f40fee945a2194710800000000000000
-      internalID: 1677892837291520079
+      spriteID: aeba10ec61ed51ca0800000000000000
+      internalID: -6046682735148160022
       vertices: []
       indices: 
       edges: []

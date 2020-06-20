@@ -648,7 +648,11 @@ MonoBehaviour:
   - {fileID: 1363067898}
   - {fileID: 341482499}
   - {fileID: 592281809}
-  - {fileID: 341482499}
+  
+  Traps:
+  - {fileID: 8668804497192439440, guid: 7b7a99a99f8c116418d6b36ea15ccf59, type: 3}
+  - {fileID: 6453282356599633133, guid: 99a87bb2700001440b218b3d11256942, type: 3}
+  
   Key: {fileID: 88617627}
   DungeonRows: 24
   DungeonColumns: 24
@@ -1185,6 +1189,36 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 450460188}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &473463964
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 473463965}
+  m_Layer: 0
+  m_Name: Traps
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &473463965
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 473463964}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1575737063}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &512282047
 GameObject:
   m_ObjectHideFlags: 0
@@ -6977,6 +7011,7 @@ Transform:
   - {fileID: 609681515}
   - {fileID: 657774851}
   - {fileID: 2111344320}
+  - {fileID: 473463965}
   m_Father: {fileID: 1472256107}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
