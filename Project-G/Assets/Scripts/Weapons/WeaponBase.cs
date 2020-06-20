@@ -50,12 +50,9 @@ public class WeaponBase : MonoBehaviour {
 		// Creating Fire Effect
 		StartCoroutine(FireEffector(shootPoint.position));
 		// Creating projectile
-		GameObject tempProj = Instantiate(Projectile, shootPoint.position, shootPoint.rotation);
+		GameObject tempProjectile = Instantiate(Projectile, shootPoint.position, shootPoint.rotation);
 		
-		if (transform.root.tag == "Player"){
-			ProjectileController projCont = tempProj.GetComponent<ProjectileController>();
-			projCont.ShottedByPlayer();
-		}
+		tempProjectile.GetComponent<ProjectileController>().ShotByPlayer = (transform.root.tag == "Player");
 	}
 
 	public virtual void Trigger() {

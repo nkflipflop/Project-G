@@ -11,7 +11,7 @@ public class HandControllerBase : MonoBehaviour
     
     protected bool CharacterIsRunning = false;
     protected WeaponBase CurrentWeapon;
-    protected Vector3 WeaponPosition = new Vector3 (0, 0, 0);
+    protected Vector3 WeaponPosition = new Vector3 (0.2f, 0, 0);
 	protected float AimDeviation;			// ability to hit the bull's eye (if 0, you are best)
 
     private Vector3 _aimPosition;			
@@ -98,7 +98,8 @@ public class HandControllerBase : MonoBehaviour
 	private void GetInputs() {
 		// Taking aim position
         if(TargetObject){
-			float distance = Vector3.Distance(_aimPosition, transform.position) / 2;
+			float distance = Vector3.Distance(_aimPosition, transform.position) / 16;
+
 		    _aimPosition = TargetObject.transform.position + UnityEngine.Random.insideUnitSphere * UnityEngine.Random.Range(0, distance) * AimDeviation;
 		    _aimPosition.z = 0f;
 	    }

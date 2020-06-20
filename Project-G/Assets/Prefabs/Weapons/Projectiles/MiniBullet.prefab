@@ -224,7 +224,7 @@ MonoBehaviour:
     type: 3}
   NoneSprite: {fileID: 0}
   Light: {fileID: 1306297443189673106}
-  DefaultSpeed: 10
+  _speed: 5
   _damage: 5
   ShotByPlayer: 1
 --- !u!114 &1185499262873553907

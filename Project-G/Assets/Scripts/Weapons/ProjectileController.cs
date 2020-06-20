@@ -8,12 +8,12 @@ public class ProjectileController : MonoBehaviour {
     public GameObject DestroyEffect;
 	public Sprite NoneSprite;
 	public GameObject Light;
-	public float DefaultSpeed = 30;
+	
 
-	private float _lifetime = 50;
-	private float _speed;
+	private float _lifetime = 100;
+	[SerializeField] private float _speed = 10;
 	[SerializeField] private int _damage = 2;
-	public bool ShotByPlayer = true;
+	public bool ShotByPlayer = false;
 	
 
     private int _enemyLayer = 8;
@@ -25,7 +25,7 @@ public class ProjectileController : MonoBehaviour {
 	private void Start() {
 		// Destroying when hit
 		StartCoroutine(DestroyProjectile());
-		_speed = DefaultSpeed;
+		
 		_hittableLayersByPlayer = (1 << _enemyLayer) | (1 << _environmentLayer);
         _hittableLayersByEnemy = (1 << _playerLayer) | (1 << _environmentLayer);
 	}
@@ -60,12 +60,6 @@ public class ProjectileController : MonoBehaviour {
 			// Creating After Effect
 			Instantiate(DestroyEffect, transform.position, transform.rotation, transform);
 		}
-	}
-
-	public void ShottedByPlayer(){
-		ShotByPlayer = true;
-		_speed = DefaultSpeed * 1.5f;
-		Debug.Log(_speed);
 	}
 	
 	// Waits for seconds.
