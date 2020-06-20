@@ -1,35 +1,34 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class WeaponBase : MonoBehaviour {
 
-	private WeaponRecoiler _weaponRecoiler;
-	private float _timeBtwShots;
-	private bool _CanTrigger = true;
-
-	protected float ReloadTime;
-	protected float FireRate;
-	protected bool HasRecoil;
-	protected bool Automatic;
-	protected float Damage;
-	protected int MaxAmmo;
-	
-	public int CurrentAmmo { get; set; }
-	public SpriteRenderer Renderer;
-	public SpriteRenderer LeftHand;
-	public SpriteRenderer RightHand;
-	public GameObject Projectile;
+	public WeaponPrefab Weapon;
+	public WeaponRecoiler WeaponRecoiler;
 	public GameObject FireEffect;
+	public SpriteRenderer WeaponRenderer;
+	public SpriteRenderer LeftHandRenderer;
+	public SpriteRenderer RightHandRenderer;
+	public Transform ShotPoint;
+	[NonSerialized] public int CurrentAmmo;
+
+	private float _timeBtwShots;
+	private bool _canTrigger = true;
 	
+	
+	private void Start() {
+		CurrentAmmo = Weapon.MaxAmmo;
+	}
+
 	// Changes layer of the sprite
 	public void SetSortingOrder(int order){
-		Renderer.sortingOrder = order;
-		if(LeftHand)
-			LeftHand.sortingOrder = order + 2;
-
-		if(RightHand)
-			RightHand.sortingOrder = order + 2;
+		WeaponRenderer.sortingOrder = order;
+		if(LeftHandRenderer){
+			LeftHandRenderer.sortingOrder = order + 2;
+			RightHandRenderer.sortingOrder = order + 2;
+		}
 	}
 
 	// Flips the sprite
@@ -42,28 +41,27 @@ public class WeaponBase : MonoBehaviour {
 	// Fires the Weapon	
 	public void Fire() {
 		CurrentAmmo -= 1;
-		_timeBtwShots = FireRate;
+		_timeBtwShots = Weapon.FireRate;
 
-		Transform shootPoint = transform.GetChild(0);
+		// Fire Effect
+		Instantiate(FireEffect, ShotPoint.position, ShotPoint.rotation);
 		// Recoiling the weapon
-		if (HasRecoil) _weaponRecoiler.AddRecoil();
-		// Creating Fire Effect
-		StartCoroutine(FireEffector(shootPoint.position));
+		if (Weapon.HasRecoil) WeaponRecoiler.AddRecoil();
 		// Creating projectile
-		GameObject tempProjectile = Instantiate(Projectile, shootPoint.position, shootPoint.rotation);
+		GameObject tempProjectile = Instantiate(Weapon.Projectile, ShotPoint.position, ShotPoint.rotation);
 		
 		tempProjectile.GetComponent<ProjectileController>().ShotByPlayer = (transform.root.tag == "Player");
 	}
 
-	public virtual void Trigger() {
-		if (_CanTrigger && _timeBtwShots <= 0 && CurrentAmmo > 0){
+	public void Trigger() {
+		if (_canTrigger && _timeBtwShots <= 0 && CurrentAmmo > 0){
 			Fire();
-			_CanTrigger = Automatic == true ? true : false;			// if weapon is not automatic, you need to release trigger
+			_canTrigger = Weapon.Automatic == true ? true : false;			// if weapon is not automatic, you need to release trigger
 		}
 	}
 
 	public void ReleaseTrigger(){
-		_CanTrigger = true;
+		_canTrigger = true;
 	}
 
 	// Update the weapon
@@ -78,22 +76,9 @@ public class WeaponBase : MonoBehaviour {
 		}
 	}
 
-
-	private void Start() {
-		_weaponRecoiler = GetComponent<WeaponRecoiler>();
-	}
-
 	// Reloads the weapon
 	IEnumerator ReloadWeapon() {
-		yield return new WaitForSeconds(ReloadTime);
-		CurrentAmmo = MaxAmmo;
-	}
-
-	// Creates, and then destroys Fire effect on the weapon
-	IEnumerator FireEffector(Vector3 position) {
-		GameObject fireEffect;
-		fireEffect = Instantiate(FireEffect, position, transform.rotation);
-		yield return new WaitForSeconds(1);
-		Destroy(fireEffect);
+		yield return new WaitForSeconds(Weapon.ReloadTime);
+		CurrentAmmo = Weapon.MaxAmmo;
 	}
 }

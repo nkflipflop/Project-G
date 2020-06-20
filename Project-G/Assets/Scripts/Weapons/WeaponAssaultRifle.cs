@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/*
 public class WeaponAssaultRifle : WeaponBase {
 	public WeaponAssaultRifle() {
 		ReloadTime = 5f;
@@ -15,3 +15,4 @@ public class WeaponAssaultRifle : WeaponBase {
 		CurrentAmmo = MaxAmmo;
 	}
 }
+*/

@@ -42,8 +42,9 @@ GameObject:
   - component: {fileID: 7741170184100664110}
   - component: {fileID: 827960770257164601}
   - component: {fileID: 3529954891360486526}
-  - component: {fileID: 1557459940323735342}
   - component: {fileID: -2171701435749290827}
+  - component: {fileID: 4344405640485440540}
+  - component: {fileID: 3314771608762817132}
   - component: {fileID: 762648450}
   m_Layer: 0
   m_Name: TurretGun
@@ -155,26 +156,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a26a8f1685a6d044b23c832729f9a3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hasChild: 0
---- !u!114 &1557459940323735342
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6355700462619779414}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1dcd68803902e4a419433a7a13bcd328, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
   Renderer: {fileID: 0}
-  LeftHand: {fileID: 0}
-  RightHand: {fileID: 0}
-  Projectile: {fileID: 8024592333845191033, guid: fb83bf975619b5244a73294a493f4c29,
-    type: 3}
-  FireEffect: {fileID: 8386142174366488335, guid: 8ca38b1ea12c45541b2bcd676ebeb4ce,
-    type: 3}
+  DissolveMaterial: {fileID: 0}
+  _hasChild: 0
 --- !u!114 &-2171701435749290827
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -187,6 +171,46 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b61cd7195226a214b8ba5500d6b9f2c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _walkingObject: 0
+--- !u!114 &4344405640485440540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6355700462619779414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdfebb76137225840accc2415a210e2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ReloadTime: 5
+  FireRate: 0.2
+  HasRecoil: 1
+  Automatic: 1
+  MaxAmmo: 30
+  Projectile: {fileID: 2008849835424725764, guid: b8b88776a857d044795aebfae686b187,
+    type: 3}
+--- !u!114 &3314771608762817132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6355700462619779414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f9e4d030ef3f164a95d1b8aac38b99e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Weapon: {fileID: 4344405640485440540}
+  WeaponRecoiler: {fileID: 762648450}
+  FireEffect: {fileID: 8386142174366488335, guid: 8ca38b1ea12c45541b2bcd676ebeb4ce,
+    type: 3}
+  WeaponRenderer: {fileID: 7741170184100664110}
+  LeftHandRenderer: {fileID: 0}
+  RightHandRenderer: {fileID: 0}
+  ShotPoint: {fileID: 5926889761908136823}
 --- !u!114 &762648450
 MonoBehaviour:
   m_ObjectHideFlags: 0

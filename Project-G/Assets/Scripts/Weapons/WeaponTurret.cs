@@ -1,4 +1,5 @@
-﻿public class WeaponTurret : WeaponBase {
+﻿/*
+public class WeaponTurret : WeaponBase {
 	public WeaponTurret() {
 		ReloadTime = .3f;
 		FireRate = .3f;
@@ -15,3 +16,4 @@
 		if (CurrentAmmo > 0) Fire();
 	}
 }
+*/

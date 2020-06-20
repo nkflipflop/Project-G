@@ -9,7 +9,7 @@ public class FireEffectController : MonoBehaviour {
     }
 
     IEnumerator TurnOffLight() {
-		  yield return new WaitForSeconds(0);
-		  gameObject.SetActive(false);
+		  yield return new WaitForSeconds(0.05f);
+		  Destroy(gameObject);
     }
 }
