@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour {
 	private float _verticalInput;
 	private Vector3 _mousePosition;
 
-	public bool isRun = false;
+	public bool IsRun = false;
 	
 	private Animator _animator;
   	private Rigidbody2D _rb2D;
@@ -43,7 +43,7 @@ public class PlayerController : MonoBehaviour {
 		_mousePosition = Camera.main.ScreenToWorldPoint(_mousePosition);
 
 		if (Mathf.Abs(_horizontalInput) > 0 ||  Mathf.Abs(_verticalInput) > 0)    // starts run and its animation
-			isRun = true;
+			IsRun = true;
 		if (Input.GetKeyDown(KeyCode.Space)) {
 			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 		}
@@ -51,7 +51,7 @@ public class PlayerController : MonoBehaviour {
 
 	// Animate Player
 	void PlayerAnimate() {
-		_animator.SetBool("Run", isRun);         			// for run animation    // when holding direction keys WASD
+		_animator.SetBool("Run", IsRun);         			// for run animation    // when holding direction keys WASD
 		
 		Vector2 mouseDir = _mousePosition - transform.position;
 		_animator.SetFloat("Horizontal", mouseDir.x); 
@@ -61,7 +61,7 @@ public class PlayerController : MonoBehaviour {
 	// Take Action
 	void PlayerMovement(){
 		// when holding direction keys WASD
-		if (isRun)
+		if (IsRun)
 			PlayerRun();
 		else
 			StartCoroutine(DisableParticles());
@@ -87,7 +87,7 @@ public class PlayerController : MonoBehaviour {
 		else {
 			_rb2D.velocity = new Vector2(0f, 0f);
 			_moveLatency = 0.05f;
-			isRun = false;
+			IsRun = false;
 		}
 
 		DustParticles.SetActive(true);

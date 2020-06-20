@@ -8,14 +8,15 @@ public class EnemyController : MonoBehaviour
 	private AStarPathfinding _aStar;
 	[SerializeField] private float _speed = 1f;
 
+	public float DistanceBtwTarget;
 	private Vector3 _targetPos;
-	private float _distanceBtwTarget;
 	private int _maxPathLength = 6;
 	private Vector3Int _nullVector = new Vector3Int(0, 0, -1000);        // null value
 
 	public DamageHelper DamageHelper;
 	private Animator _animator;
 
+	public bool IsRunning = false;
 	private Vector2 _sightDir;
 	private float _sightRange = 5f;
 	private bool _isAttacking = false;
@@ -48,16 +49,16 @@ public class EnemyController : MonoBehaviour
 
 	private void Movement() {
 		if (Target != null) {
-			_distanceBtwTarget = Vector3.Distance(Target.transform.position, transform.position);
+			DistanceBtwTarget = Vector3.Distance(Target.transform.position, transform.position);
 			_sightDir = Target.transform.position - transform.position;
 
-			if (_distanceBtwTarget < _attackRange) {			// close enough to attack
+			if (DistanceBtwTarget < _attackRange) {			// close enough to attack
 				_targetPos = _nullVector;
 				_isAttacking = true;
 			}
 			else {
 				_isAttacking = false;
-				if (_distanceBtwTarget < 0.6f) {	 			// get closer to attack
+				if (DistanceBtwTarget < 0.6f) {	 			// get closer to attack
 					_targetPos = Target.transform.position;
 				}
 				else if (_aStar.Path != null && _aStar.Path.Count > 0 && _aStar.Path.Count <= _maxPathLength) {
@@ -70,16 +71,27 @@ public class EnemyController : MonoBehaviour
 
 			if (_targetPos != _nullVector) {
 				transform.position = Vector3.MoveTowards(transform.position, _targetPos, Time.deltaTime * _speed);      			// moving the enemy towards to target
+				if(Vector3.Distance(transform.position, _targetPos) != 0) {
+					IsRunning = true;
+				}
+				else {
+					IsRunning = false;
+				}
+			}
+			else {
+				IsRunning = false;
 			}
 		}
-		else		// if the player is dead, stop attacking
+		else {		// if the player is dead, stop attacking
 			_isAttacking = false;
+			IsRunning = false;
+		}
 	}
 
 	private void CheckTargetPosition() {
 		if (Target != null && gameObject.activeSelf) {
 			Vector3Int TargetPos = Vector3Int.RoundToInt(Target.transform.position);
-			bool targetInRange = _distanceBtwTarget < _sightRange;
+			bool targetInRange = DistanceBtwTarget < _sightRange;
 			if ((_aStar.GoalPos != TargetPos && targetInRange) || targetInRange) {			// if the player is in range, try to find a path				
 				_aStar.SetupVariables(transform.position, TargetPos);
 				_aStar.PathFinding();
@@ -88,6 +100,7 @@ public class EnemyController : MonoBehaviour
 	}
 
 	private void EnemyAnimate() {
+		_animator.SetBool("IsRunning", IsRunning);
 		_animator.SetBool("IsAttacking", _isAttacking);
 		_animator.SetFloat("Horizontal", _sightDir.x); 
 		_animator.SetFloat("Vertical", _sightDir.y);

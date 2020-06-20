@@ -2,37 +2,30 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerHandController : MonoBehaviour {
+public class PlayerHandController : HandControllerBase {
 
-	public SpriteRenderer RendererPlayer;
+
 	public PlayerController PlayerController;
 	public CursorController Cursor;
 
-	private Vector3 _mousePosition;
-	private Vector3 _weaponPosition = new Vector3 (0, 0, 0);
-	private WeaponBase _currentWeapon;
 	private WeaponBase _newWeapon;
-
-	
 	private bool _hasKey = false;			// dungeon_level exit key
 	private bool _onExitDoor = false;		// player is on the exit door or not
 	private bool _takeWeapon;
 	private bool _canTake = false;
-	private float _verticalTrigger = 1;		// for inverse scaling of the weapon
+	
 
-	private void Start() {
-		_currentWeapon = transform.GetChild(0).GetComponent<WeaponBase>();
-		_currentWeapon.transform.localPosition = _weaponPosition;
+	public override void SpecialStart() {
+		AimDeviation = 0;
 
 		// Assigning current weapon to cursor to know current ammo
-		Cursor.CurrentWeapon = _currentWeapon;
+		Cursor.CurrentWeapon = CurrentWeapon;
 	}
-	private void Update() {
-		GetInputs();
-		// Controls the weapon
-		ControlWeapon();
+
+	public override void SpecialUpdate() {
 		InterractWithNewWeapon();
 		InterractWithExitDoor();
+		CharacterIsRunning = PlayerController.IsRun;
 	}
 
 	private void InterractWithNewWeapon() {
@@ -41,7 +34,7 @@ public class PlayerHandController : MonoBehaviour {
 			//Debug.Log("Çok istiyorsan 'E' ye bas. ;(");
 			if(_takeWeapon) {
 				// Dropping the current weapon
-				_currentWeapon.transform.SetParent(null);
+				CurrentWeapon.transform.SetParent(null);
 				// Equipping the new weapon
 				EquipWeapon(_newWeapon);
 			}
@@ -60,65 +53,13 @@ public class PlayerHandController : MonoBehaviour {
 	// Equips the new weapon from ground
 	private void EquipWeapon(WeaponBase weapon){
 			weapon.transform.SetParent(transform, false);
-			weapon.transform.localPosition = _weaponPosition;
+			weapon.transform.localPosition = WeaponPosition;
 			weapon.transform.rotation = transform.rotation;
 
-			_currentWeapon = weapon;
+			CurrentWeapon = weapon;
 
 			// Assigning current weapon to cursor to know current ammo
-			Cursor.CurrentWeapon = _currentWeapon;
-	}
-
-	// Adjusts the sorting order of the weapon according to mouse position (player's direction)
-	private void AdjustSortingOrder(){
-		int sortingOrder = RendererPlayer.sortingOrder;
-		if(PlayerController.isRun == true) {
-			Vector2 mouseDir = _mousePosition - transform.parent.position;
-			float horizontal = mouseDir.x;
-			float vertical = mouseDir.y;
-			float slope = horizontal / vertical;
-			
-			if (-1 < slope && slope < 1 && vertical > 0)	
-				sortingOrder -= 4;
-			else	
-				sortingOrder += 4;
-		}
-		else {
-			sortingOrder += 4;
-		}
-		
-		_currentWeapon.SetSortingOrder(sortingOrder);
-	}
-
-	// Aims the weapon
-	private void AimWeapon() {
-		// Flipping hand position and weapon direction
-		float verticalAxis = _mousePosition.x - transform.position.x;	
-		bool scale = _verticalTrigger * verticalAxis > 0 ? false : true;
-		_verticalTrigger = verticalAxis;
-		if(scale) _currentWeapon.ScaleInverse();
-
-		// Getting mouse position and direction of player to mouse
-		Vector3 aimDirection = (_mousePosition - _currentWeapon.transform.position).normalized;
-
-		// Rotating the current weapon
-		float angle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
-		_currentWeapon.transform.eulerAngles = new Vector3(0, 0, angle);
-	}
-
-	private void ControlWeapon(){
-		if(_currentWeapon != null){
-			_currentWeapon.WeaponUpdate();
-			AimWeapon();
-			AdjustSortingOrder();
-		}
-	}
-
-	// Gets Inputs
-	private void GetInputs() {
-		// Taking mouse position
-		_mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-		_mousePosition.z = 0f;
+			Cursor.CurrentWeapon = CurrentWeapon;
 	}
 
 	private void OnTriggerEnter2D(Collider2D other) {
