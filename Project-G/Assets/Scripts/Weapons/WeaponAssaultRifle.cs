@@ -5,7 +5,7 @@ using UnityEngine;
 public class WeaponAssaultRifle : WeaponBase {
 	public WeaponAssaultRifle() {
 		ReloadTime = 5f;
-		FireRate = .2f;
+		FireRate = .1f;
 		Damage = 3;
 
 		HasRecoil = true;
