@@ -11,7 +11,7 @@ public class HandControllerBase : MonoBehaviour
     
     protected bool CharacterIsRunning = false;
     protected WeaponBase CurrentWeapon;
-    protected Vector3 WeaponPosition = new Vector3 (0.2f, 0, 0);
+    protected Vector3 WeaponPosition = new Vector3 (0, 0, 0);
 	protected float AimDeviation;			// ability to hit the bull's eye (if 0, you are best)
 
     private Vector3 _aimPosition;			

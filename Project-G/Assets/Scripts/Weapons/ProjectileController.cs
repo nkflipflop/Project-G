@@ -48,7 +48,6 @@ public class ProjectileController : MonoBehaviour {
 				_lifetime = 0;
 			}
 			else {
-				Debug.Log(_speed);
 				transform.Translate(Vector3.right * _speed * Time.deltaTime);
 			}
 		}
