@@ -30,7 +30,7 @@ public class Dissolve : MonoBehaviour
             
             if(!_childDissolveStarted && _hasChild) {
                 _childDissolveStarted = true;
-                transform.GetChild (0).gameObject.GetComponent<Dissolve>().IsDissolving = true;
+                transform.GetChild(0).gameObject.GetComponent<Dissolve>().IsDissolving = true;
             }
             _fade -= Time.deltaTime;
 

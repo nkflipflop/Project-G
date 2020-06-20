@@ -15,7 +15,9 @@ public class SoldierHandController : HandControllerBase
     }
 
     public override void UseWeapon(){
-        if (EnemyController.IsRunning == true && EnemyController.DistanceBtwTarget < 3f){
+        if (!EnemyController.DamageHelper.IsDead && 
+            EnemyController.IsRunning && 
+            EnemyController.DistanceBtwTarget < 3f) {
 			CurrentWeapon.Trigger();
 		}
 		else {
