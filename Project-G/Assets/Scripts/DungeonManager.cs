@@ -6,7 +6,7 @@ using UnityEngine;
 public class DungeonManager : MonoBehaviour
 {
 	private enum Tiles { Bridges, Corridors, Floors, Walls, Waters }
-	private enum Objects { Enemies = 5, Traps }
+	private enum Objects { Enemies = 5, Traps, Lamps }
 	private enum LampObjectsTypes { Lamp, CableH, LampCableH, CableV, LampCableV }
 
 	private struct SpawnData { 
@@ -401,6 +401,7 @@ public class DungeonManager : MonoBehaviour
 		int[,] lightTiles = dungeonTiles.Clone() as int[,];
 		int matrixSize = 3, mulResult;
 		int [,] kernelMatrix = {{1, 1, 1}, {1, 1, 1}, {1, 1, 1}};
+		int lampCounter = 0;
 
 		for (int j = DungeonColumns + (2 * DungeonPadding) - matrixSize; j >= 0; j--) {
 			for (int i = 0; i <= DungeonRows + (2 * DungeonPadding) - matrixSize; i++) {
@@ -410,9 +411,35 @@ public class DungeonManager : MonoBehaviour
 						mulResult += Mathf.Abs(lightTiles[i + k, j + l]) * kernelMatrix[l, k];
 					}
 				}
-				GameObject instance = null;
-				if (mulResult >= 8) {
-					instance = Instantiate(LampObjects[(int)LampObjectsTypes.Lamp], new Vector3(i + 1, j + 1, 0f), Quaternion.identity) as GameObject;
+				GameObject lamp = null;
+				if (mulResult >= 6) {
+					GameObject lampObject = new GameObject("Lamp " + lampCounter);
+					lampObject.transform.SetParent(Dungeon.transform.GetChild((int)Objects.Lamps).gameObject.transform);
+					lamp = Instantiate(LampObjects[(int)LampObjectsTypes.Lamp], new Vector3(i + 1, j + 1, 0f), Quaternion.identity) as GameObject;
+					lamp.transform.SetParent(lampObject.gameObject.transform);
+					lampCounter++;
+					int direction = Random.Range(0, 2);		// 0 for horizontal, 1 for vertical
+					if (direction == 0) {
+						GameObject lampCable = Instantiate(LampObjects[(int)LampObjectsTypes.LampCableH], new Vector3(i + 1, j + 1, 0f), Quaternion.identity) as GameObject;
+						lampCable.transform.SetParent(lampObject.gameObject.transform);
+						int n = i;
+						while (_dungeonTiles[n, j + 1] != 0) {
+							GameObject cable = Instantiate(LampObjects[(int)LampObjectsTypes.CableH], new Vector3(n, j + 1, 0f), Quaternion.identity) as GameObject;
+							cable.transform.SetParent(lampObject.gameObject.transform);
+							n--;
+						}
+					}
+					else {
+						GameObject lampCable = Instantiate(LampObjects[(int)LampObjectsTypes.LampCableV], new Vector3(i + 1, j + 1, 0f), Quaternion.identity) as GameObject;
+						lampCable.transform.SetParent(lampObject.gameObject.transform);
+						int n = j + 2;
+						while (_dungeonTiles[i + 1, n - 1] != 0) {
+							GameObject cable = Instantiate(LampObjects[(int)LampObjectsTypes.CableV], new Vector3(i + 1, n, 0f), Quaternion.identity) as GameObject;
+							cable.transform.SetParent(lampObject.gameObject.transform);
+							n++;
+						}
+					}
+
 					for (int l = 0; l < matrixSize; l++) {
 						for (int k = 0; k < matrixSize; k++) {
 							lightTiles[i + k, j + l] = 0;
