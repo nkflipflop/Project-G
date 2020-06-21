@@ -397,16 +397,29 @@ public class DungeonManager : MonoBehaviour
 		}
 	}
 
-	void PlaceLamps(SubDungeon subDungeon) {
-		if (subDungeon == null)
-			return;
+	void PlaceLamps(int[,] dungeonTiles) {
+		int[,] lightTiles = dungeonTiles.Clone() as int[,];
+		int matrixSize = 3, mulResult;
+		int [,] kernelMatrix = {{1, 1, 1}, {1, 1, 1}, {1, 1, 1}};
 
-		if (subDungeon.IAmLeaf()) {
-			
-		}
-		else {
-			PlaceLamps(subDungeon.left);
-			PlaceLamps(subDungeon.right);
+		for (int j = DungeonColumns + (2 * DungeonPadding) - matrixSize; j >= 0; j--) {
+			for (int i = 0; i <= DungeonRows + (2 * DungeonPadding) - matrixSize; i++) {
+				mulResult = 0;
+				for (int l = 0; l < matrixSize; l++) {
+					for (int k = 0; k < matrixSize; k++) {
+						mulResult += Mathf.Abs(lightTiles[i + k, j + l]) * kernelMatrix[l, k];
+					}
+				}
+				GameObject instance = null;
+				if (mulResult >= 8) {
+					instance = Instantiate(LampObjects[(int)LampObjectsTypes.Lamp], new Vector3(i + 1, j + 1, 0f), Quaternion.identity) as GameObject;
+					for (int l = 0; l < matrixSize; l++) {
+						for (int k = 0; k < matrixSize; k++) {
+							lightTiles[i + k, j + l] = 0;
+						}
+					}
+				}
+			}
 		}
 	}
 
@@ -419,7 +432,7 @@ public class DungeonManager : MonoBehaviour
 			do {
 				randPosX = Random.Range((int)subDungeon.room.x, (int)subDungeon.room.xMax);
 				randPosY = Random.Range((int)subDungeon.room.y, (int)subDungeon.room.yMax);
-			}while (_dungeonTiles[randPosX, randPosY]!= 1);
+			} while (_dungeonTiles[randPosX, randPosY] != 1);
 			_randomPos = new Vector3(randPosX, randPosY, 0);
 		}
 		else {
@@ -445,7 +458,7 @@ public class DungeonManager : MonoBehaviour
 		DrawWaters();
 		_bridgeTilesPos.Clear();		// deleting the list since it completes its purpose
 		DrawWalls();
-		//PlaceLamps(_rootSubDungeon);
+		PlaceLamps(_dungeonTiles);
 
 		_enemyIndexes = new int[,] {{0, 1}, {0, 2}, {0, 3}, {1, 4}, {2, 5}};		// start and end indexes of Enemies array accorcding to the dungeon level
 	}
