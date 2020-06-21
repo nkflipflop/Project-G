@@ -7,6 +7,7 @@ public class DungeonManager : MonoBehaviour
 {
 	private enum Tiles { Bridges, Corridors, Floors, Walls, Waters }
 	private enum Objects { Enemies = 5, Traps }
+	private enum LampObjectsTypes { Lamp, CableH, LampCableH, CableV, LampCableV }
 
 	private struct SpawnData { 
 		int max, current;
@@ -26,6 +27,7 @@ public class DungeonManager : MonoBehaviour
 	public GameObject[] WaterTiles;
 	public GameObject[] WallTiles;
 	public GameObject ExitTile;
+	public GameObject[] LampObjects;
 	public GameObject[] Enemies;
 	public GameObject[] Traps;
 	public GameObject Key;
@@ -395,6 +397,19 @@ public class DungeonManager : MonoBehaviour
 		}
 	}
 
+	void PlaceLamps(SubDungeon subDungeon) {
+		if (subDungeon == null)
+			return;
+
+		if (subDungeon.IAmLeaf()) {
+			
+		}
+		else {
+			PlaceLamps(subDungeon.left);
+			PlaceLamps(subDungeon.right);
+		}
+	}
+
 	void GetRandomPos(SubDungeon subDungeon) {
 		if (subDungeon == null)
 			return;
@@ -430,6 +445,7 @@ public class DungeonManager : MonoBehaviour
 		DrawWaters();
 		_bridgeTilesPos.Clear();		// deleting the list since it completes its purpose
 		DrawWalls();
+		//PlaceLamps(_rootSubDungeon);
 
 		_enemyIndexes = new int[,] {{0, 1}, {0, 2}, {0, 3}, {1, 4}, {2, 5}};		// start and end indexes of Enemies array accorcding to the dungeon level
 	}
