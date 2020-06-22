@@ -223,6 +223,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6126d48a749a9f8459fc9920e4b8befd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxOffsetDistance: 0.18
+  maxOffsetDistance: 0.08
   recoilAcceleration: 50
   weaponRecoilStartSpeed: -5

@@ -2,71 +2,51 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TurretController : MonoBehaviour {
+public class TurretController : HandControllerBase {
+	public TurretController() {
+		WeaponPosition = new Vector3(0f, 0.497f, 0f);
+	}
+	
+	public DamageHelper DamageHelper;
+	private bool _targetInRange = false;
 	private int _environmentLayer = 9;
 	private int _playerLayer = 10;
-	private Transform _shootPoint;
-	[SerializeField] private WeaponBase _weapon = null;
-	public GameObject Target;
 	private LayerMask _hittableLayersByEnemy;
-	private float _spreadFactor = 0.1f;
 
-	// Start is called before the first frame update
-	void Start() {
-		_shootPoint = _weapon.transform.GetChild(0);
+	public override void SpecialStart(){
+        AimDeviation = 2f;
 		_hittableLayersByEnemy = (1 << _playerLayer) | (1 << _environmentLayer);
-	}
+    }
 
-	private void FixedUpdate() {
+	public override void SpecialUpdate() {
 		CheckPlayerInRange();
 	}
+	
+    public override void UseWeapon(){
+        if (!DamageHelper.IsDead &&  _targetInRange) {
+			CurrentWeapon.Trigger();
+		}
+		else {
+			CurrentWeapon.ReleaseTrigger();
+		}
+    }
 
 	private void CheckPlayerInRange() {
-		if (Target != null) {
-			Vector3 direction = Target.transform.position - transform.position;
+		if (TargetObject != null) {
+			Vector3 direction = TargetObject.transform.position - transform.position;
 			direction.y -= .23f;
 			RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, direction, 4f, _hittableLayersByEnemy);
 			//Debug.DrawRay(transform.position, direction, Color.blue, .1f);
 	
 			if (hitInfo.collider != null) {
-				if (hitInfo.collider.tag == "Player") {
-					Shoot();
-				}
+				_targetInRange = hitInfo.collider.tag == "Player";
+			}
+			else {
+				_targetInRange = false;
 			}
 		}
-	}
-
-	private void Shoot() {
-		if (Target != null) {
-			Vector3 aimDirection = GetAimDirection();
-
-
-			// Rotating the current weapon
-			float angle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
-			_weapon.transform.eulerAngles = new Vector3(0, 0, angle);
-
-			_weapon.WeaponUpdate();
-		}
-	}
-
-	private Vector3 GetAimDirection() {
-		// Getting player position
-		Vector3 targetPos = new Vector3(Target.transform.position.x, Target.transform.position.y - 0.2f, Target.transform.position.z);
-		Vector3 aimDirection = (targetPos - _weapon.transform.position).normalized;
-		aimDirection.x += Random.Range(-_spreadFactor, _spreadFactor);
-		aimDirection.y += Random.Range(-_spreadFactor, _spreadFactor);
-		return aimDirection;
-	}
-
-	private void OnTriggerEnter2D(Collider2D other) {
-		if (other.gameObject.CompareTag("Player")) {
-			Shoot();
-		}
-	}
-
-	private void OnTriggerStay2D(Collider2D other) {
-		if (other.gameObject.CompareTag("Player")) {
-			Shoot();
+		else {
+			_targetInRange = false;
 		}
 	}
 }
