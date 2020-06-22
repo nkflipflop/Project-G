@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour
 {
     public DungeonManager DungeonManager;
 
-    private int _dungeonLevel = 0;
+    private int _dungeonLevel = 1;
 
     private void Awake() {
         System.DateTime start = System.DateTime.Now;

@@ -774,7 +774,7 @@ GameObject:
   m_Component:
   - component: {fileID: 245968476}
   - component: {fileID: 245968477}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Concrete Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -821,7 +821,7 @@ GameObject:
   m_Component:
   - component: {fileID: 332065250}
   - component: {fileID: 332065251}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Concrete Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6374,8 +6374,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4ca2a21f7e2ec842800d7d8bdc559bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _weapon: {fileID: 0}
-  Target: {fileID: 8005256322282322018}
+  CharacterRenderer: {fileID: 592281811}
+  TargetObject: {fileID: 8005256322282322018}
+  DamageHelper: {fileID: 592281817}
 --- !u!114 &592281815
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7539,7 +7540,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2096472881}
   - component: {fileID: 2096472882}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Concrete Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
