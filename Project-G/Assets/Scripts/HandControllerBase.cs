@@ -72,7 +72,8 @@ public class HandControllerBase : MonoBehaviour
 	// Aims the weapon
 	private void AimWeapon() {
 		// Flipping hand position and weapon direction
-		float verticalAxis = _aimPosition.x - transform.position.x;	
+		float verticalAxis = Mathf.Sign(_aimPosition.x - transform.position.x);	
+		Debug.Log(verticalAxis);
 		bool scale = _verticalTrigger * verticalAxis > 0 ? false : true;
 		_verticalTrigger = verticalAxis;
 		if(scale) CurrentWeapon.ScaleInverse();
