@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class TurretController : HandControllerBase {
+	public TurretController() {
+		WeaponPosition = new Vector3(0f, 0.497f, 0f);
+	}
+	
 	public DamageHelper DamageHelper;
 	private bool _targetInRange = false;
 	private int _environmentLayer = 9;
