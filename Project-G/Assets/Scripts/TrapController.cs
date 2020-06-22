@@ -8,9 +8,18 @@ public class TrapController : MonoBehaviour {
     private float _coolDown = 0.8f;
     private bool _didDamage = false;
     private BoxCollider2D _boxCollider2D;
+    private Animator _animator;
     // Start is called before the first frame update
     void Start() {
         _boxCollider2D = gameObject.GetComponent<BoxCollider2D>();
+        _animator = gameObject.GetComponent<Animator>();
+        float startDelay = Random.Range(0f, 1.517f);
+        StartCoroutine(StartAnimation(startDelay));
+    }
+
+    private IEnumerator StartAnimation(float time) {
+        yield return new WaitForSeconds(time);
+        _animator.SetBool("Start", true);
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
