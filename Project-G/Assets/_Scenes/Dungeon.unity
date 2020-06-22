@@ -237,8 +237,25 @@ PrefabInstance:
       propertyPath: WeaponRecoiler
       value: 
       objectReference: {fileID: 457434260}
+    - target: {fileID: 5649433108818703225, guid: ae8c98d6377e041469926b292888f629,
+        type: 3}
+      propertyPath: Weapon
+      value: 
+      objectReference: {fileID: 58132333}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ae8c98d6377e041469926b292888f629, type: 3}
+--- !u!114 &58132333 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2429578218707014345, guid: ae8c98d6377e041469926b292888f629,
+    type: 3}
+  m_PrefabInstance: {fileID: 58132332}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdfebb76137225840accc2415a210e2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &88617627
 GameObject:
   m_ObjectHideFlags: 0
@@ -6671,6 +6688,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1457314505}
     m_Modifications:
+    - target: {fileID: 2797497119143768875, guid: 52ac9926fd188904e9ed15731b84fa64,
+        type: 3}
+      propertyPath: Weapon
+      value: 
+      objectReference: {fileID: 1290170207}
     - target: {fileID: 5425444037710871787, guid: 52ac9926fd188904e9ed15731b84fa64,
         type: 3}
       propertyPath: m_Name
@@ -6733,6 +6755,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 52ac9926fd188904e9ed15731b84fa64, type: 3}
+--- !u!114 &1290170207 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5261327179409052315, guid: 52ac9926fd188904e9ed15731b84fa64,
+    type: 3}
+  m_PrefabInstance: {fileID: 1290170206}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdfebb76137225840accc2415a210e2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1347062868
 GameObject:
   m_ObjectHideFlags: 3
@@ -7392,6 +7426,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1923094851}
   - component: {fileID: 1923094853}
+  - component: {fileID: 1923094852}
   m_Layer: 0
   m_Name: Hands
   m_TagString: Untagged
@@ -7414,6 +7449,22 @@ Transform:
   m_Father: {fileID: 8005256322282322022}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!70 &1923094852
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1923094850}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.023119926, y: -0.004020989}
+  m_Size: {x: 0.43365592, y: 0.678332}
+  m_Direction: 0
 --- !u!114 &1923094853
 MonoBehaviour:
   m_ObjectHideFlags: 0
