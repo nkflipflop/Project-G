@@ -6,7 +6,8 @@ using UnityEngine;
 public class DungeonManager : MonoBehaviour
 {
 	private enum Tiles { Bridges, Corridors, Floors, Walls, Waters }
-	private enum Objects { Enemies = 5, Traps }
+	private enum Objects { Enemies = 5, Traps, Lamps }
+	private enum LampObjectsTypes { Lamp, CableH, LampCableH, CableV, LampCableV }
 
 	private struct SpawnData { 
 		int max, current;
@@ -26,6 +27,7 @@ public class DungeonManager : MonoBehaviour
 	public GameObject[] WaterTiles;
 	public GameObject[] WallTiles;
 	public GameObject ExitTile;
+	public GameObject[] LampObjects;
 	public GameObject[] Enemies;
 	public GameObject[] Traps;
 	public GameObject Key;
@@ -395,6 +397,59 @@ public class DungeonManager : MonoBehaviour
 		}
 	}
 
+	void PlaceLamps(int[,] dungeonTiles) {
+		int[,] lightTiles = dungeonTiles.Clone() as int[,];
+		int matrixSize = 3, mulResult;
+		int [,] kernelMatrix = {{1, 1, 1}, {1, 1, 1}, {1, 1, 1}};
+		int lampCounter = 0;
+
+		for (int j = DungeonColumns + (2 * DungeonPadding) - matrixSize; j >= 0; j--) {
+			for (int i = 0; i <= DungeonRows + (2 * DungeonPadding) - matrixSize; i++) {
+				mulResult = 0;
+				for (int l = 0; l < matrixSize; l++) {
+					for (int k = 0; k < matrixSize; k++) {
+						mulResult += Mathf.Abs(lightTiles[i + k, j + l]) * kernelMatrix[l, k];
+					}
+				}
+				GameObject lamp = null;
+				if (mulResult >= 6) {
+					GameObject lampObject = new GameObject("Lamp " + lampCounter);
+					lampObject.transform.SetParent(Dungeon.transform.GetChild((int)Objects.Lamps).gameObject.transform);
+					lamp = Instantiate(LampObjects[(int)LampObjectsTypes.Lamp], new Vector3(i + 1, j + 1, 0f), Quaternion.identity) as GameObject;
+					lamp.transform.SetParent(lampObject.gameObject.transform);
+					lampCounter++;
+					int direction = Random.Range(0, 2);		// 0 for horizontal, 1 for vertical
+					if (direction == 0) {
+						GameObject lampCable = Instantiate(LampObjects[(int)LampObjectsTypes.LampCableH], new Vector3(i + 1, j + 1, 0f), Quaternion.identity) as GameObject;
+						lampCable.transform.SetParent(lampObject.gameObject.transform);
+						int n = i;
+						while (_dungeonTiles[n, j + 1] != 0) {
+							GameObject cable = Instantiate(LampObjects[(int)LampObjectsTypes.CableH], new Vector3(n, j + 1, 0f), Quaternion.identity) as GameObject;
+							cable.transform.SetParent(lampObject.gameObject.transform);
+							n--;
+						}
+					}
+					else {
+						GameObject lampCable = Instantiate(LampObjects[(int)LampObjectsTypes.LampCableV], new Vector3(i + 1, j + 1, 0f), Quaternion.identity) as GameObject;
+						lampCable.transform.SetParent(lampObject.gameObject.transform);
+						int n = j + 2;
+						while (_dungeonTiles[i + 1, n - 1] != 0) {
+							GameObject cable = Instantiate(LampObjects[(int)LampObjectsTypes.CableV], new Vector3(i + 1, n, 0f), Quaternion.identity) as GameObject;
+							cable.transform.SetParent(lampObject.gameObject.transform);
+							n++;
+						}
+					}
+
+					for (int l = 0; l < matrixSize; l++) {
+						for (int k = 0; k < matrixSize; k++) {
+							lightTiles[i + k, j + l] = 0;
+						}
+					}
+				}
+			}
+		}
+	}
+
 	void GetRandomPos(SubDungeon subDungeon) {
 		if (subDungeon == null)
 			return;
@@ -404,7 +459,7 @@ public class DungeonManager : MonoBehaviour
 			do {
 				randPosX = Random.Range((int)subDungeon.room.x, (int)subDungeon.room.xMax);
 				randPosY = Random.Range((int)subDungeon.room.y, (int)subDungeon.room.yMax);
-			}while (_dungeonTiles[randPosX, randPosY]!= 1);
+			} while (_dungeonTiles[randPosX, randPosY] != 1);
 			_randomPos = new Vector3(randPosX, randPosY, 0);
 		}
 		else {
@@ -430,6 +485,7 @@ public class DungeonManager : MonoBehaviour
 		DrawWaters();
 		_bridgeTilesPos.Clear();		// deleting the list since it completes its purpose
 		DrawWalls();
+		PlaceLamps(_dungeonTiles);
 
 		_enemyIndexes = new int[,] {{0, 1}, {0, 2}, {0, 3}, {1, 4}, {2, 5}};		// start and end indexes of Enemies array accorcding to the dungeon level
 	}

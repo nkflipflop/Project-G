@@ -735,6 +735,12 @@ MonoBehaviour:
   - {fileID: 3751531024357851219, guid: d975ddaeafd61174db4a359e6cad664f, type: 3}
   ExitTile: {fileID: 4260368798550124252, guid: 0eada2ed2b86f1345bec2cd31d52c97c,
     type: 3}
+  LampObjects:
+  - {fileID: 5519207672291771794, guid: bcccb62c83c169147910b758cab76f1a, type: 3}
+  - {fileID: 4526055106937526669, guid: c83822fee26490a43ab35d4c0191763b, type: 3}
+  - {fileID: 7997503088497799793, guid: 2c8f6948e6516094595aa6524ad92885, type: 3}
+  - {fileID: 5678425797681453280, guid: 32a98d16bb41b0b43a2715259b887f8e, type: 3}
+  - {fileID: 2533568000603957312, guid: 749c8bf432a295b428ae93dff950a714, type: 3}
   Enemies:
   - {fileID: 1363067898}
   - {fileID: 1706242347}
@@ -6480,6 +6486,36 @@ Transform:
   m_Father: {fileID: 1575737063}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &732940558
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 732940559}
+  m_Layer: 0
+  m_Name: Lamps
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &732940559
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 732940558}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1575737063}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &934962435
 GameObject:
   m_ObjectHideFlags: 0
@@ -7275,6 +7311,7 @@ Transform:
   - {fileID: 657774851}
   - {fileID: 2111344320}
   - {fileID: 473463965}
+  - {fileID: 732940559}
   m_Father: {fileID: 1472256107}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
