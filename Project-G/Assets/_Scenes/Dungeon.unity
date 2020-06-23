@@ -1247,6 +1247,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3529954891360486526, guid: 5945e33681ba17449959579a82b26cbf,
+        type: 3}
+      propertyPath: Renderer
+      value: 
+      objectReference: {fileID: 2087488092}
+    - target: {fileID: 3529954891360486526, guid: 5945e33681ba17449959579a82b26cbf,
+        type: 3}
+      propertyPath: DissolveMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 8731b3bef0b12044381118bb5f69a921, type: 2}
     - target: {fileID: 4174898307737127730, guid: 5945e33681ba17449959579a82b26cbf,
         type: 3}
       propertyPath: m_Layer
@@ -7663,6 +7673,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &2087488092 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 7741170184100664110, guid: 5945e33681ba17449959579a82b26cbf,
+    type: 3}
+  m_PrefabInstance: {fileID: 450460188}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2096472880
 GameObject:
   m_ObjectHideFlags: 0

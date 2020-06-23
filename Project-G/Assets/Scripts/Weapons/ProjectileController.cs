@@ -41,7 +41,7 @@ public class ProjectileController : MonoBehaviour {
 			// When ray collides with another collider
 			if ( hitInfo.collider != null) {
 				// If it is enemy
-				if (hitInfo.collider.CompareTag("Player") || hitInfo.collider.CompareTag("Enemy")) {
+				if (hitInfo.collider.CompareTag("Player") || hitInfo.collider.CompareTag("Enemy") || hitInfo.collider.CompareTag("Breakable")) {
 					hitInfo.collider.gameObject.GetComponent<DamageHelper>().TakeDamage(_damage);
 				}
 				// Stopping the projectile
