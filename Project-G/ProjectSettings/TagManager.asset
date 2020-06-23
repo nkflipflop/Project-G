@@ -8,6 +8,7 @@ TagManager:
   - Weapon
   - Environment
   - Key
+  - Breakable
   layers:
   - Default
   - TransparentFX
