@@ -520,7 +520,9 @@ public class DungeonManager : MonoBehaviour
 				int minEnemyNumber = (int)((subDungeon.room.width * subDungeon.room.height) / 8);
 				int enemyNumberForThisRoom = Random.Range(minEnemyNumber, minEnemyNumber + 1);
 				for (int i = 0; i < enemyNumberForThisRoom; i++) {
-					_randomPos = GetRandomPosInRoom(subDungeon.room);
+					do {
+						_randomPos = GetRandomPosInRoom(subDungeon.room);
+					} while (Vector3.Distance(_randomPos, _playerSpawnPos) == 0);
 
 					int enemyIndex = 0;
 					do {		// make sure that there is only one turret in a room
