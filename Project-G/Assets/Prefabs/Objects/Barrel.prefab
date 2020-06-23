@@ -205,6 +205,7 @@ MonoBehaviour:
   _health: 15
   DissolveEffect: {fileID: 1516673698771313397}
   Renderer: {fileID: 1516673698771313399}
+  HitboxCollider: {fileID: 1516673698771313387}
 --- !u!114 &1516673698771313397
 MonoBehaviour:
   m_ObjectHideFlags: 0
