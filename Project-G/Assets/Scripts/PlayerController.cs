@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour {
   
@@ -44,9 +43,6 @@ public class PlayerController : MonoBehaviour {
 
 		if (Mathf.Abs(_horizontalInput) > 0 ||  Mathf.Abs(_verticalInput) > 0)    // starts run and its animation
 			IsRun = true;
-		if (Input.GetKeyDown(KeyCode.Space)) {
-			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-		}
 	}
 
 	// Animate Player
