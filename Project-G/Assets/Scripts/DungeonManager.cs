@@ -418,27 +418,27 @@ public class DungeonManager : MonoBehaviour
 					lamp = Instantiate(LampObjects[(int)LampObjectsTypes.Lamp], new Vector3(i + 1, j + 1, 0f), Quaternion.identity) as GameObject;
 					lamp.transform.SetParent(lampObject.gameObject.transform);
 					lampCounter++;
-					int direction = Random.Range(0, 2);		// 0 for horizontal, 1 for vertical
-					if (direction == 0) {
-						GameObject lampCable = Instantiate(LampObjects[(int)LampObjectsTypes.LampCableH], new Vector3(i + 1, j + 1, 0f), Quaternion.identity) as GameObject;
-						lampCable.transform.SetParent(lampObject.gameObject.transform);
-						int n = i;
-						while (_dungeonTiles[n, j + 1] != 0) {
-							GameObject cable = Instantiate(LampObjects[(int)LampObjectsTypes.CableH], new Vector3(n, j + 1, 0f), Quaternion.identity) as GameObject;
-							cable.transform.SetParent(lampObject.gameObject.transform);
-							n--;
-						}
-					}
-					else {
-						GameObject lampCable = Instantiate(LampObjects[(int)LampObjectsTypes.LampCableV], new Vector3(i + 1, j + 1, 0f), Quaternion.identity) as GameObject;
-						lampCable.transform.SetParent(lampObject.gameObject.transform);
-						int n = j + 2;
-						while (_dungeonTiles[i + 1, n - 1] != 0) {
-							GameObject cable = Instantiate(LampObjects[(int)LampObjectsTypes.CableV], new Vector3(i + 1, n, 0f), Quaternion.identity) as GameObject;
-							cable.transform.SetParent(lampObject.gameObject.transform);
-							n++;
-						}
-					}
+					// int direction = Random.Range(0, 2);		// 0 for horizontal, 1 for vertical
+					// if (direction == 0) {
+					// 	GameObject lampCable = Instantiate(LampObjects[(int)LampObjectsTypes.LampCableH], new Vector3(i + 1, j + 1, 0f), Quaternion.identity) as GameObject;
+					// 	lampCable.transform.SetParent(lampObject.gameObject.transform);
+					// 	int n = i;
+					// 	while (_dungeonTiles[n, j + 1] != 0) {
+					// 		GameObject cable = Instantiate(LampObjects[(int)LampObjectsTypes.CableH], new Vector3(n, j + 1, 0f), Quaternion.identity) as GameObject;
+					// 		cable.transform.SetParent(lampObject.gameObject.transform);
+					// 		n--;
+					// 	}
+					// }
+					// else {
+					// 	GameObject lampCable = Instantiate(LampObjects[(int)LampObjectsTypes.LampCableV], new Vector3(i + 1, j + 1, 0f), Quaternion.identity) as GameObject;
+					// 	lampCable.transform.SetParent(lampObject.gameObject.transform);
+					// 	int n = j + 2;
+					// 	while (_dungeonTiles[i + 1, n - 1] != 0) {
+					// 		GameObject cable = Instantiate(LampObjects[(int)LampObjectsTypes.CableV], new Vector3(i + 1, n, 0f), Quaternion.identity) as GameObject;
+					// 		cable.transform.SetParent(lampObject.gameObject.transform);
+					// 		n++;
+					// 	}
+					// }
 
 					for (int l = 0; l < matrixSize; l++) {
 						for (int k = 0; k < matrixSize; k++) {
@@ -520,7 +520,9 @@ public class DungeonManager : MonoBehaviour
 				int minEnemyNumber = (int)((subDungeon.room.width * subDungeon.room.height) / 8);
 				int enemyNumberForThisRoom = Random.Range(minEnemyNumber, minEnemyNumber + 1);
 				for (int i = 0; i < enemyNumberForThisRoom; i++) {
-					_randomPos = GetRandomPosInRoom(subDungeon.room);
+					do {
+						_randomPos = GetRandomPosInRoom(subDungeon.room);
+					} while (Vector3.Distance(_randomPos, _playerSpawnPos) == 0);
 
 					int enemyIndex = 0;
 					do {		// make sure that there is only one turret in a room
