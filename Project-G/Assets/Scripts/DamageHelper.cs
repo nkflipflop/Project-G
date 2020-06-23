@@ -10,6 +10,7 @@ public class DamageHelper : MonoBehaviour {
 
     public Dissolve DissolveEffect;
 	public SpriteRenderer Renderer;
+	public CapsuleCollider2D HitboxCollider;
 
     public bool IsDead { get { return _isDead; } }
     
@@ -19,6 +20,7 @@ public class DamageHelper : MonoBehaviour {
 		if (_health <= 0f) {
 			DissolveEffect.IsDissolving = true;
             _isDead = true;
+			HitboxCollider.enabled = false;
 		}
 				
 		// Damage effect on sprite
