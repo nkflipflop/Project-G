@@ -51,7 +51,7 @@ public class PlayerHandController : HandControllerBase {
 	}
 
 	// Equips the new weapon from ground
-	private void EquipWeapon(WeaponBase weapon){
+	public void EquipWeapon(WeaponBase weapon){
 			weapon.transform.SetParent(transform, false);
 			weapon.transform.localPosition = WeaponPosition;
 			weapon.transform.rotation = transform.rotation;

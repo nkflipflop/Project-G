@@ -1,7 +1,5 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using System;
 
 public class DamageHelper : MonoBehaviour {
     [SerializeField] private float _health = 25;
@@ -13,6 +11,10 @@ public class DamageHelper : MonoBehaviour {
 	public CapsuleCollider2D HitboxCollider;
 
     public bool IsDead { get { return _isDead; } }
+	public float Health { 
+		get { return _health; } 
+		set { _health = value; } 
+	}
     
 	public void TakeDamage(float damage) {
 		_health -= damage;
