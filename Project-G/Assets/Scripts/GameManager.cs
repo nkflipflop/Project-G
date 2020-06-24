@@ -10,29 +10,32 @@ public class GameManager : MonoBehaviour
     private int _dungeonLevel = 0;
 
     private void Awake() {
+		LoadLevelData();
         System.DateTime start = System.DateTime.Now;
         LoadDungeon();
         System.DateTime end = System.DateTime.Now;
 		Debug.Log("Dungeon Loading Time: " + end.Subtract(start).Milliseconds + "ms");
     }
 
-    // Start is called before the first frame update
-    private void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
     private void Update() {
         if (Input.GetKeyDown(KeyCode.Space)) {
+			SaveLevelData();
 			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 		}
     }
 
     private void LoadDungeon() {
         DungeonManager.CreateDungeon();
-        DungeonManager.PlayerSpawner();
-        DungeonManager.RandomEnemySpawner(_dungeonLevel);
-        DungeonManager.RandomTrapSpawner(_dungeonLevel);
+        DungeonManager.SpawnEverything(_dungeonLevel);
     }
+
+	private void LoadLevelData() {
+		_dungeonLevel = DataManager.DungeonLevel;
+	}
+
+	private void SaveLevelData() {
+		DataManager.DungeonLevel++;
+        if (DataManager.DungeonLevel == 5)      // after level 5, resets the game
+        	DataManager.DungeonLevel = 0;
+	}
 }

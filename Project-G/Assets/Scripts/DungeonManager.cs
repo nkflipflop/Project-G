@@ -486,11 +486,17 @@ public class DungeonManager : MonoBehaviour
 		_bridgeTilesPos.Clear();		// deleting the list since it completes its purpose
 		DrawWalls();
 		PlaceLamps(_dungeonTiles);
-
-		_enemyIndexes = new int[,] {{0, 1}, {0, 2}, {0, 3}, {1, 4}, {2, 5}};		// start and end indexes of Enemies array accorcding to the dungeon level
+		// _enemyIndexes = new int[,] {{0, 1}, {0, 2}, {0, 3}, {1, 4}, {2, 5}};
+		_enemyIndexes = new int[,] {{0, 1}, {0, 2}, {0, 3}, {0, 3}, {0, 3}};		// start and end indexes of Enemies array accorcding to the dungeon level
 	}
 
-	public void PlayerSpawner() {
+	public void SpawnEverything(int dungeonLevel) {
+		PlayerSpawner();
+        RandomEnemySpawner(dungeonLevel);
+        RandomTrapSpawner(dungeonLevel);
+	}
+
+	private void PlayerSpawner() {
 		GetRandomPos(_rootSubDungeon);		// getting random position in the dungeon for the player
 		Player.transform.position = _randomPos;
 		_playerSpawnPos = _randomPos;
@@ -503,7 +509,7 @@ public class DungeonManager : MonoBehaviour
 		Key.gameObject.transform.position = _randomPos;
 	}
 
-	public void RandomEnemySpawner(int dungeonLevel) {
+	private void RandomEnemySpawner(int dungeonLevel) {
 		SpawnEnemies(_rootSubDungeon, dungeonLevel);
 		// after creating copies, disable the original ones
 		foreach (var enemy in Enemies) {
@@ -543,7 +549,7 @@ public class DungeonManager : MonoBehaviour
 		}
 	}
 
-	public void RandomTrapSpawner(int dungeonLevel) {
+	private void RandomTrapSpawner(int dungeonLevel) {
 		SpawnTraps(_rootSubDungeon, dungeonLevel);
 	}
 
@@ -560,8 +566,8 @@ public class DungeonManager : MonoBehaviour
 						_randomPos = GetRandomPosInRoom(subDungeon.room);
 					} while (Vector3.Distance(_randomPos, _playerSpawnPos) == 0);
 					
-
-					int trapIndex = (int)Random.Range(0, dungeonLevel + 1);
+					int trapMaxIndex = (Traps.Length <= dungeonLevel) ? Traps.Length - 1 : dungeonLevel;
+					int trapIndex = (int)Random.Range(0, trapMaxIndex + 1);
 
 					GameObject instance = Instantiate(Traps[trapIndex], _randomPos, Quaternion.identity) as GameObject;
 					instance.transform.SetParent(Dungeon.transform.GetChild((int)Objects.Traps).gameObject.transform);
