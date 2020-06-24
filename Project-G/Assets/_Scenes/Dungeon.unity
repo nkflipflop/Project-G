@@ -749,7 +749,6 @@ MonoBehaviour:
   Traps:
   - {fileID: 8668804497192439440, guid: 7b7a99a99f8c116418d6b36ea15ccf59, type: 3}
   - {fileID: 6453282356599633133, guid: 99a87bb2700001440b218b3d11256942, type: 3}
-  - {fileID: 0}
   Key: {fileID: 88617627}
   DungeonRows: 24
   DungeonColumns: 24
@@ -780,7 +779,7 @@ GameObject:
   m_Component:
   - component: {fileID: 245968476}
   - component: {fileID: 245968477}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Body Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1040,8 +1039,7 @@ MonoBehaviour:
   _speed: 1.5
   DistanceBtwTarget: 0
   DamageHelper: {fileID: 341482506}
-  IsRunning: 0
-  _attackRange: 0.4
+  _attackRange: 1.2
   AttackController: {fileID: 358594205}
 --- !u!114 &341482508
 MonoBehaviour:
@@ -6290,7 +6288,7 @@ CapsuleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0.25}
@@ -6601,7 +6599,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1158976836}
   - component: {fileID: 1158976837}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: Body Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6770,7 +6768,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1282109103}
   - component: {fileID: 1282109104}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: Body Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7147,7 +7145,6 @@ MonoBehaviour:
   _speed: 1.8
   DistanceBtwTarget: 0
   DamageHelper: {fileID: 1363067906}
-  IsRunning: 0
   _attackRange: 0.4
   AttackController: {fileID: 358594205}
 --- !u!114 &1363067906
@@ -7394,7 +7391,6 @@ MonoBehaviour:
   _speed: 2
   DistanceBtwTarget: 0
   DamageHelper: {fileID: 1706242352}
-  IsRunning: 0
   _attackRange: 0.3
   AttackController: {fileID: 1238256383}
 --- !u!114 &1706242352
@@ -7442,7 +7438,7 @@ CapsuleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.02, y: -0.025}
@@ -7676,7 +7672,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2096472881}
   - component: {fileID: 2096472882}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Body Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}

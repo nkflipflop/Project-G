@@ -58,6 +58,7 @@ GameObject:
   - component: {fileID: 1516673698771313396}
   - component: {fileID: 1516673698771313399}
   - component: {fileID: 1516673698771313398}
+  - component: {fileID: 5267767945480442307}
   - component: {fileID: 1516673698771313387}
   - component: {fileID: 1516673698771313386}
   - component: {fileID: 1516673698771313397}
@@ -174,6 +175,27 @@ MonoBehaviour:
       probabilityRangeTo: 37
   NumItemsToDrop: 2
   DamageHelper: {fileID: 1516673698771313386}
+--- !u!50 &5267767945480442307
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1516673698771313393}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 7
 --- !u!70 &1516673698771313387
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
