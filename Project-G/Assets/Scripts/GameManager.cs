@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
     }
 
     private void Update() {
-        if (Input.GetKeyDown(KeyCode.Space)) {
+        if (Input.GetKeyDown(KeyCode.Space)) {		// press "space" to skip the current level
 			SaveLevelData();
 			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 		}
@@ -29,13 +29,15 @@ public class GameManager : MonoBehaviour
         DungeonManager.SpawnEverything(_dungeonLevel);
     }
 
+	/// <summary> Gets the level data from DataManager and makes the assignments </summary>
 	private void LoadLevelData() {
 		_dungeonLevel = DataManager.DungeonLevel;
-		Player.GetComponent<DamageHelper>().Health = DataManager.Health;		// loading player's health
-		GameObject weapon = Instantiate(DataManager.Weapon) as GameObject;
-		Player.transform.GetChild(0).GetComponent<PlayerHandController>().EquipWeapon(weapon.GetComponent<WeaponBase>());
+		Player.GetComponent<DamageHelper>().Health = DataManager.Health;														// loading player's health
+		GameObject weapon = Instantiate(DataManager.Weapon) as GameObject;														// instantiating player's weapon
+		Player.transform.GetChild(0).GetComponent<PlayerHandController>().EquipWeapon(weapon.GetComponent<WeaponBase>());		// assigning player's weapon
 	}
 
+	/// <summary> Gets the level data and saves it in DataManager at the end of the level </summary>
 	private void SaveLevelData() {
 		DataManager.DungeonLevel++;
         if (DataManager.DungeonLevel == 5)      // after level 5, reset the game

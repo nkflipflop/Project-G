@@ -47,7 +47,6 @@ public class DataManager : MonoBehaviour
             // the instance reference, destroy this game object.
             Destroy(gameObject);
         }
-
         // Do not destroy this object, when we load a new scene.
         DontDestroyOnLoad(gameObject);
     }
