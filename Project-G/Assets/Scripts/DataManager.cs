@@ -8,7 +8,7 @@ public class DataManager : MonoBehaviour
 
     private int _dungeonLevel = 0, _medkits = 3, _shields = 0;
     private float _health = 100;
-    [SerializeField] private GameObject _weapon;
+    [SerializeField] private GameObject _weapon;        // initial weapon of the player
 
     public int DungeonLevel  {
         get { return _dungeonLevel; }
