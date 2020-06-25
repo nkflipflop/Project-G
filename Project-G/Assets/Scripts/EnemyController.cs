@@ -108,7 +108,7 @@ public class EnemyController : MonoBehaviour
 		AttackController.EnableCollider();
 	}
 
-	private void DisableeAttackCollider() {
+	private void DisableAttackCollider() {
 		AttackController.DisableCollider();
 	}
 }

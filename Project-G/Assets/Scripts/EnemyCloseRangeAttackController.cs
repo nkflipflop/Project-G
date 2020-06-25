@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyCloseRangeAttackController : MonoBehaviour {
 
     [SerializeField] private float _damage = 3f;
-
+    private bool _canAttack = true;
     private CircleCollider2D _attackRangeCollider;
 
     private void Start() {
@@ -13,7 +13,8 @@ public class EnemyCloseRangeAttackController : MonoBehaviour {
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
-		if (other.gameObject.CompareTag("Player")) {
+		if (_canAttack && other.gameObject.CompareTag("Player")) {
+            _canAttack = false;
             other.gameObject.GetComponent<DamageHelper>().TakeDamage(_damage);
         }
 	}
@@ -24,5 +25,6 @@ public class EnemyCloseRangeAttackController : MonoBehaviour {
 
 	public void DisableCollider() {
 		_attackRangeCollider.enabled = false;
+        _canAttack = true;
 	}
 }
