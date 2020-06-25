@@ -65,7 +65,7 @@ public class EnemyController : MonoBehaviour
 				else if (_aStar.Path != null && _aStar.Path.Count > 0 && _aStar.Path.Count <= _maxPathLength) {
 					if (_targetPos == _nullVector || transform.position == _targetPos) {
 						_targetPos = _aStar.Path.Pop();
-						_targetPos = new Vector2(_targetPos.x, _targetPos.y) + Random.insideUnitCircle * 0.6f;
+						_targetPos = new Vector2(_targetPos.x, _targetPos.y) + Random.insideUnitCircle * 0.3f;
 					}
 				}
 				else if (_aStar.Path != null && _aStar.Path.Count > _maxPathLength)
