@@ -151,7 +151,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DungeonManager: {fileID: 229953796}
-  DataManager: {fileID: 2052368112}
   Player: {fileID: 8005256322282322018}
 --- !u!4 &2125787
 Transform:
@@ -950,7 +949,6 @@ MonoBehaviour:
   _speed: 1.5
   DistanceBtwTarget: 0
   DamageHelper: {fileID: 341482506}
-  IsRunning: 0
   _attackRange: 0.4
   AttackController: {fileID: 358594205}
 --- !u!114 &341482508
@@ -7039,7 +7037,6 @@ MonoBehaviour:
   _speed: 1.8
   DistanceBtwTarget: 0
   DamageHelper: {fileID: 1363067906}
-  IsRunning: 0
   _attackRange: 0.4
   AttackController: {fileID: 358594205}
 --- !u!114 &1363067906
@@ -7286,7 +7283,6 @@ MonoBehaviour:
   _speed: 2
   DistanceBtwTarget: 0
   DamageHelper: {fileID: 1706242352}
-  IsRunning: 0
   _attackRange: 0.3
   AttackController: {fileID: 1238256383}
 --- !u!114 &1706242352
@@ -7502,6 +7498,8 @@ MonoBehaviour:
   CharacterRenderer: {fileID: 8005256322282322023}
   TargetObject: {fileID: 2107191131}
   PlayerController: {fileID: 8005256322282322020}
+  Weapons:
+  - {fileID: 2593907559752694969, guid: ae8c98d6377e041469926b292888f629, type: 3}
   Cursor: {fileID: 2107191132}
 --- !u!1 &2052368111
 GameObject:
@@ -7532,7 +7530,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a913dbb9fdb79874d869af158ca6fcbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _weapon: {fileID: 2593907559752694969, guid: ae8c98d6377e041469926b292888f629, type: 3}
+  _dungeonLevel: 0
+  _medkits: 3
+  _shields: 0
+  _weaponID: 0
 --- !u!4 &2052368113
 Transform:
   m_ObjectHideFlags: 0

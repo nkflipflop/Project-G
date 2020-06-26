@@ -2,6 +2,7 @@
 
 public class PlayerHandController : HandControllerBase {
 	public PlayerController PlayerController;
+	public GameObject[] Weapons;
 	public CursorController Cursor;
 
 	private WeaponBase _newWeapon;
@@ -14,8 +15,8 @@ public class PlayerHandController : HandControllerBase {
 	public override void SpecialStart() {
 		AimDeviation = 0;
 
-		// Assigning current weapon to cursor to know current ammo
-		Cursor.CurrentWeapon = CurrentWeapon;
+		GameObject weapon = Instantiate(Weapons[DataManager.Instance.WeaponID]) as GameObject;		// instantiating player's weapon
+		EquipWeapon(weapon.GetComponent<WeaponBase>());
 	}
 
 	public override void SpecialUpdate() {

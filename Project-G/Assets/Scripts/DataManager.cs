@@ -4,11 +4,12 @@
 public class DataManager : MonoBehaviour 
 {
     /// <summary>Static reference to the instance of our DataManager</summary>
-    public static DataManager instance;
+    private static DataManager _instance;
 
-    private int _dungeonLevel = 0, _medkits = 3, _shields = 0;
+    [SerializeField] private int _dungeonLevel = 0, _medkits = 3, _shields = 0, _weaponID = 0;
     private float _health = 100;
-    [SerializeField] private GameObject _weapon;        // initial weapon of the player
+
+    public static DataManager Instance { get { return _instance; } }
 
     public int DungeonLevel  {
         get { return _dungeonLevel; }
@@ -20,9 +21,9 @@ public class DataManager : MonoBehaviour
         set { _health = value; }
     }
 
-    public GameObject Weapon {
-        get { return _weapon; }
-        set { _weapon = value; }
+    public int WeaponID {
+        get { return _weaponID; }
+        set { _weaponID = value; }
     }
 
     public int Medkits  {
@@ -36,13 +37,13 @@ public class DataManager : MonoBehaviour
     }
 
     /// <summary>Awake is called when the script instance is being loaded.</summary>
-    void Awake() {
+    private void Awake() {
         // If the instance reference has not been set, yet, 
-        if (instance == null) {
+        if (_instance == null) {
             // Set this instance as the instance reference.
-            instance = this;
+            _instance = this;
         }
-        else if (instance != this) {
+        else if (_instance != this) {
             // If the instance reference has already been set, and this is not the
             // the instance reference, destroy this game object.
             Destroy(gameObject);

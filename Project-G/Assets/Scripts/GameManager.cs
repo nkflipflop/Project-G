@@ -4,7 +4,6 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public DungeonManager DungeonManager;
-	public DataManager DataManager;
 	public GameObject Player;
 
     private int _dungeonLevel = 0;
@@ -31,18 +30,16 @@ public class GameManager : MonoBehaviour
 
 	/// <summary> Gets the level data from DataManager and makes the assignments </summary>
 	private void LoadLevelData() {
-		_dungeonLevel = DataManager.DungeonLevel;
-		Player.GetComponent<DamageHelper>().Health = DataManager.Health;														// loading player's health
-		GameObject weapon = Instantiate(DataManager.Weapon) as GameObject;														// instantiating player's weapon
-		Player.transform.GetChild(0).GetComponent<PlayerHandController>().EquipWeapon(weapon.GetComponent<WeaponBase>());		// assigning player's weapon
+		_dungeonLevel = DataManager.Instance.DungeonLevel;
+		Player.GetComponent<DamageHelper>().Health = DataManager.Instance.Health;													// loading player's health
 	}
 
 	/// <summary> Gets the level data and saves it in DataManager at the end of the level </summary>
 	private void SaveLevelData() {
-		DataManager.DungeonLevel++;
-        if (DataManager.DungeonLevel == 5)      // after level 5, reset the game
-        	DataManager.DungeonLevel = 0;
-		DataManager.Health = Player.GetComponent<DamageHelper>().Health;		// storing player's health
-		DataManager.Weapon = Player.transform.GetChild(0).transform.GetChild(0).gameObject;			// storing player's weapon
+		DataManager.Instance.DungeonLevel++;
+        if (DataManager.Instance.DungeonLevel == 5)      // after level 5, reset the game
+        	DataManager.Instance.DungeonLevel = 0;
+		DataManager.Instance.Health = Player.GetComponent<DamageHelper>().Health;		// storing player's health
+		DataManager.Instance.WeaponID = Player.transform.GetChild(0).transform.GetChild(0).gameObject.GetComponent<WeaponPrefab>().ID;			// storing player's weapon
 	}
 }

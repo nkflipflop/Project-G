@@ -17,9 +17,9 @@ public class HandControllerBase : MonoBehaviour
 
 
 	private void Start() {
+		SpecialStart();
 		CurrentWeapon = transform.GetChild(0).GetComponent<WeaponBase>();
 		CurrentWeapon.transform.localPosition = WeaponPosition;
-        SpecialStart();
 	}
 
     public virtual void SpecialStart(){
