@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour
 
     private void LoadDungeon() {
         DungeonManager.CreateDungeon();
+		Debug.Log(_dungeonLevel);
         DungeonManager.SpawnEverything(_dungeonLevel);
     }
 
