@@ -950,8 +950,7 @@ MonoBehaviour:
   _speed: 1.5
   DistanceBtwTarget: 0
   DamageHelper: {fileID: 341482506}
-  IsRunning: 0
-  _attackRange: 0.4
+  _attackRange: 1.2
   AttackController: {fileID: 358594205}
 --- !u!114 &341482508
 MonoBehaviour:
@@ -6182,7 +6181,7 @@ CapsuleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0.25}
@@ -6493,7 +6492,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1158976836}
   - component: {fileID: 1158976837}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Body Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6592,9 +6591,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.03, y: -0.06}
+  m_Offset: {x: 0.02, y: 0.02}
   serializedVersion: 2
-  m_Radius: 0.26
+  m_Radius: 0.25
 --- !u!114 &1238256383
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6662,7 +6661,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1282109103}
   - component: {fileID: 1282109104}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Body Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7039,7 +7038,6 @@ MonoBehaviour:
   _speed: 1.8
   DistanceBtwTarget: 0
   DamageHelper: {fileID: 1363067906}
-  IsRunning: 0
   _attackRange: 0.4
   AttackController: {fileID: 358594205}
 --- !u!114 &1363067906
@@ -7084,7 +7082,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1457314505}
   - component: {fileID: 1457314506}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Hands
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7286,7 +7284,6 @@ MonoBehaviour:
   _speed: 2
   DistanceBtwTarget: 0
   DamageHelper: {fileID: 1706242352}
-  IsRunning: 0
   _attackRange: 0.3
   AttackController: {fileID: 1238256383}
 --- !u!114 &1706242352
@@ -7334,10 +7331,10 @@ CapsuleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.02, y: -0.025}
+  m_Offset: {x: 0.02, y: 0.07}
   m_Size: {x: 0.5, y: 0.5}
   m_Direction: 0
 --- !u!212 &1706242355
@@ -8057,7 +8054,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df6fb28ad9cbb484c9d905d52d4dfa92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _health: 50
+  _health: 100
   DissolveEffect: {fileID: 8005256322282322026}
   Renderer: {fileID: 8005256322282322023}
   HitboxCollider: {fileID: 8005256322282322028}
