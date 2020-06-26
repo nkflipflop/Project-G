@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
 
     private int _dungeonLevel = 0;
 
-    private void Awake() {
+    private void Start() {
 		LoadLevelData();
         System.DateTime start = System.DateTime.Now;
         LoadDungeon();

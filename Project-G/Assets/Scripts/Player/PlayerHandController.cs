@@ -2,7 +2,7 @@
 
 public class PlayerHandController : HandControllerBase {
 	public PlayerController PlayerController;
-	public GameObject[] Weapons;
+	public GameConfigData Config;
 	public CursorController Cursor;
 
 	private WeaponBase _newWeapon;
@@ -15,7 +15,7 @@ public class PlayerHandController : HandControllerBase {
 	public override void SpecialStart() {
 		AimDeviation = 0;
 
-		GameObject weapon = Instantiate(Weapons[DataManager.Instance.WeaponID]) as GameObject;		// instantiating player's weapon
+		GameObject weapon = Instantiate(Config.Weapons[DataManager.Instance.WeaponID]) as GameObject;		// instantiating player's weapon
 		EquipWeapon(weapon.GetComponent<WeaponBase>());
 	}
 

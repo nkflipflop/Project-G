@@ -19,24 +19,15 @@ public class DungeonManager : MonoBehaviour
 		public int Current { get { return current; } set { current = value; } }
 	}
 
+	public GameConfigData Config;
 	public GameObject Player;
 	public GameObject Dungeon;
-	public GameObject[] FloorTiles;
-	public GameObject[] BridgeTiles;
-	public GameObject[] WaterTiles;
 	public GameObject[] WallTiles;
-	public GameObject ExitTile;
-	public GameObject[] LampObjects;
 	public GameObject[] Enemies;
-	public GameObject[] Traps;
-	public GameObject Key;
 	private GameObject[,] _dungeonFloorPositions;
 	private int[,] _dungeonTiles;		// the tiles that players and other NPCs can walk on
 	private int[,] _enemyIndexes;
 	List<Vector2Int> _bridgeTilesPos;
-	public int DungeonRows, DungeonColumns;
-	public int DungeonPadding;
-	public int MinRoomSize, MaxRoomSize;
 	private SpawnData _enemySpawnData = new SpawnData(25, 0);
 	private SpawnData _trapSpawnData = new SpawnData(12, 0);
 	private Vector3 _playerSpawnPos;
@@ -215,8 +206,8 @@ public class DungeonManager : MonoBehaviour
 		//Debug.Log("Splitting sub-dungeon " + subDungeon.debugId + ": " + subDungeon.rect);
 		if (subDungeon.IAmLeaf()) {
 			// if the subdungeon is too large
-			if (subDungeon.rect.width > MaxRoomSize || subDungeon.rect.height > MaxRoomSize || Random.Range(0.0f, 1.0f) > 0.25) {
-				if (subDungeon.Split (MinRoomSize, MaxRoomSize)) {
+			if (subDungeon.rect.width > Config.MaxRoomSize || subDungeon.rect.height > Config.MaxRoomSize || Random.Range(0.0f, 1.0f) > 0.25) {
+				if (subDungeon.Split (Config.MinRoomSize, Config.MaxRoomSize)) {
 					//Debug.Log ("Splitted sub-dungeon " + subDungeon.debugId + " in " + subDungeon.left.debugId + ": " + subDungeon.left.rect + ", "
 					//+ subDungeon.right.debugId + ": " + subDungeon.right.rect);
 
@@ -267,7 +258,7 @@ public class DungeonManager : MonoBehaviour
 			for (int i = (int)subDungeon.room.x; i < subDungeon.room.xMax; i++) {
 				for (int j = (int)subDungeon.room.y; j < subDungeon.room.yMax; j++) {
 					if (!(i >= x && i <= xMax && j >= y && j <= yMax)) {
-						GameObject instance = Instantiate(FloorTiles[(int)Random.Range(0, FloorTiles.Length)], new Vector3(i, j, 0f), Quaternion.identity) as GameObject;
+						GameObject instance = Instantiate(Config.FloorTiles[(int)Random.Range(0, Config.FloorTiles.Length)], new Vector3(i, j, 0f), Quaternion.identity) as GameObject;
 						instance.transform.SetParent(Dungeon.transform.GetChild((int)Tiles.Floors).gameObject.transform);
 						_dungeonFloorPositions[i, j] = instance;
 						_dungeonTiles[i, j] = 1;
@@ -292,7 +283,7 @@ public class DungeonManager : MonoBehaviour
 			for (int i = (int)corridor.x; i < corridor.xMax; i++) {
 				for (int j = (int)corridor.y; j < corridor.yMax; j++) {
 					if (_dungeonFloorPositions[i, j] == null) {
-						GameObject instance = Instantiate(FloorTiles[(int)Random.Range(0, FloorTiles.Length)], new Vector3 (i, j, 0f), Quaternion.identity) as GameObject;
+						GameObject instance = Instantiate(Config.FloorTiles[(int)Random.Range(0, Config.FloorTiles.Length)], new Vector3 (i, j, 0f), Quaternion.identity) as GameObject;
 						instance.transform.SetParent(Dungeon.transform.GetChild((int)Tiles.Corridors).gameObject.transform);
 						_dungeonFloorPositions[i, j] = instance;
 						_dungeonTiles[i, j] = 1;
@@ -334,7 +325,7 @@ public class DungeonManager : MonoBehaviour
 				}
 			}
 			if (_dungeonFloorPositions[bridgePos.x, bridgePos.y] == null) {
-				GameObject instance = Instantiate(BridgeTiles[index], new Vector3 (bridgePos.x, bridgePos.y, 0f), Quaternion.identity) as GameObject;
+				GameObject instance = Instantiate(Config.BridgeTiles[index], new Vector3 (bridgePos.x, bridgePos.y, 0f), Quaternion.identity) as GameObject;
 				instance.transform.SetParent(Dungeon.transform.GetChild((int)Tiles.Bridges).gameObject.transform);
 				_dungeonFloorPositions[bridgePos.x, bridgePos.y] = instance;
 			}
@@ -346,8 +337,8 @@ public class DungeonManager : MonoBehaviour
 
 		int [,] kernelMatrix = {{4, 64, 2}, {128, 0, 32}, {8, 16, 1}};
 		
-		for (int j = DungeonColumns + (2 * DungeonPadding) - matrixSize; j >= 0; j--) {
-			for (int i = 0; i <= DungeonRows + (2 * DungeonPadding) - matrixSize; i++) {
+		for (int j = Config.DungeonColumns + (2 * Config.DungeonPadding) - matrixSize; j >= 0; j--) {
+			for (int i = 0; i <= Config.DungeonRows + (2 * Config.DungeonPadding) - matrixSize; i++) {
 				index = 0;
 				for (int l = 0; l < matrixSize; l++) {
 					for (int k = 0; k < matrixSize; k++) {
@@ -358,12 +349,12 @@ public class DungeonManager : MonoBehaviour
 				GameObject instance = null;
 				int wallPosX = i + 1, wallPosY = j + 1;
 				if (_dungeonFloorPositions[wallPosX, wallPosY] == null && _dungeonTiles[wallPosX, wallPosY] == 0) {
-					instance = Instantiate(WallTiles[index], new Vector3 (wallPosX, wallPosY, 0f), Quaternion.identity) as GameObject;
+					instance = Instantiate(Config.WallTiles[index], new Vector3 (wallPosX, wallPosY, 0f), Quaternion.identity) as GameObject;
 					instance.transform.SetParent(Dungeon.transform.GetChild((int)Tiles.Walls).gameObject.transform);
 					_dungeonFloorPositions[wallPosX, wallPosY] = instance;
 
 					if (index != 0) {		// placing floor tile under the walls
-						instance = Instantiate(FloorTiles[(int)Random.Range(0, FloorTiles.Length)], new Vector3 (wallPosX, wallPosY, 0f), Quaternion.identity) as GameObject;
+						instance = Instantiate(Config.FloorTiles[(int)Random.Range(0, Config.FloorTiles.Length)], new Vector3 (wallPosX, wallPosY, 0f), Quaternion.identity) as GameObject;
 						instance.transform.SetParent(Dungeon.transform.GetChild((int)Tiles.Floors).gameObject.transform);
 					}
 				}
@@ -379,9 +370,9 @@ public class DungeonManager : MonoBehaviour
 					if (_dungeonFloorPositions[bridgePos.x + i, bridgePos.y + j] == null || (i == 0 && j == 0)) {
 						GameObject instance;
 						if (_dungeonTiles[bridgePos.x + i, bridgePos.y + j + 1] != -1)
-							instance = Instantiate(WaterTiles[0], new Vector3 (bridgePos.x + i, bridgePos.y + j, 0f), Quaternion.identity) as GameObject;
+							instance = Instantiate(Config.WaterTiles[0], new Vector3 (bridgePos.x + i, bridgePos.y + j, 0f), Quaternion.identity) as GameObject;
 						else
-							instance = Instantiate(WaterTiles[1], new Vector3 (bridgePos.x + i, bridgePos.y + j, 0f), Quaternion.identity) as GameObject;
+							instance = Instantiate(Config.WaterTiles[1], new Vector3 (bridgePos.x + i, bridgePos.y + j, 0f), Quaternion.identity) as GameObject;
 						instance.transform.SetParent(Dungeon.transform.GetChild((int)Tiles.Waters).gameObject.transform);
 						if (i == 0 && j == 0)
 							instance.gameObject.GetComponent<BoxCollider2D>().enabled = false;
@@ -402,8 +393,8 @@ public class DungeonManager : MonoBehaviour
 		int [,] kernelMatrix = {{1, 1, 1}, {1, 1, 1}, {1, 1, 1}};
 		int lampCounter = 0;
 
-		for (int j = DungeonColumns + (2 * DungeonPadding) - matrixSize; j >= 0; j--) {
-			for (int i = 0; i <= DungeonRows + (2 * DungeonPadding) - matrixSize; i++) {
+		for (int j = Config.DungeonColumns + (2 * Config.DungeonPadding) - matrixSize; j >= 0; j--) {
+			for (int i = 0; i <= Config.DungeonRows + (2 * Config.DungeonPadding) - matrixSize; i++) {
 				mulResult = 0;
 				for (int l = 0; l < matrixSize; l++) {
 					for (int k = 0; k < matrixSize; k++) {
@@ -414,7 +405,7 @@ public class DungeonManager : MonoBehaviour
 				if (mulResult >= 6) {
 					GameObject lampObject = new GameObject("Lamp " + lampCounter);
 					lampObject.transform.SetParent(Dungeon.transform.GetChild((int)Objects.Lamps).gameObject.transform);
-					lamp = Instantiate(LampObjects[(int)LampObjectsTypes.Lamp], new Vector3(i + 1, j + 1, 0f), Quaternion.identity) as GameObject;
+					lamp = Instantiate(Config.LampObjects[(int)LampObjectsTypes.Lamp], new Vector3(i + 1, j + 1, 0f), Quaternion.identity) as GameObject;
 					lamp.transform.SetParent(lampObject.gameObject.transform);
 					lampCounter++;
 					// int direction = Random.Range(0, 2);		// 0 for horizontal, 1 for vertical
@@ -470,12 +461,12 @@ public class DungeonManager : MonoBehaviour
 	}
 
 	public void CreateDungeon() {
-		_rootSubDungeon = new SubDungeon(new Rect(DungeonPadding, DungeonPadding, DungeonRows, DungeonColumns));
+		_rootSubDungeon = new SubDungeon(new Rect(Config.DungeonPadding, Config.DungeonPadding, Config.DungeonRows, Config.DungeonColumns));
 		CreateBSP(_rootSubDungeon);
 		_rootSubDungeon.CreateRoom();
 
-		_dungeonFloorPositions = new GameObject[DungeonRows + (2 * DungeonPadding), DungeonColumns + (2 * DungeonPadding)];
-		_dungeonTiles = new int[DungeonRows + (2 * DungeonPadding), DungeonColumns + (2 * DungeonPadding)];
+		_dungeonFloorPositions = new GameObject[Config.DungeonRows + (2 * Config.DungeonPadding), Config.DungeonColumns + (2 * Config.DungeonPadding)];
+		_dungeonTiles = new int[Config.DungeonRows + (2 * Config.DungeonPadding), Config.DungeonColumns + (2 * Config.DungeonPadding)];
 		_bridgeTilesPos = new List<Vector2Int>();
 		DrawRooms(_rootSubDungeon);
 		DrawCorridors(_rootSubDungeon);
@@ -501,11 +492,11 @@ public class DungeonManager : MonoBehaviour
 		_playerSpawnPos = _randomPos;
 
 		GetRandomPos(_rootSubDungeon);		// getting random position in the dungeon for the exit
-		GameObject instance = Instantiate(ExitTile, new Vector3(_randomPos.x, _randomPos.y, 0f), Quaternion.identity) as GameObject;
+		GameObject instance = Instantiate(Config.ExitTile, new Vector3(_randomPos.x, _randomPos.y, 0f), Quaternion.identity) as GameObject;
 		instance.transform.SetParent(Dungeon.transform);
 
 		GetRandomPos(_rootSubDungeon);		// getting random position in the dungeon for the object
-		Key.gameObject.transform.position = _randomPos;
+		Config.Key.gameObject.transform.position = _randomPos;
 	}
 
 	private void RandomEnemySpawner(int dungeonLevel) {
@@ -565,10 +556,10 @@ public class DungeonManager : MonoBehaviour
 						_randomPos = GetRandomPosInRoom(subDungeon.room);
 					} while (Vector3.Distance(_randomPos, _playerSpawnPos) == 0);
 					
-					int trapMaxIndex = (Traps.Length <= dungeonLevel) ? Traps.Length - 1 : dungeonLevel;
+					int trapMaxIndex = (Config.Traps.Length <= dungeonLevel) ? Config.Traps.Length - 1 : dungeonLevel;
 					int trapIndex = (int)Random.Range(0, trapMaxIndex + 1);
 
-					GameObject instance = Instantiate(Traps[trapIndex], _randomPos, Quaternion.identity) as GameObject;
+					GameObject instance = Instantiate(Config.Traps[trapIndex], _randomPos, Quaternion.identity) as GameObject;
 					instance.transform.SetParent(Dungeon.transform.GetChild((int)Objects.Traps).gameObject.transform);
 					_trapSpawnData.Current++;
 				}

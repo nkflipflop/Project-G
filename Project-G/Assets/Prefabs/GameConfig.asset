@@ -1,0 +1,316 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64a9ffab58b9da843ade356b6a40f1ca, type: 3}
+  m_Name: GameConfig
+  m_EditorClassIdentifier: 
+  DungeonRows: 24
+  DungeonColumns: 24
+  DungeonPadding: 4
+  MinRoomSize: 4
+  MaxRoomSize: 4
+  FloorTiles:
+  - {fileID: 3340991808600749764, guid: b514fb2ede14b9e4aad314987d71d2fe, type: 3}
+  - {fileID: 2269708039003513901, guid: f44b0c47e166672478bdafb5b95f6ac0, type: 3}
+  - {fileID: 8901251646445971735, guid: 4cc18da01c7da284d8eaf49ad7199fe6, type: 3}
+  - {fileID: 2111738546601606441, guid: 1e31ec869e170344a891e2a5b6eaae95, type: 3}
+  - {fileID: 3712104634968537371, guid: bbc46c9630edc11498ac6e5652efe14b, type: 3}
+  BridgeTiles:
+  - {fileID: 4250224137073205220, guid: 8436393d082eb1040955667ac7538e0a, type: 3}
+  - {fileID: 4250224137073205220, guid: 3da40aca774400f44a8ac08fae3b43ce, type: 3}
+  - {fileID: 4250224137073205220, guid: 8436393d082eb1040955667ac7538e0a, type: 3}
+  - {fileID: 4250224137073205220, guid: 732e4db72278af8448c39e88c416535c, type: 3}
+  - {fileID: 4250224137073205220, guid: 3da40aca774400f44a8ac08fae3b43ce, type: 3}
+  - {fileID: 4250224137073205220, guid: 3da40aca774400f44a8ac08fae3b43ce, type: 3}
+  - {fileID: 4250224137073205220, guid: e88216fc28356bb418eefb8f9cdf0b3e, type: 3}
+  - {fileID: 4250224137073205220, guid: 2d7cc6748999d1549a6454e602e5b6da, type: 3}
+  - {fileID: 4250224137073205220, guid: 8436393d082eb1040955667ac7538e0a, type: 3}
+  - {fileID: 4250224137073205220, guid: a094b809980ce964baeb8bd6f7e42d56, type: 3}
+  - {fileID: 4250224137073205220, guid: 8436393d082eb1040955667ac7538e0a, type: 3}
+  - {fileID: 4250224137073205220, guid: 017be6a9411b51c48a6c24ead9f123ee, type: 3}
+  - {fileID: 4250224137073205220, guid: 4936acdd40dd19146a3fd5e003a081e3, type: 3}
+  - {fileID: 4250224137073205220, guid: 8cb840e0056113f438ed09c4647bafa0, type: 3}
+  - {fileID: 4250224137073205220, guid: f01d9902927787b4c9705f4438db1300, type: 3}
+  - {fileID: 4250224137073205220, guid: 92cb77c048d2d0d4fa90fc76901f6a55, type: 3}
+  WaterTiles:
+  - {fileID: 7684401844026812628, guid: 7d9c21a259ecced4f80bbfdfe5d13414, type: 3}
+  - {fileID: 5489409630154003630, guid: 3d3df9e1329d63344bc4d3208313f671, type: 3}
+  WallTiles:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  ExitTile: {fileID: 4260368798550124252, guid: 0eada2ed2b86f1345bec2cd31d52c97c,
+    type: 3}
+  LampObjects:
+  - {fileID: 5519207672291771794, guid: bcccb62c83c169147910b758cab76f1a, type: 3}
+  - {fileID: 4526055106937526669, guid: c83822fee26490a43ab35d4c0191763b, type: 3}
+  - {fileID: 7997503088497799793, guid: 2c8f6948e6516094595aa6524ad92885, type: 3}
+  - {fileID: 5678425797681453280, guid: 32a98d16bb41b0b43a2715259b887f8e, type: 3}
+  - {fileID: 2533568000603957312, guid: 749c8bf432a295b428ae93dff950a714, type: 3}
+  Traps:
+  - {fileID: 8668804497192439440, guid: 7b7a99a99f8c116418d6b36ea15ccf59, type: 3}
+  - {fileID: 6453282356599633133, guid: 99a87bb2700001440b218b3d11256942, type: 3}
+  Key: {fileID: 3169203585579767641, guid: f5dd89e24a304e645b763e64c7fdafc6, type: 3}
+  Weapons:
+  - {fileID: 2593907559752694969, guid: ae8c98d6377e041469926b292888f629, type: 3}
