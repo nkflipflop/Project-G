@@ -496,7 +496,8 @@ public class DungeonManager : MonoBehaviour
 		instance.transform.SetParent(Dungeon.transform);
 
 		GetRandomPos(_rootSubDungeon);		// getting random position in the dungeon for the object
-		Config.Key.gameObject.transform.position = _randomPos;
+		GameObject key = Instantiate(Config.Key, new Vector3(_randomPos.x, _randomPos.y, 0f), Quaternion.identity) as GameObject;
+		key.transform.SetParent(Dungeon.transform);
 	}
 
 	private void RandomEnemySpawner(int dungeonLevel) {
