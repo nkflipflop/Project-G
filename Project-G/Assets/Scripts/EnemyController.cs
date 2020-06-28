@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
@@ -63,8 +61,10 @@ public class EnemyController : MonoBehaviour
 					_targetPos = Target.transform.position;
 				}
 				else if (_aStar.Path != null && _aStar.Path.Count > 0 && _aStar.Path.Count <= _maxPathLength) {
-					if (_targetPos == _nullVector || transform.position == _targetPos)
+					if (_targetPos == _nullVector || transform.position == _targetPos) {
 						_targetPos = _aStar.Path.Pop();
+						_targetPos = new Vector2(_targetPos.x, _targetPos.y) + Random.insideUnitCircle * 0.15f;
+					}
 				}
 				else if (_aStar.Path != null && _aStar.Path.Count > _maxPathLength)
 					_targetPos = Vector3Int.RoundToInt(transform.position);       	// if not chasing the Target, stay where you are
@@ -106,7 +106,7 @@ public class EnemyController : MonoBehaviour
 		AttackController.EnableCollider();
 	}
 
-	private void DisableeAttackCollider() {
+	private void DisableAttackCollider() {
 		AttackController.DisableCollider();
 	}
 }

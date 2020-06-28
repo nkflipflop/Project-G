@@ -2,7 +2,7 @@
 using UnityEngine;
 
 public class WeaponPrefab : MonoBehaviour {
-
+	public int ID;
 	public float ReloadTime;
 	public float FireRate;
 	public bool HasRecoil;

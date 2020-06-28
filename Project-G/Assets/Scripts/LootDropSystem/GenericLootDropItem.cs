@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
  
 /// <summary>
 /// Item that can be picked by a LootDropTable.

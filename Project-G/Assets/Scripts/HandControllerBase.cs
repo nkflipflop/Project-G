@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class HandControllerBase : MonoBehaviour
 {
@@ -20,9 +17,9 @@ public class HandControllerBase : MonoBehaviour
 
 
 	private void Start() {
+		SpecialStart();
 		CurrentWeapon = transform.GetChild(0).GetComponent<WeaponBase>();
 		CurrentWeapon.transform.localPosition = WeaponPosition;
-        SpecialStart();
 	}
 
     public virtual void SpecialStart(){
