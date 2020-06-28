@@ -8,7 +8,7 @@ public class Dissolve : MonoBehaviour
     private bool _initted = false;
     private bool _isDissolving = false;
     private bool _childDissolveStarted = false;
-    [SerializeField] private bool _hasChild = false;
+    [SerializeField] private Dissolve _weaponDissolve = null;
 
     private float _fade = 1f;
 
@@ -26,9 +26,9 @@ public class Dissolve : MonoBehaviour
                 _initted = true;
             }
             
-            if(!_childDissolveStarted && _hasChild) {
+            if(!_childDissolveStarted && _weaponDissolve != null) {
                 _childDissolveStarted = true;
-                transform.GetChild(0).gameObject.GetComponent<Dissolve>().IsDissolving = true;
+                _weaponDissolve.IsDissolving = true;
             }
             _fade -= Time.deltaTime;
 
