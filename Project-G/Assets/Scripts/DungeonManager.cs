@@ -477,7 +477,7 @@ public class DungeonManager : MonoBehaviour
 		DrawWalls();
 		PlaceLamps(_dungeonTiles);
 		// _enemyIndexes = new int[,] {{0, 1}, {0, 2}, {0, 3}, {1, 4}, {2, 5}};
-		_enemyIndexes = new int[,] {{0, 1}, {0, 2}, {0, 3}, {0, 3}, {0, 3}};		// start and end indexes of Enemies array accorcding to the dungeon level
+		_enemyIndexes = new int[,] {{0, 1}, {0, 2}, {0, 3}, {1, 4}, {1, 4}};		// start and end indexes of Enemies array accorcding to the dungeon level
 	}
 
 	public void SpawnEverything(int dungeonLevel) {
