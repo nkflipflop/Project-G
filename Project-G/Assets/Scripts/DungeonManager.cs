@@ -477,7 +477,7 @@ public class DungeonManager : MonoBehaviour
 		DrawWalls();
 		PlaceLamps(_dungeonTiles);
 		// _enemyIndexes = new int[,] {{0, 1}, {0, 2}, {0, 3}, {1, 4}, {2, 5}};
-		_enemyIndexes = new int[,] {{0, 1}, {0, 2}, {0, 3}, {0, 3}, {0, 3}};		// start and end indexes of Enemies array accorcding to the dungeon level
+		_enemyIndexes = new int[,] {{0, 1}, {0, 2}, {0, 3}, {1, 4}, {1, 4}};		// start and end indexes of Enemies array accorcding to the dungeon level
 	}
 
 	public void SpawnEverything(int dungeonLevel) {
@@ -517,9 +517,11 @@ public class DungeonManager : MonoBehaviour
 				int minEnemyNumber = (int)((subDungeon.room.width * subDungeon.room.height) / 8);
 				int enemyNumberForThisRoom = Random.Range(minEnemyNumber, minEnemyNumber + 1);
 				for (int i = 0; i < enemyNumberForThisRoom; i++) {
+					int findingPosAttempt = 0;
 					do {
 						_randomPos = GetRandomPosInRoom(subDungeon.room);
-					} while (Vector3.Distance(_randomPos, _playerSpawnPos) == 0);
+						findingPosAttempt++;
+					} while (Vector3.Distance(_randomPos, _playerSpawnPos) < 2.5f && findingPosAttempt <= 100);
 
 					int enemyIndex = 0;
 					do {		// make sure that there is only one turret in a room
