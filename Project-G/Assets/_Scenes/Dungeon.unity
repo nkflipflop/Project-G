@@ -6290,7 +6290,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 686807004}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d66e7836fb21dbe499ab3e1f84202432, type: 3}
+  m_Script: {fileID: 11500000, guid: 6cbf3ad887f6716448346f4ee343c01e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Target: {fileID: 8005256322282322018}
@@ -6299,6 +6299,8 @@ MonoBehaviour:
   DamageHelper: {fileID: 686807008}
   _attackRange: 0.4
   AttackController: {fileID: 802132069}
+  Renderer: {fileID: 686807012}
+  EmissionMaterial: {fileID: 2100000, guid: 1d894cf0c20fcf14e9659a67842e8fb8, type: 2}
 --- !u!70 &686807010
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

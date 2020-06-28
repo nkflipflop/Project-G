@@ -109,8 +109,4 @@ public class EnemyController : MonoBehaviour
 	private void DisableAttackCollider() {
 		AttackController.DisableCollider();
 	}
-
-	public void DestroyObject() {
-		Destroy(gameObject);
-	}
 }
