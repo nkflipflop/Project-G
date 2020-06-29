@@ -461,6 +461,7 @@ public class DungeonManager : MonoBehaviour
 	}
 
 	public void CreateDungeon() {
+		Debug.Log("Creating dungeon...");
 		_rootSubDungeon = new SubDungeon(new Rect(Config.DungeonPadding, Config.DungeonPadding, Config.DungeonRows, Config.DungeonColumns));
 		CreateBSP(_rootSubDungeon);
 		_rootSubDungeon.CreateRoom();
@@ -478,6 +479,7 @@ public class DungeonManager : MonoBehaviour
 		PlaceLamps(_dungeonTiles);
 		// _enemyIndexes = new int[,] {{0, 1}, {0, 2}, {0, 3}, {1, 4}, {2, 5}};
 		_enemyIndexes = new int[,] {{0, 1}, {0, 2}, {0, 3}, {1, 4}, {1, 4}};		// start and end indexes of Enemies array accorcding to the dungeon level
+		Debug.Log("Dungeon creation ended.");
 	}
 
 	public void SpawnEverything(int dungeonLevel) {
@@ -487,6 +489,7 @@ public class DungeonManager : MonoBehaviour
 	}
 
 	private void PlayerSpawner() {
+		Debug.Log("Spawning player...");
 		GetRandomPos(_rootSubDungeon);		// getting random position in the dungeon for the player
 		Player.transform.position = _randomPos;
 		_playerSpawnPos = _randomPos;
@@ -498,14 +501,17 @@ public class DungeonManager : MonoBehaviour
 		GetRandomPos(_rootSubDungeon);		// getting random position in the dungeon for the object
 		GameObject key = Instantiate(Config.Key, new Vector3(_randomPos.x, _randomPos.y, 0f), Quaternion.identity) as GameObject;
 		key.transform.SetParent(Dungeon.transform);
+		Debug.Log("Player spawn ended.");
 	}
 
 	private void RandomEnemySpawner(int dungeonLevel) {
+		Debug.Log("Spawning enemies...");
 		SpawnEnemies(_rootSubDungeon, dungeonLevel);
 		// after creating copies, disable the original ones
 		foreach (var enemy in Enemies) {
 			enemy.SetActive(false);
 		}
+		Debug.Log("Enemy spawn ended.");
 	}
 
 	private void SpawnEnemies(SubDungeon subDungeon, int dungeonLevel) {
@@ -521,18 +527,20 @@ public class DungeonManager : MonoBehaviour
 					do {
 						_randomPos = GetRandomPosInRoom(subDungeon.room);
 						findingPosAttempt++;
-					} while (Vector3.Distance(_randomPos, _playerSpawnPos) < 2.5f && findingPosAttempt <= 100);
+					} while (Vector3.Distance(_randomPos, _playerSpawnPos) < 1.5f && findingPosAttempt <= 200);
 
-					int enemyIndex = 0;
-					do {		// make sure that there is only one turret in a room
-						enemyIndex = (int)Random.Range(_enemyIndexes[dungeonLevel, 0], _enemyIndexes[dungeonLevel, 1] + 1);
-					} while (subDungeon.hasTurret && enemyIndex == 2);		// check if the room has a turret and new enemy is turret
+					if (findingPosAttempt <= 200) {
+						int enemyIndex = 0;
+						do {		// make sure that there is only one turret in a room
+							enemyIndex = (int)Random.Range(_enemyIndexes[dungeonLevel, 0], _enemyIndexes[dungeonLevel, 1] + 1);
+						} while (subDungeon.hasTurret && enemyIndex == 2);		// check if the room has a turret and new enemy is turret
 
-					GameObject instance = Instantiate(Enemies[enemyIndex], _randomPos, Quaternion.identity) as GameObject;
-					instance.transform.SetParent(Dungeon.transform.GetChild((int)Objects.Enemies).gameObject.transform);
-					_enemySpawnData.Current++;
-					if (enemyIndex == 2)
-						subDungeon.hasTurret = true;
+						GameObject instance = Instantiate(Enemies[enemyIndex], _randomPos, Quaternion.identity) as GameObject;
+						instance.transform.SetParent(Dungeon.transform.GetChild((int)Objects.Enemies).gameObject.transform);
+						_enemySpawnData.Current++;
+						if (enemyIndex == 2)
+							subDungeon.hasTurret = true;
+					}
 				}
 			}
 		}
@@ -543,7 +551,9 @@ public class DungeonManager : MonoBehaviour
 	}
 
 	private void RandomTrapSpawner(int dungeonLevel) {
+		Debug.Log("Spawning traps...");
 		SpawnTraps(_rootSubDungeon, dungeonLevel);
+		Debug.Log("Trap spawn ended.");
 	}
 
 	private void SpawnTraps(SubDungeon subDungeon, int dungeonLevel) {
@@ -555,16 +565,20 @@ public class DungeonManager : MonoBehaviour
 				int minTrapNumber = (int)((subDungeon.room.width * subDungeon.room.height) / 12);
 				int trapNumberForThisRoom = Random.Range(minTrapNumber, minTrapNumber + 1);
 				for (int i = 0; i < trapNumberForThisRoom; i++) {
+					int findingPosAttempt = 0;
 					do {
 						_randomPos = GetRandomPosInRoom(subDungeon.room);
-					} while (Vector3.Distance(_randomPos, _playerSpawnPos) == 0);
+						findingPosAttempt++;
+					} while (Vector3.Distance(_randomPos, _playerSpawnPos) == 0 && findingPosAttempt <= 200);
 					
-					int trapMaxIndex = (Config.Traps.Length <= dungeonLevel) ? Config.Traps.Length - 1 : dungeonLevel;
-					int trapIndex = (int)Random.Range(0, trapMaxIndex + 1);
+					if (findingPosAttempt <= 200) {
+						int trapMaxIndex = (Config.Traps.Length <= dungeonLevel) ? Config.Traps.Length - 1 : dungeonLevel;
+						int trapIndex = (int)Random.Range(0, trapMaxIndex + 1);
 
-					GameObject instance = Instantiate(Config.Traps[trapIndex], _randomPos, Quaternion.identity) as GameObject;
-					instance.transform.SetParent(Dungeon.transform.GetChild((int)Objects.Traps).gameObject.transform);
-					_trapSpawnData.Current++;
+						GameObject instance = Instantiate(Config.Traps[trapIndex], _randomPos, Quaternion.identity) as GameObject;
+						instance.transform.SetParent(Dungeon.transform.GetChild((int)Objects.Traps).gameObject.transform);
+						_trapSpawnData.Current++;
+					}
 				}
 			}
 		}

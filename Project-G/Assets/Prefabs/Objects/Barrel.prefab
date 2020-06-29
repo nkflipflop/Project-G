@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1516673698178715926}
   - component: {fileID: 1516673698178715927}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Body Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -63,7 +63,7 @@ GameObject:
   - component: {fileID: 1516673698771313386}
   - component: {fileID: 1516673698771313397}
   - component: {fileID: 1516673698771313384}
-  m_Layer: 9
+  m_Layer: 11
   m_Name: Barrel
   m_TagString: Breakable
   m_Icon: {fileID: 0}
@@ -242,7 +242,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Renderer: {fileID: 1516673698771313399}
   DissolveMaterial: {fileID: 2100000, guid: 8731b3bef0b12044381118bb5f69a921, type: 2}
-  _hasChild: 0
+  _weaponDissolve: {fileID: 0}
 --- !u!114 &1516673698771313384
 MonoBehaviour:
   m_ObjectHideFlags: 0
