@@ -25,4 +25,10 @@ public class GameConfigData : MonoBehaviour {
 	public GameObject[] Traps;
 	public GameObject Key;
     public GameObject[] Weapons;        // weapons that can be used by the player
+	
+	public SoundAudioClip[] Sounds;
+	public class SoundAudioClip {
+		public SoundManager.Sound sound;
+		public AudioClip audioClip;
+	}
 }
