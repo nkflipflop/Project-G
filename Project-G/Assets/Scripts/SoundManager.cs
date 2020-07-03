@@ -76,8 +76,4 @@ public static class SoundManager {
             return false;
         }
     }
-
-    public static void AddButtonSounds(this Button_UI button_ui) {
-
-    }
 }
