@@ -8,7 +8,7 @@ public class CursorController : MonoBehaviour {
 
 	public Animator Anim;
 
-    void Start() {    
+    void Start() {
         Cursor.visible = false;
     }
 

@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -225,7 +225,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86d17ed9e7459ad4db613106c89863f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Config: {fileID: 11400000, guid: eb1dfc6534d8c75408cbee1f5192506d, type: 2}
   Player: {fileID: 8005256322282322018}
   Dungeon: {fileID: 1575737062}
   WallTiles:
@@ -7614,7 +7613,6 @@ MonoBehaviour:
   CharacterRenderer: {fileID: 8005256322282322023}
   TargetObject: {fileID: 2107191131}
   PlayerController: {fileID: 8005256322282322020}
-  Config: {fileID: 11400000, guid: eb1dfc6534d8c75408cbee1f5192506d, type: 2}
   Cursor: {fileID: 2107191132}
 --- !u!1 &2052368111
 GameObject:

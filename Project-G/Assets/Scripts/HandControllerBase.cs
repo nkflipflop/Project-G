@@ -1,8 +1,8 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class HandControllerBase : MonoBehaviour
 {
-
 	public SpriteRenderer CharacterRenderer;
     public GameObject TargetObject;
     
@@ -13,13 +13,14 @@ public class HandControllerBase : MonoBehaviour
 
     private Vector3 _aimPosition;			
 	private float _verticalTrigger = 1;		// for inverse scaling of the weapon
-    
-
+	private bool _canShoot = false;
+	private float _fireDelay = 1f;
 
 	private void Start() {
 		SpecialStart();
 		CurrentWeapon = transform.GetChild(0).GetComponent<WeaponBase>();
 		CurrentWeapon.transform.localPosition = WeaponPosition;
+		StartCoroutine(GivePermissionToFire(_fireDelay));
 	}
 
     public virtual void SpecialStart(){
@@ -29,7 +30,7 @@ public class HandControllerBase : MonoBehaviour
 		GetInputs();
 		// Controls the weapon
 		ControlWeapon();
-        SpecialUpdate();
+		SpecialUpdate();
 	}
 
     public virtual void SpecialUpdate(){
@@ -87,7 +88,9 @@ public class HandControllerBase : MonoBehaviour
 			CurrentWeapon.WeaponUpdate();
 			AimWeapon();
 			AdjustSortingOrder();
-			UseWeapon();
+			if (_canShoot) {
+				UseWeapon();
+			}
 		}
 	}
 
@@ -101,4 +104,9 @@ public class HandControllerBase : MonoBehaviour
 		    _aimPosition.z = 0f;
 	    }
     }
+
+	private IEnumerator GivePermissionToFire(float waitTime) {
+		yield return new WaitForSeconds(waitTime);
+		_canShoot = true;
+	}
 }
