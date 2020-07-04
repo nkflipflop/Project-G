@@ -27,12 +27,10 @@ public class HandControllerBase : MonoBehaviour
     }
 
 	private void Update() {
-		if (_canShoot) {
-			GetInputs();
-			// Controls the weapon
-			ControlWeapon();
-			SpecialUpdate();
-		}
+		GetInputs();
+		// Controls the weapon
+		ControlWeapon();
+		SpecialUpdate();
 	}
 
     public virtual void SpecialUpdate(){
@@ -90,7 +88,9 @@ public class HandControllerBase : MonoBehaviour
 			CurrentWeapon.WeaponUpdate();
 			AimWeapon();
 			AdjustSortingOrder();
-			UseWeapon();
+			if (_canShoot) {
+				UseWeapon();
+			}
 		}
 	}
 
