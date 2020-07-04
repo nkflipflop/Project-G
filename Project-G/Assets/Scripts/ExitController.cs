@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ExitController : MonoBehaviour {
-    [SerializeField] private SpriteRenderer _spriteRenderer;
+    [SerializeField] private SpriteRenderer _spriteRenderer = null;
     public Sprite ExitDoorOpen;
     private BoxCollider2D _collider2D = null;
     public bool IsDoorOpen {

@@ -31,7 +31,7 @@ public static class SoundManager {
         _oneShotAudioSource.PlayOneShot(GameConfigData.Instance.Sounds[(int)sound].audioClip);
     }
 
-    /// <summary> plays a sound at an exact position <summary>
+    /// <summary> Plays a sound at an exact position </summary>
     public static void PlaySound(Sound sound, Vector3 position) {
         GameObject soundGameObject = new GameObject("Sound");
         soundGameObject.transform.position = position;
@@ -51,7 +51,7 @@ public static class SoundManager {
         Object.Destroy(soundGameObject, audioSource.clip.length);       // destroy the sound after playing
     }
 
-    /// <summary> plays a general sound <summary>
+    /// <summary> Plays a general sound </summary>
     private static bool CanPlaySound(Sound sound) {
         switch(sound) {
         case Sound.PlayerMove:
