@@ -21,11 +21,8 @@ public class GameManager : MonoBehaviour
 			SaveLevelData();
 			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 		}
-		if (Input.GetKey(KeyCode.P)) {
-			PauseGame();
-		}
 		if (Input.GetKey(KeyCode.Escape)) {
-			ResumeGame();
+			TogglePause();
 		}
 	}
 
@@ -49,11 +46,8 @@ public class GameManager : MonoBehaviour
 		DataManager.Instance.WeaponID = Player.transform.GetChild(0).transform.GetChild(0).gameObject.GetComponent<WeaponPrefab>().ID;			// storing player's weapon
 	}
 
-	private void PauseGame() {
-		Time.timeScale = 0;
-	}
-
-	private void ResumeGame() {
-		Time.timeScale = 1;
+	/// <summary> Pauses/Resumes the game by toggling the current situation </summary>
+	private void TogglePause() {
+		Time.timeScale = (Time.timeScale == 1) ? 0 : 1;
 	}
 }
