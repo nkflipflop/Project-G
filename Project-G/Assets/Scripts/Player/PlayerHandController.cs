@@ -5,8 +5,8 @@ public class PlayerHandController : HandControllerBase {
 	public CursorController Cursor;
 
 	private WeaponBase _newWeapon;
-	private bool _hasKey = false;			// dungeon_level exit key
-	private bool _onExitDoor = false;		// player is on the exit door or not
+	//private bool _hasKey = false;			// dungeon_level exit key
+	///private bool _onExitDoor = false;		// player is on the exit door or not
 	private bool _takeWeapon;
 	private bool _canTake = false;
 	
@@ -20,13 +20,13 @@ public class PlayerHandController : HandControllerBase {
 
 	public override void SpecialUpdate() {
 		InterractWithNewWeapon();
-		InterractWithExitDoor();
+		//InterractWithExitDoor();
 		CharacterIsRunning = PlayerController.IsRun;
 	}
 
 	private void InterractWithNewWeapon() {
 		if(_canTake) {
-			_takeWeapon = Input.GetKeyDown("e");
+			_takeWeapon = Input.GetKeyDown(KeyCode.E);
 			//Debug.Log("Çok istiyorsan 'E' ye bas. ;(");
 			if(_takeWeapon) {
 				// Dropping the current weapon
@@ -37,14 +37,14 @@ public class PlayerHandController : HandControllerBase {
 		}
 	}
 
-	private void InterractWithExitDoor() {
-		if(_hasKey && _onExitDoor) {		// if the player has the key and on the door, he can open it by pressing 'E'
-			bool isDoorOpened = Input.GetKeyDown("e");
-			if (isDoorOpened) {
-				Debug.Log("Door opened. Next level.");
-			}
-		}
-	}
+	// private void InterractWithExitDoor() {
+	// 	if(_hasKey && _onExitDoor) {		// if the player has the key and on the door, he can open it by pressing 'E'
+	// 		bool isDoorOpened = Input.GetKeyDown("e");
+	// 		if (isDoorOpened) {
+	// 			Debug.Log("Door opened. Next level.");
+	// 		}
+	// 	}
+	// }
 
 	// Equips the new weapon from ground
 	public void EquipWeapon(WeaponBase weapon){
@@ -63,10 +63,10 @@ public class PlayerHandController : HandControllerBase {
 			_canTake = true;
 			_newWeapon = other.gameObject.GetComponent<WeaponBase>();
 		}
-		else if (other.gameObject.CompareTag("Key")) {
-			other.gameObject.SetActive(false);
-			_hasKey = true;
-		}
+		// else if (other.gameObject.CompareTag("Key")) {
+		// 	other.gameObject.SetActive(false);
+		// 	_hasKey = true;
+		// }
 	}
 	
 	private void OnTriggerExit2D(Collider2D other) {
