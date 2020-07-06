@@ -75,6 +75,4 @@ public class PlayerHandController : HandControllerBase {
 			_newWeapon = null;    
 		}
 	}
-
-
 }

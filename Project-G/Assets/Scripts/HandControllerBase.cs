@@ -1,13 +1,14 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 
 public class HandControllerBase : MonoBehaviour
 {
 	public SpriteRenderer CharacterRenderer;
     public GameObject TargetObject;
-    
+    [NonSerialized]	public WeaponBase CurrentWeapon;
+
     protected bool CharacterIsRunning = false;
-    protected WeaponBase CurrentWeapon;
     protected Vector3 WeaponPosition = new Vector3 (0, 0, 0);
 	protected float AimDeviation;			// ability to hit the bull's eye (if 0, you are best)
 

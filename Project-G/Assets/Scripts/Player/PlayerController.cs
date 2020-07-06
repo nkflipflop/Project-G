@@ -14,38 +14,37 @@ public class PlayerController : MonoBehaviour {
 	
 	private Animator _animator;
   	private Rigidbody2D _rb2D;
-	private SpriteRenderer _sprite;
 	public GameObject DustParticles;
 	
 	private void Start() {
 		_animator = gameObject.GetComponent<Animator>();
-		_sprite = GetComponent<SpriteRenderer>();
 		_rb2D = gameObject.GetComponent<Rigidbody2D>();
 		DustParticles.SetActive(false);
 	}
 
-	void Update() {
+	private void Update() {
 		GetInputs();        // Getting any input
 	}
 
-	void FixedUpdate() {    
+	private void FixedUpdate() {    
 		PlayerAnimate();    // For Animations
 		PlayerMovement();   // For Movement Actions
 	}
 
-	void GetInputs(){
+	private void GetInputs(){
+		// Inputs for Movement
 		_horizontalInput = Input.GetAxisRaw("Horizontal");   // held direction keys WASD
 		_verticalInput = Input.GetAxisRaw("Vertical");
 
 		_mousePosition = Input.mousePosition;				// for determining player direction
 		_mousePosition = Camera.main.ScreenToWorldPoint(_mousePosition);
 
-		if (Mathf.Abs(_horizontalInput) > 0 ||  Mathf.Abs(_verticalInput) > 0)    // starts run and its animation
+		if(_horizontalInput != 0 || _verticalInput != 0)
 			IsRun = true;
 	}
 
 	// Animate Player
-	void PlayerAnimate() {
+	private void PlayerAnimate() {
 		_animator.SetBool("Run", IsRun);         			// for run animation    // when holding direction keys WASD
 		
 		Vector2 mouseDir = _mousePosition - transform.position;
@@ -54,7 +53,7 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	// Take Action
-	void PlayerMovement(){
+	private void PlayerMovement(){
 		// when holding direction keys WASD
 		if (IsRun)
 			PlayerRun();
@@ -63,7 +62,7 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	// Player Run State
-	void PlayerRun() {
+	private void PlayerRun() {
 		// adjusting unit vector for moving stable (YOU DO NOT NEED TO LOOK HERE ;) )
 		float unitSpeed;
 		if(Mathf.Abs(_horizontalInput) > 0 && Mathf.Abs(_verticalInput) > 0)
@@ -77,6 +76,7 @@ public class PlayerController : MonoBehaviour {
 			_moveLatency -= Time.deltaTime;
 			if(_moveLatency <= 0)
 				_rb2D.velocity = new Vector2(_horizontalInput, _verticalInput) * unitSpeed;
+				IsRun = true;
 				//transform.Translate ( new Vector3 (_horizontalInput, _verticalInput, 0f) * unitSpeed * Time.deltaTime);
 		}
 		else {
