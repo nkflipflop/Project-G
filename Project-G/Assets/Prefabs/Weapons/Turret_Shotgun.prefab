@@ -47,7 +47,7 @@ GameObject:
   - component: {fileID: 3314771608762817132}
   - component: {fileID: 762648450}
   m_Layer: 0
-  m_Name: TurretGun
+  m_Name: Turret_Shotgun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -107,7 +107,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 9881cc5c1e748584fa44a616466590a1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 813fa186490f3d7418ed33f97a0c4b59, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -128,21 +128,21 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.000011742115, y: -0.000041667372}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.3125, y: 0.29166666}
+    oldSize: {x: 0.375, y: 0.1875}
     newSize: {x: 0.29166666, y: 0.3125}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.31240213, y: 0.20836163}
+  m_Size: {x: 0.375, y: 0.1875}
   m_EdgeRadius: 0
 --- !u!114 &3529954891360486526
 MonoBehaviour:
@@ -158,7 +158,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Renderer: {fileID: 0}
   DissolveMaterial: {fileID: 0}
-  _hasChild: 0
+  _weaponDissolve: {fileID: 0}
 --- !u!114 &-2171701435749290827
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -184,8 +184,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdfebb76137225840accc2415a210e2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ReloadTime: 5
-  FireRate: 0.2
+  ID: 10
+  ReloadTime: 0
+  FireRate: 0.5
   HasRecoil: 1
   Automatic: 1
   MaxAmmo: 30
