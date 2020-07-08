@@ -2,7 +2,7 @@
 
 public class EnemyCloseRangeAttackController : MonoBehaviour {
 
-    [SerializeField] private float _damage = 3f;
+    [SerializeField] private int _damage = 3;
     private bool _canAttack = true;
     private CircleCollider2D _attackRangeCollider;
 

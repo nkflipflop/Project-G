@@ -130,7 +130,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ID: 0
-  ReloadTime: 5
+  ReloadTime: 3
   FireRate: 0.15
   HasRecoil: 1
   Automatic: 1

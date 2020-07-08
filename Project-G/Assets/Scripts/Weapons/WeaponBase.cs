@@ -15,6 +15,7 @@ public class WeaponBase : MonoBehaviour {
 
 	private float _timeBtwShots;
 	private bool _canTrigger = true;
+	private bool _isReloading = false;
 	
 	
 	private void Start() {
@@ -69,7 +70,7 @@ public class WeaponBase : MonoBehaviour {
 		_timeBtwShots -= Time.deltaTime;
 
 		// Reloading
-		if (CurrentAmmo == 0) {
+		if (CurrentAmmo == 0 && !_isReloading) {
 			StartCoroutine(ReloadWeapon());
 			return;
 		}
@@ -77,7 +78,9 @@ public class WeaponBase : MonoBehaviour {
 
 	// Reloads the weapon
 	IEnumerator ReloadWeapon() {
+		_isReloading = true;
 		yield return new WaitForSeconds(Weapon.ReloadTime);
 		CurrentAmmo = Weapon.MaxAmmo;
+		_isReloading = false;
 	}
 }

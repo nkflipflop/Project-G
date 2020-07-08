@@ -2,7 +2,7 @@
 using UnityEngine;
 
 public class DamageHelper : MonoBehaviour {
-    [SerializeField] private float _health = 25;
+    [SerializeField] private int _health = 25;
 
     private bool _isDead = false;
 
@@ -11,15 +11,15 @@ public class DamageHelper : MonoBehaviour {
 	public CapsuleCollider2D HitboxCollider;
 
     public bool IsDead { get { return _isDead; } }
-	public float Health { 
+	public int Health { 
 		get { return _health; } 
 		set { _health = value; } 
 	}
     
-	public void TakeDamage(float damage) {
+	public void TakeDamage(int damage) {
 		_health -= damage;
 
-		if (_health <= 0f) {
+		if (_health <= 0) {
 			DissolveEffect.IsDissolving = true;
             _isDead = true;
 			HitboxCollider.enabled = false;

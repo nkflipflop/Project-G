@@ -7,7 +7,7 @@ public class DataManager : MonoBehaviour
     private static DataManager _instance;
 
     [SerializeField] private int _dungeonLevel = 0, _medkits = 3, _shields = 0, _weaponID = 0;
-    private float _health = 100;
+    private int _health = 100;
 
     public static DataManager Instance { get { return _instance; } }
 
@@ -16,7 +16,7 @@ public class DataManager : MonoBehaviour
         set { _dungeonLevel = value; }
     }
 
-    public float Health {
+    public int Health {
         get { return _health; }
         set { _health = value; }
     }
