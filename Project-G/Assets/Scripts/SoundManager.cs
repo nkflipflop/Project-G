@@ -23,6 +23,7 @@ public static class SoundManager {
         _soundTimerDictionary[Sound.PlayerMove] = 0f;       // adding a timer for player move (example)
     }
 
+    /// <summary> Plays a general sound </summary>
     public static void PlaySound(Sound sound) {
         if (_oneShotGameObject == null) {
             _oneShotGameObject = new GameObject("One Shot Sound");
@@ -51,7 +52,6 @@ public static class SoundManager {
         Object.Destroy(soundGameObject, audioSource.clip.length);       // destroy the sound after playing
     }
 
-    /// <summary> Plays a general sound </summary>
     private static bool CanPlaySound(Sound sound) {
         switch(sound) {
         case Sound.PlayerMove:

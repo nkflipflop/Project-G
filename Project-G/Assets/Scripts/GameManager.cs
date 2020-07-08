@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour
 	/// <summary> Gets the level data and saves it in DataManager at the end of the level </summary>
 	private void SaveLevelData() {
 		DataManager.Instance.DungeonLevel++;
-		if (DataManager.Instance.DungeonLevel == 5)      // after level 5, reset the game
+		if (DataManager.Instance.DungeonLevel == 7)      // after level 7, reset the game
 			DataManager.Instance.DungeonLevel = 0;
 		DataManager.Instance.Health = Player.GetComponent<DamageHelper>().Health;		// storing player's health
 		DataManager.Instance.WeaponID = Player.transform.GetChild(0).transform.GetChild(0).gameObject.GetComponent<WeaponPrefab>().ID;			// storing player's weapon
