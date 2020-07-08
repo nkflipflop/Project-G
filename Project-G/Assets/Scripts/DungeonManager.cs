@@ -392,7 +392,6 @@ public class DungeonManager : MonoBehaviour
 		int[,] lightTiles = dungeonTiles.Clone() as int[,];
 		int matrixSize = 3, mulResult;
 		int [,] kernelMatrix = {{1, 1, 1}, {1, 1, 1}, {1, 1, 1}};
-		int lampCounter = 0;
 
 		for (int j = GameConfigData.Instance.DungeonColumns + (2 * GameConfigData.Instance.DungeonPadding) - matrixSize; j >= 0; j--) {
 			for (int i = 0; i <= GameConfigData.Instance.DungeonRows + (2 * GameConfigData.Instance.DungeonPadding) - matrixSize; i++) {
@@ -402,34 +401,10 @@ public class DungeonManager : MonoBehaviour
 						mulResult += Mathf.Abs(lightTiles[i + k, j + l]) * kernelMatrix[l, k];
 					}
 				}
-				GameObject lamp = null;
+
 				if (mulResult >= 6) {
-					GameObject lampObject = new GameObject("Lamp " + lampCounter);
-					lampObject.transform.SetParent(Dungeon.transform.GetChild((int)Objects.Lamps).gameObject.transform);
-					lamp = Instantiate(GameConfigData.Instance.LampObjects[(int)LampObjectsTypes.Lamp], new Vector3(i + 1, j + 1, 0f), Quaternion.identity) as GameObject;
-					lamp.transform.SetParent(lampObject.gameObject.transform);
-					lampCounter++;
-					// int direction = Random.Range(0, 2);		// 0 for horizontal, 1 for vertical
-					// if (direction == 0) {
-					// 	GameObject lampCable = Instantiate(LampObjects[(int)LampObjectsTypes.LampCableH], new Vector3(i + 1, j + 1, 0f), Quaternion.identity) as GameObject;
-					// 	lampCable.transform.SetParent(lampObject.gameObject.transform);
-					// 	int n = i;
-					// 	while (_dungeonTiles[n, j + 1] != 0) {
-					// 		GameObject cable = Instantiate(LampObjects[(int)LampObjectsTypes.CableH], new Vector3(n, j + 1, 0f), Quaternion.identity) as GameObject;
-					// 		cable.transform.SetParent(lampObject.gameObject.transform);
-					// 		n--;
-					// 	}
-					// }
-					// else {
-					// 	GameObject lampCable = Instantiate(LampObjects[(int)LampObjectsTypes.LampCableV], new Vector3(i + 1, j + 1, 0f), Quaternion.identity) as GameObject;
-					// 	lampCable.transform.SetParent(lampObject.gameObject.transform);
-					// 	int n = j + 2;
-					// 	while (_dungeonTiles[i + 1, n - 1] != 0) {
-					// 		GameObject cable = Instantiate(LampObjects[(int)LampObjectsTypes.CableV], new Vector3(i + 1, n, 0f), Quaternion.identity) as GameObject;
-					// 		cable.transform.SetParent(lampObject.gameObject.transform);
-					// 		n++;
-					// 	}
-					// }
+					GameObject lamp = Instantiate(GameConfigData.Instance.LampObjects[(int)LampObjectsTypes.Lamp], new Vector3(i + 1, j + 1, 0f), Quaternion.identity) as GameObject;
+					lamp.transform.SetParent(Dungeon.transform.GetChild((int)Objects.Lamps).gameObject.transform);
 
 					for (int l = 0; l < matrixSize; l++) {
 						for (int k = 0; k < matrixSize; k++) {
