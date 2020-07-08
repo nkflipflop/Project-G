@@ -2,7 +2,6 @@
 
 public class PlayerHandController : HandControllerBase {
 	public PlayerController PlayerController;
-	public CursorController Cursor;
 
 	private WeaponBase _newWeapon;
 	private bool _hasKey = false;			// dungeon_level exit key
@@ -23,7 +22,11 @@ public class PlayerHandController : HandControllerBase {
 		InterractWithExitDoor();
 		CharacterIsRunning = PlayerController.IsRun;
 	}
-
+	
+	protected override Vector3 GetTargetPosition(){
+		return Camera.main.ScreenToWorldPoint(TargetObject.transform.position);
+	}
+	
 	private void InterractWithNewWeapon() {
 		if(_canTake) {
 			_takeWeapon = Input.GetKeyDown("e");
@@ -53,9 +56,6 @@ public class PlayerHandController : HandControllerBase {
 			weapon.transform.rotation = transform.rotation;
 
 			CurrentWeapon = weapon;
-
-			// Assigning current weapon to cursor to know current ammo
-			Cursor.CurrentWeapon = CurrentWeapon;
 	}
 
 	private void OnTriggerEnter2D(Collider2D other) {

@@ -11,6 +11,7 @@ public class HandControllerBase : MonoBehaviour
     protected bool CharacterIsRunning = false;
     protected Vector3 WeaponPosition = new Vector3 (0, 0, 0);
 	protected float AimDeviation;			// ability to hit the bull's eye (if 0, you are best)
+	protected Vector3 TargetObjectPosition;
 
     private Vector3 _aimPosition;			
 	private float _verticalTrigger = 1;		// for inverse scaling of the weapon
@@ -95,13 +96,18 @@ public class HandControllerBase : MonoBehaviour
 		}
 	}
 
+	// Gets position of target by different calculation
+	protected virtual Vector3 GetTargetPosition() {
+		return TargetObject.transform.position;
+	}
+
 	// Gets Inputs
 	private void GetInputs() {
 		// Taking aim position
         if(TargetObject){
 			float distance = Vector3.Distance(_aimPosition, transform.position) / 16;
 
-		    _aimPosition = TargetObject.transform.position + UnityEngine.Random.insideUnitSphere * UnityEngine.Random.Range(0, distance) * AimDeviation;
+			_aimPosition = GetTargetPosition() + UnityEngine.Random.insideUnitSphere * UnityEngine.Random.Range(0, distance) * AimDeviation;
 		    _aimPosition.z = 0f;
 	    }
     }
