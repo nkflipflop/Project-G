@@ -467,8 +467,8 @@ public class DungeonManager : MonoBehaviour
 
 	public void SpawnEverything(int dungeonLevel) {
 		PlayerSpawner();
-        RandomEnemySpawner(dungeonLevel);
-        RandomTrapSpawner(dungeonLevel);
+		RandomEnemySpawner(dungeonLevel);
+		RandomTrapSpawner(dungeonLevel);
 
 		_objectSpawnPos = null;		// after the spawning everything, set it to null
 	}

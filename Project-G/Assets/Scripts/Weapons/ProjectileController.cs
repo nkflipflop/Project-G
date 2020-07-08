@@ -4,7 +4,7 @@ using UnityEngine;
 public class ProjectileController : MonoBehaviour {
 
 	public SpriteRenderer Renderer;
-    public GameObject DestroyEffect;
+	public GameObject DestroyEffect;
 	public Sprite NoneSprite;
 	public GameObject Light;
 	
@@ -15,8 +15,8 @@ public class ProjectileController : MonoBehaviour {
 	public bool ShotByPlayer = false;
 	
 
-    private int _enemyLayer = 8;
-    private int _environmentLayer = 9;
+	private int _enemyLayer = 8;
+	private int _environmentLayer = 9;
 	private int _playerLayer = 10;
 	private int _destructibleObjectLayer = 11;
 	private LayerMask _hittableLayersByPlayer;
@@ -27,10 +27,10 @@ public class ProjectileController : MonoBehaviour {
 		StartCoroutine(DestroyProjectile());
 		
 		_hittableLayersByPlayer = (1 << _enemyLayer) | (1 << _environmentLayer) | (1 << _destructibleObjectLayer);
-        _hittableLayersByEnemy = (1 << _playerLayer) | (1 << _environmentLayer);
+		_hittableLayersByEnemy = (1 << _playerLayer) | (1 << _environmentLayer);
 	}
 
-	private void Update() {
+	private void FixedUpdate() {
 		// Ray collider controlling
 		Vector3 direction = transform.rotation * Vector3.right;
 		RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, direction, .25f, ShotByPlayer ? _hittableLayersByPlayer : _hittableLayersByEnemy);

@@ -30,9 +30,11 @@ public class HandControllerBase : MonoBehaviour
 
 	private void Update() {
 		GetInputs();
+		SpecialUpdate();
+	}
+	private void FixedUpdate() {
 		// Controls the weapon
 		ControlWeapon();
-		SpecialUpdate();
 	}
 
     public virtual void SpecialUpdate(){
