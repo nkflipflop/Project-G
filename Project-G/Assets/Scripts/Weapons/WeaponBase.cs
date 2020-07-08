@@ -56,7 +56,7 @@ public class WeaponBase : MonoBehaviour {
 	public void Trigger() {
 		if (_canTrigger && _timeBtwShots <= 0 && CurrentAmmo > 0){
 			Fire();
-			_canTrigger = Weapon.Automatic == true ? true : false;			// if weapon is not automatic, you need to release trigger
+			_canTrigger = (Weapon.Automatic == true);			// if weapon is not automatic, you need to release trigger
 		}
 	}
 
