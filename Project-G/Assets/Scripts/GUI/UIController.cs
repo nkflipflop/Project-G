@@ -3,7 +3,6 @@ using UnityEngine.UI;
 
 public class UIController : MonoBehaviour
 {
-
     public MiscGUI MiscUI;
     public WeaponGUI WeaponUI;
 
