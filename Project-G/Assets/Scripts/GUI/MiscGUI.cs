@@ -5,5 +5,5 @@ using TMPro;
 public class MiscGUI : MonoBehaviour {
     public TextMeshProUGUI HealthText;
     public TextMeshProUGUI MedkitText;
-    public TextMeshProUGUI KeyText;
+    public GameObject KeyUI;
 }
