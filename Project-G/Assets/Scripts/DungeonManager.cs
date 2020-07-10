@@ -5,7 +5,7 @@ using UnityEngine;
 public class DungeonManager : MonoBehaviour
 {
 	private enum Tiles { Bridges, Corridors, Floors, Walls, Waters }
-	private enum Objects { Enemies = 5, Traps, Lamps }
+	private enum Objects { Enemies = 5, Traps, Lamps, Chests }
 	private enum LampObjectsTypes { Lamp, CableH, LampCableH, CableV, LampCableV }
 
 	private struct SpawnData { 
@@ -444,6 +444,7 @@ public class DungeonManager : MonoBehaviour
 		PlayerSpawner();
 		RandomEnemySpawner(dungeonLevel);
 		RandomTrapSpawner(dungeonLevel);
+		RandomChestSpawner(dungeonLevel);
 
 		_objectSpawnPos = null;		// after the spawning everything, set it to null
 	}
@@ -456,8 +457,8 @@ public class DungeonManager : MonoBehaviour
 		_objectSpawnPos[(int)_randomPos.x, (int)_randomPos.y] = 1;
 
 		GetRandomPos(_rootSubDungeon);		// getting random position in the dungeon for the exit
-		GameObject instance = Instantiate(GameConfigData.Instance.ExitTile, new Vector3(_randomPos.x, _randomPos.y, 0f), Quaternion.identity) as GameObject;
-		instance.transform.SetParent(Dungeon.transform);
+		GameObject exitDoor = Instantiate(GameConfigData.Instance.ExitTile, new Vector3(_randomPos.x, _randomPos.y, 0f), Quaternion.identity) as GameObject;
+		exitDoor.transform.SetParent(Dungeon.transform);
 		_objectSpawnPos[(int)_randomPos.x, (int)_randomPos.y] = 1;
 
 		GetRandomPos(_rootSubDungeon);		// getting random position in the dungeon for the object
@@ -465,6 +466,26 @@ public class DungeonManager : MonoBehaviour
 		key.transform.SetParent(Dungeon.transform);
 		_objectSpawnPos[(int)_randomPos.x, (int)_randomPos.y] = 1;
 		Debug.Log("Player spawn ended.");
+	}
+
+	private void RandomChestSpawner(int dungeonLevel) {
+		Debug.Log("Spawning chests...");
+		// spawning barrels
+		for (int i = 0; i < 3; i++) {
+			GetRandomPos(_rootSubDungeon);		// getting random position in the dungeon
+			GameObject barrel = Instantiate(GameConfigData.Instance.ItemChests[0], new Vector3(_randomPos.x, _randomPos.y, 0f), Quaternion.identity) as GameObject;
+			barrel.transform.SetParent(Dungeon.transform.GetChild((int)Objects.Chests).gameObject.transform);
+			_objectSpawnPos[(int)_randomPos.x, (int)_randomPos.y] = 1;
+		}
+
+		//spawning weapon chests if the level is the multiple of 2
+		if (dungeonLevel % 2 == 1) {
+			GetRandomPos(_rootSubDungeon);		// getting random position in the dungeon
+			GameObject weaponChest = Instantiate(GameConfigData.Instance.ItemChests[1], new Vector3(_randomPos.x, _randomPos.y, 0f), Quaternion.identity) as GameObject;
+			weaponChest.transform.SetParent(Dungeon.transform.GetChild((int)Objects.Chests).gameObject.transform);
+			_objectSpawnPos[(int)_randomPos.x, (int)_randomPos.y] = 1;
+		}
+		Debug.Log("Chest spawn ended.");
 	}
 
 	private void RandomEnemySpawner(int dungeonLevel) {

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CollectibleObject : MonoBehaviour
+public class ConsumableObject : MonoBehaviour
 {
-    public Item Item;
+    public Consumable Item;
     [SerializeField] private  SpriteRenderer _spriteRenderer = null;
 
     void Start() {

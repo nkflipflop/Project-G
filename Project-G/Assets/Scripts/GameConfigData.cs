@@ -30,7 +30,7 @@ public class GameConfigData : MonoBehaviour {
 	public GameObject[] ItemChests;
 
 	public enum CollectibleType { Medkit, Shield, Snack };
-	public GameObject Collectible;
+	public GameObject Consumable;
 	
 	public SoundAudioClip[] Sounds;
 	public class SoundAudioClip {

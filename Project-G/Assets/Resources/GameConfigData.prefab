@@ -349,5 +349,6 @@ MonoBehaviour:
   - {fileID: 3969873003748830985, guid: 43c12e3919ac7fd4484f2ada81c8da8f, type: 3}
   ItemChests:
   - {fileID: 1516673698771313393, guid: fcd7cb5e05ad7ea4ea9a3836f3a8d1b1, type: 3}
-  Collectible: {fileID: 5297047375295203585, guid: 3c3c542939f034c4cb346b55d755f28f,
+  - {fileID: 1516673698771313393, guid: 027e9f0343dcf2b4da8fb3bab222c2f5, type: 3}
+  Consumable: {fileID: 5297047375295203585, guid: 3c3c542939f034c4cb346b55d755f28f,
     type: 3}
