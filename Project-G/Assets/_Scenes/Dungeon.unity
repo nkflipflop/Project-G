@@ -11318,7 +11318,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df6fb28ad9cbb484c9d905d52d4dfa92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _health: 25
+  _health: 100
   DissolveEffect: {fileID: 8005256322282322026}
   Renderer: {fileID: 8005256322282322023}
   HitboxCollider: {fileID: 8005256322282322028}
