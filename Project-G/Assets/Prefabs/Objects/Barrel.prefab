@@ -78,7 +78,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1516673698771313393}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.129, y: 0.818, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1516673698178715926}
@@ -170,30 +170,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lootDropTable:
     LootDropItems:
-    - item: {fileID: 7223392650198516671, guid: fea3e296b75d87741910a6160ef857d4,
-        type: 3}
-      probabilityWeight: 15
-      probabilityPercent: 40.54054
+    - item: {fileID: 11400000, guid: 047d4bbb78e4bbd438d0e802ed8ec409, type: 2}
+      probabilityWeight: 3
+      probabilityPercent: 15.789474
       probabilityRangeFrom: 0
-      probabilityRangeTo: 15
-    - item: {fileID: 4060632509913067209, guid: 0d6951189bd9f4b4492516a78a3d4ca2,
-        type: 3}
-      probabilityWeight: 13
-      probabilityPercent: 35.135136
-      probabilityRangeFrom: 15
-      probabilityRangeTo: 28
-    - item: {fileID: 4073644979101597452, guid: a565b8b058c901c42a107705ecf93831,
-        type: 3}
-      probabilityWeight: 5
-      probabilityPercent: 13.513514
-      probabilityRangeFrom: 28
-      probabilityRangeTo: 33
-    - item: {fileID: 1284675394243562649, guid: 302ed22aaf9ff884588f1a81275a7ea1,
-        type: 3}
-      probabilityWeight: 4
-      probabilityPercent: 10.810811
-      probabilityRangeFrom: 33
-      probabilityRangeTo: 37
+      probabilityRangeTo: 3
+    - item: {fileID: 11400000, guid: eac7a88d95f099342b7139a205af431b, type: 2}
+      probabilityWeight: 2
+      probabilityPercent: 10.526316
+      probabilityRangeFrom: 3
+      probabilityRangeTo: 5
+    - item: {fileID: 11400000, guid: d0fe69fc199f5f14daa022eb891cb853, type: 2}
+      probabilityWeight: 8
+      probabilityPercent: 42.105263
+      probabilityRangeFrom: 5
+      probabilityRangeTo: 13
+    - item: {fileID: 11400000, guid: 0dbfeefb2c7c96c42890143d1b042059, type: 2}
+      probabilityWeight: 6
+      probabilityPercent: 31.578947
+      probabilityRangeFrom: 13
+      probabilityRangeTo: 19
   NumItemsToDrop: 2
   DamageHelper: {fileID: 1516673698771313386}
 --- !u!70 &1516673698771313387

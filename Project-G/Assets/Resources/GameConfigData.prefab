@@ -43,9 +43,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64a9ffab58b9da843ade356b6a40f1ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DungeonPadding: 4
   DungeonRows: 24
   DungeonColumns: 24
-  DungeonPadding: 4
   MinRoomSize: 4
   MaxRoomSize: 4
   FloorTiles:
@@ -347,3 +347,7 @@ MonoBehaviour:
   - {fileID: 395089684474149627, guid: 4985d8912b1d41842ae6c8bf150a0c77, type: 3}
   - {fileID: 8483857839878377761, guid: f25459e8ea15b7449b9388714fbb987d, type: 3}
   - {fileID: 3969873003748830985, guid: 43c12e3919ac7fd4484f2ada81c8da8f, type: 3}
+  ItemChests:
+  - {fileID: 1516673698771313393, guid: fcd7cb5e05ad7ea4ea9a3836f3a8d1b1, type: 3}
+  Collectible: {fileID: 5297047375295203585, guid: 3c3c542939f034c4cb346b55d755f28f,
+    type: 3}

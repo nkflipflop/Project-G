@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
 [System.Serializable]
-public class Barrel : MonoBehaviour {
- 
+public class Barrel : MonoBehaviour 
+{
 	// Loot drop table that contains items that can spawn
 	public GenericLootDropTableGameObject lootDropTable;
 	
@@ -10,6 +10,10 @@ public class Barrel : MonoBehaviour {
 	public int NumItemsToDrop;
     public DamageHelper DamageHelper;
     private bool _lootDropped = false;
+
+    private void Start() {
+        lootDropTable.ValidateTable();
+    }
 
     private void Update() {
         if (DamageHelper.IsDead && !_lootDropped)
@@ -29,8 +33,9 @@ public class Barrel : MonoBehaviour {
     void DropLootNearChest(int numItemsToDrop) {
         for (int i = 0; i < numItemsToDrop; i++) {
             GenericLootDropItemGameObject selectedItem = lootDropTable.PickLootDropItem();
-            GameObject selectedItemGameObject = Instantiate(selectedItem.item);
-            selectedItemGameObject.transform.position = new Vector2(transform.position.x, transform.position.y) + Random.insideUnitCircle / 2.8f;
+            GameObject collectibleObject = Instantiate(GameConfigData.Instance.Collectible);
+            collectibleObject.GetComponent<CollectibleObject>().Item = selectedItem.item;
+            collectibleObject.transform.position = new Vector2(transform.position.x, transform.position.y) + Random.insideUnitCircle / 2.8f;
         }
         _lootDropped = true;
     }
