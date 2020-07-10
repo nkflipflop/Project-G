@@ -184,7 +184,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdfebb76137225840accc2415a210e2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ID: 11
+  ID: 10
   ReloadTime: 0
   FireRate: 0.25
   HasRecoil: 1

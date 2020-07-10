@@ -9,22 +9,28 @@ public class GameConfigData : MonoBehaviour {
 			return _instance;
 		}
 	}
-    // DungeonMap variables
-    public int DungeonRows, DungeonColumns;
+
+    [Header("Dungeon Variables")]
 	public int DungeonPadding;
+    public int DungeonRows, DungeonColumns;
 	public int MinRoomSize, MaxRoomSize;
 
-    // Prefabs that are used in the dungeon
+    [Header("Dungeon Tiles")]
     public GameObject[] FloorTiles;
 	public GameObject[] BridgeTiles;
 	public GameObject[] WaterTiles;
 	public GameObject[] WallTiles;
 	public GameObject ExitTile;
+	
+	[Header("Dungeon Objects")]
 	public GameObject[] LampObjects;
-	// public GameObject[] Enemies;
 	public GameObject[] Traps;
 	public GameObject Key;
     public GameObject[] Weapons;        // weapons that can be used by the player
+	public GameObject[] ItemChests;
+
+	public enum CollectibleType { Medkit, Shield, Snack };
+	public GameObject Collectible;
 	
 	public SoundAudioClip[] Sounds;
 	public class SoundAudioClip {
