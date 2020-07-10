@@ -64,7 +64,7 @@ GameObject:
   - component: {fileID: 1516673698771313397}
   - component: {fileID: 1516673698771313384}
   m_Layer: 11
-  m_Name: Barrel
+  m_Name: WeaponChest
   m_TagString: Breakable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -124,7 +124,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: edf2f3df6dd9abc40a1162bb74377003, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -132,7 +132,7 @@ SpriteRenderer:
   m_Size: {x: 0.35416666, y: 0.5}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!50 &5267767945480442307
@@ -168,32 +168,53 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2318f5f1ad84a1d4a80c8afdc66f0bfa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Type: 0
+  Type: 1
   ConsumableDropTable:
-    LootDropItems:
-    - item: {fileID: 11400000, guid: 047d4bbb78e4bbd438d0e802ed8ec409, type: 2}
-      probabilityWeight: 10
-      probabilityPercent: 11.363636
-      probabilityRangeFrom: 0
-      probabilityRangeTo: 10
-    - item: {fileID: 11400000, guid: eac7a88d95f099342b7139a205af431b, type: 2}
-      probabilityWeight: 8
-      probabilityPercent: 9.090909
-      probabilityRangeFrom: 10
-      probabilityRangeTo: 18
-    - item: {fileID: 11400000, guid: d0fe69fc199f5f14daa022eb891cb853, type: 2}
-      probabilityWeight: 40
-      probabilityPercent: 45.454544
-      probabilityRangeFrom: 18
-      probabilityRangeTo: 58
-    - item: {fileID: 11400000, guid: 0dbfeefb2c7c96c42890143d1b042059, type: 2}
-      probabilityWeight: 30
-      probabilityPercent: 34.090908
-      probabilityRangeFrom: 58
-      probabilityRangeTo: 88
-  WeaponDropTable:
     LootDropItems: []
-  NumItemsToDrop: 2
+  WeaponDropTable:
+    LootDropItems:
+    - item: {fileID: 5425444037710871787, guid: 52ac9926fd188904e9ed15731b84fa64,
+        type: 3}
+      probabilityWeight: 50
+      probabilityPercent: 20.408163
+      probabilityRangeFrom: 0
+      probabilityRangeTo: 50
+    - item: {fileID: 2593907559752694969, guid: ae8c98d6377e041469926b292888f629,
+        type: 3}
+      probabilityWeight: 45
+      probabilityPercent: 18.367348
+      probabilityRangeFrom: 50
+      probabilityRangeTo: 95
+    - item: {fileID: 6689412603249722057, guid: b7fb4c0c3d5cb0e4aa11e58d970455e0,
+        type: 3}
+      probabilityWeight: 40
+      probabilityPercent: 16.32653
+      probabilityRangeFrom: 95
+      probabilityRangeTo: 135
+    - item: {fileID: 9071326759668482171, guid: b79e868e4b2c4d34b958661a90631a2e,
+        type: 3}
+      probabilityWeight: 35
+      probabilityPercent: 14.285714
+      probabilityRangeFrom: 135
+      probabilityRangeTo: 170
+    - item: {fileID: 395089684474149627, guid: 4985d8912b1d41842ae6c8bf150a0c77, type: 3}
+      probabilityWeight: 30
+      probabilityPercent: 12.244898
+      probabilityRangeFrom: 170
+      probabilityRangeTo: 200
+    - item: {fileID: 8483857839878377761, guid: f25459e8ea15b7449b9388714fbb987d,
+        type: 3}
+      probabilityWeight: 25
+      probabilityPercent: 10.204082
+      probabilityRangeFrom: 200
+      probabilityRangeTo: 225
+    - item: {fileID: 3969873003748830985, guid: 43c12e3919ac7fd4484f2ada81c8da8f,
+        type: 3}
+      probabilityWeight: 20
+      probabilityPercent: 8.163265
+      probabilityRangeFrom: 225
+      probabilityRangeTo: 245
+  NumItemsToDrop: 1
   DamageHelper: {fileID: 1516673698771313386}
 --- !u!70 &1516673698771313387
 CapsuleCollider2D:
