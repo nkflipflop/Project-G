@@ -218,7 +218,7 @@ MonoBehaviour:
   HasRecoil: 1
   Automatic: 0
   MaxAmmo: 4
-  Projectile: {fileID: 2396569148800147147, guid: fcddc0e02cf24184bb2470ed4ad3a2e5,
+  Projectile: {fileID: 2396569148800147147, guid: b7dfe1dfe4603c946852d72fbe3ac28f,
     type: 3}
 --- !u!114 &3953802303555874632
 MonoBehaviour:
