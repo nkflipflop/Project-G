@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5636071713723261945
 Transform:
   m_ObjectHideFlags: 0
@@ -128,7 +128,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6525960831164000173
 Transform:
   m_ObjectHideFlags: 0
@@ -207,6 +207,7 @@ GameObject:
   - component: {fileID: 9199484094218874379}
   - component: {fileID: 8947170221941325882}
   - component: {fileID: 1187380154086936507}
+  - component: {fileID: 3276401350924185697}
   m_Layer: 0
   m_Name: LMG
   m_TagString: Weapon
@@ -336,3 +337,19 @@ MonoBehaviour:
   LeftHandRenderer: {fileID: 5653332321179649683}
   RightHandRenderer: {fileID: 4947089500241162832}
   ShotPoint: {fileID: 561382661328449963}
+--- !u!58 &3276401350924185697
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9071326759668482171}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.25, y: 0.010416664}
+  serializedVersion: 2
+  m_Radius: 0.27083337

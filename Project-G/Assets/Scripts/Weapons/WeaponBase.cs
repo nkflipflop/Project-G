@@ -17,9 +17,22 @@ public class WeaponBase : MonoBehaviour {
 	private bool _canTrigger = true;
 	private bool _isReloading = false;
 	
-	
+
 	private void Start() {
 		CurrentAmmo = Weapon.MaxAmmo;
+		// If on Hand
+		//OnHand(false);
+	}
+
+	public void OnHand(bool active) {
+		LeftHandRenderer.gameObject.SetActive(active);
+		RightHandRenderer.gameObject.SetActive(active);
+
+		// Default rotation and scale
+		if(active == false){
+			transform.rotation = Quaternion.identity;
+			transform.localScale = Vector3.one;
+		}
 	}
 
 	// Changes layer of the sprite
