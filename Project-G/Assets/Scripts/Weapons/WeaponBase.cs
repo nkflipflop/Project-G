@@ -29,9 +29,10 @@ public class WeaponBase : MonoBehaviour {
 		RightHandRenderer.gameObject.SetActive(active);
 
 		// Default rotation and scale
-		if(active == false){
+		if (!active) {
 			transform.rotation = Quaternion.identity;
 			transform.localScale = Vector3.one;
+			WeaponRenderer.sortingOrder = -4990;
 		}
 	}
 
