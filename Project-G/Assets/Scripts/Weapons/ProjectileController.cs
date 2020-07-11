@@ -8,11 +8,11 @@ public class ProjectileController : MonoBehaviour {
 	public Sprite NoneSprite;
 	public GameObject Light;
 	
-
-	private float _lifetime = 100;
+	[Header("Bullet Properties")]
 	[SerializeField] private int _endurance = 1;
 	[SerializeField] private float _speed = 10;
 	[SerializeField] private int _damage = 2;
+	private float _lifetime = 100;
 	public bool ShotByPlayer = false;
 	
 

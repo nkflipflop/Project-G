@@ -4,14 +4,15 @@
 public class Chest : MonoBehaviour 
 {
     public enum ChestType { Consumable, Weapon };
+    public DamageHelper DamageHelper;
+    
+    [Header("Chest Properties")]
     public ChestType Type;
-	// Loot drop table that contains items that can spawn
+    public int NumItemsToDrop;          // How many items treasure will spawn
+	
+    [Header("Loot Drop Tables")]
 	public GenericLootDropTableConsumable ConsumableDropTable;
     public GenericLootDropTableGameObject WeaponDropTable;
-	
-    // How many items treasure will spawn
-	public int NumItemsToDrop;
-    public DamageHelper DamageHelper;
     private bool _lootDropped = false;
 
     private void Start() {
