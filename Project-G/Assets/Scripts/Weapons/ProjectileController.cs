@@ -10,6 +10,7 @@ public class ProjectileController : MonoBehaviour {
 	
 
 	private float _lifetime = 100;
+	[SerializeField] private int _endurance = 1;
 	[SerializeField] private float _speed = 10;
 	[SerializeField] private int _damage = 2;
 	public bool ShotByPlayer = false;
@@ -35,17 +36,24 @@ public class ProjectileController : MonoBehaviour {
 		Vector3 direction = transform.rotation * Vector3.right;
 		RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, direction, .25f, ShotByPlayer ? _hittableLayersByPlayer : _hittableLayersByEnemy);
 		//Debug.DrawRay(transform.position, direction, Color.green);
-		// Range controlling for arrow	
-		if (_lifetime > 0) {
+		// Range controlling for bullet	
+		if (_lifetime > 0 && _endurance > 0) {
 			_lifetime -= 1;
 			// When ray collides with another collider
 			if ( hitInfo.collider != null) {
-				// If it is enemy
+				_endurance--;
+				// If it is damageable
 				if (hitInfo.collider.CompareTag("Player") || hitInfo.collider.CompareTag("Enemy") || hitInfo.collider.CompareTag("Breakable")) {
 					hitInfo.collider.gameObject.GetComponent<DamageHelper>().TakeDamage(_damage);
 				}
-				// Stopping the projectile
-				_lifetime = 0;
+
+				if (_endurance < 1) {
+					// Stopping the projectile
+					_lifetime = 0;
+				}
+				else {
+					_speed *= 0.6f;			// after hitting an enemy or an object, slow down the bullet
+				}
 			}
 			else {
 				transform.Translate(Vector3.right * _speed * Time.deltaTime);
