@@ -549,8 +549,7 @@ public class DungeonManager : MonoBehaviour
 					_randomPos = GetRandomPosInRoom(subDungeon.room);
 					// if the randomPos != invalidPos, then spawn the object
 					if (Vector3.Distance(_randomPos, _invalidPos) != 0) {
-						int trapMaxIndex = (GameConfigData.Instance.Traps.Length <= dungeonLevel) ? GameConfigData.Instance.Traps.Length - 1 : dungeonLevel;
-						int trapIndex = (int)Random.Range(0, trapMaxIndex + 1);
+						int trapIndex = Random.Range(0, 2);
 
 						GameObject instance = Instantiate(GameConfigData.Instance.Traps[trapIndex], _randomPos, Quaternion.identity) as GameObject;
 						instance.transform.SetParent(Dungeon.transform.GetChild((int)Objects.Traps).gameObject.transform);
