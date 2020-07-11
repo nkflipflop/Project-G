@@ -33,7 +33,7 @@ public class PlayerHandController : HandControllerBase {
 			//Debug.Log("Çok istiyorsan 'E' ye bas. ;(");
 			if(_takeWeapon) {
 				// Dropping the current weapon
-				CurrentWeapon.transform.SetParent(null);
+				DropWeapon();
 				// Equipping the new weapon
 				EquipWeapon(_newWeapon);
 			}
@@ -49,13 +49,26 @@ public class PlayerHandController : HandControllerBase {
 	// 	}
 	// }
 
-	// Equips the new weapon from ground
-	public void EquipWeapon(WeaponBase weapon){
-			weapon.transform.SetParent(transform, false);
-			weapon.transform.localPosition = WeaponPosition;
-			weapon.transform.rotation = transform.rotation;
+	// Drops Weapon
+	private void DropWeapon() {
+		CurrentWeapon.transform.SetParent(null);
+		CurrentWeapon.OnHand(false);
+	}
 
-			CurrentWeapon = weapon;
+	// Equips the new weapon from ground
+	private void EquipWeapon(WeaponBase weapon){
+		weapon.transform.SetParent(transform, false);
+		weapon.transform.localPosition = WeaponPosition;
+		weapon.transform.rotation = transform.rotation;
+
+		CurrentWeapon = weapon;
+		CurrentWeapon.OnHand(true);
+
+		// If we aiming to right, scale inverse
+		if(AimPosition.x - transform.position.x >= 0)
+			CurrentWeapon.transform.localScale += 2 * Vector3.down;
+		else
+			CurrentWeapon.transform.localScale = Vector3.one;
 	}
 
 	private void OnTriggerEnter2D(Collider2D other) {

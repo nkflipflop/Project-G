@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2452401953983765805
 Transform:
   m_ObjectHideFlags: 0
@@ -95,6 +95,7 @@ GameObject:
   - component: {fileID: 518848899701281931}
   - component: {fileID: 338556879079586490}
   - component: {fileID: 7557633551298655547}
+  - component: {fileID: 8846475852275030555}
   m_Layer: 0
   m_Name: PPS-43
   m_TagString: Weapon
@@ -224,6 +225,22 @@ MonoBehaviour:
   LeftHandRenderer: {fileID: 3957779595199806483}
   RightHandRenderer: {fileID: 4341443554728069328}
   ShotPoint: {fileID: 9174429303591537451}
+--- !u!58 &8846475852275030555
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 395089684474149627}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.17708333, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.19791667
 --- !u!1 &3080701460606534121
 GameObject:
   m_ObjectHideFlags: 0
@@ -270,7 +287,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3940413302556039545
 Transform:
   m_ObjectHideFlags: 0

@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7998704851119481163
 Transform:
   m_ObjectHideFlags: 0
@@ -98,7 +98,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8909980706870207775
 Transform:
   m_ObjectHideFlags: 0
@@ -177,6 +177,7 @@ GameObject:
   - component: {fileID: 6817712032867167417}
   - component: {fileID: 6709511441599529608}
   - component: {fileID: 3552259318856469769}
+  - component: {fileID: 5539389853419033962}
   m_Layer: 0
   m_Name: PPSh-41
   m_TagString: Weapon
@@ -269,7 +270,7 @@ MonoBehaviour:
   HasRecoil: 1
   Automatic: 0
   MaxAmmo: 12
-  Projectile: {fileID: 8024592333845191033, guid: fb83bf975619b5244a73294a493f4c29,
+  Projectile: {fileID: 2396569148800147147, guid: fcddc0e02cf24184bb2470ed4ad3a2e5,
     type: 3}
 --- !u!114 &6709511441599529608
 MonoBehaviour:
@@ -306,6 +307,22 @@ MonoBehaviour:
   LeftHandRenderer: {fileID: 8017226717864412193}
   RightHandRenderer: {fileID: 7318865351696052450}
   ShotPoint: {fileID: 2809169180618273561}
+--- !u!58 &5539389853419033962
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6689412603249722057}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.27083334, y: 0.010416664}
+  serializedVersion: 2
+  m_Radius: 0.29166666
 --- !u!1 &8317844000304462299
 GameObject:
   m_ObjectHideFlags: 0

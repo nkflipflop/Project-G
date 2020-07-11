@@ -46,7 +46,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1181314306515470559
 Transform:
   m_ObjectHideFlags: 0
@@ -125,6 +125,7 @@ GameObject:
   - component: {fileID: 3845832036217520505}
   - component: {fileID: 3953802303555874632}
   - component: {fileID: 6525269609097388233}
+  - component: {fileID: -5414405560727470145}
   m_Layer: 0
   m_Name: Pbz39
   m_TagString: Weapon
@@ -217,7 +218,7 @@ MonoBehaviour:
   HasRecoil: 1
   Automatic: 0
   MaxAmmo: 4
-  Projectile: {fileID: 8024592333845191033, guid: fb83bf975619b5244a73294a493f4c29,
+  Projectile: {fileID: 2396569148800147147, guid: fcddc0e02cf24184bb2470ed4ad3a2e5,
     type: 3}
 --- !u!114 &3953802303555874632
 MonoBehaviour:
@@ -254,6 +255,22 @@ MonoBehaviour:
   LeftHandRenderer: {fileID: 324446217678383585}
   RightHandRenderer: {fileID: 1032334104926215458}
   ShotPoint: {fileID: 5566008616711757529}
+--- !u!58 &-5414405560727470145
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3969873003748830985}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.32291663, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.34375
 --- !u!1 &8024042598457707856
 GameObject:
   m_ObjectHideFlags: 0
@@ -270,7 +287,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &343215347837406347
 Transform:
   m_ObjectHideFlags: 0

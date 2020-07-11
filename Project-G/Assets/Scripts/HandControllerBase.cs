@@ -13,7 +13,7 @@ public class HandControllerBase : MonoBehaviour
 	protected float AimDeviation;			// ability to hit the bull's eye (if 0, you are best)
 	protected Vector3 TargetObjectPosition;
 
-    private Vector3 _aimPosition;			
+    protected Vector3 AimPosition;			
 	private float _verticalTrigger = 1;		// for inverse scaling of the weapon
 	private bool _canShoot = false;
 	private float _fireDelay = 1f;
@@ -44,7 +44,7 @@ public class HandControllerBase : MonoBehaviour
 	private void AdjustSortingOrder(){
 		int sortingOrder = CharacterRenderer.sortingOrder;
 		if(CharacterIsRunning == true) {
-			Vector2 mouseDir = _aimPosition - transform.parent.position;
+			Vector2 mouseDir = AimPosition - transform.parent.position;
 			float horizontal = mouseDir.x;
 			float vertical = mouseDir.y;
 			float slope = horizontal / vertical;
@@ -74,13 +74,13 @@ public class HandControllerBase : MonoBehaviour
 	// Aims the weapon
 	private void AimWeapon() {
 		// Flipping hand position and weapon direction
-		float verticalAxis = Mathf.Sign(_aimPosition.x - transform.position.x);	
+		float verticalAxis = Mathf.Sign(AimPosition.x - transform.position.x);	
 		bool scale = _verticalTrigger * verticalAxis > 0 ? false : true;
 		_verticalTrigger = verticalAxis;
 		if(scale) CurrentWeapon.ScaleInverse();
 
 		// Getting mouse position and direction of player to mouse
-		Vector3 aimDirection = (_aimPosition - CurrentWeapon.transform.position).normalized;
+		Vector3 aimDirection = (AimPosition - CurrentWeapon.transform.position).normalized;
 
 		// Rotating the current weapon
 		float angle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
@@ -107,10 +107,10 @@ public class HandControllerBase : MonoBehaviour
 	private void GetInputs() {
 		// Taking aim position
         if(TargetObject){
-			float distance = Vector3.Distance(_aimPosition, transform.position) / 16;
+			float distance = Vector3.Distance(AimPosition, transform.position) / 16;
 
-			_aimPosition = GetTargetPosition() + UnityEngine.Random.insideUnitSphere * UnityEngine.Random.Range(0, distance) * AimDeviation;
-		    _aimPosition.z = 0f;
+			AimPosition = GetTargetPosition() + UnityEngine.Random.insideUnitSphere * UnityEngine.Random.Range(0, distance) * AimDeviation;
+		    AimPosition.z = 0f;
 	    }
     }
 

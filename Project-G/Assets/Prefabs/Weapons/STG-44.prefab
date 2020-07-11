@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8691813585440431977
 Transform:
   m_ObjectHideFlags: 0
@@ -95,6 +95,7 @@ GameObject:
   - component: {fileID: 5261327179409052315}
   - component: {fileID: 5368964562924698794}
   - component: {fileID: 2797497119143768875}
+  - component: {fileID: 1849421025081075827}
   m_Layer: 0
   m_Name: STG-44
   m_TagString: Weapon
@@ -187,7 +188,7 @@ MonoBehaviour:
   HasRecoil: 1
   Automatic: 1
   MaxAmmo: 30
-  Projectile: {fileID: 2008849835424725764, guid: b8b88776a857d044795aebfae686b187,
+  Projectile: {fileID: 6299611338768158524, guid: c403557b17ee2a548bf2c0950e060bfa,
     type: 3}
 --- !u!114 &5368964562924698794
 MonoBehaviour:
@@ -224,6 +225,22 @@ MonoBehaviour:
   LeftHandRenderer: {fileID: 8708964355551050243}
   RightHandRenderer: {fileID: 8218867610486116032}
   ShotPoint: {fileID: 3558602046666362171}
+--- !u!58 &1849421025081075827
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5425444037710871787}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.19791669, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.21875
 --- !u!1 &5650558882346445791
 GameObject:
   m_ObjectHideFlags: 0
@@ -240,7 +257,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7797984917587614525
 Transform:
   m_ObjectHideFlags: 0
@@ -249,7 +266,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5650558882346445791}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.354, y: -0.04, z: 0}
+  m_LocalPosition: {x: 0.269, y: -0.042, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7293375394824328727}
