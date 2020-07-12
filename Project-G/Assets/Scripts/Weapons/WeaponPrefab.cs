@@ -9,6 +9,6 @@ public class WeaponPrefab : MonoBehaviour {
 	public bool Automatic;
 	public int MaxAmmo;
 	public int BulletPerShot;
-	public GameObject Projectile;
+	public GameObject Bullet;
 
 }

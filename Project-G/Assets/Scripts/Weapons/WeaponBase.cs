@@ -64,9 +64,9 @@ public class WeaponBase : MonoBehaviour {
 		
 		// Creating bullets
 		for (int i = 0; i < Weapon.BulletPerShot; i++) {
-			float angelBtwBullets = 8f;
-			float zRotation = -(Weapon.BulletPerShot - 1) * 4 + (angelBtwBullets * i);
-			GameObject bullet = Instantiate(Weapon.Projectile, ShotPoint.position, Quaternion.Euler(new Vector3(0, 0, ShotPoint.rotation.eulerAngles.z + zRotation)));
+			float angelBtwBullets = 10f;
+			float zRotation = ((1 - Weapon.BulletPerShot) * angelBtwBullets / 2) + (angelBtwBullets * i);
+			GameObject bullet = Instantiate(Weapon.Bullet, ShotPoint.position, Quaternion.Euler(new Vector3(0, 0, ShotPoint.rotation.eulerAngles.z + zRotation)));
 			bullet.GetComponent<ProjectileController>().ShotByPlayer = (transform.root.tag == "Player");
 
 		}

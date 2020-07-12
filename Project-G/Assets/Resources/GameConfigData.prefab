@@ -347,6 +347,7 @@ MonoBehaviour:
   - {fileID: 395089684474149627, guid: 4985d8912b1d41842ae6c8bf150a0c77, type: 3}
   - {fileID: 8483857839878377761, guid: f25459e8ea15b7449b9388714fbb987d, type: 3}
   - {fileID: 3969873003748830985, guid: 43c12e3919ac7fd4484f2ada81c8da8f, type: 3}
+  - {fileID: 6689412603249722057, guid: b1c0732b1f715c047a7e6d8cbdd8a1dd, type: 3}
   ItemChests:
   - {fileID: 1516673698771313393, guid: fcd7cb5e05ad7ea4ea9a3836f3a8d1b1, type: 3}
   - {fileID: 1516673698771313393, guid: 027e9f0343dcf2b4da8fb3bab222c2f5, type: 3}
