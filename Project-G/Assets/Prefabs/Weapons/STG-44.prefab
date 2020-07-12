@@ -188,6 +188,7 @@ MonoBehaviour:
   HasRecoil: 1
   Automatic: 1
   MaxAmmo: 30
+  BulletPerShot: 1
   Projectile: {fileID: 6299611338768158524, guid: c403557b17ee2a548bf2c0950e060bfa,
     type: 3}
 --- !u!114 &5368964562924698794

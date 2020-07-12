@@ -61,10 +61,15 @@ public class WeaponBase : MonoBehaviour {
 		Instantiate(FireEffect, ShotPoint.position, ShotPoint.rotation);
 		// Recoiling the weapon
 		if (Weapon.HasRecoil) WeaponRecoiler.AddRecoil();
-		// Creating projectile
-		GameObject tempProjectile = Instantiate(Weapon.Projectile, ShotPoint.position, ShotPoint.rotation);
 		
-		tempProjectile.GetComponent<ProjectileController>().ShotByPlayer = (transform.root.tag == "Player");
+		// Creating bullets
+		for (int i = 0; i < Weapon.BulletPerShot; i++) {
+			float angelBtwBullets = 10f;
+			float zRotation = ((1 - Weapon.BulletPerShot) * angelBtwBullets / 2) + (angelBtwBullets * i);
+			GameObject bullet = Instantiate(Weapon.Bullet, ShotPoint.position, Quaternion.Euler(new Vector3(0, 0, ShotPoint.rotation.eulerAngles.z + zRotation)));
+			bullet.GetComponent<ProjectileController>().ShotByPlayer = (transform.root.tag == "Player");
+
+		}
 	}
 
 	public void Trigger() {
