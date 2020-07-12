@@ -10,6 +10,8 @@ public class UIController : MonoBehaviour
     public void UpdateUI(char whichUI, int value, Sprite sprite){
         if (whichUI == 'w') {
             WeaponUI.WeaponImage.sprite = sprite;
+            WeaponUI.WeaponImage.SetNativeSize();
+             
         }
         else if (whichUI == 'a') {
             WeaponUI.AmmoText.text = "" + value;

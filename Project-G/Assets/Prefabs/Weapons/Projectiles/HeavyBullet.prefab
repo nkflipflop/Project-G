@@ -150,8 +150,9 @@ MonoBehaviour:
     type: 3}
   NoneSprite: {fileID: 0}
   Light: {fileID: 6647207900066122528}
+  _endurance: 1
   _speed: 12
-  _damage: 15
+  _damage: 9
   ShotByPlayer: 0
 --- !u!114 &6960285409954042767
 MonoBehaviour:
