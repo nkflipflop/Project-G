@@ -34,7 +34,7 @@ public class GameManager : MonoBehaviour
 	/// <summary> Gets the level data from DataManager and makes the assignments </summary>
 	private void LoadLevelData() {
 		_dungeonLevel = DataManager.Instance.DungeonLevel;
-		Player.GetComponent<DamageHelper>().Health = DataManager.Instance.Health;													// loading player's health
+		Player.GetComponent<HealthController>().Health = DataManager.Instance.Health;													// loading player's health
 	}
 
 	/// <summary> Gets the level data and saves it in DataManager at the end of the level </summary>
@@ -42,7 +42,7 @@ public class GameManager : MonoBehaviour
 		DataManager.Instance.DungeonLevel++;
 		if (DataManager.Instance.DungeonLevel == 7)      // after level 7, reset the game
 			DataManager.Instance.DungeonLevel = 0;
-		DataManager.Instance.Health = Player.GetComponent<DamageHelper>().Health;		// storing player's health
+		DataManager.Instance.Health = Player.GetComponent<HealthController>().Health;		// storing player's health
 		DataManager.Instance.WeaponID = Player.transform.GetChild(0).transform.GetChild(0).gameObject.GetComponent<WeaponPrefab>().ID;			// storing player's weapon
 	}
 

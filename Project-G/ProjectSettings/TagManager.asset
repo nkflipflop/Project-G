@@ -9,6 +9,7 @@ TagManager:
   - Environment
   - Key
   - Breakable
+  - Item
   layers:
   - Default
   - TransparentFX

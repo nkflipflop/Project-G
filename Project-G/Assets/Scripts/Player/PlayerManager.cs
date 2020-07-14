@@ -1,50 +1,60 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+[System.Serializable]
+public class Inventory {
+    public GameConfigData.CollectibleType Type;
+    public int Count;
+};
 
 public class PlayerManager : MonoBehaviour
 {
     public PlayerController PlayerController;
     public PlayerHandController PlayerHandController;
-    public DamageHelper DamageHelper;
-    public UIController UIController;
-    
+    public HealthController HealthController;
 
-    private WeaponBase _weapon = null;  // Current Weapon
-    private int _ammo = -1;           // Current Ammo
-    private int _health = -1;            // Current Health
+    [SerializeField]
+    private Inventory[] _inventory;     // Inventory
+    public event Action<Inventory[], HealthController> CollectPUB;     // Item collection Publisher
+    private bool _key = false;
 
 
     // Update is called once per frame
     private void Update() {
-        if (_weapon != PlayerHandController.CurrentWeapon)
-            weaponUpdate();
-
-        if (_ammo != _weapon.CurrentAmmo)
-            ammoUpdate();
-
-        if (_health != DamageHelper.Health)
-            healthUpdate();
+        if (Input.GetKeyDown (KeyCode.Alpha1))
+            UseMedkit();
+        
+        if (Input.GetKeyDown (KeyCode.Alpha2))
+            UseShield();   
     }
 
-    // This only for Read, there is no write operation for player
-    private void weaponUpdate(){
-        _weapon = PlayerHandController.CurrentWeapon;
-        // Trigering UI
-        UIController.UpdateUI('w', 0, _weapon.WeaponRenderer.sprite);
+    // Using Medkit
+    private void UseMedkit(){
+        if (_inventory[0].Count > 0){
+            _inventory[0].Count -= 1;
+            HealthController.Heal(30);
+        }
     }
 
-    // This only for Read, there is no write operation for player
-    private void ammoUpdate(){
-        _ammo = _weapon.CurrentAmmo;
-        // Trigering UI
-        UIController.UpdateUI('a', _ammo, null);
+    // Using Medkit
+    private void UseShield(){
+        if (_inventory[1].Count > 0){
+            _inventory[1].Count -= 1;
+        }
     }
 
-    // This only for Read, there is no write operation for player
-    private void healthUpdate(){
-        _health = DamageHelper.Health;
-        // Trigering UI
-        UIController.UpdateUI('h', _health, null);
-    }
+    private void OnTriggerEnter2D(Collider2D other) {
+        // If collide with an consumable item
+		if (other.gameObject.CompareTag("Item")){
+            // If there are items
+            CollectPUB?.Invoke(_inventory, HealthController);
+        }
+        else if (other.gameObject.CompareTag("Key")){
+            // If there are Key
+            _key = true;
+            Destroy(other.gameObject);
+        }
+	}
 }

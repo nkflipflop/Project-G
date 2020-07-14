@@ -417,7 +417,7 @@ public class DungeonManager : MonoBehaviour
 	}
 
 	public void CreateDungeon() {
-		Debug.Log("Creating dungeon...");
+		//Debug.Log("Creating dungeon...");
 		_rootSubDungeon = new SubDungeon(new Rect(GameConfigData.Instance.DungeonPadding, GameConfigData.Instance.DungeonPadding, GameConfigData.Instance.DungeonRows, GameConfigData.Instance.DungeonColumns));
 		CreateBSP(_rootSubDungeon);
 		_rootSubDungeon.CreateRoom();
@@ -437,7 +437,7 @@ public class DungeonManager : MonoBehaviour
 		PlaceLamps(_dungeonTiles);
 		// _enemyIndexes = new int[,] {{0, 1}, {0, 2}, {0, 3}, {1, 4}, {2, 5}};
 		_enemyIndexes = new int[,] {{0, 1}, {0, 2}, {1, 2}, {0, 3}, {1, 3}, {1, 4}, {1, 5}};		// start and end indexes of Enemies array accorcding to the dungeon level
-		Debug.Log("Dungeon creation ended.");
+		//Debug.Log("Dungeon creation ended.");
 	}
 
 	public void SpawnEverything(int dungeonLevel) {
@@ -450,7 +450,7 @@ public class DungeonManager : MonoBehaviour
 	}
 
 	private void PlayerSpawner() {
-		Debug.Log("Spawning player...");
+		//Debug.Log("Spawning player...");
 		GetRandomPos(_rootSubDungeon);		// getting random position in the dungeon for the player
 		Player.transform.position = _randomPos;
 		_playerSpawnPos = _randomPos;
@@ -465,11 +465,11 @@ public class DungeonManager : MonoBehaviour
 		GameObject key = Instantiate(GameConfigData.Instance.Key, new Vector3(_randomPos.x, _randomPos.y, 0f), Quaternion.identity) as GameObject;
 		key.transform.SetParent(Dungeon.transform);
 		_objectSpawnPos[(int)_randomPos.x, (int)_randomPos.y] = 1;
-		Debug.Log("Player spawn ended.");
+		//Debug.Log("Player spawn ended.");
 	}
 
 	private void RandomChestSpawner(int dungeonLevel) {
-		Debug.Log("Spawning chests...");
+		//Debug.Log("Spawning chests...");
 		// spawning barrels
 		for (int i = 0; i < 3; i++) {
 			GetRandomPos(_rootSubDungeon);		// getting random position in the dungeon
@@ -485,17 +485,17 @@ public class DungeonManager : MonoBehaviour
 			weaponChest.transform.SetParent(Dungeon.transform.GetChild((int)Objects.Chests).gameObject.transform);
 			_objectSpawnPos[(int)_randomPos.x, (int)_randomPos.y] = 1;
 		}
-		Debug.Log("Chest spawn ended.");
+		//Debug.Log("Chest spawn ended.");
 	}
 
 	private void RandomEnemySpawner(int dungeonLevel) {
-		Debug.Log("Spawning enemies...");
+		//Debug.Log("Spawning enemies...");
 		SpawnEnemies(_rootSubDungeon, dungeonLevel);
 		// after creating copies, disable the original ones
 		foreach (var enemy in Enemies) {
 			enemy.SetActive(false);
 		}
-		Debug.Log("Enemy spawn ended.");
+		//Debug.Log("Enemy spawn ended.");
 	}
 
 	private void SpawnEnemies(SubDungeon subDungeon, int dungeonLevel) {
@@ -532,9 +532,9 @@ public class DungeonManager : MonoBehaviour
 	}
 
 	private void RandomTrapSpawner(int dungeonLevel) {
-		Debug.Log("Spawning traps...");
+		//Debug.Log("Spawning traps...");
 		SpawnTraps(_rootSubDungeon, dungeonLevel);
-		Debug.Log("Trap spawn ended.");
+		//Debug.Log("Trap spawn ended.");
 	}
 
 	private void SpawnTraps(SubDungeon subDungeon, int dungeonLevel) {

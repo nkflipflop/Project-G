@@ -44,7 +44,7 @@ public class ProjectileController : MonoBehaviour {
 				_endurance--;
 				// If it is damageable
 				if (hitInfo.collider.CompareTag("Player") || hitInfo.collider.CompareTag("Enemy") || hitInfo.collider.CompareTag("Breakable")) {
-					hitInfo.collider.gameObject.GetComponent<DamageHelper>().TakeDamage(_damage);
+					hitInfo.collider.gameObject.GetComponent<HealthController>().TakeDamage(_damage);
 				}
 
 				if (_endurance < 1) {

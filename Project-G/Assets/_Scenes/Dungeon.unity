@@ -164,7 +164,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &16231023
 GameObject:
@@ -667,7 +667,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &245968475
 GameObject:
@@ -811,7 +811,7 @@ RectTransform:
   - {fileID: 987616162}
   - {fileID: 388974858}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -832,6 +832,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MiscUI: {fileID: 16231028}
   WeaponUI: {fileID: 987616166}
+  PlayerManager: {fileID: 8005256322282322025}
 --- !u!1 &280246896
 GameObject:
   m_ObjectHideFlags: 0
@@ -1127,7 +1128,7 @@ MonoBehaviour:
   Target: {fileID: 8005256322282322018}
   _speed: 1.5
   DistanceBtwTarget: 0
-  DamageHelper: {fileID: 341482506}
+  HealthController: {fileID: 341482506}
   _attackRange: 1.2
   AttackController: {fileID: 358594205}
 --- !u!114 &341482508
@@ -6798,7 +6799,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CharacterRenderer: {fileID: 592281811}
   TargetObject: {fileID: 8005256322282322018}
-  DamageHelper: {fileID: 592281817}
+  HealthController: {fileID: 592281817}
 --- !u!114 &592281815
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7076,7 +7077,7 @@ MonoBehaviour:
   Target: {fileID: 8005256322282322018}
   _speed: 1.9
   DistanceBtwTarget: 0
-  DamageHelper: {fileID: 686807008}
+  HealthController: {fileID: 686807008}
   _attackRange: 0.4
   AttackController: {fileID: 802132069}
   Renderer: {fileID: 686807012}
@@ -8184,7 +8185,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CharacterRenderer: {fileID: 1016902227}
   TargetObject: {fileID: 8005256322282322018}
-  DamageHelper: {fileID: 1016902225}
+  HealthController: {fileID: 1016902225}
 --- !u!114 &1016902223
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8708,7 +8709,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1190333001
 GameObject:
@@ -9676,7 +9677,7 @@ MonoBehaviour:
   Target: {fileID: 8005256322282322018}
   _speed: 1.8
   DistanceBtwTarget: 0
-  DamageHelper: {fileID: 1363067906}
+  HealthController: {fileID: 1363067906}
   _attackRange: 0.4
   AttackController: {fileID: 358594205}
 --- !u!114 &1363067906
@@ -9919,7 +9920,7 @@ Transform:
   m_Children:
   - {fileID: 1575737063}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1501315621
 GameObject:
@@ -10481,7 +10482,7 @@ MonoBehaviour:
   Target: {fileID: 8005256322282322018}
   _speed: 2
   DistanceBtwTarget: 0
-  DamageHelper: {fileID: 1706242352}
+  HealthController: {fileID: 1706242352}
   _attackRange: 0.3
   AttackController: {fileID: 1238256383}
 --- !u!114 &1706242352
@@ -10733,7 +10734,7 @@ Transform:
   - {fileID: 519420032}
   - {fileID: 934962437}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1894792300
 GameObject:
@@ -11260,7 +11261,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2067368115
 GameObject:
@@ -11536,7 +11537,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8005256322282322018
 GameObject:
@@ -11626,7 +11627,7 @@ Transform:
   - {fileID: 1190333002}
   - {fileID: 332065250}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &8005256322282322023
 SpriteRenderer:
@@ -11714,8 +11715,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerController: {fileID: 8005256322282322020}
   PlayerHandController: {fileID: 1923094853}
-  DamageHelper: {fileID: 8005256322282322027}
-  UIController: {fileID: 278903004}
+  HealthController: {fileID: 8005256322282322027}
+  _inventory:
+  - Type: 0
+    Count: 0
+  - Type: 1
+    Count: 0
 --- !u!114 &8005256322282322026
 MonoBehaviour:
   m_ObjectHideFlags: 0

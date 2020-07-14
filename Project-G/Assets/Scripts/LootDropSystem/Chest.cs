@@ -4,7 +4,7 @@
 public class Chest : MonoBehaviour 
 {
     public enum ChestType { Consumable, Weapon };
-    public DamageHelper DamageHelper;
+    public HealthController HealthController;
     
     [Header("Chest Properties")]
     public ChestType Type;
@@ -23,7 +23,7 @@ public class Chest : MonoBehaviour
     }
 
     private void Update() {
-        if (DamageHelper.IsDead && !_lootDropped) {
+        if (HealthController.IsDead && !_lootDropped) {
             if (Type == ChestType.Consumable)
                 DropConsumableNearChest(NumItemsToDrop);
             else if (Type == ChestType.Weapon)

@@ -24,7 +24,7 @@ public class TrapController : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D other) {
         if (!_didDamage && other.gameObject.CompareTag("Player")) {
-            other.gameObject.GetComponent<DamageHelper>().TakeDamage(_damage);
+            other.gameObject.GetComponent<HealthController>().TakeDamage(_damage);
             _didDamage = true;
             StartCoroutine(ResetDidDamage());
         }
@@ -32,7 +32,7 @@ public class TrapController : MonoBehaviour {
 
     private void OnTriggerStay2D(Collider2D other) {
         if (!_didDamage && other.gameObject.CompareTag("Player")) {
-            other.gameObject.GetComponent<DamageHelper>().TakeDamage(_damage);
+            other.gameObject.GetComponent<HealthController>().TakeDamage(_damage);
             _didDamage = true;
             StartCoroutine(ResetDidDamage());
         }

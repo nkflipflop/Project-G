@@ -7,7 +7,7 @@ public class TurretController : HandControllerBase {
 		WeaponPosition = new Vector3(0f, 0.497f, 0f);
 	}
 	
-	public DamageHelper DamageHelper;
+	public HealthController HealthController;
 	private bool _targetInRange = false;
 	private int _environmentLayer = 9;
 	private int _playerLayer = 10;
@@ -23,7 +23,7 @@ public class TurretController : HandControllerBase {
 	}
 	
     public override void UseWeapon(){
-        if (!DamageHelper.IsDead &&  _targetInRange) {
+        if (!HealthController.IsDead &&  _targetInRange) {
 			CurrentWeapon.Trigger();
 		}
 		else {

@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class DamageHelper : MonoBehaviour {
+public class HealthController : MonoBehaviour {
     [SerializeField] private int _health = 25;
 
     private bool _isDead = false;
@@ -20,6 +20,7 @@ public class DamageHelper : MonoBehaviour {
 		_health -= damage;
 
 		if (_health <= 0) {
+			_health = 0;
 			DissolveEffect.IsDissolving = true;
             _isDead = true;
 			HitboxCollider.enabled = false;
@@ -33,5 +34,21 @@ public class DamageHelper : MonoBehaviour {
 		Renderer.color = new Color32(224, 74, 89, 255);
 		yield return new WaitForSeconds(0.2f);
 		Renderer.color = Color.white;	
-	}	
+	}
+
+	public void Heal(int healValue) {
+		_health += healValue;
+
+		if(_health > 100) 
+			_health = 100;
+		
+		// Heal effect on sprite
+		StartCoroutine(HealEffect());
+	}
+
+	IEnumerator HealEffect() {
+		Renderer.color = new Color32(74, 224, 89, 255);
+		yield return new WaitForSeconds(0.2f);
+		Renderer.color = Color.white;	
+	}
 }

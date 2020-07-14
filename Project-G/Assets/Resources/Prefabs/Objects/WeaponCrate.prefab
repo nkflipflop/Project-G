@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1516673698178715926}
-  - component: {fileID: 1516673698178715927}
+  - component: {fileID: 843588271599114897}
   m_Layer: 0
   m_Name: Body Collider
   m_TagString: Untagged
@@ -31,8 +31,8 @@ Transform:
   m_Father: {fileID: 1516673698771313396}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!58 &1516673698178715927
-CircleCollider2D:
+--- !u!61 &843588271599114897
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -44,9 +44,19 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.000008478761, y: 0.12910171}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
   serializedVersion: 2
-  m_Radius: 0.16
+  m_Size: {x: 0.49999353, y: 0.29121092}
+  m_EdgeRadius: 0
 --- !u!1 &1516673698771313393
 GameObject:
   m_ObjectHideFlags: 0
@@ -64,7 +74,7 @@ GameObject:
   - component: {fileID: 1516673698771313397}
   - component: {fileID: 1516673698771313384}
   m_Layer: 11
-  m_Name: Barrel
+  m_Name: WeaponCrate
   m_TagString: Breakable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -124,12 +134,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: edf2f3df6dd9abc40a1162bb74377003, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 11a0b986b9c2ebb47b25615ce05c24fb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.35416666, y: 0.5}
+  m_Size: {x: 0.6666667, y: 0.6666667}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -168,33 +178,54 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2318f5f1ad84a1d4a80c8afdc66f0bfa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Type: 0
+  HealthController: {fileID: 1516673698771313386}
+  Type: 1
+  NumItemsToDrop: 1
   ConsumableDropTable:
-    LootDropItems:
-    - item: {fileID: 11400000, guid: 047d4bbb78e4bbd438d0e802ed8ec409, type: 2}
-      probabilityWeight: 10
-      probabilityPercent: 11.363636
-      probabilityRangeFrom: 0
-      probabilityRangeTo: 10
-    - item: {fileID: 11400000, guid: eac7a88d95f099342b7139a205af431b, type: 2}
-      probabilityWeight: 8
-      probabilityPercent: 9.090909
-      probabilityRangeFrom: 10
-      probabilityRangeTo: 18
-    - item: {fileID: 11400000, guid: d0fe69fc199f5f14daa022eb891cb853, type: 2}
-      probabilityWeight: 40
-      probabilityPercent: 45.454544
-      probabilityRangeFrom: 18
-      probabilityRangeTo: 58
-    - item: {fileID: 11400000, guid: 0dbfeefb2c7c96c42890143d1b042059, type: 2}
-      probabilityWeight: 30
-      probabilityPercent: 34.090908
-      probabilityRangeFrom: 58
-      probabilityRangeTo: 88
-  WeaponDropTable:
     LootDropItems: []
-  NumItemsToDrop: 2
-  DamageHelper: {fileID: 1516673698771313386}
+  WeaponDropTable:
+    LootDropItems:
+    - item: {fileID: 5425444037710871787, guid: 52ac9926fd188904e9ed15731b84fa64,
+        type: 3}
+      probabilityWeight: 50
+      probabilityPercent: 20.408163
+      probabilityRangeFrom: 0
+      probabilityRangeTo: 50
+    - item: {fileID: 2593907559752694969, guid: ae8c98d6377e041469926b292888f629,
+        type: 3}
+      probabilityWeight: 45
+      probabilityPercent: 18.367348
+      probabilityRangeFrom: 50
+      probabilityRangeTo: 95
+    - item: {fileID: 6689412603249722057, guid: b7fb4c0c3d5cb0e4aa11e58d970455e0,
+        type: 3}
+      probabilityWeight: 40
+      probabilityPercent: 16.32653
+      probabilityRangeFrom: 95
+      probabilityRangeTo: 135
+    - item: {fileID: 9071326759668482171, guid: b79e868e4b2c4d34b958661a90631a2e,
+        type: 3}
+      probabilityWeight: 35
+      probabilityPercent: 14.285714
+      probabilityRangeFrom: 135
+      probabilityRangeTo: 170
+    - item: {fileID: 395089684474149627, guid: 4985d8912b1d41842ae6c8bf150a0c77, type: 3}
+      probabilityWeight: 30
+      probabilityPercent: 12.244898
+      probabilityRangeFrom: 170
+      probabilityRangeTo: 200
+    - item: {fileID: 8483857839878377761, guid: f25459e8ea15b7449b9388714fbb987d,
+        type: 3}
+      probabilityWeight: 25
+      probabilityPercent: 10.204082
+      probabilityRangeFrom: 200
+      probabilityRangeTo: 225
+    - item: {fileID: 3969873003748830985, guid: 43c12e3919ac7fd4484f2ada81c8da8f,
+        type: 3}
+      probabilityWeight: 20
+      probabilityPercent: 8.163265
+      probabilityRangeFrom: 225
+      probabilityRangeTo: 245
 --- !u!70 &1516673698771313387
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -208,9 +239,9 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.35416666, y: 0.5}
-  m_Direction: 0
+  m_Offset: {x: 0.00012637577, y: 0.1166894}
+  m_Size: {x: 0.49987262, y: 0.45828962}
+  m_Direction: 1
 --- !u!114 &1516673698771313386
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -223,7 +254,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df6fb28ad9cbb484c9d905d52d4dfa92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _health: 15
+  _health: 25
   DissolveEffect: {fileID: 1516673698771313397}
   Renderer: {fileID: 1516673698771313399}
   HitboxCollider: {fileID: 1516673698771313387}

@@ -5,19 +5,27 @@ public class UIController : MonoBehaviour
 {
     public MiscGUI MiscUI;
     public WeaponGUI WeaponUI;
+    public PlayerManager PlayerManager;
 
+    private WeaponBase _weapon = null;  // Current Weapon
+    private int _ammo = -1;             // Current Ammo
+    private int _health = -1;           // Current Health
 
-    public void UpdateUI(char whichUI, int value, Sprite sprite){
-        if (whichUI == 'w') {
-            WeaponUI.WeaponImage.sprite = sprite;
-            WeaponUI.WeaponImage.SetNativeSize();
-             
+    private void Update() {
+        if (_weapon != PlayerManager.PlayerHandController.CurrentWeapon) {
+            _weapon = PlayerManager.PlayerHandController.CurrentWeapon;
+     //       WeaponUI.WeaponImage.sprite = sprite;
+        //    WeaponUI.WeaponImage.SetNativeSize();
         }
-        else if (whichUI == 'a') {
-            WeaponUI.AmmoText.text = "" + value;
+
+        if (_ammo != PlayerManager.PlayerHandController.CurrentWeapon.CurrentAmmo) {
+            _ammo = PlayerManager.PlayerHandController.CurrentWeapon.CurrentAmmo;
+            WeaponUI.AmmoText.text = "" + _ammo;
         }
-        else if (whichUI == 'h') {
-            MiscUI.HealthText.text = "" + value;
+
+        if (_health != PlayerManager.HealthController.Health){
+            _health = PlayerManager.HealthController.Health;
+            MiscUI.HealthText.text = "" + _health;
         }
     }
 }
