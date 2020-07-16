@@ -20,7 +20,6 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private Inventory[] _inventory;         // Inventory
     public event Action<Inventory[], HealthController> CollectPUB;  // Item collection Publisher
     private bool _hasKey = false;
-    private bool _shieldActive = false;
     private float _shieldTime;
 
     public Inventory[] Inventory { get { return _inventory; } }     // Getter for Inventory
@@ -45,7 +44,7 @@ public class PlayerManager : MonoBehaviour
     }
 
     // Using Medkit
-    private void UseMedkit(){
+    private void UseMedkit() {
         Inventory inventory = _inventory[(int)GameConfigData.CollectibleType.Medkit]; 
         if (inventory.Count > 0 && HealthController.Health < 100){
             inventory.Count -= 1;
@@ -54,7 +53,7 @@ public class PlayerManager : MonoBehaviour
     }
 
     // Using Medkit
-    private void UseShield(){
+    private void UseShield() {
         Inventory inventory = _inventory[(int)GameConfigData.CollectibleType.Shield]; 
         if (inventory.Count > 0) {
             inventory.Count -= 1;
@@ -62,6 +61,22 @@ public class PlayerManager : MonoBehaviour
             _shieldTime = inventory.Item.Value;
         }
     }
+
+    public void LoadPlayerData() {
+        HealthController.Health = DataManager.Instance.Health;
+        _inventory[(int)GameConfigData.CollectibleType.Medkit].Count = DataManager.Instance.Medkits;
+        _inventory[(int)GameConfigData.CollectibleType.Shield].Count = DataManager.Instance.Shields;
+
+        GameObject weapon = Instantiate(GameConfigData.Instance.Weapons[DataManager.Instance.WeaponID]) as GameObject;		// instantiating player's weapon
+		PlayerHandController.EquipWeapon(weapon.GetComponent<WeaponBase>());
+    }
+
+    public void SavePlayerData() {
+        DataManager.Instance.Health = HealthController.Health;		// storing player's health
+        DataManager.Instance.Medkits = _inventory[(int)GameConfigData.CollectibleType.Medkit].Count;
+        DataManager.Instance.Shields = _inventory[(int)GameConfigData.CollectibleType.Shield].Count; 
+		DataManager.Instance.WeaponID = PlayerHandController.transform.GetChild(0).gameObject.GetComponent<WeaponPrefab>().ID;			// storing player's weapon
+	}
 
     private void OnTriggerEnter2D(Collider2D other) {
         // If collide with an consumable item

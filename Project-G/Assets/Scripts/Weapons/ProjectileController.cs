@@ -20,6 +20,7 @@ public class ProjectileController : MonoBehaviour {
 	private int _environmentLayer = 9;
 	private int _playerLayer = 10;
 	private int _destructibleObjectLayer = 11;
+	private int _shieldLayer = 12;
 	private LayerMask _hittableLayersByPlayer;
 	private LayerMask _hittableLayersByEnemy;
 
@@ -28,7 +29,7 @@ public class ProjectileController : MonoBehaviour {
 		StartCoroutine(DestroyProjectile());
 		
 		_hittableLayersByPlayer = (1 << _enemyLayer) | (1 << _environmentLayer) | (1 << _destructibleObjectLayer);
-		_hittableLayersByEnemy = (1 << _playerLayer) | (1 << _environmentLayer);
+		_hittableLayersByEnemy = (1 << _playerLayer) | (1 << _environmentLayer) | (1 << _shieldLayer);
 	}
 
 	private void FixedUpdate() {

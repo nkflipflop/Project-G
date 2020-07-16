@@ -6,7 +6,7 @@ public class DataManager : MonoBehaviour
     /// <summary>Static reference to the instance of our DataManager</summary>
     private static DataManager _instance;
 
-    [SerializeField] private int _dungeonLevel = 0, _medkits = 3, _shields = 0, _weaponID = 0;
+    [SerializeField] private int _dungeonLevel = 0, _medkits = 1, _shields = 1, _weaponID = 0;
     private int _health = 100;
 
     public static DataManager Instance { get { return _instance; } }
