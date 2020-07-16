@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 15864dfdf76ded14a9a1fc43e4e50372, type: 3}
-  m_Name: Snack_0
+  m_Name: Snack_Water
   m_EditorClassIdentifier: 
   Type: 2
-  RestoreHealthValue: 8
-  Sprite: {fileID: 0}
+  Value: 10
+  Sprite: {fileID: 21300000, guid: 3fc9a5528de9f024b83af34329c8a7b6, type: 3}

@@ -15,8 +15,8 @@ public class ConsumableObject : MonoBehaviour
 
     // Collision Controller
     private void OnTriggerEnter2D(Collider2D other) {
-        // If collide with an Player
-		if (other.gameObject.CompareTag("Player")){
+        // If collide with an Player, Subscribe the playerManager
+		if (other.gameObject.CompareTag("Player") && !_playerManager){
             _playerManager = other.gameObject.GetComponent<PlayerManager>();
             _playerManager.CollectPUB += CollectSUB;
         }
@@ -24,17 +24,23 @@ public class ConsumableObject : MonoBehaviour
 
     // Collection Subscriber
     private void CollectSUB(Inventory[] inventory, HealthController playerHealthController) {
-        if(Item.Type == GameConfigData.CollectibleType.Medkit){
-            inventory[0].Count += 1;    // Medkit
+        bool collected = false;
+
+        if(Item.Type == GameConfigData.CollectibleType.Snack){  // Snacks
+            if(playerHealthController.Health < 100){            // If Health is not full
+                playerHealthController.Heal(Item.Value);   
+                collected = true;
+            }
         }
-        else if(Item.Type == GameConfigData.CollectibleType.Shield){
-            inventory[1].Count += 1;    // Shield
-        }
-        else {
-            playerHealthController.Heal(Item.RestoreHealthValue);   // Snacks
+        else if(inventory[(int)Item.Type].Count < 3) {      // Medkit or Shield, If inventory is not full
+            inventory[(int)Item.Type].Count += 1;
+            collected = true;
         }
 
-        _playerManager.CollectPUB -= CollectSUB;
-         Destroy(gameObject);
+        // If object is collected, destroy it
+        if (collected == true){
+            _playerManager.CollectPUB -= CollectSUB;
+            Destroy(gameObject);
+        }
     }
 }

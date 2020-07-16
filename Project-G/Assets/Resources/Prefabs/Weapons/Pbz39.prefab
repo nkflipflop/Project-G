@@ -212,13 +212,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdfebb76137225840accc2415a210e2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ID: 6
+  ID: 1
+  Name: Pbz39
   ReloadTime: 3
-  FireRate: 0.1
+  FireRate: 0.5
   HasRecoil: 1
   Automatic: 0
   MaxAmmo: 4
-  Projectile: {fileID: 2396569148800147147, guid: b7dfe1dfe4603c946852d72fbe3ac28f,
+  Projectile: {fileID: 8725514770492500741, guid: b7dfe1dfe4603c946852d72fbe3ac28f,
     type: 3}
 --- !u!114 &3953802303555874632
 MonoBehaviour:

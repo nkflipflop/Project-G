@@ -31,7 +31,7 @@ public class HealthController : MonoBehaviour {
 	}
 
 	IEnumerator DamageEffect() {
-		Renderer.color = new Color32(224, 74, 89, 255);
+		Renderer.color = new Color32(255, 55, 0, 255);
 		yield return new WaitForSeconds(0.2f);
 		Renderer.color = Color.white;	
 	}
@@ -47,7 +47,7 @@ public class HealthController : MonoBehaviour {
 	}
 
 	IEnumerator HealEffect() {
-		Renderer.color = new Color32(74, 224, 89, 255);
+		Renderer.color = new Color32(55, 255, 0, 255);
 		yield return new WaitForSeconds(0.2f);
 		Renderer.color = Color.white;	
 	}

@@ -130,13 +130,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdfebb76137225840accc2415a210e2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ID: 1
+  ID: 5
+  Name: Thompson
   ReloadTime: 3
   FireRate: 0.15
   HasRecoil: 1
   Automatic: 1
   MaxAmmo: 30
-  Projectile: {fileID: 6299611338768158524, guid: c403557b17ee2a548bf2c0950e060bfa,
+  Projectile: {fileID: 1097089023656671986, guid: c403557b17ee2a548bf2c0950e060bfa,
     type: 3}
 --- !u!114 &2465159388714728696
 MonoBehaviour:

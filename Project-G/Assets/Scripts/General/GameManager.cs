@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
 	public GameObject Player;
 
 	private int _dungeonLevel = 0;
+	public int DungeonLevel { get{ return _dungeonLevel; } }
 
 	private void Start() {
 		LoadLevelData();
@@ -17,17 +18,19 @@ public class GameManager : MonoBehaviour
 	}
 
 	private void Update() {
-		if (Input.GetKeyDown(KeyCode.Space)) {		// press "space" to skip the current level
-			SaveLevelData();
-			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-		}
 		if (Input.GetKey(KeyCode.Escape)) {
 			TogglePause();
 		}
 	}
 
+	// Pass to the next level
+	public void LoadNextLevel() {
+		SaveLevelData();
+		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+	}
+
 	private void LoadDungeon() {
-		DungeonManager.CreateDungeon();
+		DungeonManager.CreateDungeon(this);
 		DungeonManager.SpawnEverything(_dungeonLevel);
 	}
 

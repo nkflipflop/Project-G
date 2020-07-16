@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8434064879930346309}
   - component: {fileID: 5558750635696406215}
   m_Layer: 0
-  m_Name: Exit
+  m_Name: exit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -97,7 +97,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0083, y: 0}
+  m_Offset: {x: 0, y: -0.2}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -108,7 +108,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.4, y: 0.4}
+  m_Size: {x: 0.5, y: 0.1}
   m_EdgeRadius: 0
 --- !u!114 &5558750635696406215
 MonoBehaviour:
@@ -125,4 +125,3 @@ MonoBehaviour:
   _spriteRenderer: {fileID: 7333140338748951595}
   ExitDoorOpen: {fileID: -978962046485463864, guid: 7b0e09f1db71944438ecbb4ba47658b3,
     type: 3}
-  _collider2D: {fileID: 8434064879930346309}

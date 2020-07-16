@@ -6,6 +6,7 @@ using UnityEngine;
 [System.Serializable]
 public class Inventory {
     public GameConfigData.CollectibleType Type;
+    public Consumable Item;
     public int Count;
 };
 
@@ -14,34 +15,51 @@ public class PlayerManager : MonoBehaviour
     public PlayerController PlayerController;
     public PlayerHandController PlayerHandController;
     public HealthController HealthController;
+    [SerializeField] private GameObject _shield;
 
-    [SerializeField]
-    private Inventory[] _inventory;     // Inventory
-    public event Action<Inventory[], HealthController> CollectPUB;     // Item collection Publisher
-    private bool _key = false;
+    [SerializeField] private Inventory[] _inventory;         // Inventory
+    public event Action<Inventory[], HealthController> CollectPUB;  // Item collection Publisher
+    private bool _hasKey = false;
+    private bool _shieldActive = false;
+    private float _shieldTime;
 
+    public Inventory[] Inventory { get { return _inventory; } }     // Getter for Inventory
+    public bool HasKey { get { return _hasKey; } }      // Getter for Key
 
     // Update is called once per frame
     private void Update() {
-        if (Input.GetKeyDown (KeyCode.Alpha1))
+        if (Input.GetKeyDown (KeyCode.Alpha1)) {
             UseMedkit();
-        
-        if (Input.GetKeyDown (KeyCode.Alpha2))
-            UseShield();   
+        }
+
+        if (Input.GetKeyDown (KeyCode.Alpha2) && !_shield.activeSelf) {
+            UseShield();
+        }
+
+        if (_shield.activeSelf) {
+            _shieldTime -=Time.deltaTime;
+            if (_shieldTime <= 0) {
+                _shield.SetActive(false);
+            }
+        }
     }
 
     // Using Medkit
     private void UseMedkit(){
-        if (_inventory[0].Count > 0){
-            _inventory[0].Count -= 1;
-            HealthController.Heal(30);
+        Inventory inventory = _inventory[(int)GameConfigData.CollectibleType.Medkit]; 
+        if (inventory.Count > 0 && HealthController.Health < 100){
+            inventory.Count -= 1;
+            HealthController.Heal(inventory.Item.Value);
         }
     }
 
     // Using Medkit
     private void UseShield(){
-        if (_inventory[1].Count > 0){
-            _inventory[1].Count -= 1;
+        Inventory inventory = _inventory[(int)GameConfigData.CollectibleType.Shield]; 
+        if (inventory.Count > 0) {
+            inventory.Count -= 1;
+            _shield.SetActive(true);
+            _shieldTime = inventory.Item.Value;
         }
     }
 
@@ -53,8 +71,8 @@ public class PlayerManager : MonoBehaviour
         }
         else if (other.gameObject.CompareTag("Key")){
             // If there are Key
-            _key = true;
-            Destroy(other.gameObject);
+            _hasKey = true;
+            other.gameObject.SetActive(false);
         }
 	}
 }

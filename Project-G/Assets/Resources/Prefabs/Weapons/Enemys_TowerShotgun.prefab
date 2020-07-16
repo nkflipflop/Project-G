@@ -47,7 +47,7 @@ GameObject:
   - component: {fileID: 3314771608762817132}
   - component: {fileID: 762648450}
   m_Layer: 0
-  m_Name: TowerShotgun
+  m_Name: Enemys_TowerShotgun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -184,13 +184,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdfebb76137225840accc2415a210e2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ID: 11
+  ID: 13
+  Name: Tower Shotgun
   ReloadTime: 0
   FireRate: 0.5
   HasRecoil: 1
   Automatic: 1
   MaxAmmo: 30
-  Projectile: {fileID: 2008849835424725764, guid: b8b88776a857d044795aebfae686b187,
+  Projectile: {fileID: 4879032053553827530, guid: b8b88776a857d044795aebfae686b187,
     type: 3}
 --- !u!114 &3314771608762817132
 MonoBehaviour:

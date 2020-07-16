@@ -19,7 +19,8 @@ public class DungeonManager : MonoBehaviour
 		public int Current { get { return current; } set { current = value; } }
 	}
 
-	public GameObject Player;
+	private GameManager _gameManager;
+	public PlayerManager Player;
 	public GameObject Dungeon;
 	public GameObject[] WallTiles;
 	public GameObject[] Enemies;
@@ -27,6 +28,7 @@ public class DungeonManager : MonoBehaviour
 	private int[,] _dungeonTiles;		// the tiles that players and other NPCs can walk on
 	private int[,] _objectSpawnPos;
 	private int[,] _enemyIndexes;
+	private ExitController _exitDoor;
 	List<Vector2Int> _bridgeTilesPos;
 	private SpawnData _enemySpawnData = new SpawnData(25, 0);
 	private SpawnData _trapSpawnData = new SpawnData(12, 0);
@@ -36,6 +38,7 @@ public class DungeonManager : MonoBehaviour
 	private Vector3 _invalidPos = new Vector3(0, 0, 1);
 
 	public int[,] DungeonMap { get {return _dungeonTiles;} }
+
 
 	public class SubDungeon {
 		public SubDungeon left, right;
@@ -200,6 +203,13 @@ public class DungeonManager : MonoBehaviour
 				right = new SubDungeon(new Rect(rect.x + split, rect.y, rect.width - split, rect.height));
 			}
 			return true;
+		}
+	}
+
+
+	private void Update() {
+		if (Player.HasKey && !_exitDoor.IsDoorOpen) {
+			_exitDoor.OpenTheDoor();
 		}
 	}
 
@@ -416,8 +426,9 @@ public class DungeonManager : MonoBehaviour
 		}
 	}
 
-	public void CreateDungeon() {
+	public void CreateDungeon(GameManager gameManager) {
 		//Debug.Log("Creating dungeon...");
+		_gameManager = gameManager; // assigning Game Manager
 		_rootSubDungeon = new SubDungeon(new Rect(GameConfigData.Instance.DungeonPadding, GameConfigData.Instance.DungeonPadding, GameConfigData.Instance.DungeonRows, GameConfigData.Instance.DungeonColumns));
 		CreateBSP(_rootSubDungeon);
 		_rootSubDungeon.CreateRoom();
@@ -457,8 +468,9 @@ public class DungeonManager : MonoBehaviour
 		_objectSpawnPos[(int)_randomPos.x, (int)_randomPos.y] = 1;
 
 		GetRandomPos(_rootSubDungeon);		// getting random position in the dungeon for the exit
-		GameObject exitDoor = Instantiate(GameConfigData.Instance.ExitTile, new Vector3(_randomPos.x, _randomPos.y, 0f), Quaternion.identity) as GameObject;
-		exitDoor.transform.SetParent(Dungeon.transform);
+		_exitDoor = Instantiate(GameConfigData.Instance.ExitTile, new Vector3(_randomPos.x, _randomPos.y, 0f), Quaternion.identity).GetComponent<ExitController>();
+		_exitDoor.transform.SetParent(Dungeon.transform);
+		_exitDoor.GameManager = _gameManager;
 		_objectSpawnPos[(int)_randomPos.x, (int)_randomPos.y] = 1;
 
 		GetRandomPos(_rootSubDungeon);		// getting random position in the dungeon for the object

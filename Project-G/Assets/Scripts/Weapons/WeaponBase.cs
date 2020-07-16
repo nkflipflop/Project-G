@@ -62,9 +62,9 @@ public class WeaponBase : MonoBehaviour {
 		// Recoiling the weapon
 		if (Weapon.HasRecoil) WeaponRecoiler.AddRecoil();
 		// Creating projectile
-		GameObject tempProjectile = Instantiate(Weapon.Projectile, ShotPoint.position, ShotPoint.rotation);
+		ProjectileController tempProjectile = Instantiate(Weapon.Projectile, ShotPoint.position, ShotPoint.rotation);
 		
-		tempProjectile.GetComponent<ProjectileController>().ShotByPlayer = (transform.root.tag == "Player");
+		tempProjectile.ShotByPlayer = (transform.root.tag == "Player");
 	}
 
 	public void Trigger() {
