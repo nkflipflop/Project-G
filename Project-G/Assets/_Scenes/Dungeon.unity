@@ -151,7 +151,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DungeonManager: {fileID: 229953796}
-  Player: {fileID: 8005256322282322018}
+  PlayerManager: {fileID: 8005256322282322025}
 --- !u!4 &2125787
 Transform:
   m_ObjectHideFlags: 0
@@ -11011,9 +11011,9 @@ GameObject:
   - component: {fileID: 1455230348}
   - component: {fileID: 1455230350}
   - component: {fileID: 1455230349}
-  m_Layer: 10
+  m_Layer: 12
   m_Name: Shield
-  m_TagString: Untagged
+  m_TagString: Shield
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12980,9 +12980,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _dungeonLevel: 0
-  _medkits: 3
-  _shields: 0
-  _weaponID: 2
+  _medkits: 1
+  _shields: 1
+  _weaponID: 0
 --- !u!4 &2052368113
 Transform:
   m_ObjectHideFlags: 0
