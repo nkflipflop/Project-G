@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
 	public DungeonManager DungeonManager;
-	public GameObject Player;
+	public PlayerManager PlayerManager;
 
 	private int _dungeonLevel = 0;
 	public int DungeonLevel { get{ return _dungeonLevel; } }
@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour
 	/// <summary> Gets the level data from DataManager and makes the assignments </summary>
 	private void LoadLevelData() {
 		_dungeonLevel = DataManager.Instance.DungeonLevel;
-		Player.GetComponent<HealthController>().Health = DataManager.Instance.Health;													// loading player's health
+		PlayerManager.LoadPlayerData();									// loading player's data
 	}
 
 	/// <summary> Gets the level data and saves it in DataManager at the end of the level </summary>
@@ -45,8 +45,7 @@ public class GameManager : MonoBehaviour
 		DataManager.Instance.DungeonLevel++;
 		if (DataManager.Instance.DungeonLevel == 7)      // after level 7, reset the game
 			DataManager.Instance.DungeonLevel = 0;
-		DataManager.Instance.Health = Player.GetComponent<HealthController>().Health;		// storing player's health
-		DataManager.Instance.WeaponID = Player.transform.GetChild(0).transform.GetChild(0).gameObject.GetComponent<WeaponPrefab>().ID;			// storing player's weapon
+		PlayerManager.SavePlayerData();	
 	}
 
 	/// <summary> Pauses/Resumes the game by toggling the current situation </summary>
