@@ -13,7 +13,7 @@ public class EnemyCloseRangeAttackController : MonoBehaviour {
     private void OnTriggerEnter2D(Collider2D other) {
 		if (_canAttack && other.gameObject.CompareTag("Player")) {
             _canAttack = false;
-            other.gameObject.GetComponent<DamageHelper>().TakeDamage(_damage);
+            other.gameObject.GetComponent<HealthController>().TakeDamage(_damage);
         }
 	}
 

@@ -9,6 +9,8 @@ TagManager:
   - Environment
   - Key
   - Breakable
+  - Item
+  - Shield
   layers:
   - Default
   - TransparentFX
@@ -22,7 +24,7 @@ TagManager:
   - Environment
   - Player
   - Destructible Object
-  - 
+  - Shield
   - 
   - 
   - 

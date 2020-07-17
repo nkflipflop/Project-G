@@ -11,7 +11,7 @@ public class EnemyController : MonoBehaviour
 	private int _maxPathLength = 6;
 	private Vector3Int _nullVector = new Vector3Int(0, 0, -1000);        // null value
 
-	public DamageHelper DamageHelper;
+	public HealthController HealthController;
 	private Animator _animator;
 	private Vector2 _sightDir;
 	private float _sightRange = 5f;
@@ -33,7 +33,7 @@ public class EnemyController : MonoBehaviour
 
 	// Update is called once per frame
 	void FixedUpdate() {
-		if (!DamageHelper.IsDead) {
+		if (!HealthController.IsDead) {
 			EnemyAnimate();
 			Movement();
 		}

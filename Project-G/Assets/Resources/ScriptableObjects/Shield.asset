@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Shield
   m_EditorClassIdentifier: 
   Type: 1
-  RestoreHealthValue: 0
+  Value: 7
   Sprite: {fileID: 21300000, guid: a873b8974713d674389a83d89390acc2, type: 3}

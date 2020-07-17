@@ -7,15 +7,16 @@ public class TurretController : HandControllerBase {
 		WeaponPosition = new Vector3(0f, 0.497f, 0f);
 	}
 	
-	public DamageHelper DamageHelper;
+	public HealthController HealthController;
 	private bool _targetInRange = false;
 	private int _environmentLayer = 9;
 	private int _playerLayer = 10;
+	private int _shieldLayer = 12;
 	private LayerMask _hittableLayersByEnemy;
 
 	public override void SpecialStart(){
         AimDeviation = 2f;
-		_hittableLayersByEnemy = (1 << _playerLayer) | (1 << _environmentLayer);
+		_hittableLayersByEnemy = (1 << _playerLayer) | (1 << _environmentLayer) | (1 << _shieldLayer);
     }
 
 	public override void SpecialUpdate() {
@@ -23,7 +24,7 @@ public class TurretController : HandControllerBase {
 	}
 	
     public override void UseWeapon(){
-        if (!DamageHelper.IsDead &&  _targetInRange) {
+        if (!HealthController.IsDead &&  _targetInRange) {
 			CurrentWeapon.Trigger();
 		}
 		else {
@@ -39,7 +40,7 @@ public class TurretController : HandControllerBase {
 			//Debug.DrawRay(transform.position, direction, Color.blue, .1f);
 	
 			if (hitInfo.collider != null) {
-				_targetInRange = hitInfo.collider.tag == "Player";
+				_targetInRange = hitInfo.collider.tag == "Player" || hitInfo.collider.tag == "Shield";
 			}
 			else {
 				_targetInRange = false;
