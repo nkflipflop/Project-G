@@ -9,6 +9,6 @@ public class WeaponPrefab : MonoBehaviour {
 	public bool HasRecoil;
 	public bool Automatic;
 	public int MaxAmmo;
-	public ProjectileController Projectile;
-
+	public int BulletPerShot;
+	public ProjectileController Bullet;
 }
