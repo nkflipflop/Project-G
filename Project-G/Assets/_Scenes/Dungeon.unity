@@ -1002,7 +1002,6 @@ MonoBehaviour:
   LevelUI: {fileID: 1034998038}
   MiscUI: {fileID: 16231028}
   WeaponUI: {fileID: 987616166}
-  PauseMenuUI: {fileID: 1622304423}
   PlayerManager: {fileID: 8005256322282322025}
   GameManager: {fileID: 2125786}
   existColor: {r: 1, g: 1, b: 1, a: 1}
@@ -11746,7 +11745,6 @@ GameObject:
   - component: {fileID: 1622304420}
   - component: {fileID: 1622304422}
   - component: {fileID: 1622304421}
-  - component: {fileID: 1622304423}
   m_Layer: 5
   m_Name: Pause Menu UI
   m_TagString: Untagged
@@ -11810,18 +11808,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1622304419}
   m_CullTransparentMesh: 0
---- !u!114 &1622304423
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1622304419}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1c72106d4cf5c2d47b902fb941d85a65, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1623942844
 PrefabInstance:
   m_ObjectHideFlags: 0
