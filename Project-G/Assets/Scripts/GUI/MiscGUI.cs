@@ -11,13 +11,16 @@ public class MiscGUI : MonoBehaviour {
     public Color maxHealthColor;
     public Color minHealthColor;
 
+    // Color adjustment for Health  
+    [SerializeField] private Image _healthTextBackground = null;
+
     // Color adjustment for Medkit
-    [SerializeField] private Image _medkitTextBackground;
-    [SerializeField] private Image _medkitImageFrame;
+    [SerializeField] private Image _medkitTextBackground = null;
+    [SerializeField] private Image _medkitImageFrame = null;
 
     // Color adjustment for Shield
-    [SerializeField] private Image _shieldTextBackground;
-    [SerializeField] private Image _shieldImageFrame;
+    [SerializeField] private Image _shieldTextBackground = null;
+    [SerializeField] private Image _shieldImageFrame = null;
 
     // Color adjustment for Medkit
     public void SetMedkitColor(Color32 color){
@@ -30,9 +33,6 @@ public class MiscGUI : MonoBehaviour {
         _shieldTextBackground.color = color;
         _shieldImageFrame.color = color;
     }
-
-
-    [SerializeField] private Image _healthTextBackground;
  
     public void SetHealthColor(float weight) {
         _healthTextBackground.color = maxHealthColor * weight + minHealthColor * (1 - weight);

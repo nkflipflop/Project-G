@@ -6,7 +6,7 @@ public class DataManager : MonoBehaviour
     /// <summary>Static reference to the instance of our DataManager</summary>
     private static DataManager _instance;
 
-    [SerializeField] private int _dungeonLevel = 0, _medkits = 1, _shields = 1, _weaponID = 0;
+    [SerializeField] private int _dungeonLevel = 0, _medkits = 1, _shields = 1, _weaponID = 4;
     private int _health = 100;
 
     public static DataManager Instance { get { return _instance; } }
@@ -50,5 +50,13 @@ public class DataManager : MonoBehaviour
         }
         // Do not destroy this object, when we load a new scene.
         DontDestroyOnLoad(gameObject);
+    }
+
+    public void ResetData() {
+        DungeonLevel = 0;
+        Health = 100;
+        Medkits = 1;
+        Shields = 1;
+        WeaponID = 4;
     }
 }

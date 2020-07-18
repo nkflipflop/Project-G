@@ -14,7 +14,7 @@ public class TurretController : HandControllerBase {
 	private int _shieldLayer = 12;
 	private LayerMask _hittableLayersByEnemy;
 
-	public override void SpecialStart(){
+	public override void SpecialStart() {
         AimDeviation = 2f;
 		_hittableLayersByEnemy = (1 << _playerLayer) | (1 << _environmentLayer) | (1 << _shieldLayer);
     }
@@ -23,7 +23,7 @@ public class TurretController : HandControllerBase {
 		CheckPlayerInRange();
 	}
 	
-    public override void UseWeapon(){
+    public override void UseWeapon() {
         if (!HealthController.IsDead &&  _targetInRange) {
 			CurrentWeapon.Trigger();
 		}

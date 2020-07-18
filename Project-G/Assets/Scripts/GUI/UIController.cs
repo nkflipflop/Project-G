@@ -7,7 +7,6 @@ public class UIController : MonoBehaviour
     public LevelGUI LevelUI;
     public MiscGUI MiscUI;
     public WeaponGUI WeaponUI;
-    public PauseMenuGUI PauseMenuUI;
 
     public PlayerManager PlayerManager;
     public GameManager GameManager;
@@ -24,7 +23,6 @@ public class UIController : MonoBehaviour
     private int _level = -1;
 
     private float _reloadTimer = 0f;
-    private bool _isReloading = false;
 
     private void Start() {
         MiscUI.KeyUI.SetActive(false);
@@ -101,16 +99,23 @@ public class UIController : MonoBehaviour
 
 
     // Pause Menu Operations
-    public void NextLevel(){
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    public void NextLevel() {
+        GameManager.TogglePause();
+        GameManager.LoadNextLevel();
     }
 
-    public void ReturnMainMenu(){
-        SceneManager.LoadScene(0);
+    public void ResumeGame() {
+        GameManager.TogglePause();
+    }
+
+    public void ReturnMainMenu() {
+        GameManager.ResetLevelData();       // before going back to the main menu, reset al data
+        GameManager.TogglePause();
+        SceneManager.LoadScene(0);          // load main menu
     }
 
     public void ExitGame() {
-        Debug.Log("Exit");
+        Debug.Log("Exiting...");
         Application.Quit();
     }
 }

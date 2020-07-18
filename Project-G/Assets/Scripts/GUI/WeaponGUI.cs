@@ -9,8 +9,8 @@ public class WeaponGUI : MonoBehaviour {
     public Image AmmoImage;
     public Slider ReloadSlider;
 
-    [SerializeField] private Image _ammoTextBackground;
-    [SerializeField] private Image _ammoImageFrame;
+    [SerializeField] private Image _ammoTextBackground = null;
+    [SerializeField] private Image _ammoImageFrame = null;
 
     public void SetColor(Color32 color){
         _ammoTextBackground.color = color;
