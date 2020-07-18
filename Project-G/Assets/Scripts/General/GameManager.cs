@@ -50,7 +50,7 @@ public class GameManager : MonoBehaviour
 	}
 
 	/// <summary> Gets the level data and saves it in DataManager at the end of the level </summary>
-	private void ResetLevelData() {
+	public void ResetLevelData() {
 		DataManager.Instance.ResetData();
 	}
 

@@ -110,7 +110,8 @@ public class UIController : MonoBehaviour
     }
 
     public void ReturnMainMenu() {
-        SceneManager.LoadScene(0);
+        GameManager.ResetLevelData();       // before going back to the main menu, reset al data
+        SceneManager.LoadScene(0);          // load main menu
     }
 
     public void ExitGame() {
