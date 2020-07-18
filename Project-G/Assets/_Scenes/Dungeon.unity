@@ -153,6 +153,7 @@ MonoBehaviour:
   DungeonManager: {fileID: 229953796}
   PlayerManager: {fileID: 8005256322282322025}
   PauseMenu: {fileID: 1622304419}
+  GameOverScreen: {fileID: 767635313}
 --- !u!4 &2125787
 Transform:
   m_ObjectHideFlags: 0
@@ -7902,7 +7903,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &767635314
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9682,7 +9683,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1080434259}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 058cba836c1846c3aa1c5fd2e28aea77, type: 3}
   m_Name: 
@@ -9875,7 +9876,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1082262617}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 387a3c74d1e1b244e9cb2566ae823363, type: 2}
   m_CullingMode: 0
@@ -10343,9 +10344,9 @@ RectTransform:
   m_Father: {fileID: 17035543}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 216, y: -9}
   m_SizeDelta: {x: 432, y: 18}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1182731265
@@ -13257,7 +13258,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1768199286}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 387a3c74d1e1b244e9cb2566ae823363, type: 2}
   m_CullingMode: 0
@@ -14089,9 +14090,9 @@ RectTransform:
   m_Father: {fileID: 17035543}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 216, y: -27}
   m_SizeDelta: {x: 48, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2053848454

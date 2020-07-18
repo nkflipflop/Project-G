@@ -1,13 +1,16 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class GameManager : MonoBehaviour
 {
 	public DungeonManager DungeonManager;
 	public PlayerManager PlayerManager;
 	public GameObject PauseMenu = null;
+	public GameObject GameOverScreen = null;
 
 	private int _dungeonLevel = 0;
+	private bool _isGameOver = false;
 	public int DungeonLevel { get{ return _dungeonLevel; } }
 
 	private void Start() {
@@ -19,12 +22,18 @@ public class GameManager : MonoBehaviour
 	}
 
 	private void Update() {
-		if (Input.GetKeyDown(KeyCode.Escape)) {
-			TogglePause();
+		if (!_isGameOver) {
+			if (Input.GetKeyDown(KeyCode.Escape)) {
+				TogglePause();
+			}
+
+			if (PlayerManager.HealthController.IsDead) {
+				StartCoroutine(ActivateGameOverScreen());
+			}
 		}
 	}
 
-	// Pass to the next level
+	// Go to the next level
 	public void LoadNextLevel() {
 		SaveLevelData();
 		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
@@ -58,5 +67,11 @@ public class GameManager : MonoBehaviour
 	public void TogglePause() {
 		Time.timeScale = (Time.timeScale == 1) ? 0 : 1;
 		PauseMenu.SetActive(Time.timeScale != 1);		// activate/deactivate the Pause Menu
+	}
+
+	private IEnumerator ActivateGameOverScreen() {
+		yield return new WaitForSeconds(1f);		// 1 sec delay
+		_isGameOver = true;
+		GameOverScreen.SetActive(true);
 	}
 }

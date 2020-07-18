@@ -22,7 +22,6 @@ public class DungeonManager : MonoBehaviour
 	private GameManager _gameManager;
 	public PlayerManager Player;
 	public GameObject Dungeon;
-	public GameObject[] WallTiles;
 	public GameObject[] Enemies;
 	private GameObject[,] _dungeonFloorPositions;
 	private int[,] _dungeonTiles;		// the tiles that players and other NPCs can walk on
