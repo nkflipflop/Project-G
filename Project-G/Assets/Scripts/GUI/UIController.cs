@@ -24,7 +24,6 @@ public class UIController : MonoBehaviour
     private int _level = -1;
 
     private float _reloadTimer = 0f;
-    private bool _isReloading = false;
 
     private void Start() {
         MiscUI.KeyUI.SetActive(false);

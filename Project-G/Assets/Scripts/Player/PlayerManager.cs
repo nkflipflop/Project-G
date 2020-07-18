@@ -15,9 +15,9 @@ public class PlayerManager : MonoBehaviour
     public PlayerController PlayerController;
     public PlayerHandController PlayerHandController;
     public HealthController HealthController;
-    [SerializeField] private GameObject _shield;
+    [SerializeField] private GameObject _shield = null;
 
-    [SerializeField] private Inventory[] _inventory;         // Inventory
+    [SerializeField] private Inventory[] _inventory = null;         // Inventory
     public event Action<Inventory[], HealthController> CollectPUB;  // Item collection Publisher
     private bool _hasKey = false;
     private float _shieldTime;
