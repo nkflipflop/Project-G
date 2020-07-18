@@ -44,12 +44,12 @@ public class GameManager : MonoBehaviour
 	/// <summary> Gets the level data and saves it in DataManager at the end of the level </summary>
 	private void SaveLevelData() {
 		DataManager.Instance.DungeonLevel++;
-		if (DataManager.Instance.DungeonLevel == 7)      // after level 7, reset the game
-			DataManager.Instance.DungeonLevel = 0;
 		PlayerManager.SavePlayerData();	
+		if (DataManager.Instance.DungeonLevel == 7)      // after level 7, reset the game
+			ResetLevelData();
 	}
 
-	/// <summary> Gets the level data and saves it in DataManager at the end of the level </summary>
+	/// <summary> Resets everything in DataManager </summary>
 	public void ResetLevelData() {
 		DataManager.Instance.ResetData();
 	}
@@ -57,6 +57,6 @@ public class GameManager : MonoBehaviour
 	/// <summary> Pauses/Resumes the game by toggling the current situation </summary>
 	public void TogglePause() {
 		Time.timeScale = (Time.timeScale == 1) ? 0 : 1;
-		PauseMenu.SetActive(Time.timeScale != 1);
+		PauseMenu.SetActive(Time.timeScale != 1);		// activate/deactivate the Pause Menu
 	}
 }

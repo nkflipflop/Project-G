@@ -7,7 +7,6 @@ public class UIController : MonoBehaviour
     public LevelGUI LevelUI;
     public MiscGUI MiscUI;
     public WeaponGUI WeaponUI;
-    public PauseMenuGUI PauseMenuUI;
 
     public PlayerManager PlayerManager;
     public GameManager GameManager;
@@ -111,11 +110,12 @@ public class UIController : MonoBehaviour
 
     public void ReturnMainMenu() {
         GameManager.ResetLevelData();       // before going back to the main menu, reset al data
+        GameManager.TogglePause();
         SceneManager.LoadScene(0);          // load main menu
     }
 
     public void ExitGame() {
-        Debug.Log("Exit");
+        Debug.Log("Exiting...");
         Application.Quit();
     }
 }

@@ -152,6 +152,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DungeonManager: {fileID: 229953796}
   PlayerManager: {fileID: 8005256322282322025}
+  PauseMenu: {fileID: 1622304419}
 --- !u!4 &2125787
 Transform:
   m_ObjectHideFlags: 0
@@ -259,11 +260,11 @@ MonoBehaviour:
   KeyUI: {fileID: 1655476145}
   maxHealthColor: {r: 0.9803922, g: 0.64705884, b: 0.07058824, a: 1}
   minHealthColor: {r: 0.99607843, g: 0.11372549, b: 0.003921569, a: 1}
+  _healthTextBackground: {fileID: 1894792302}
   _medkitTextBackground: {fileID: 923962469}
   _medkitImageFrame: {fileID: 1895395199}
   _shieldTextBackground: {fileID: 1740955572}
   _shieldImageFrame: {fileID: 1986732310}
-  _healthTextBackground: {fileID: 1894792302}
 --- !u!1 &72759862
 GameObject:
   m_ObjectHideFlags: 0
@@ -11501,9 +11502,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1622304419}
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 278903004}
+        m_MethodName: ResumeGame
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
