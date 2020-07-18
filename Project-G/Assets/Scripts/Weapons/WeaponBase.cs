@@ -20,8 +20,6 @@ public class WeaponBase : MonoBehaviour {
 
 	private void Start() {
 		CurrentAmmo = Weapon.MaxAmmo;
-		// If on Hand
-		//OnHand(false);
 	}
 
 	public void OnHand(bool active) {
