@@ -5,6 +5,7 @@ public class GameManager : MonoBehaviour
 {
 	public DungeonManager DungeonManager;
 	public PlayerManager PlayerManager;
+	public GameObject PauseMenu = null;
 
 	private int _dungeonLevel = 0;
 	public int DungeonLevel { get{ return _dungeonLevel; } }
@@ -48,8 +49,14 @@ public class GameManager : MonoBehaviour
 		PlayerManager.SavePlayerData();	
 	}
 
+	/// <summary> Gets the level data and saves it in DataManager at the end of the level </summary>
+	private void ResetLevelData() {
+		DataManager.Instance.ResetData();
+	}
+
 	/// <summary> Pauses/Resumes the game by toggling the current situation </summary>
-	private void TogglePause() {
+	public void TogglePause() {
 		Time.timeScale = (Time.timeScale == 1) ? 0 : 1;
+		PauseMenu.SetActive(Time.timeScale != 1);
 	}
 }

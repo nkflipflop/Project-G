@@ -100,11 +100,16 @@ public class UIController : MonoBehaviour
 
 
     // Pause Menu Operations
-    public void NextLevel(){
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    public void NextLevel() {
+        GameManager.TogglePause();
+        GameManager.LoadNextLevel();
     }
 
-    public void ReturnMainMenu(){
+    public void ResumeGame() {
+        GameManager.TogglePause();
+    }
+
+    public void ReturnMainMenu() {
         SceneManager.LoadScene(0);
     }
 
