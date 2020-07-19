@@ -20,12 +20,10 @@ public class HandControllerBase : MonoBehaviour
 
 	private void Start() {
 		SpecialStart();
-		CurrentWeapon = transform.GetChild(0).GetComponent<WeaponBase>();
-		CurrentWeapon.transform.localPosition = WeaponPosition;
 		StartCoroutine(GivePermissionToFire(_fireDelay));
 	}
 
-    public virtual void SpecialStart(){
+    public virtual void SpecialStart() {
     }
 
 	private void Update() {
@@ -37,7 +35,7 @@ public class HandControllerBase : MonoBehaviour
 		ControlWeapon();
 	}
 
-    public virtual void SpecialUpdate(){
+    public virtual void SpecialUpdate() {
     }
 
 	// Adjusts the sorting order of the weapon according to mouse position (player's direction)
@@ -87,7 +85,7 @@ public class HandControllerBase : MonoBehaviour
 		CurrentWeapon.transform.eulerAngles = new Vector3(0, 0, angle);
 	}
 
-	private void ControlWeapon(){
+	private void ControlWeapon() {
 		if(CurrentWeapon != null){
 			CurrentWeapon.WeaponUpdate();
 			AimWeapon();

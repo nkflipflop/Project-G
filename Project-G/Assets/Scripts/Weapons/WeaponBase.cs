@@ -35,7 +35,7 @@ public class WeaponBase : MonoBehaviour {
 	}
 
 	// Changes layer of the sprite
-	public void SetSortingOrder(int order){
+	public void SetSortingOrder(int order) {
 		WeaponRenderer.sortingOrder = order;
 		if(LeftHandRenderer){
 			LeftHandRenderer.sortingOrder = order + 2;
@@ -76,7 +76,7 @@ public class WeaponBase : MonoBehaviour {
 		}
 	}
 
-	public void ReleaseTrigger(){
+	public void ReleaseTrigger() {
 		_canTrigger = true;
 	}
 
