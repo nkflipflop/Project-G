@@ -10,7 +10,7 @@ public class HandControllerBase : MonoBehaviour
 
     protected bool CharacterIsRunning = false;
     protected Vector3 WeaponPosition = new Vector3 (0, 0, 0);
-	protected float AimDeviation;			// ability to hit the bull's eye (if 0, you are best)
+	protected float AimDeviation;			// ability to hit the bull's eye (if 0, you are the best)
 	protected Vector3 TargetObjectPosition;
 
     protected Vector3 AimPosition;			
@@ -86,11 +86,11 @@ public class HandControllerBase : MonoBehaviour
 	}
 
 	private void ControlWeapon() {
-		if(CurrentWeapon != null){
-			CurrentWeapon.WeaponUpdate();
+		if(CurrentWeapon != null) {
 			AimWeapon();
 			AdjustSortingOrder();
 			if (_canShoot) {
+				CurrentWeapon.WeaponUpdate();
 				UseWeapon();
 			}
 		}
