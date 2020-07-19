@@ -15,6 +15,8 @@ public class TurretController : HandControllerBase {
 	private LayerMask _hittableLayersByEnemy;
 
 	public override void SpecialStart() {
+		CurrentWeapon = transform.GetChild(0).GetComponent<WeaponBase>();
+		CurrentWeapon.transform.localPosition = WeaponPosition;
         AimDeviation = 2f;
 		_hittableLayersByEnemy = (1 << _playerLayer) | (1 << _environmentLayer) | (1 << _shieldLayer);
     }
@@ -24,7 +26,7 @@ public class TurretController : HandControllerBase {
 	}
 	
     public override void UseWeapon() {
-        if (!HealthController.IsDead &&  _targetInRange) {
+        if (!HealthController.IsDead && _targetInRange) {
 			CurrentWeapon.Trigger();
 		}
 		else {

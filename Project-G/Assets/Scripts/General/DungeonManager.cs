@@ -212,7 +212,7 @@ public class DungeonManager : MonoBehaviour
 		}
 	}
 
-	public void CreateBSP(SubDungeon subDungeon) {
+	private void CreateBSP(SubDungeon subDungeon) {
 		//Debug.Log("Splitting sub-dungeon " + subDungeon.debugId + ": " + subDungeon.rect);
 		if (subDungeon.IAmLeaf()) {
 			// if the subdungeon is too large
@@ -228,7 +228,7 @@ public class DungeonManager : MonoBehaviour
 		}
 	}
 
-	public void DrawRooms(SubDungeon subDungeon) {
+	private void DrawRooms(SubDungeon subDungeon) {
 		if (subDungeon == null)
 			return;
 
@@ -282,7 +282,7 @@ public class DungeonManager : MonoBehaviour
 		}
 	}
 
-	void DrawCorridors(SubDungeon subDungeon) {
+	private void DrawCorridors(SubDungeon subDungeon) {
 		if (subDungeon == null)
 			return;
 		
@@ -303,7 +303,7 @@ public class DungeonManager : MonoBehaviour
 		} 
 	}
 	
-	void DetermineBridges(SubDungeon subDungeon) {
+	private void DetermineBridges(SubDungeon subDungeon) {
 		if (subDungeon == null)
 			return;
 		
@@ -322,7 +322,7 @@ public class DungeonManager : MonoBehaviour
 		}
 	}
 
-	void DrawBridges() {
+	private void DrawBridges() {
 		int index;
 
 		int [,] kernelMatrix = {{0, 1, 0}, {8, 0, 2}, {0, 4, 0}};
@@ -342,7 +342,7 @@ public class DungeonManager : MonoBehaviour
 		}
 	}
 
-	void DrawWalls() {
+	private void DrawWalls() {
 		int matrixSize = 3, index;
 
 		int [,] kernelMatrix = {{4, 64, 2}, {128, 0, 32}, {8, 16, 1}};
@@ -372,7 +372,7 @@ public class DungeonManager : MonoBehaviour
 		}
 	}
 
-	void DrawWaters() {
+	private void DrawWaters() {
 		_bridgeTilesPos = _bridgeTilesPos.OrderByDescending(pos => pos.y).ToList();
 		foreach (var bridgePos in _bridgeTilesPos) {
 			for (int j = 1; j >= -1; j--) {
@@ -397,7 +397,7 @@ public class DungeonManager : MonoBehaviour
 		}
 	}
 
-	void PlaceLamps(int[,] dungeonTiles) {
+	private void PlaceLamps(int[,] dungeonTiles) {
 		int[,] lightTiles = dungeonTiles.Clone() as int[,];
 		int matrixSize = 3, mulResult;
 		int [,] kernelMatrix = {{1, 1, 1}, {1, 1, 1}, {1, 1, 1}};

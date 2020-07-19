@@ -25,8 +25,13 @@ public class ExitController : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D other) {
         if (other.tag == "Player") {
-            // new level
-            GameManager.LoadNextLevel();
+            StartCoroutine(PlayerOnTheExit(0.25f));     // 0.25 seconds delay
         }
+    }
+
+    private IEnumerator PlayerOnTheExit(float time) {
+        yield return new WaitForSeconds(time);
+        // next level
+        GameManager.LoadNextLevel();
     }
 }

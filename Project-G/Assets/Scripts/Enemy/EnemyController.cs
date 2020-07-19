@@ -28,11 +28,11 @@ public class EnemyController : MonoBehaviour
 		_animator = gameObject.GetComponent<Animator>();
 
 		AStarSetup();
-		InvokeRepeating("CheckTargetPosition", 3.0f, 0.5f);     // run this function every 0.5 sec && wait 3 sec at the start
+		InvokeRepeating("CheckTargetPosition", 1.2f, 0.5f);     // run this function every 0.5 sec && wait 1.2 sec at the start
 	}
 
 	// Update is called once per frame
-	void FixedUpdate() {
+	private void FixedUpdate() {
 		if (!HealthController.IsDead) {
 			EnemyAnimate();
 			Movement();
