@@ -64,7 +64,7 @@ public class UIController : MonoBehaviour
 
 
         // Health Count Update
-        if (_health != PlayerManager.HealthController.Health){
+        if (_health != PlayerManager.HealthController.Health) {
             _health = PlayerManager.HealthController.Health;
             MiscUI.HealthText.text = "" + _health;
             MiscUI.SetHealthColor((float)_health/100);
@@ -110,7 +110,8 @@ public class UIController : MonoBehaviour
 
     public void ReturnMainMenu() {
         GameManager.ResetLevelData();       // before going back to the main menu, reset al data
-        GameManager.TogglePause();
+        if (Time.timeScale == 0)            // if the game is paused, resume it and then, go to main menu
+            GameManager.TogglePause();
         SceneManager.LoadScene(0);          // load main menu
     }
 
