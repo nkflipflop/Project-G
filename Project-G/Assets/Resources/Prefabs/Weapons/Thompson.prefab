@@ -40,10 +40,10 @@ GameObject:
   m_Component:
   - component: {fileID: 973661467969721925}
   - component: {fileID: 1278090218452267378}
+  - component: {fileID: -9025093416191304519}
   - component: {fileID: 2429578218707014345}
   - component: {fileID: 2465159388714728696}
   - component: {fileID: 5649433108818703225}
-  - component: {fileID: -9025093416191304519}
   m_Layer: 0
   m_Name: Thompson
   m_TagString: Weapon
@@ -118,6 +118,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!58 &-9025093416191304519
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2593907559752694969}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.21875, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.23958331
 --- !u!114 &2429578218707014345
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -174,22 +190,6 @@ MonoBehaviour:
   LeftHandRenderer: {fileID: 1182213893086165585}
   RightHandRenderer: {fileID: 1926183010029997714}
   ShotPoint: {fileID: 6473594614468103529}
---- !u!58 &-9025093416191304519
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2593907559752694969}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.21875, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.23958331
 --- !u!1 &2800874928062475149
 GameObject:
   m_ObjectHideFlags: 0

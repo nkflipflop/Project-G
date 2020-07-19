@@ -204,10 +204,10 @@ GameObject:
   m_Component:
   - component: {fileID: 7102447862541770770}
   - component: {fileID: 3139197226312655647}
+  - component: {fileID: 6995242391462182994}
   - component: {fileID: 2810721752338160648}
   - component: {fileID: 1473760369194797493}
   - component: {fileID: 8343173275800867214}
-  - component: {fileID: 6995242391462182994}
   m_Layer: 0
   m_Name: PPSh-41
   m_TagString: Weapon
@@ -282,6 +282,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!58 &6995242391462182994
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5307221495290090934}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.25, y: 0.010416664}
+  serializedVersion: 2
+  m_Radius: 0.27083337
 --- !u!114 &2810721752338160648
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -338,19 +354,3 @@ MonoBehaviour:
   LeftHandRenderer: {fileID: 2361171982564293900}
   RightHandRenderer: {fileID: 2130536104082408860}
   ShotPoint: {fileID: 4509744342156708357}
---- !u!58 &6995242391462182994
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5307221495290090934}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.25, y: 0.010416664}
-  serializedVersion: 2
-  m_Radius: 0.27083337

@@ -174,10 +174,10 @@ GameObject:
   m_Component:
   - component: {fileID: 8262376398248273973}
   - component: {fileID: 7968635981375295234}
+  - component: {fileID: 5539389853419033962}
   - component: {fileID: 6817712032867167417}
   - component: {fileID: 6709511441599529608}
   - component: {fileID: 3552259318856469769}
-  - component: {fileID: 5539389853419033962}
   m_Layer: 0
   m_Name: Winchester-M12
   m_TagString: Weapon
@@ -252,6 +252,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!58 &5539389853419033962
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6689412603249722057}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.21415564, y: 0.010416657}
+  serializedVersion: 2
+  m_Radius: 0.23498902
 --- !u!114 &6817712032867167417
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -308,22 +324,6 @@ MonoBehaviour:
   LeftHandRenderer: {fileID: 8017226717864412193}
   RightHandRenderer: {fileID: 7318865351696052450}
   ShotPoint: {fileID: 2809169180618273561}
---- !u!58 &5539389853419033962
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6689412603249722057}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.21415564, y: 0.010416657}
-  serializedVersion: 2
-  m_Radius: 0.23498902
 --- !u!1 &8317844000304462299
 GameObject:
   m_ObjectHideFlags: 0

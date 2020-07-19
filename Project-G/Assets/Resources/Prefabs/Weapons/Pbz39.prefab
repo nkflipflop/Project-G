@@ -122,10 +122,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1831725530732086773}
   - component: {fileID: 383944032337879746}
+  - component: {fileID: -5414405560727470145}
   - component: {fileID: 3845832036217520505}
   - component: {fileID: 3953802303555874632}
   - component: {fileID: 6525269609097388233}
-  - component: {fileID: -5414405560727470145}
   m_Layer: 0
   m_Name: Pbz39
   m_TagString: Weapon
@@ -200,6 +200,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!58 &-5414405560727470145
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3969873003748830985}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.32291663, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.34375
 --- !u!114 &3845832036217520505
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -256,22 +272,6 @@ MonoBehaviour:
   LeftHandRenderer: {fileID: 324446217678383585}
   RightHandRenderer: {fileID: 1032334104926215458}
   ShotPoint: {fileID: 5566008616711757529}
---- !u!58 &-5414405560727470145
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3969873003748830985}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.32291663, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.34375
 --- !u!1 &8024042598457707856
 GameObject:
   m_ObjectHideFlags: 0

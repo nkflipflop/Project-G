@@ -204,10 +204,10 @@ GameObject:
   m_Component:
   - component: {fileID: 6611562555994110941}
   - component: {fileID: 5187986959361957098}
+  - component: {fileID: -8640160265130068874}
   - component: {fileID: 8643611011440557905}
   - component: {fileID: 8391859256396091744}
   - component: {fileID: 1739813960198610657}
-  - component: {fileID: -8640160265130068874}
   m_Layer: 0
   m_Name: Sterling
   m_TagString: Weapon
@@ -282,6 +282,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!58 &-8640160265130068874
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8483857839878377761}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.17708333, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.19791667
 --- !u!114 &8643611011440557905
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -338,19 +354,3 @@ MonoBehaviour:
   LeftHandRenderer: {fileID: 5056363338262501321}
   RightHandRenderer: {fileID: 5546451020963668746}
   ShotPoint: {fileID: 1122815707585683697}
---- !u!58 &-8640160265130068874
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8483857839878377761}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.17708333, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.19791667
