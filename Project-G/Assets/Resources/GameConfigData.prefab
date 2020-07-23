@@ -355,7 +355,7 @@ MonoBehaviour:
   Sounds:
   - sound: 0
     audioClip: {fileID: 8300000, guid: 74c14bda3e1e24346af0974fb9bd71ec, type: 3}
-    volume: 0.04
+    volume: 0.05
   - sound: 1
     audioClip: {fileID: 0}
     volume: 0
@@ -382,7 +382,7 @@ MonoBehaviour:
     volume: 0.1
   - sound: 9
     audioClip: {fileID: 8300000, guid: 8632aff3409d38b4bb0b4e405007dc9f, type: 3}
-    volume: 0
+    volume: 0.1
   - sound: 0
     audioClip: {fileID: 0}
     volume: 0

@@ -86,7 +86,7 @@ public class PlayerController : MonoBehaviour {
 
 		DustParticles.SetActive(true);
 		// Sound effect
-		SoundManager.PlaySound(SoundManager.Sound.PlayerMove, transform.position);
+		SoundManager.PlaySound(SoundManager.Sound.PlayerMove);
 	}
 
 	IEnumerator DisableParticles() {
