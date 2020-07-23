@@ -6,7 +6,8 @@ public static class SoundManager {
 	public enum Sound {
 		PlayerMove, CharacterHit, PlayerDie, PlayerCollect, NoBullet,
 		Pistol, AssaultRifle, SMG, Shotgun, Sniper, Reloaded,
-		SpikeTrap, FireTrap
+		SpikeTrap, FireTrap,
+		MetalHit
 	}
 
 	private static Dictionary<Sound, float> _soundTimerDictionary;

@@ -9,6 +9,7 @@ public class HealthController : MonoBehaviour {
     public Dissolve DissolveEffect;
 	public SpriteRenderer Renderer;
 	public CapsuleCollider2D HitboxCollider;
+	public SoundManager.Sound SoundEffect = SoundManager.Sound.CharacterHit;
 
     public bool IsDead { get { return _isDead; } }
 	public int Health { 
@@ -29,7 +30,7 @@ public class HealthController : MonoBehaviour {
 		// Damage effect on sprite
 		StartCoroutine(DamageEffect());
 		// Sound Effect
-		SoundManager.PlaySound(SoundManager.Sound.CharacterHit, transform.position);
+		SoundManager.PlaySound(SoundEffect, transform.position);
 	}
 
 	IEnumerator DamageEffect() {
