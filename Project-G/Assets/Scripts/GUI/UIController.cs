@@ -1,12 +1,18 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class UIController : MonoBehaviour
 {
+    public CursorController CursorUI;
+
     public LevelGUI LevelUI;
     public MiscGUI MiscUI;
     public WeaponGUI WeaponUI;
+
+    public GameObject PauseMenuUI;
+    public GameObject GameOverUI;
 
     public PlayerManager PlayerManager;
     public GameManager GameManager;
@@ -97,21 +103,27 @@ public class UIController : MonoBehaviour
         }
     }
 
+	/// <summary> Pauses/Resumes the game by toggling the current situation </summary>
+	public void TogglePause() {
+		Time.timeScale = (Time.timeScale == 1) ? 0 : 1;
+		PauseMenuUI.SetActive(Time.timeScale != 1);		// activate/deactivate the Pause Menu
+        CursorUI.ToggleShowMouse(PauseMenuUI.activeSelf);
+	}
 
     // Pause Menu Operations
     public void NextLevel() {
-        GameManager.TogglePause();
+        TogglePause();
         GameManager.LoadNextLevel();
     }
 
     public void ResumeGame() {
-        GameManager.TogglePause();
+        TogglePause();
     }
 
     public void ReturnMainMenu() {
         GameManager.ResetLevelData();       // before going back to the main menu, reset al data
         if (Time.timeScale == 0)            // if the game is paused, resume it and then, go to main menu
-            GameManager.TogglePause();
+            TogglePause();
         SceneManager.LoadScene(0);          // load main menu
     }
 
@@ -119,4 +131,10 @@ public class UIController : MonoBehaviour
         Debug.Log("Exiting...");
         Application.Quit();
     }
+
+    public IEnumerator ActivateGameOverScreen() {
+		yield return new WaitForSeconds(1f);		// 1 sec delay
+		GameManager.GameCamera.GetComponent<AudioListener>().enabled = true;
+		GameOverUI.SetActive(true);
+	}
 }

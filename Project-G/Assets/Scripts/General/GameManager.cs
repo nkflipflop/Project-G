@@ -1,18 +1,19 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
-using System.Collections;
 
 public class GameManager : MonoBehaviour
 {
 	public Camera GameCamera;
 	public DungeonManager DungeonManager;
 	public PlayerManager PlayerManager;
+	public UIController UIController;
+
 	public GameObject PauseMenu = null;
-	public GameObject GameOverScreen = null;
 
 	private int _dungeonLevel = 0;
 	private bool _isGameOver = false;
 	public int DungeonLevel { get{ return _dungeonLevel; } }
+
 
 	private void Start() {
 		SoundManager.Initialize();
@@ -26,11 +27,12 @@ public class GameManager : MonoBehaviour
 	private void Update() {
 		if (!_isGameOver) {
 			if (Input.GetKeyDown(KeyCode.Escape)) {
-				TogglePause();
+				UIController.TogglePause();
 			}
 
 			if (PlayerManager.HealthController.IsDead) {
-				StartCoroutine(ActivateGameOverScreen());
+				StartCoroutine(UIController.ActivateGameOverScreen());
+				_isGameOver = true;
 			}
 		}
 	}
@@ -63,18 +65,5 @@ public class GameManager : MonoBehaviour
 	/// <summary> Resets everything in DataManager </summary>
 	public void ResetLevelData() {
 		DataManager.Instance.ResetData();
-	}
-
-	/// <summary> Pauses/Resumes the game by toggling the current situation </summary>
-	public void TogglePause() {
-		Time.timeScale = (Time.timeScale == 1) ? 0 : 1;
-		PauseMenu.SetActive(Time.timeScale != 1);		// activate/deactivate the Pause Menu
-	}
-
-	private IEnumerator ActivateGameOverScreen() {
-		yield return new WaitForSeconds(1f);		// 1 sec delay
-		GameCamera.GetComponent<AudioListener>().enabled = true;
-		_isGameOver = true;
-		GameOverScreen.SetActive(true);
 	}
 }

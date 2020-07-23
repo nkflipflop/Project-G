@@ -3,10 +3,16 @@
 public class CursorController : MonoBehaviour {
 
     void Start() {
-        Cursor.visible = false;
+        ToggleShowMouse(false);
     }
     
     void Update() {
         transform.position = Input.mousePosition;
     }
+
+    public void ToggleShowMouse(bool show) {
+        Cursor.visible = show;
+    }
+
+
 }

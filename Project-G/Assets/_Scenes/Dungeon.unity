@@ -153,8 +153,8 @@ MonoBehaviour:
   GameCamera: {fileID: 519420031}
   DungeonManager: {fileID: 229953796}
   PlayerManager: {fileID: 8005256322282322025}
+  UIController: {fileID: 278903004}
   PauseMenu: {fileID: 1622304419}
-  GameOverScreen: {fileID: 767635313}
 --- !u!4 &2125787
 Transform:
   m_ObjectHideFlags: 0
@@ -817,9 +817,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e562ce8187ce974b954db0fead6addf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CursorUI: {fileID: 388974859}
   LevelUI: {fileID: 1034998038}
   MiscUI: {fileID: 16231028}
   WeaponUI: {fileID: 987616166}
+  PauseMenuUI: {fileID: 1622304419}
+  GameOverUI: {fileID: 767635313}
   PlayerManager: {fileID: 8005256322282322025}
   GameManager: {fileID: 2125786}
   existColor: {r: 1, g: 1, b: 1, a: 1}
@@ -1192,6 +1195,7 @@ MonoBehaviour:
   DissolveEffect: {fileID: 341482505}
   Renderer: {fileID: 341482500}
   HitboxCollider: {fileID: 341482509}
+  SoundEffect: 1
 --- !u!114 &341482507
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6999,7 +7003,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.45833334, y: 0.9166667}
+  m_Size: {x: 0.22, y: 0.44}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -7080,6 +7084,7 @@ MonoBehaviour:
   DissolveEffect: {fileID: 592281816}
   Renderer: {fileID: 592281811}
   HitboxCollider: {fileID: 592281810}
+  SoundEffect: 13
 --- !u!1 &609681514
 GameObject:
   m_ObjectHideFlags: 0
@@ -7334,6 +7339,7 @@ MonoBehaviour:
   DissolveEffect: {fileID: 686807007}
   Renderer: {fileID: 686807012}
   HitboxCollider: {fileID: 686807010}
+  SoundEffect: 1
 --- !u!114 &686807009
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7821,7 +7827,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30ecbb3321aaa61448339ecc85f9a4dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damage: 3
+  _damage: 15
 --- !u!58 &802132070
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -9156,6 +9162,7 @@ MonoBehaviour:
   DissolveEffect: {fileID: 1016902224}
   Renderer: {fileID: 1016902227}
   HitboxCollider: {fileID: 1016902226}
+  SoundEffect: 13
 --- !u!70 &1016902226
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -9216,7 +9223,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.45833334, y: 0.9166667}
+  m_Size: {x: 0.16, y: 0.37}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -11384,6 +11391,7 @@ MonoBehaviour:
   DissolveEffect: {fileID: 1363067903}
   Renderer: {fileID: 1363067900}
   HitboxCollider: {fileID: 1363067907}
+  SoundEffect: 1
 --- !u!70 &1363067907
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -12721,6 +12729,7 @@ MonoBehaviour:
   DissolveEffect: {fileID: 1706242350}
   Renderer: {fileID: 1706242355}
   HitboxCollider: {fileID: 1706242354}
+  SoundEffect: 1
 --- !u!95 &1706242353
 Animator:
   serializedVersion: 3
@@ -14683,6 +14692,7 @@ MonoBehaviour:
   DissolveEffect: {fileID: 8005256322282322026}
   Renderer: {fileID: 8005256322282322023}
   HitboxCollider: {fileID: 8005256322282322028}
+  SoundEffect: 1
 --- !u!70 &8005256322282322028
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
