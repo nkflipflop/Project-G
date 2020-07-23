@@ -281,7 +281,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ID: 6
-  Name: Winchester-M12
+  Name: Winchester
   ReloadTime: 3.5
   FireRate: 0.7
   HasRecoil: 1
@@ -289,6 +289,7 @@ MonoBehaviour:
   MaxAmmo: 3
   BulletPerShot: 3
   Bullet: {fileID: 3965427938998873271, guid: fb83bf975619b5244a73294a493f4c29, type: 3}
+  FireSound: 8
 --- !u!114 &6709511441599529608
 MonoBehaviour:
   m_ObjectHideFlags: 0

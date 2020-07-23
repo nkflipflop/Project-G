@@ -11,4 +11,5 @@ public class WeaponPrefab : MonoBehaviour {
 	public int MaxAmmo;
 	public int BulletPerShot;
 	public ProjectileController Bullet;
+	public SoundManager.Sound FireSound;
 }

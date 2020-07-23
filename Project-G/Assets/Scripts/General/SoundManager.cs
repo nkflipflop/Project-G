@@ -4,8 +4,8 @@ using UnityEngine;
 
 public static class SoundManager {
 	public enum Sound {
-		PlayerMove, PlayerHit, PlayerDie, PlayerCollect,
-		Pistol, AssaultRifle, AK47, SMG, Shotgun, Sniper, TurretGun,
+		PlayerMove, PlayerHit, PlayerDie, PlayerCollect, NoBullet,
+		Pistol, AssaultRifle, SMG, Shotgun, Sniper,
 		BeetleMove,
 		MantisMove, MantisAttack
 	}
@@ -18,7 +18,8 @@ public static class SoundManager {
 	
 	public static void Initialize() {
 		_soundTimerDictionary = new Dictionary<Sound, float>();
-		_soundTimerDictionary[Sound.PlayerMove] = 0f;       // adding a timer for player move (example)
+		_soundTimerDictionary[Sound.PlayerMove] = 0f;
+		_soundTimerDictionary[Sound.NoBullet] = 0f;
 	}
 
 	/// <summary> Plays a general sound </summary>
@@ -57,15 +58,10 @@ public static class SoundManager {
 	}
 
 	private static bool CanPlaySound(Sound sound) {
-		switch(sound) {
-		case Sound.PlayerMove:
-			if (_soundTimerDictionary.ContainsKey(sound)) {
-				return CheckLastTimePlayed(sound, 0.05f);
-			}
-			else {
-				return true;
-			}
-		default:
+		if (_soundTimerDictionary.ContainsKey(sound)) {
+			return CheckLastTimePlayed(sound, GameConfigData.Instance.Sounds[(int)sound].audioClip.length);
+		}
+		else {
 			return true;
 		}
 	}

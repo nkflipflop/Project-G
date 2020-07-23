@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
 	public int DungeonLevel { get{ return _dungeonLevel; } }
 
 	private void Start() {
+		SoundManager.Initialize();
 		LoadLevelData();
 		System.DateTime start = System.DateTime.Now;
 		LoadDungeon();
