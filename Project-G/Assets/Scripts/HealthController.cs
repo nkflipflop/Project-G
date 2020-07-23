@@ -28,6 +28,8 @@ public class HealthController : MonoBehaviour {
 				
 		// Damage effect on sprite
 		StartCoroutine(DamageEffect());
+		// Sound Effect
+		SoundManager.PlaySound(SoundManager.Sound.CharacterHit, transform.position);
 	}
 
 	IEnumerator DamageEffect() {

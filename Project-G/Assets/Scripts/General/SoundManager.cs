@@ -4,7 +4,7 @@ using UnityEngine;
 
 public static class SoundManager {
 	public enum Sound {
-		PlayerMove, PlayerHit, PlayerDie, PlayerCollect, NoBullet,
+		PlayerMove, CharacterHit, PlayerDie, PlayerCollect, NoBullet,
 		Pistol, AssaultRifle, SMG, Shotgun, Sniper, Reloaded,
 		SpikeTrap, FireTrap
 	}

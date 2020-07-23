@@ -13775,7 +13775,7 @@ MonoBehaviour:
   _dungeonLevel: 0
   _medkits: 1
   _shields: 1
-  _weaponID: 1
+  _weaponID: 4
 --- !u!4 &2052368113
 Transform:
   m_ObjectHideFlags: 0
