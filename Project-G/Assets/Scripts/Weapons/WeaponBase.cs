@@ -74,11 +74,13 @@ public class WeaponBase : MonoBehaviour {
 
 	public void Trigger() {
 		if (_canTrigger && _timeBtwShots <= 0) {
+			_canTrigger = (Weapon.Automatic == true);			// if weapon is not automatic, you need to release trigger
 			if (CurrentAmmo > 0)
 				Fire();
-			else
+			else{
 				SoundManager.PlaySound(SoundManager.Sound.NoBullet, transform.position);		// Weapon no bullet sound effect
-			_canTrigger = (Weapon.Automatic == true);			// if weapon is not automatic, you need to release trigger
+				_canTrigger = false;
+			}
 		}
 	}
 
