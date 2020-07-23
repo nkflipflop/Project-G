@@ -1946,7 +1946,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '[Untitled Game Project]'
+  m_text: '[Project - G]'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 64f6a749fa94fb94a80a82b6eb5876e2, type: 2}
   m_sharedMaterial: {fileID: 748945882615662140, guid: 64f6a749fa94fb94a80a82b6eb5876e2,
@@ -2016,7 +2016,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 878570124}
-    characterCount: 23
+    characterCount: 13
     spriteCount: 0
     spaceCount: 2
     wordCount: 3
@@ -2668,7 +2668,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Controller
+  m_text: Controls
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f74e07d4d17f5c54ca8f540535d85345, type: 2}
   m_sharedMaterial: {fileID: 7725296729263549475, guid: f74e07d4d17f5c54ca8f540535d85345,
@@ -2738,7 +2738,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 1156490581}
-    characterCount: 10
+    characterCount: 8
     spriteCount: 0
     spaceCount: 0
     wordCount: 1
@@ -3725,7 +3725,7 @@ GameObject:
   - component: {fileID: 1368921539}
   - component: {fileID: 1368921538}
   m_Layer: 5
-  m_Name: Controller Button
+  m_Name: Controls Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

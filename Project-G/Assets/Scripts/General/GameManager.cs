@@ -4,6 +4,7 @@ using System.Collections;
 
 public class GameManager : MonoBehaviour
 {
+	public Camera GameCamera;
 	public DungeonManager DungeonManager;
 	public PlayerManager PlayerManager;
 	public GameObject PauseMenu = null;
@@ -14,6 +15,7 @@ public class GameManager : MonoBehaviour
 	public int DungeonLevel { get{ return _dungeonLevel; } }
 
 	private void Start() {
+		SoundManager.Initialize();
 		LoadLevelData();
 		System.DateTime start = System.DateTime.Now;
 		LoadDungeon();
@@ -71,6 +73,7 @@ public class GameManager : MonoBehaviour
 
 	private IEnumerator ActivateGameOverScreen() {
 		yield return new WaitForSeconds(1f);		// 1 sec delay
+		GameCamera.GetComponent<AudioListener>().enabled = true;
 		_isGameOver = true;
 		GameOverScreen.SetActive(true);
 	}

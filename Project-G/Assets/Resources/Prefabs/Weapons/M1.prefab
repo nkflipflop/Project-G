@@ -289,6 +289,7 @@ MonoBehaviour:
   MaxAmmo: 12
   BulletPerShot: 1
   Bullet: {fileID: 8725514770492500741, guid: fcddc0e02cf24184bb2470ed4ad3a2e5, type: 3}
+  FireSound: 6
 --- !u!114 &6709511441599529608
 MonoBehaviour:
   m_ObjectHideFlags: 0

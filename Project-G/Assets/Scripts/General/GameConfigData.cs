@@ -33,8 +33,11 @@ public class GameConfigData : MonoBehaviour {
 	public GameObject Consumable;
 	
 	public SoundAudioClip[] Sounds;
+
+	[System.Serializable]
 	public class SoundAudioClip {
 		public SoundManager.Sound sound;
 		public AudioClip audioClip;
+		[Range(0, 1)] public float volume;
 	}
 }

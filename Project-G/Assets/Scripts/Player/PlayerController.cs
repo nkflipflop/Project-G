@@ -77,7 +77,6 @@ public class PlayerController : MonoBehaviour {
 			if(_moveLatency <= 0)
 				_rb2D.velocity = new Vector2(_horizontalInput, _verticalInput) * unitSpeed;
 				IsRun = true;
-				//transform.Translate ( new Vector3 (_horizontalInput, _verticalInput, 0f) * unitSpeed * Time.deltaTime);
 		}
 		else {
 			_rb2D.velocity = new Vector2(0f, 0f);
@@ -86,6 +85,8 @@ public class PlayerController : MonoBehaviour {
 		}
 
 		DustParticles.SetActive(true);
+		// Sound effect
+		SoundManager.PlaySound(SoundManager.Sound.PlayerMove);
 	}
 
 	IEnumerator DisableParticles() {

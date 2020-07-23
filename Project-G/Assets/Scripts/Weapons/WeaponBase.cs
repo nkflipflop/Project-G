@@ -59,6 +59,9 @@ public class WeaponBase : MonoBehaviour {
 		Instantiate(FireEffect, ShotPoint.position, ShotPoint.rotation);
 		// Recoiling the weapon
 		if (Weapon.HasRecoil) WeaponRecoiler.AddRecoil();
+
+		//Sound effect
+		SoundManager.PlaySound(Weapon.FireSound, transform.position);
 		
 		// Creating bullets
 		for (int i = 0; i < Weapon.BulletPerShot; i++) {
@@ -70,8 +73,11 @@ public class WeaponBase : MonoBehaviour {
 	}
 
 	public void Trigger() {
-		if (_canTrigger && _timeBtwShots <= 0 && CurrentAmmo > 0){
-			Fire();
+		if (_canTrigger && _timeBtwShots <= 0) {
+			if (CurrentAmmo > 0)
+				Fire();
+			else
+				SoundManager.PlaySound(SoundManager.Sound.NoBullet, transform.position);		// Weapon no bullet sound effect
 			_canTrigger = (Weapon.Automatic == true);			// if weapon is not automatic, you need to release trigger
 		}
 	}
@@ -98,5 +104,6 @@ public class WeaponBase : MonoBehaviour {
 		yield return new WaitForSeconds(Weapon.ReloadTime);
 		CurrentAmmo = Weapon.MaxAmmo;
 		_isReloading = false;
+		SoundManager.PlaySound(SoundManager.Sound.Reloaded, transform.position);
 	}
 }
