@@ -104,5 +104,6 @@ public class WeaponBase : MonoBehaviour {
 		yield return new WaitForSeconds(Weapon.ReloadTime);
 		CurrentAmmo = Weapon.MaxAmmo;
 		_isReloading = false;
+		SoundManager.PlaySound(SoundManager.Sound.Reloaded, transform.position);
 	}
 }

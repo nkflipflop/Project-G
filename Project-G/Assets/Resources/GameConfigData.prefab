@@ -383,12 +383,12 @@ MonoBehaviour:
   - sound: 9
     audioClip: {fileID: 8300000, guid: 8632aff3409d38b4bb0b4e405007dc9f, type: 3}
     volume: 0.1
-  - sound: 0
-    audioClip: {fileID: 0}
-    volume: 0
-  - sound: 0
-    audioClip: {fileID: 0}
-    volume: 0
-  - sound: 0
-    audioClip: {fileID: 0}
-    volume: 0
+  - sound: 10
+    audioClip: {fileID: 8300000, guid: b42c036d83bcdea409aff9ca5d9412ab, type: 3}
+    volume: 0.1
+  - sound: 11
+    audioClip: {fileID: 8300000, guid: cbbd91a96e198d4479050a5f10cf4c76, type: 3}
+    volume: 0.1
+  - sound: 12
+    audioClip: {fileID: 8300000, guid: b4e227da055aaa94292a7658ca427b04, type: 3}
+    volume: 0.1

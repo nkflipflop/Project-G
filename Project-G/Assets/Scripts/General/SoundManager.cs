@@ -5,9 +5,8 @@ using UnityEngine;
 public static class SoundManager {
 	public enum Sound {
 		PlayerMove, PlayerHit, PlayerDie, PlayerCollect, NoBullet,
-		Pistol, AssaultRifle, SMG, Shotgun, Sniper,
-		BeetleMove,
-		MantisMove, MantisAttack
+		Pistol, AssaultRifle, SMG, Shotgun, Sniper, Reloaded,
+		SpikeTrap, FireTrap
 	}
 
 	private static Dictionary<Sound, float> _soundTimerDictionary;
@@ -73,7 +72,7 @@ public static class SoundManager {
 
 	private static void RandomizeSound(ref AudioSource audioSource, Sound sound) {
 		// Sound settings
-		audioSource.maxDistance = 2.5f;
+		audioSource.maxDistance = 4f;
 		audioSource.spatialBlend = 1f;
 		audioSource.rolloffMode = AudioRolloffMode.Linear;
 		audioSource.dopplerLevel = 0f;
