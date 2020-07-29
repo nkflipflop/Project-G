@@ -222,7 +222,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxOffsetDistance: 0.15
   recoilAcceleration: 5
-  weaponRecoilStartSpeed: -15
+  weaponRecoilStartSpeed: -6
 --- !u!114 &7557633551298655547
 MonoBehaviour:
   m_ObjectHideFlags: 0

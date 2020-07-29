@@ -15,4 +15,8 @@ public class MainMenuController : MonoBehaviour
         Debug.Log("Exiting...");
         Application.Quit();
     }
+
+    public void WeaponSelect(int weapon){
+        DataManager.Instance.WeaponID = weapon;
+    }
 }

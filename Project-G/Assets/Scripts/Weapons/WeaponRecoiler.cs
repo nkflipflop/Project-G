@@ -14,6 +14,7 @@ public class WeaponRecoiler : MonoBehaviour {
     private Vector3 _offsetPosition = Vector3.zero;
     private Vector3 _recoilSpeed = Vector3.zero;
 
+    private Vector3 _localPosition;
 
     public void AddRecoil() {
         _recoilInEffect = true;
@@ -23,14 +24,12 @@ public class WeaponRecoiler : MonoBehaviour {
     }
 
     private void UpdateRecoil() {
-        if (_recoilInEffect == false) {
-            return;
-        }
-
         // Set up speed and then position
         _recoilSpeed += (-_offsetPosition.normalized) * recoilAcceleration * Time.deltaTime;
         Vector3 newOffsetPosition = _offsetPosition + _recoilSpeed * Time.deltaTime;
         Vector3 newTransformPosition = transform.position - _offsetPosition;
+
+        _localPosition = transform.position;
 
         if (newOffsetPosition.magnitude > maxOffsetDistance) {
             _recoilSpeed = Vector3.zero;
@@ -54,7 +53,8 @@ public class WeaponRecoiler : MonoBehaviour {
 
 
     private void Update() {
-        UpdateRecoil();    
+        if (_recoilInEffect)
+            UpdateRecoil();    
     }
 
 }

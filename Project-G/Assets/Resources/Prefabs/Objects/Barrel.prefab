@@ -129,7 +129,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.35416666, y: 0.5}
+  m_Size: {x: 0.18, y: 0.26}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -257,6 +257,7 @@ MonoBehaviour:
   DissolveEffect: {fileID: 1516673698771313397}
   Renderer: {fileID: 1516673698771313399}
   HitboxCollider: {fileID: 1516673698771313387}
+  SoundEffect: 1
 --- !u!114 &1516673698771313397
 MonoBehaviour:
   m_ObjectHideFlags: 0
