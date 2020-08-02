@@ -43,6 +43,7 @@ public class DungeonManager : MonoBehaviour
 		public SubDungeon left, right;
 		public Rect rect;
 		public Rect room = new Rect(-1, -1, 0, 0);     // null
+		public Rect removedPiece = new Rect(-1, -1, 0, 0);     // null
 		public List<Rect> corridors = new List<Rect>();
 		public List<Rect> bridges = new List<Rect>();
 		public int debugId;
@@ -74,7 +75,45 @@ public class DungeonManager : MonoBehaviour
 				// room position will be absolute in the board, not relative to the sub-deungeon
 				room = new Rect(rect.x + roomX, rect.y + roomY, roomWidth, roomHeight);
 				//Debug.Log("Created room " + room + " in sub-dungeon " + debugId + " " + rect);
+
+				int shouldEditRoom = Random.Range(0,4);       // 25% chance for editing the shape of the room
+				if (shouldEditRoom == 0) {
+					removedPiece = GetPieceToRemove();
+				}
 			}
+		}
+
+		private Rect GetPieceToRemove() {
+			int x = 0, y = 0, xMax = 0, yMax = 0;
+			int randWidth = Random.Range(1, (int)(room.width / 2));
+			int randHeight = Random.Range(1, (int)(room.height / 2));
+			int randCorner = Random.Range(0,4);
+			switch (randCorner) {
+				case 0:     // bottom left
+					x = (int)room.x;
+					y = (int)room.y;
+					break;
+				case 1:     // bottom right
+					x = (int)room.xMax - randWidth;
+					y = (int)room.y;
+					break;
+				case 2:     // top left
+					x = (int)room.x;
+					y = (int)room.yMax - randHeight;
+					break;
+				case 3:     // top right
+					x = (int)room.xMax - randWidth;
+					y = (int)room.yMax - randHeight;
+					break;
+			}
+			xMax = x + randWidth;
+			if(xMax > room.xMax)
+				xMax = (int)room.xMax;
+			yMax = y + randHeight;
+			if (yMax > room.yMax)
+				yMax = (int)room.yMax;
+
+			return new Rect(x, y, xMax - x, yMax - y);
 		}
 
 		public void CreateCorridorBetween(SubDungeon left, SubDungeon right) {
@@ -84,8 +123,15 @@ public class DungeonManager : MonoBehaviour
 			//Debug.Log("Creating corridor(s) between " + left.debugId + "(" + lroom + ") and " + right.debugId + " (" + rroom + ")");
 
 			// attach the corridor to a random point in each room
-			Vector2 lpoint = new Vector2((int)Random.Range(lroom.x + 1, lroom.xMax - 1), (int)Random.Range(lroom.y + 1, lroom.yMax - 1));
-			Vector2 rpoint = new Vector2((int)Random.Range(rroom.x + 1, rroom.xMax - 1), (int)Random.Range(rroom.y + 1, rroom.yMax - 1));
+			Vector2 lpoint, rpoint;
+
+			do {
+				lpoint = new Vector2((int)Random.Range(lroom.x + 1, lroom.xMax - 1), (int)Random.Range(lroom.y + 1, lroom.yMax - 1));
+			} while (lpoint.x >= left.removedPiece.x && lpoint.x <= left.removedPiece.xMax && lpoint.y >= left.removedPiece.y && lpoint.y <= left.removedPiece.yMax);
+
+			do {
+				rpoint = new Vector2((int)Random.Range(rroom.x + 1, rroom.xMax - 1), (int)Random.Range(rroom.y + 1, rroom.yMax - 1));
+			} while (rpoint.x >= right.removedPiece.x && rpoint.x <= right.removedPiece.xMax && rpoint.y >= right.removedPiece.y && rpoint.y <= right.removedPiece.yMax);
 
 			// always be sure that left point is on the left to simplyfy code
 			if (lpoint.x > rpoint.x) {
@@ -145,20 +191,20 @@ public class DungeonManager : MonoBehaviour
 			if (IAmLeaf())
 				return room;
 
-				if (left != null) {
-					Rect lroom = left.GetRoom();
-					if (lroom.x != -1)
-						return lroom;
-				}
+			if (left != null) {
+				Rect lroom = left.GetRoom();
+				if (lroom.x != -1)
+					return lroom;
+			}
 
-				if (right != null) {
-					Rect rrom = right.GetRoom();
-					if (rrom.x != -1)
-						return rrom;
-				}
+			if (right != null) {
+				Rect rroom = right.GetRoom();
+				if (rroom.x != -1)
+					return rroom;
+			}
 
-				// workaround non nullable structs
-				return new Rect(-1, -1, 0, 0);
+			// workaround non nullable structs
+			return new Rect(-1, -1, 0, 0);
 		}
 
 		public bool IAmLeaf() {
@@ -233,41 +279,9 @@ public class DungeonManager : MonoBehaviour
 			return;
 
 		if (subDungeon.IAmLeaf()) {
-			int editRoom = Random.Range(0,4);       // 25% chance for editing the shape of the room
-			int x = 0, y = 0, xMax = 0, yMax = 0;
-			if (editRoom == 0) {
-				int randWidth = Random.Range(1, (int)(subDungeon.room.width / 2));
-				int randHeight = Random.Range(1, (int)(subDungeon.room.height / 2));
-				int randCorner = Random.Range(0,4);
-				switch (randCorner) {
-					case 0:     // bottom left
-						x = (int)subDungeon.room.x;
-						y = (int)subDungeon.room.y;
-						break;
-					case 1:     // bottom right
-						x = (int)subDungeon.room.xMax - randWidth;
-						y = (int)subDungeon.room.y;
-						break;
-					case 2:     // top left
-						x = (int)subDungeon.room.x;
-						y = (int)subDungeon.room.yMax - randHeight;
-						break;
-					case 3:     // top right
-						x = (int)subDungeon.room.xMax - randWidth;
-						y = (int)subDungeon.room.yMax - randHeight;
-						break;
-				}
-				xMax = x + randWidth;
-				if(xMax > subDungeon.room.xMax)
-					xMax = (int)subDungeon.room.xMax;
-				yMax = y + randHeight;
-				if (yMax > subDungeon.room.yMax)
-					yMax = (int)subDungeon.room.yMax;
-			}
-
 			for (int i = (int)subDungeon.room.x; i < subDungeon.room.xMax; i++) {
 				for (int j = (int)subDungeon.room.y; j < subDungeon.room.yMax; j++) {
-					if (!(i >= x && i <= xMax && j >= y && j <= yMax)) {
+					if (!(i >= subDungeon.removedPiece.x && i <= subDungeon.removedPiece.xMax && j >= subDungeon.removedPiece.y && j <= subDungeon.removedPiece.yMax)) {
 						GameObject instance = Instantiate(GameConfigData.Instance.FloorTiles[(int)Random.Range(0, GameConfigData.Instance.FloorTiles.Length)], new Vector3(i, j, 0f), Quaternion.identity) as GameObject;
 						instance.transform.SetParent(Dungeon.transform.GetChild((int)Tiles.Floors).gameObject.transform);
 						_dungeonFloorPositions[i, j] = instance;
@@ -445,7 +459,6 @@ public class DungeonManager : MonoBehaviour
 		_bridgeTilesPos.Clear();		// deleting the list since it completes its purpose
 		DrawWalls();
 		PlaceLamps(_dungeonTiles);
-		// _enemyIndexes = new int[,] {{0, 1}, {0, 2}, {0, 3}, {1, 4}, {2, 5}};
 		_enemyIndexes = new int[,] {{0, 1}, {0, 2}, {1, 2}, {0, 3}, {1, 3}, {1, 4}, {1, 5}};		// start and end indexes of Enemies array accorcding to the dungeon level
 		//Debug.Log("Dungeon creation ended.");
 	}
