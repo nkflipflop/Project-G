@@ -3,7 +3,14 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Enemy
+  - Weapon
+  - Environment
+  - Key
+  - Breakable
+  - Item
+  - Shield
   layers:
   - Default
   - TransparentFX
@@ -13,11 +20,11 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Enemy
+  - Environment
+  - Player
+  - Destructible Object
+  - Shield
   - 
   - 
   - 
@@ -38,6 +45,12 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Grounds
+    uniqueID: 924494283
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Walls
+    uniqueID: 778591143
     locked: 0
