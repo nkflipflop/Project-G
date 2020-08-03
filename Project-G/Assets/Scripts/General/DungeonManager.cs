@@ -536,7 +536,9 @@ public class DungeonManager : MonoBehaviour
 					if (Vector3.Distance(_randomPos, _invalidPos) != 0) {
 						int enemyIndex = 0;
 						do {		// make sure that there is only one turret in a room
-							enemyIndex = (int)Random.Range(_enemyIndexes[dungeonLevel, 0], _enemyIndexes[dungeonLevel, 1] + 1);
+							int enemyIndexRangeMin = (dungeonLevel < 7) ? _enemyIndexes[dungeonLevel, 0] : _enemyIndexes[6, 0];
+							int enemyIndexRangeMax = (dungeonLevel < 7) ? _enemyIndexes[dungeonLevel, 1] : _enemyIndexes[6, 1];
+							enemyIndex = (int)Random.Range(enemyIndexRangeMin, enemyIndexRangeMax + 1);
 						} while (subDungeon.hasTurret && enemyIndex == 2);		// check if the room has a turret and new enemy is turret
 
 						GameObject instance = Instantiate(Enemies[enemyIndex], _randomPos, Quaternion.identity) as GameObject;
