@@ -8,8 +8,6 @@ public class GameManager : MonoBehaviour
 	public PlayerManager PlayerManager;
 	public UIController UIController;
 
-	public GameObject PauseMenu = null;
-
 	private int _dungeonLevel = 0;
 	private bool _isGameOver = false;
 	public int DungeonLevel { get{ return _dungeonLevel; } }
@@ -57,9 +55,7 @@ public class GameManager : MonoBehaviour
 	/// <summary> Gets the level data and saves it in DataManager at the end of the level </summary>
 	private void SaveLevelData() {
 		DataManager.Instance.DungeonLevel++;
-		PlayerManager.SavePlayerData();	
-		if (DataManager.Instance.DungeonLevel == 7)      // after level 7, reset the game
-			ResetLevelData();
+		PlayerManager.SavePlayerData();
 	}
 
 	/// <summary> Resets everything in DataManager </summary>
