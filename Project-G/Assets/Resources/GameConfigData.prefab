@@ -53,6 +53,7 @@ MonoBehaviour:
   - {fileID: 2269708039003513901, guid: f44b0c47e166672478bdafb5b95f6ac0, type: 3}
   - {fileID: 8901251646445971735, guid: 4cc18da01c7da284d8eaf49ad7199fe6, type: 3}
   - {fileID: 2111738546601606441, guid: 1e31ec869e170344a891e2a5b6eaae95, type: 3}
+  - {fileID: 3712104634968537371, guid: bbc46c9630edc11498ac6e5652efe14b, type: 3}
   BridgeTiles:
   - {fileID: 4250224137073205220, guid: 8436393d082eb1040955667ac7538e0a, type: 3}
   - {fileID: 4250224137073205220, guid: 3da40aca774400f44a8ac08fae3b43ce, type: 3}
