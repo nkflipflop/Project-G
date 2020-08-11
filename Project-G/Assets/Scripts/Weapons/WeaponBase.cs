@@ -37,7 +37,7 @@ public class WeaponBase : MonoBehaviour {
 	// Changes layer of the sprite
 	public void SetSortingOrder(int order) {
 		WeaponRenderer.sortingOrder = order;
-		if(LeftHandRenderer){
+		if (LeftHandRenderer) {
 			LeftHandRenderer.sortingOrder = order + 2;
 			RightHandRenderer.sortingOrder = order + 2;
 		}

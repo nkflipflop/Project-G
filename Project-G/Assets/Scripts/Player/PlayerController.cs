@@ -31,7 +31,7 @@ public class PlayerController : MonoBehaviour {
 		PlayerMovement();   // For Movement Actions
 	}
 
-	private void GetInputs(){
+	private void GetInputs() {
 		// Inputs for Movement
 		_horizontalInput = Input.GetAxisRaw("Horizontal");   // held direction keys WASD
 		_verticalInput = Input.GetAxisRaw("Vertical");
@@ -53,7 +53,7 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	// Take Action
-	private void PlayerMovement(){
+	private void PlayerMovement() {
 		// when holding direction keys WASD
 		if (IsRun)
 			PlayerRun();
@@ -63,20 +63,21 @@ public class PlayerController : MonoBehaviour {
 
 	// Player Run State
 	private void PlayerRun() {
-		// adjusting unit vector for moving stable (YOU DO NOT NEED TO LOOK HERE ;) )
+		// adjusting unit vector for moving stable)
 		float unitSpeed;
-		if(Mathf.Abs(_horizontalInput) > 0 && Mathf.Abs(_verticalInput) > 0)
+		if (Mathf.Abs(_horizontalInput) > 0 && Mathf.Abs(_verticalInput) > 0)
 			unitSpeed = _moveSpeed / Mathf.Sqrt(2);
 		else
 			unitSpeed = _moveSpeed;
 
 
 		// Moving in 8 Directions
-		if (Mathf.Abs(_horizontalInput) > 0.9f || Mathf.Abs(_verticalInput) > 0.9f){
+		if (Mathf.Abs(_horizontalInput) > 0.9f || Mathf.Abs(_verticalInput) > 0.9f) {
 			_moveLatency -= Time.deltaTime;
-			if(_moveLatency <= 0)
+			if (_moveLatency <= 0) {
 				_rb2D.velocity = new Vector2(_horizontalInput, _verticalInput) * unitSpeed;
 				IsRun = true;
+			}
 		}
 		else {
 			_rb2D.velocity = new Vector2(0f, 0f);

@@ -60,7 +60,7 @@ public class ProjectileController : MonoBehaviour {
 				transform.Translate(Vector3.right * _speed * Time.deltaTime);
 			}
 		}
-		else if (_lifetime == 0){
+		else if (_lifetime == 0) {
 			_lifetime -= 1;
 			Renderer.sprite = NoneSprite;
 			Light.SetActive(false);

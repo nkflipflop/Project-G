@@ -23,10 +23,10 @@ public class PlayerHandController : HandControllerBase {
 	}
 	
 	private void InterractWithNewWeapon() {
-		if(_canTake) {
+		if (_canTake) {
 			_takeWeapon = Input.GetKeyDown(KeyCode.E);
 			//Debug.Log("Çok istiyorsan 'E' ye bas. ;(");
-			if(_takeWeapon) {
+			if (_takeWeapon) {
 				// Dropping the current weapon
 				DropCurrentWeapon();
 				// Equipping the new weapon
@@ -55,14 +55,14 @@ public class PlayerHandController : HandControllerBase {
 	}
 
 	private void OnTriggerEnter2D(Collider2D other) {
-		if (other.gameObject.CompareTag("Weapon")){
+		if (other.gameObject.CompareTag("Weapon")) {
 			_canTake = true;
 			_newWeapon = other.gameObject.GetComponent<WeaponBase>();
 		}
 	}
 	
 	private void OnTriggerExit2D(Collider2D other) {
-		if (other.gameObject.CompareTag("Weapon")){
+		if (other.gameObject.CompareTag("Weapon")) {
 			_canTake = false;
 			_newWeapon = null;    
 		}

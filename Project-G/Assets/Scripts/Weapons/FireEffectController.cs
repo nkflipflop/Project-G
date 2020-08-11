@@ -3,11 +3,11 @@ using UnityEngine;
 
 public class FireEffectController : MonoBehaviour {
 
-    void Start() {
+    private void Start() {
       StartCoroutine(TurnOffLight());
     }
 
-    IEnumerator TurnOffLight() {
+    private IEnumerator TurnOffLight() {
 		  yield return new WaitForSeconds(0.05f);
 		  Destroy(gameObject);
     }

@@ -42,7 +42,7 @@ public class HealthController : MonoBehaviour {
 	public void Heal(int healValue) {
 		_health += healValue;
 
-		if(_health > 100) 
+		if (_health > 100) 
 			_health = 100;
 		
 		// Heal effect on sprite

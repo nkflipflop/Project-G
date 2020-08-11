@@ -46,7 +46,7 @@ public class PlayerManager : MonoBehaviour
     // Using Medkit
     private void UseMedkit() {
         Inventory inventory = _inventory[(int)GameConfigData.CollectibleType.Medkit]; 
-        if (inventory.Count > 0 && HealthController.Health < 100){
+        if (inventory.Count > 0 && HealthController.Health < 100) {
             inventory.Count -= 1;
             HealthController.Heal(inventory.Item.Value);
         }
@@ -80,11 +80,11 @@ public class PlayerManager : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other) {
         // If collide with an consumable item
-		if (other.gameObject.CompareTag("Item")){
+		if (other.gameObject.CompareTag("Item")) {
             // If there are items
             CollectPUB?.Invoke(_inventory, HealthController);
         }
-        else if (other.gameObject.CompareTag("Key")){
+        else if (other.gameObject.CompareTag("Key")) {
             // If there are Key
             _hasKey = true;
             other.gameObject.SetActive(false);
