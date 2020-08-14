@@ -17,7 +17,7 @@ public class EnemyController : MonoBehaviour
 	private float _sightRange = 5f;
 	private bool _isAttacking = false;
 	private bool _isRunning = false;
-	[SerializeField] private float _attackRange = 0.4f;
+	private float _attackRange = 0.45f;
 
 	public EnemyCloseRangeAttackController AttackController;
 
