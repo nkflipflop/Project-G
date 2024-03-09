@@ -1,7 +1,9 @@
 using System;
+using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -147,6 +149,13 @@ namespace Utilities
 			transform.position = position;
 		}
 		
+		public static async UniTask Punch(this Transform transform)
+		{
+			transform.DOKill();
+			transform.localScale = Vector3.one;
+			await transform.DOScale(1.1f, 0.1f).SetLoops(2, LoopType.Yoyo).ToUniTask();
+		}
+		
 		#endregion
 		
 		#region Scroll Rect
@@ -189,12 +198,25 @@ namespace Utilities
 		
 		#endregion
 		
+		#region Hash Set
+		
+		public static T GetFirst<T>(this HashSet<T> hashSet)
+		{
+			foreach (var item in hashSet)
+			{
+				return item;
+			}
+			return default;
+		}
+		
+		#endregion
+		
 		#region UniTask
 		
 		public static async UniTask PeriodicAsync(Func<UniTask> action, float interval, float initialDelay = 0f,
 			CancellationToken cancellationToken = default)
 		{
-			await UniTask.Delay(Mathf.RoundToInt(initialDelay * 1000));
+			await UniTask.Delay(Mathf.RoundToInt(initialDelay * 1000), cancellationToken: cancellationToken);
 			while (true)
 			{
 				UniTask delayTask = UniTask.Delay(Mathf.RoundToInt(interval * 1000), cancellationToken: cancellationToken);
