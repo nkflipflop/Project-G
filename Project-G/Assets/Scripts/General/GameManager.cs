@@ -34,8 +34,8 @@ public class GameManager : MonoBehaviour
 
             if (PlayerManager.HealthController.IsDead)
             {
-                StartCoroutine(UIController.ActivateGameOverScreen());
                 _isGameOver = true;
+                UIController.ActivateGameOverScreen();
             }
         }
     }

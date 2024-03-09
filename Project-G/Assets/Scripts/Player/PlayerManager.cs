@@ -7,7 +7,7 @@ public class Inventory
     public GameConfigData.CollectibleType Type;
     public Consumable Item;
     public int Count;
-};
+}
 
 public class PlayerManager : MonoBehaviour
 {
@@ -24,8 +24,7 @@ public class PlayerManager : MonoBehaviour
     public Inventory[] Inventory => _inventory;
 
     public bool HasKey => _hasKey;
-
-    // Update is called once per frame
+    
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
@@ -75,10 +74,7 @@ public class PlayerManager : MonoBehaviour
         _inventory[(int)GameConfigData.CollectibleType.Medkit].Count = DataManager.Instance.Medkits;
         _inventory[(int)GameConfigData.CollectibleType.Shield].Count = DataManager.Instance.Shields;
 
-        GameObject weapon =
-            Instantiate(
-                GameConfigData.Instance.Weapons
-                    [DataManager.Instance.WeaponID]) as GameObject; // instantiating player's weapon
+        GameObject weapon = Instantiate(GameConfigData.Instance.Weapons[DataManager.Instance.WeaponID]); // instantiating player's weapon
         PlayerHandController.EquipWeapon(weapon.GetComponent<WeaponBase>());
     }
 

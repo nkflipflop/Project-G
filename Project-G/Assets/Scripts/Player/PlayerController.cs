@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using Cysharp.Threading.Tasks;
+﻿using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -46,7 +45,7 @@ public class PlayerController : MonoBehaviour
         _verticalInput = Input.GetAxisRaw("Vertical");
 
         _mousePosition = Input.mousePosition; // for determining player direction
-        _mousePosition = Camera.main.ScreenToWorldPoint(_mousePosition);
+        _mousePosition = Camera.main.ScreenToWorldPoint(_mousePosition);        // bro WTF? calling Camera.main in Update. Fix this ASAP !!!
 
         if (_horizontalInput != 0 || _verticalInput != 0)
         {

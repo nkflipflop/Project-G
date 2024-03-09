@@ -1,6 +1,8 @@
 ﻿using System.Collections;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Utilities;
 
 public class UIController : MonoBehaviour
 {
@@ -51,14 +53,13 @@ public class UIController : MonoBehaviour
         if (_ammo != PlayerManager.PlayerHandController.CurrentWeapon.CurrentAmmo)
         {
             _ammo = PlayerManager.PlayerHandController.CurrentWeapon.CurrentAmmo;
-            WeaponUI.AmmoText.text = "" + _ammo;
+            WeaponUI.AmmoText.text = _ammo.ToString();
             if (_ammo == 0)
             {
                 WeaponUI.SetColor(absentColor); // Setting color of ammo bar
                 if (_reloadTimer <= 0)
                 {
-                    // Starts reloading
-                    _reloadTimer = _weapon.Weapon.ReloadTime;
+                    _reloadTimer = _weapon.Weapon.ReloadTime;       // Starts reloading
                 }
             }
             else
@@ -73,30 +74,32 @@ public class UIController : MonoBehaviour
             _reloadTimer -= Time.deltaTime;
             WeaponUI.SetReloadSlider(_reloadTimer / _weapon.Weapon.ReloadTime);
             if (_reloadTimer <= 0)
+            {
                 WeaponUI.SetReloadSlider(1);
+            }
         }
 
         // Health Count Update
         if (_health != PlayerManager.HealthController.Health)
         {
             _health = PlayerManager.HealthController.Health;
-            MiscUI.HealthText.text = "" + _health;
+            MiscUI.HealthText.text = _health.ToString();
             MiscUI.SetHealthColor((float)_health / 100);
         }
 
-        // Medkit Count Update
+        // MedKit Count Update
         if (_medkit != PlayerManager.Inventory[(int)GameConfigData.CollectibleType.Medkit].Count)
         {
             _medkit = PlayerManager.Inventory[(int)GameConfigData.CollectibleType.Medkit].Count;
-            MiscUI.MedkitText.text = "" + _medkit;
-            MiscUI.SetMedkitColor(_medkit == 0 ? absentColor : existColor); // Setting color of medkit bar
+            MiscUI.MedkitText.text = _medkit.ToString();
+            MiscUI.SetMedKitColor(_medkit == 0 ? absentColor : existColor);     // Setting color of medkit bar
         }
 
         // Shield Count Update
         if (_shield != PlayerManager.Inventory[(int)GameConfigData.CollectibleType.Shield].Count)
         {
             _shield = PlayerManager.Inventory[(int)GameConfigData.CollectibleType.Shield].Count;
-            MiscUI.ShieldText.text = "" + _shield;
+            MiscUI.ShieldText.text = _shield.ToString();
             MiscUI.SetShieldColor(_shield == 0 ? absentColor : existColor); // Setting color of shield bar
         }
 
@@ -111,7 +114,7 @@ public class UIController : MonoBehaviour
         if (_level != GameManager.DungeonLevel)
         {
             _level = GameManager.DungeonLevel;
-            LevelUI.LevelText.text = "Level " + (_level + 1);
+            LevelUI.LevelText.text = Extensions.ConcatenateString("Level ", _level + 1);
         }
     }
 
@@ -139,7 +142,9 @@ public class UIController : MonoBehaviour
     {
         GameManager.ResetLevelData(); // before going back to the main menu, reset al data
         if (Time.timeScale == 0) // if the game is paused, resume it and then, go to main menu
+        {
             TogglePause();
+        }
         SceneManager.LoadScene(0); // load main menu
     }
 
@@ -149,9 +154,9 @@ public class UIController : MonoBehaviour
         Application.Quit();
     }
 
-    public IEnumerator ActivateGameOverScreen()
+    public async UniTaskVoid ActivateGameOverScreen()
     {
-        yield return new WaitForSeconds(1f); // 1 sec delay
+        await UniTask.Delay(1000);
         GameManager.GameCamera.GetComponent<AudioListener>().enabled = true;
         GameOverUI.SetActive(true);
     }

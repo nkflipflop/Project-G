@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Utilities;
 
 public class EnemyController : MonoBehaviour
 {
@@ -33,7 +34,7 @@ public class EnemyController : MonoBehaviour
         _animator = gameObject.GetComponent<Animator>();
 
         AStarSetup();
-        InvokeRepeating(nameof(CheckTargetPosition), 1.2f, 0.5f); // run this function every 0.5 sec && wait 1.2 sec at the start
+        Extensions.PeriodicAsync(async () => CheckTargetPosition(), 0.5f, 1.2f);        // run this function every 0.5 sec && wait 1.2 sec at the start
     }
     
     private void FixedUpdate()

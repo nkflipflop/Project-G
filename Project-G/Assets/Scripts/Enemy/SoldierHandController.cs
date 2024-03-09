@@ -1,30 +1,30 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class SoldierHandController : HandControllerBase
+﻿public class SoldierHandController : HandControllerBase
 {
+    public EnemyController EnemyController;
 
-	public EnemyController EnemyController;
-
-	protected override void SpecialStart() {
+    protected override void SpecialStart()
+    {
         AimDeviation = 2f;
         CurrentWeapon = transform.GetChild(0).GetComponent<WeaponBase>();
-		CurrentWeapon.transform.localPosition = WeaponPosition;
+        CurrentWeapon.transform.localPosition = WeaponPosition;
     }
 
-    protected override void SpecialUpdate() {
+    protected override void SpecialUpdate()
+    {
         CharacterIsRunning = EnemyController.IsRunning;
     }
 
-    protected override void UseWeapon() {
-        if (!EnemyController.HealthController.IsDead && 
-            EnemyController.IsRunning && 
-            EnemyController.DistanceBtwTarget < 3f) {
-			CurrentWeapon.Trigger();
-		}
-		else {
-			CurrentWeapon.ReleaseTrigger();
-		}
+    protected override void UseWeapon()
+    {
+        if (!EnemyController.HealthController.IsDead &&
+            EnemyController.IsRunning &&
+            EnemyController.DistanceBtwTarget < 3f)
+        {
+            CurrentWeapon.Trigger();
+        }
+        else
+        {
+            CurrentWeapon.ReleaseTrigger();
+        }
     }
 }

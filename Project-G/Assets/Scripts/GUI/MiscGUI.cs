@@ -24,7 +24,7 @@ public class MiscGUI : MonoBehaviour
     [SerializeField] private Image _shieldImageFrame = null;
 
     // Color adjustment for Medkit
-    public void SetMedkitColor(Color32 color)
+    public void SetMedKitColor(Color32 color)
     {
         _medkitTextBackground.color = color;
         _medkitImageFrame.color = color;
