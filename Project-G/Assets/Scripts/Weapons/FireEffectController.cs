@@ -1,14 +1,16 @@
-﻿using System.Collections;
+﻿using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-public class FireEffectController : MonoBehaviour {
-
-    private void Start() {
-      StartCoroutine(TurnOffLight());
+public class FireEffectController : MonoBehaviour
+{
+    private void Start()
+    {
+        TurnOffLight();
     }
 
-    private IEnumerator TurnOffLight() {
-		  yield return new WaitForSeconds(0.05f);
-		  Destroy(gameObject);
+    private async UniTaskVoid TurnOffLight()
+    {
+        await UniTask.Delay(50);
+        Destroy(gameObject);
     }
 }

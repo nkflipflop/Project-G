@@ -2,7 +2,8 @@
 using UnityEngine.UI;
 using TMPro;
 
-public class MiscGUI : MonoBehaviour {
+public class MiscGUI : MonoBehaviour
+{
     public TextMeshProUGUI HealthText;
     public TextMeshProUGUI MedkitText;
     public TextMeshProUGUI ShieldText;
@@ -23,18 +24,21 @@ public class MiscGUI : MonoBehaviour {
     [SerializeField] private Image _shieldImageFrame = null;
 
     // Color adjustment for Medkit
-    public void SetMedkitColor(Color32 color) {
+    public void SetMedkitColor(Color32 color)
+    {
         _medkitTextBackground.color = color;
         _medkitImageFrame.color = color;
     }
 
     // Color adjustment for Shield
-    public void SetShieldColor(Color32 color) {
+    public void SetShieldColor(Color32 color)
+    {
         _shieldTextBackground.color = color;
         _shieldImageFrame.color = color;
     }
- 
-    public void SetHealthColor(float weight) {
+
+    public void SetHealthColor(float weight)
+    {
         _healthTextBackground.color = maxHealthColor * weight + minHealthColor * (1 - weight);
     }
 }

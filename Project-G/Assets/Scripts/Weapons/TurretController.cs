@@ -14,18 +14,18 @@ public class TurretController : HandControllerBase {
 	private int _shieldLayer = 12;
 	private LayerMask _hittableLayersByEnemy;
 
-	public override void SpecialStart() {
+	protected override void SpecialStart() {
 		CurrentWeapon = transform.GetChild(0).GetComponent<WeaponBase>();
 		CurrentWeapon.transform.localPosition = WeaponPosition;
         AimDeviation = 2f;
 		_hittableLayersByEnemy = (1 << _playerLayer) | (1 << _environmentLayer) | (1 << _shieldLayer);
     }
 
-	public override void SpecialUpdate() {
+	protected override void SpecialUpdate() {
 		CheckPlayerInRange();
 	}
-	
-    public override void UseWeapon() {
+
+	protected override void UseWeapon() {
         if (!HealthController.IsDead && _targetInRange) {
 			CurrentWeapon.Trigger();
 		}

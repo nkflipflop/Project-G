@@ -6,13 +6,13 @@ public class PlayerHandController : HandControllerBase {
 	private WeaponBase _newWeapon;
 	private bool _takeWeapon;
 	private bool _canTake = false;
-	
 
-	public override void SpecialStart() {
+
+	protected override void SpecialStart() {
 		AimDeviation = 0;
 	}
 
-	public override void SpecialUpdate() {
+	protected override void SpecialUpdate() {
 		InterractWithNewWeapon();
 		//InterractWithExitDoor();
 		CharacterIsRunning = PlayerController.IsRun;
