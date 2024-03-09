@@ -10,7 +10,7 @@ public class Dissolve : MonoBehaviour
     [SerializeField] private Dissolve _weaponDissolve = null;
 
     private float _fade = 1f;
-    private static readonly int FadePropertID = Shader.PropertyToID("_Fade");
+    private static readonly int FadePropertyID = Shader.PropertyToID("_Fade");
 
     public bool IsDissolving { get; set; }
     
@@ -40,7 +40,7 @@ public class Dissolve : MonoBehaviour
                 Destroy(gameObject);
             }
 
-            Renderer.material.SetFloat(FadePropertID, _fade); // setting the property
+            Renderer.material.SetFloat(FadePropertyID, _fade); // setting the property
         }
     }
 }

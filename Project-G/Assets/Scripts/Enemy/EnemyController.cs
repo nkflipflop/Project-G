@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Cysharp.Threading.Tasks;
+using UnityEngine;
 using Utilities;
 
 public class EnemyController : MonoBehaviour
@@ -34,7 +35,8 @@ public class EnemyController : MonoBehaviour
         _animator = gameObject.GetComponent<Animator>();
 
         AStarSetup();
-        Extensions.PeriodicAsync(async () => CheckTargetPosition(), 0.5f, 1.2f);        // run this function every 0.5 sec && wait 1.2 sec at the start
+        Extensions.PeriodicAsync(async () => CheckTargetPosition(), 0.5f, 1.2f,
+            this.GetCancellationTokenOnDestroy()); // run this function every 0.5 sec && wait 1.2 sec at the start
     }
     
     private void FixedUpdate()

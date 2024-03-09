@@ -6,6 +6,12 @@ public class MainMenuController : MonoBehaviour
     private void Start()
     {
         Cursor.visible = true;
+#if UNITY_EDITOR
+        Application.targetFrameRate = -1;
+#else
+        Application.targetFrameRate = Utilities.Constants.DEFAULT_TARGET_FPS;
+        Debug.unityLogger.filterLogType = LogType.Exception;
+#endif
     }
 
     public void PlayGame()
@@ -21,6 +27,6 @@ public class MainMenuController : MonoBehaviour
 
     public void WeaponSelect(int weapon)
     {
-        DataManager.Instance.WeaponID = weapon;
+        DataManager.instance.WeaponID = weapon;
     }
 }

@@ -12,7 +12,6 @@ public class GameManager : MonoBehaviour
     private bool _isGameOver = false;
     public int DungeonLevel => _dungeonLevel;
 
-
     private void Start()
     {
         SoundManager.Initialize();
@@ -56,20 +55,20 @@ public class GameManager : MonoBehaviour
     /// <summary> Gets the level data from DataManager and makes the assignments </summary>
     private void LoadLevelData()
     {
-        _dungeonLevel = DataManager.Instance.DungeonLevel;
+        _dungeonLevel = DataManager.instance.DungeonLevel;
         PlayerManager.LoadPlayerData(); // loading player's data
     }
 
     /// <summary> Gets the level data and saves it in DataManager at the end of the level </summary>
     private void SaveLevelData()
     {
-        DataManager.Instance.DungeonLevel++;
+        DataManager.instance.DungeonLevel++;
         PlayerManager.SavePlayerData();
     }
 
     /// <summary> Resets everything in DataManager </summary>
     public void ResetLevelData()
     {
-        DataManager.Instance.ResetData();
+        DataManager.instance.ResetData();
     }
 }

@@ -70,20 +70,20 @@ public class PlayerManager : MonoBehaviour
 
     public void LoadPlayerData()
     {
-        HealthController.Health = DataManager.Instance.Health;
-        _inventory[(int)GameConfigData.CollectibleType.Medkit].Count = DataManager.Instance.Medkits;
-        _inventory[(int)GameConfigData.CollectibleType.Shield].Count = DataManager.Instance.Shields;
+        HealthController.Health = DataManager.instance.Health;
+        _inventory[(int)GameConfigData.CollectibleType.Medkit].Count = DataManager.instance.MedKits;
+        _inventory[(int)GameConfigData.CollectibleType.Shield].Count = DataManager.instance.Shields;
 
-        GameObject weapon = Instantiate(GameConfigData.Instance.Weapons[DataManager.Instance.WeaponID]); // instantiating player's weapon
+        GameObject weapon = Instantiate(GameConfigData.Instance.Weapons[DataManager.instance.WeaponID]); // instantiating player's weapon
         PlayerHandController.EquipWeapon(weapon.GetComponent<WeaponBase>());
     }
 
     public void SavePlayerData()
     {
-        DataManager.Instance.Health = HealthController.Health; // storing player's health
-        DataManager.Instance.Medkits = _inventory[(int)GameConfigData.CollectibleType.Medkit].Count;
-        DataManager.Instance.Shields = _inventory[(int)GameConfigData.CollectibleType.Shield].Count;
-        DataManager.Instance.WeaponID =
+        DataManager.instance.Health = HealthController.Health; // storing player's health
+        DataManager.instance.MedKits = _inventory[(int)GameConfigData.CollectibleType.Medkit].Count;
+        DataManager.instance.Shields = _inventory[(int)GameConfigData.CollectibleType.Shield].Count;
+        DataManager.instance.WeaponID =
             PlayerHandController.transform.GetChild(0).gameObject.GetComponent<WeaponPrefab>()
                 .ID; // storing player's weapon
     }

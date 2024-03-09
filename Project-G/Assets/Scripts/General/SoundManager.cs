@@ -29,9 +29,11 @@ public static class SoundManager
 
     public static void Initialize()
     {
-        _soundTimerDictionary = new Dictionary<Sound, float>();
-        _soundTimerDictionary[Sound.PlayerMove] = 0f;
-        _soundTimerDictionary[Sound.NoBullet] = 0f;
+        _soundTimerDictionary = new Dictionary<Sound, float>
+        {
+            [Sound.PlayerMove] = 0f,
+            [Sound.NoBullet] = 0f
+        };
     }
 
     /// <summary> Plays a general sound </summary>
@@ -57,8 +59,13 @@ public static class SoundManager
     {
         if (CanPlaySound(sound))
         {
-            GameObject soundGameObject = new GameObject("Sound");
-            soundGameObject.transform.position = position;
+            GameObject soundGameObject = new GameObject("Sound")
+            {
+                transform =
+                {
+                    position = position
+                }
+            };
             AudioSource audioSource = soundGameObject.AddComponent<AudioSource>();
             audioSource.clip = GameConfigData.Instance.Sounds[(int)sound].audioClip;
 
