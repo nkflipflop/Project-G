@@ -83,7 +83,7 @@ public class ProjectileController : MonoBehaviour
     
     private async UniTaskVoid DestroyProjectile()
     {
-        await UniTask.Delay(5000);
+        await UniTask.Delay(5000, cancellationToken: this.GetCancellationTokenOnDestroy());
         Destroy(gameObject);
     }
 }

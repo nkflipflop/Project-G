@@ -80,7 +80,7 @@ public class PlayerController : MonoBehaviour
     // Player Run State
     private void PlayerRun()
     {
-        // adjusting unit vector for moving stable)
+        // adjusting unit vector for moving stable
         float unitSpeed = Mathf.Abs(_horizontalInput) > 0 && Mathf.Abs(_verticalInput) > 0
             ? _moveSpeed / Mathf.Sqrt(2)
             : _moveSpeed;
@@ -104,13 +104,12 @@ public class PlayerController : MonoBehaviour
         }
 
         DustParticles.SetActive(true);
-        // Sound effect
         SoundManager.PlaySound(SoundManager.Sound.PlayerMove);
     }
 
     private async UniTaskVoid DisableParticles()
     {
-        await UniTask.Delay(300);
+        await UniTask.Delay(300, cancellationToken: this.GetCancellationTokenOnDestroy());
         DustParticles.SetActive(false);
     }
 }
