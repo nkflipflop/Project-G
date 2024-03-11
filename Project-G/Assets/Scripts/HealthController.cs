@@ -1,4 +1,5 @@
-﻿using Cysharp.Threading.Tasks;
+﻿using System;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 public class HealthController : MonoBehaviour
@@ -41,7 +42,7 @@ public class HealthController : MonoBehaviour
     private async UniTaskVoid DamageEffect()
     {
         Renderer.color = new Color32(255, 55, 0, 255);
-        await UniTask.Delay(Mathf.RoundToInt(200));
+        await UniTask.Delay(TimeSpan.FromSeconds(0.2f));
         Renderer.color = Color.white;
     }
 
@@ -61,7 +62,7 @@ public class HealthController : MonoBehaviour
     private async UniTaskVoid HealEffect()
     {
         Renderer.color = new Color32(55, 255, 0, 255);
-        await UniTask.Delay(Mathf.RoundToInt(200));
+        await UniTask.Delay(TimeSpan.FromSeconds(0.2f));
         Renderer.color = Color.white;
     }
 }

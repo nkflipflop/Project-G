@@ -132,7 +132,7 @@ public class HandControllerBase : MonoBehaviour
 
     private async UniTaskVoid GivePermissionToFire(float waitTime)
     {
-        await UniTask.Delay(Mathf.RoundToInt(waitTime * 1000));
+        await UniTask.Delay(TimeSpan.FromSeconds(waitTime));
         _canShoot = true;
     }
 }

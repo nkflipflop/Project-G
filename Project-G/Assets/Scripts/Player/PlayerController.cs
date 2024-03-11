@@ -1,4 +1,5 @@
-﻿using Cysharp.Threading.Tasks;
+﻿using System;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -109,7 +110,7 @@ public class PlayerController : MonoBehaviour
 
     private async UniTaskVoid DisableParticles()
     {
-        await UniTask.Delay(300, cancellationToken: this.GetCancellationTokenOnDestroy());
+        await UniTask.Delay(TimeSpan.FromSeconds(0.3f), cancellationToken: this.GetCancellationTokenOnDestroy());
         DustParticles.SetActive(false);
     }
 }

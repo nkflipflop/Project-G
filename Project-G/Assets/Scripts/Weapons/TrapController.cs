@@ -1,6 +1,7 @@
-﻿using System.Collections;
+﻿using System;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class TrapController : MonoBehaviour
 {
@@ -62,7 +63,7 @@ public class TrapController : MonoBehaviour
 
     private async UniTaskVoid ResetDidDamage()
     {
-        await UniTask.Delay(Mathf.RoundToInt(_coolDown * 1000));
+        await UniTask.Delay(TimeSpan.FromSeconds(_coolDown));
         _didDamage = false;
     }
 }

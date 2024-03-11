@@ -1,4 +1,5 @@
-﻿using Cysharp.Threading.Tasks;
+﻿using System;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 public class ProjectileController : MonoBehaviour
@@ -83,7 +84,7 @@ public class ProjectileController : MonoBehaviour
     
     private async UniTaskVoid DestroyProjectile()
     {
-        await UniTask.Delay(5000, cancellationToken: this.GetCancellationTokenOnDestroy());
+        await UniTask.Delay(TimeSpan.FromSeconds(5f), cancellationToken: this.GetCancellationTokenOnDestroy());
         Destroy(gameObject);
     }
 }

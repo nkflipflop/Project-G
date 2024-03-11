@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
@@ -119,7 +118,7 @@ public class WeaponBase : MonoBehaviour
     private async UniTaskVoid ReloadWeapon()
     {
         _isReloading = true;
-        await UniTask.Delay(Mathf.RoundToInt(Weapon.ReloadTime * 1000));
+        await UniTask.Delay(TimeSpan.FromSeconds(Weapon.ReloadTime));
         CurrentAmmo = Weapon.MaxAmmo;
         _isReloading = false;
         SoundManager.PlaySound(SoundManager.Sound.Reloaded, transform.position);

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
@@ -33,7 +32,7 @@ public class ExitController : MonoBehaviour
 
     private async UniTaskVoid PlayerOnTheExit(float time)
     {
-        await UniTask.Delay(Mathf.RoundToInt(time * 1000));
+        await UniTask.Delay(TimeSpan.FromSeconds(time));
         GameManager.LoadNextLevel();        // next level
     }
 }

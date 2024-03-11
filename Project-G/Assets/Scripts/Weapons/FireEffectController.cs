@@ -1,4 +1,5 @@
-﻿using Cysharp.Threading.Tasks;
+﻿using System;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 public class FireEffectController : MonoBehaviour
@@ -10,7 +11,7 @@ public class FireEffectController : MonoBehaviour
 
     private async UniTaskVoid TurnOffLight()
     {
-        await UniTask.Delay(50);
+        await UniTask.Delay(TimeSpan.FromSeconds(0.05f));
         Destroy(gameObject);
     }
 }

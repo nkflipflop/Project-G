@@ -1,4 +1,5 @@
-﻿using Cysharp.Threading.Tasks;
+﻿using System;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Utilities;
@@ -155,7 +156,7 @@ public class UIController : MonoBehaviour
 
     public async UniTaskVoid ActivateGameOverScreen()
     {
-        await UniTask.Delay(1000, cancellationToken: this.GetCancellationTokenOnDestroy());
+        await UniTask.Delay(TimeSpan.FromSeconds(1f), cancellationToken: this.GetCancellationTokenOnDestroy());
         GameManager.GameCamera.GetComponent<AudioListener>().enabled = true;
         GameOverUI.SetActive(true);
     }
