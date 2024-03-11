@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
+using Utilities;
 
 public class AStarPathfinding : MonoBehaviour
 {
@@ -8,20 +8,28 @@ public class AStarPathfinding : MonoBehaviour
     private HashSet<Node> _openList = new HashSet<Node>(), _closedList = new HashSet<Node>();
     private Dictionary<Vector3Int, Node> _allNodes = new Dictionary<Vector3Int, Node>();
     public Vector3Int StartPos, GoalPos;
-    public Node Current; // current position of the enemy
+    private Node current; // current position of the enemy
+    private List<Node> neighbors;
+    private List<Node> sortedOpenList;
 
     public Stack<Vector3Int> Path { get; private set; }
 
     private void Initialize()
     {
-        Current = GetNode(StartPos);
+        current = GetNode(StartPos);
 
-        _openList.Add(Current);
+        _openList.Add(current);
+        
+        neighbors = neighbors ?? new List<Node>();
+        neighbors.Clear();
+        
+        sortedOpenList = sortedOpenList ?? new List<Node>();
+        sortedOpenList.Clear();
     }
 
     public void SetupVariables(Vector3 seekerPos, Vector3Int targetPos)
     {
-        Current = null;
+        current = null;
         StartPos = StartPos = Vector3Int.RoundToInt(seekerPos);
         GoalPos = targetPos;
         Path = null;
@@ -33,25 +41,21 @@ public class AStarPathfinding : MonoBehaviour
     public void PathFinding()
     {
         // main algorithm
-        if (Current == null)
+        if (current == null)
         {
             Initialize();
         }
         while (_openList.Count > 0 && Path == null)
         {
-            List<Node> neighbors = FindNeighbors(Current.Position);
-
-            ExamineNeighbors(neighbors, Current);
-
-            UpdateCurrentTile(ref Current);
-
-            Path = GeneratePath(Current);
+            neighbors = FindNeighbors(current.Position);
+            ExamineNeighbors(neighbors, current);
+            UpdateCurrentTile(ref current);
+            Path = GeneratePath(current);
         }
     }
 
     private List<Node> FindNeighbors(Vector3Int parentPos)
     {
-        List<Node> neighbors = new List<Node>();
         for (int x = -1; x <= 1; x++)
         {
             for (int y = -1; y <= 1; y++)
@@ -78,22 +82,22 @@ public class AStarPathfinding : MonoBehaviour
         return neighbors;
     }
 
-    private void ExamineNeighbors(List<Node> neighbors, Node current)
+    private void ExamineNeighbors(List<Node> targetNeighbors, Node current)
     {
-        for (int i = 0; i < neighbors.Count; i++)
+        for (int i = 0; i < targetNeighbors.Count; i++)
         {
-            Node neighbor = neighbors[i];
+            Node neighbor = targetNeighbors[i];
 
             if (!ConnectedDiagonally(current, neighbor))
             {
                 continue;
             }
 
-            int gScore = DetermineGScore(neighbors[i].Position, current.Position); // calculating G score
+            int gScore = DetermineGScore(neighbor.Position, current.Position); // calculating G score
 
             if (_openList.Contains(neighbor))
             {
-                if (Current.G + gScore < neighbor.G)
+                if (this.current.G + gScore < neighbor.G)
                 {
                     CalculateValues(current, neighbor, gScore);
                 }
@@ -124,9 +128,13 @@ public class AStarPathfinding : MonoBehaviour
         int y = current.y - neighbor.y;
 
         if (Mathf.Abs(x - y) % 2 == 1)
+        {
             gScore = 10; // horizontal or vertical
+        }
         else
+        {
             gScore = 14; // cross direction
+        }
 
         return gScore;
     }
@@ -138,7 +146,23 @@ public class AStarPathfinding : MonoBehaviour
 
         if (_openList.Count > 0)
         {
-            Current = _openList.OrderBy(x => x.F).First(); // sort the list and find the node with lowest F value
+            SortByScore();
+            this.current = _openList.GetFirst(); // sort the list and find the node with lowest F value
+        }
+        
+        void SortByScore()
+        {
+            if (_openList.Count > 1)
+            {
+                sortedOpenList.Clear();
+                sortedOpenList.AddRange(_openList);
+                sortedOpenList.Sort((x, y) => x.F.CompareTo(y.F));
+                _openList.Clear();
+                foreach (Node node in sortedOpenList)
+                {
+                    _openList.Add(node);
+                }
+            }
         }
     }
 
@@ -164,16 +188,16 @@ public class AStarPathfinding : MonoBehaviour
         return DungeonManager.DungeonMap[first.x, first.y] == 1 && DungeonManager.DungeonMap[second.x, second.y] == 1;
     }
 
-    private Stack<Vector3Int> GeneratePath(Node current)
+    private Stack<Vector3Int> GeneratePath(Node currentNode)
     {
-        if (Current.Position == GoalPos)
+        if (current.Position == GoalPos)
         {
             Stack<Vector3Int> finalPath = new Stack<Vector3Int>();
 
-            while (current.Position != StartPos)
+            while (currentNode.Position != StartPos)
             {
-                finalPath.Push(current.Position);
-                current = current.Parent;
+                finalPath.Push(currentNode.Position);
+                currentNode = currentNode.Parent;
             }
 
             return finalPath;
