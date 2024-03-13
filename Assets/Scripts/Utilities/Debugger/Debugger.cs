@@ -32,7 +32,7 @@ namespace Utilities
 		/// </summary>
 		private static void Initialize()
 		{
-			debuggerSettings = Resources.Load<DebuggerSettings>("LSDebuggerSettings");
+			debuggerSettings = Resources.Load<DebuggerSettings>("DebuggerSettings");
 			isInitialized = true;
 		}
 
@@ -276,7 +276,7 @@ namespace Utilities
 			if (debuggerSettings == null || debuggerSettings.permissions == null)
 			{
 				Debug.LogError(
-					"LSDebugger hasn't been initialized. You need to call Initialize() function at the start of the application.");
+					"Debugger hasn't been initialized. You need to call Initialize() function at the start of the application.");
 				return false;
 			}
 			if (type == LogType.Info && priority < debuggerSettings.priority)
