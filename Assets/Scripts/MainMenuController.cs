@@ -1,5 +1,6 @@
-﻿using UnityEngine;
-using UnityEngine.SceneManagement;
+﻿using General;
+using UnityEngine;
+using Utilities;
 
 public class MainMenuController : MonoBehaviour
 {
@@ -16,7 +17,7 @@ public class MainMenuController : MonoBehaviour
 
     public void PlayGame()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        LoadingManager.instance.LoadScene(Constants.DUNGEON);
     }
 
     public void ExitGame()
