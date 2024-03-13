@@ -24,7 +24,7 @@ public class MenuController : MonoBehaviour
 
     public void ExitGame()
     {
-        Debugger.Log("Exiting...", color: Color.red);
+        Log.Debug("Exiting...", color: Color.red);
         Application.Quit();
     }
 

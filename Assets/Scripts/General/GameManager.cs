@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
         System.DateTime start = System.DateTime.Now;
         LoadDungeon();
         System.DateTime end = System.DateTime.Now;
-        Debugger.Log(("Dungeon Loading Time:", end.Subtract(start).Milliseconds, "ms"), color: Color.green);
+        Log.Debug(("Dungeon Loading Time:", end.Subtract(start).Milliseconds, "ms"), color: Color.green);
         Signals.Common.Signal.SetInputState?.Invoke(true);
     }
 

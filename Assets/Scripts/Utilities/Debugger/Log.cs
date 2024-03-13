@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Utilities
 {
-	public static class Debugger
+	public static class Log
 	{
 		public enum Platform
 		{
@@ -13,7 +13,7 @@ namespace Utilities
 			Count
 		}
 
-		public enum LogType
+		public enum Type
 		{
 			Info, Error, Warning,
 			Count
@@ -25,14 +25,14 @@ namespace Utilities
 		}
 
 		private static bool isInitialized;
-		private static DebuggerSettings debuggerSettings;
+		private static LogSettings logSettings;
 
 		/// <summary>
 		/// Reads and assigns the debugger settings from Resources folder.
 		/// </summary>
 		private static void Initialize()
 		{
-			debuggerSettings = Resources.Load<DebuggerSettings>("DebuggerSettings");
+			logSettings = Resources.Load<LogSettings>("LogSettings");
 			isInitialized = true;
 		}
 
@@ -43,13 +43,13 @@ namespace Utilities
 		{
 #if UNITY_EDITOR			
 			var assembly = Assembly.GetAssembly(typeof(UnityEditor.Editor));
-			Type type = assembly.GetType("UnityEditor.LogEntries");
+			System.Type type = assembly.GetType("UnityEditor.LogEntries");
 			MethodInfo method = type.GetMethod("Clear");
 			method?.Invoke(new object(), null);
 #endif			
 		}
 
-		#region Log Info Functions
+		#region Debug Functions
 		/// <summary>
 		/// Logs a message to the console with optional settings.
 		/// </summary>
@@ -60,201 +60,201 @@ namespace Utilities
 		/// <param name="size">Size of the message text. (Optional)</param>
 		/// <param name="priority">Priority of the log message. (Optional)</param>
 		/// <param name="pause">Pauses the editor after logging the message. (Optional)</param>
-		public static void Log(object message, GameObject obj = null, Color? color = null,
+		public static void Debug(object message, GameObject obj = null, Color? color = null,
 			TextFormat format = TextFormat.Classic, int size = 12, int priority = 0, bool pause = false)
 		{
-			Log((message, null, null, null, null, null, null), " ", obj, color, format, size, priority,
+			Debug((message, null, null, null, null, null, null), " ", obj, color, format, size, priority,
 				pause);
 		}
 
-		public static void Log(ValueTuple<object, object> messages, string separator = " ", GameObject obj = null,
+		public static void Debug(ValueTuple<object, object> messages, string separator = " ", GameObject obj = null,
 			Color? color = null, TextFormat format = TextFormat.Classic, int size = 12, int priority = 0,
 			bool pause = false)
 		{
-			Log((messages.Item1, messages.Item2, null, null, null, null, null),
+			Debug((messages.Item1, messages.Item2, null, null, null, null, null),
 				separator, obj, color, format, size, priority, pause);
 		}
 
-		public static void Log(ValueTuple<object, object, object> messages, string separator = " ",
+		public static void Debug(ValueTuple<object, object, object> messages, string separator = " ",
 			GameObject obj = null,
 			Color? color = null, TextFormat format = TextFormat.Classic, int size = 12, int priority = 0,
 			bool pause = false)
 		{
-			Log((messages.Item1, messages.Item2, messages.Item3, null, null, null, null),
+			Debug((messages.Item1, messages.Item2, messages.Item3, null, null, null, null),
 				separator, obj, color, format, size, priority, pause);
 		}
 
-		public static void Log(ValueTuple<object, object, object, object> messages, string separator = " ",
+		public static void Debug(ValueTuple<object, object, object, object> messages, string separator = " ",
 			GameObject obj = null,
 			Color? color = null, TextFormat format = TextFormat.Classic, int size = 12, int priority = 0,
 			bool pause = false)
 		{
-			Log((messages.Item1, messages.Item2, messages.Item3, messages.Item4, null, null, null),
+			Debug((messages.Item1, messages.Item2, messages.Item3, messages.Item4, null, null, null),
 				separator, obj, color, format, size, priority, pause);
 		}
 
-		public static void Log(ValueTuple<object, object, object, object, object> messages, string separator = " ",
+		public static void Debug(ValueTuple<object, object, object, object, object> messages, string separator = " ",
 			GameObject obj = null,
 			Color? color = null, TextFormat format = TextFormat.Classic, int size = 12, int priority = 0,
 			bool pause = false)
 		{
-			Log((messages.Item1, messages.Item2, messages.Item3, messages.Item4, messages.Item5, null, null),
+			Debug((messages.Item1, messages.Item2, messages.Item3, messages.Item4, messages.Item5, null, null),
 				separator, obj, color, format, size, priority, pause);
 		}
 
-		public static void Log(ValueTuple<object, object, object, object, object, object> messages,
+		public static void Debug(ValueTuple<object, object, object, object, object, object> messages,
 			string separator = " ", GameObject obj = null,
 			Color? color = null, TextFormat format = TextFormat.Classic, int size = 12, int priority = 0,
 			bool pause = false)
 		{
-			Log((messages.Item1, messages.Item2, messages.Item3, messages.Item4, messages.Item5,
+			Debug((messages.Item1, messages.Item2, messages.Item3, messages.Item4, messages.Item5,
 					messages.Item6, null),
 				separator, obj, color, format, size, priority, pause);
 		}
 
-		public static void Log(ValueTuple<object, object, object, object, object, object, object> messages,
+		public static void Debug(ValueTuple<object, object, object, object, object, object, object> messages,
 			string separator = " ", GameObject obj = null,
 			Color? color = null, TextFormat format = TextFormat.Classic, int size = 12, int priority = 0,
 			bool pause = false)
 		{
-			if (!CheckLogPermission(LogType.Info, priority))
+			if (!CheckLogPermission(Type.Info, priority))
 			{
 				return;
 			}
 
-			Debug.Log(BuildLogMessage(messages, separator, color, format, size), obj);
+			UnityEngine.Debug.Log(BuildLogMessage(messages, separator, color, format, size), obj);
 
 			if (pause)
 			{
-				Debug.Break();
+				UnityEngine.Debug.Break();
 			}
 		}
 		#endregion
 
-		#region Log Error Functions
+		#region Error Functions
 		/// <summary>
 		/// Logs an error message to the console with optional settings.
 		/// </summary>
 		/// <param name="message">Log message.</param>
 		/// <param name="obj">Related gameObject. (Optional)</param>
 		/// <param name="pause">Pauses the editor after logging the message. (Optional)</param>
-		public static void LogError(object message, GameObject obj = null, bool pause = false)
+		public static void Error(object message, GameObject obj = null, bool pause = false)
 		{
-			LogError((message, null, null, null, null, null, null), " ", obj, pause);
+			Error((message, null, null, null, null, null, null), " ", obj, pause);
 		}
 
-		public static void LogError(ValueTuple<object, object> messages, string separator = " ", GameObject obj = null, 
+		public static void Error(ValueTuple<object, object> messages, string separator = " ", GameObject obj = null, 
 			bool pause = false)
 		{
-			LogError((messages.Item1, messages.Item2, null, null, null, null, null),
+			Error((messages.Item1, messages.Item2, null, null, null, null, null),
 				separator, obj, pause);
 		}
 
-		public static void LogError(ValueTuple<object, object, object> messages, string separator = " ",
+		public static void Error(ValueTuple<object, object, object> messages, string separator = " ",
 			GameObject obj = null, bool pause = false)
 		{
-			LogError((messages.Item1, messages.Item2, messages.Item3, null, null, null, null),
+			Error((messages.Item1, messages.Item2, messages.Item3, null, null, null, null),
 				separator, obj, pause);
 		}
 
-		public static void LogError(ValueTuple<object, object, object, object> messages, string separator = " ",
+		public static void Error(ValueTuple<object, object, object, object> messages, string separator = " ",
 			GameObject obj = null, bool pause = false)
 		{
-			LogError((messages.Item1, messages.Item2, messages.Item3, messages.Item4, null, null, null),
+			Error((messages.Item1, messages.Item2, messages.Item3, messages.Item4, null, null, null),
 				separator, obj, pause);
 		}
 
-		public static void LogError(ValueTuple<object, object, object, object, object> messages, string separator = " ",
+		public static void Error(ValueTuple<object, object, object, object, object> messages, string separator = " ",
 			GameObject obj = null, bool pause = false)
 		{
-			LogError((messages.Item1, messages.Item2, messages.Item3, messages.Item4, messages.Item5, null, null),
+			Error((messages.Item1, messages.Item2, messages.Item3, messages.Item4, messages.Item5, null, null),
 				separator, obj, pause);
 		}
 
-		public static void LogError(ValueTuple<object, object, object, object, object, object> messages,
+		public static void Error(ValueTuple<object, object, object, object, object, object> messages,
 			string separator = " ", GameObject obj = null, bool pause = false)
 		{
-			LogError((messages.Item1, messages.Item2, messages.Item3, messages.Item4, messages.Item5,
+			Error((messages.Item1, messages.Item2, messages.Item3, messages.Item4, messages.Item5,
 					messages.Item6, null), separator, obj, pause);
 		}
 
-		public static void LogError(ValueTuple<object, object, object, object, object, object, object> messages,
+		public static void Error(ValueTuple<object, object, object, object, object, object, object> messages,
 			string separator = " ", GameObject obj = null, bool pause = false)
 		{
-			if (!CheckLogPermission(LogType.Error, 10))
+			if (!CheckLogPermission(Type.Error, 10))
 			{
 				return;
 			}
 
-			Debug.LogError(BuildLogMessage(messages, separator), obj);
+			UnityEngine.Debug.LogError(BuildLogMessage(messages, separator), obj);
 
 			if (pause)
 			{
-				Debug.Break();
+				UnityEngine.Debug.Break();
 			}
 		}
 		#endregion
 
-		#region Log Warning Functions
+		#region Warning Functions
 		/// <summary>
 		/// Logs a warning message to the console with optional settings.
 		/// </summary>
 		/// <param name="message">Log message.</param>
 		/// <param name="obj">Related gameObject. (Optional)</param>
 		/// <param name="pause">Pauses the editor after logging the message. (Optional)</param>
-		public static void LogWarning(object message, GameObject obj = null, bool pause = false)
+		public static void Warning(object message, GameObject obj = null, bool pause = false)
 		{
-			LogWarning((message, null, null, null, null, null, null), " ", obj, pause);
+			Warning((message, null, null, null, null, null, null), " ", obj, pause);
 		}
 
-		public static void LogWarning(ValueTuple<object, object> messages, string separator = " ",
+		public static void Warning(ValueTuple<object, object> messages, string separator = " ",
 			GameObject obj = null, bool pause = false)
 		{
-			LogWarning((messages.Item1, messages.Item2, null, null, null, null, null),
+			Warning((messages.Item1, messages.Item2, null, null, null, null, null),
 				separator, obj, pause);
 		}
 
-		public static void LogWarning(ValueTuple<object, object, object> messages, string separator = " ",
+		public static void Warning(ValueTuple<object, object, object> messages, string separator = " ",
 			GameObject obj = null, bool pause = false)
 		{
-			LogWarning((messages.Item1, messages.Item2, messages.Item3, null, null, null, null),
+			Warning((messages.Item1, messages.Item2, messages.Item3, null, null, null, null),
 				separator, obj, pause);
 		}
 
-		public static void LogWarning(ValueTuple<object, object, object, object> messages, string separator = " ",
+		public static void Warning(ValueTuple<object, object, object, object> messages, string separator = " ",
 			GameObject obj = null, bool pause = false)
 		{
-			LogWarning((messages.Item1, messages.Item2, messages.Item3, messages.Item4, null, null, null),
+			Warning((messages.Item1, messages.Item2, messages.Item3, messages.Item4, null, null, null),
 				separator, obj, pause);
 		}
 
-		public static void LogWarning(ValueTuple<object, object, object, object, object> messages,
+		public static void Warning(ValueTuple<object, object, object, object, object> messages,
 			string separator = " ", GameObject obj = null, bool pause = false)
 		{
-			LogWarning((messages.Item1, messages.Item2, messages.Item3, messages.Item4, messages.Item5, null, null),
+			Warning((messages.Item1, messages.Item2, messages.Item3, messages.Item4, messages.Item5, null, null),
 				separator, obj, pause);
 		}
 
-		public static void LogWarning(ValueTuple<object, object, object, object, object, object> messages,
+		public static void Warning(ValueTuple<object, object, object, object, object, object> messages,
 			string separator = " ", GameObject obj = null, bool pause = false)
 		{
-			LogWarning((messages.Item1, messages.Item2, messages.Item3, messages.Item4, messages.Item5,
+			Warning((messages.Item1, messages.Item2, messages.Item3, messages.Item4, messages.Item5,
 					messages.Item6, null), separator, obj, pause);
 		}
 
-		public static void LogWarning(ValueTuple<object, object, object, object, object, object, object> messages,
+		public static void Warning(ValueTuple<object, object, object, object, object, object, object> messages,
 			string separator = " ", GameObject obj = null, bool pause = false)
 		{
-			if (!CheckLogPermission(LogType.Warning, 10))
+			if (!CheckLogPermission(Type.Warning, 10))
 			{
 				return;
 			}
 
-			Debug.LogWarning(BuildLogMessage(messages, separator), obj);
+			UnityEngine.Debug.LogWarning(BuildLogMessage(messages, separator), obj);
 
 			if (pause)
 			{
-				Debug.Break();
+				UnityEngine.Debug.Break();
 			}
 		}
 		#endregion
@@ -266,20 +266,20 @@ namespace Utilities
 		/// <param name="type">Type of the log message.</param>
 		/// <param name="priority">Priority value of the message.</param>
 		/// <returns>Returns a boolean value by checking the given type and priority value.</returns>
-		private static bool CheckLogPermission(LogType type, int priority)
+		private static bool CheckLogPermission(Type type, int priority)
 		{
 #if DEBUG_MODE
 			return true;
 #endif
 			CheckDebuggerInitialized();
 			
-			if (debuggerSettings == null || debuggerSettings.permissions == null)
+			if (logSettings == null || logSettings.permissions == null)
 			{
-				Debug.LogError(
-					"Debugger hasn't been initialized. You need to call Initialize() function at the start of the application.");
+				UnityEngine.Debug.LogError(
+					"Logger hasn't been initialized. You need to call Initialize() function at the start of the application.");
 				return false;
 			}
-			if (type == LogType.Info && priority < debuggerSettings.priority)
+			if (type == Type.Info && priority < logSettings.priority)
 			{
 				return false;
 			}
@@ -294,7 +294,7 @@ namespace Utilities
 			int platformIndex = 3;
 #endif
 
-			return debuggerSettings.permissions[platformIndex * (int) LogType.Count + (int) type];
+			return logSettings.permissions[platformIndex * (int) Type.Count + (int) type];
 		}
 
 		/// <summary>

@@ -3,24 +3,24 @@ using UnityEditor;
 
 namespace Utilities
 {
-	[CustomEditor(typeof(DebuggerSettings))]
-	public class DebuggerSettingsEditor : Editor
+	[CustomEditor(typeof(LogSettings))]
+	public class LogSettingsEditor : Editor
 	{
-		private DebuggerSettings debuggerSettings;
+		private LogSettings logSettings;
 		private SerializedObject so;
 		private bool showAboutInfo;
 
 		private void OnEnable()
 		{
-			debuggerSettings = (DebuggerSettings)target;
-			so = new SerializedObject(debuggerSettings);
+			logSettings = (LogSettings)target;
+			so = new SerializedObject(logSettings);
 
-			debuggerSettings.permissions ??= new bool[(int)Debugger.Platform.Count * (int)Debugger.LogType.Count];
+			logSettings.permissions ??= new bool[(int)Log.Platform.Count * (int)Log.Type.Count];
 		}
 
 	    public override void OnInspectorGUI()
 	    {
-	        so = new SerializedObject(debuggerSettings);
+	        so = new SerializedObject(logSettings);
 		    
 			// Header
 			Rect headerRect = GUILayoutUtility.GetRect(300, 30, "TextField");
@@ -34,7 +34,7 @@ namespace Utilities
 			};
 
 			GUI.backgroundColor = Color.blue;
-			EditorGUI.DropShadowLabel(headerRect, "Debugger", headerStyle);
+			EditorGUI.DropShadowLabel(headerRect, "Logger", headerStyle);
 			GUI.backgroundColor = Color.white;
 
 			// Platform/Log Type Permissions
@@ -42,7 +42,7 @@ namespace Utilities
 
 			EditorGUI.BeginChangeCheck();
 			
-			for (int i = -1; i < (int)Debugger.Platform.Count; i++)
+			for (int i = -1; i < (int)Log.Platform.Count; i++)
 			{
 				EditorGUILayout.BeginVertical();
 				EditorGUILayout.BeginHorizontal();
@@ -62,10 +62,10 @@ namespace Utilities
 						}
 					};
 					var rect = GUILayoutUtility.GetRect(50, 18, "TextField");
-					EditorGUI.TextField(rect, ((Debugger.Platform)i).ToString(), style);
+					EditorGUI.TextField(rect, ((Log.Platform)i).ToString(), style);
 				}
 
-				for (int j = 0; j < (int)Debugger.LogType.Count; j++)
+				for (int j = 0; j < (int)Log.Type.Count; j++)
 				{
 					if (i == -1)
 					{
@@ -73,24 +73,24 @@ namespace Utilities
 							alignment = TextAnchor.UpperLeft
 						};
 
-						style.normal.textColor = (Debugger.LogType)j switch
+						style.normal.textColor = (Log.Type)j switch
 						{
-							Debugger.LogType.Info => Color.green,
-							Debugger.LogType.Error => Color.red,
-							Debugger.LogType.Warning => Color.yellow,
+							Log.Type.Info => Color.green,
+							Log.Type.Error => Color.red,
+							Log.Type.Warning => Color.yellow,
 							_ => style.normal.textColor
 						};
 
 						Rect rect = GUILayoutUtility.GetRect(18, 18, "TextField");
 						GUIUtility.RotateAroundPivot(-90, rect.position);
-						EditorGUI.TextField(rect, ((Debugger.LogType)j).ToString(), style);
+						EditorGUI.TextField(rect, ((Log.Type)j).ToString(), style);
 						GUIUtility.RotateAroundPivot(90, rect.position);
 					}
 					else
 					{
 						Rect rect = GUILayoutUtility.GetRect(18, 18, "Toggle");
-						debuggerSettings.permissions[i * (int)Debugger.LogType.Count + j] = EditorGUI.Toggle(rect,
-							debuggerSettings.permissions[i * (int)Debugger.LogType.Count + j]);
+						logSettings.permissions[i * (int)Log.Type.Count + j] = EditorGUI.Toggle(rect,
+							logSettings.permissions[i * (int)Log.Type.Count + j]);
 					}
 				}
 
@@ -99,21 +99,21 @@ namespace Utilities
 			}
 			
 			EditorGUILayout.Space(15);
-			debuggerSettings.priority = EditorGUILayout.IntSlider("Priority", debuggerSettings.priority, 0, 10);
+			logSettings.priority = EditorGUILayout.IntSlider("Priority", logSettings.priority, 0, 10);
 			
 			// About Info
 			EditorGUILayout.Space(15);
-			showAboutInfo = EditorGUILayout.Foldout(showAboutInfo, "About the debugger");
+			showAboutInfo = EditorGUILayout.Foldout(showAboutInfo, "About the logger");
 
 			if (showAboutInfo) 
 			{
-				EditorGUILayout.LabelField("Debugger Version: ", "1.0");
+				EditorGUILayout.LabelField("Logger Version: ", "1.0");
 				EditorGUILayout.LabelField("© 2021 Alexander, All Rights Reserved");
 			}
 
 			if (EditorGUI.EndChangeCheck()) 
 			{
-				EditorUtility.SetDirty(debuggerSettings);
+				EditorUtility.SetDirty(logSettings);
 				so.ApplyModifiedProperties();
 			}
 	    }

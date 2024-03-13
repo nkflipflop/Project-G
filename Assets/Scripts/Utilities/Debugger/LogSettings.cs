@@ -2,8 +2,8 @@
 
 namespace Utilities
 {
-	[CreateAssetMenu(fileName = "DebuggerSettings", menuName = "Utilities/Debugger Settings", order = 1)]
-	public class DebuggerSettings : ScriptableObject
+	[CreateAssetMenu(fileName = "LogSettings", menuName = "Utilities/Log Settings", order = 1)]
+	public class LogSettings : ScriptableObject
 	{
 		[HideInInspector] public bool[] permissions =
 		{
