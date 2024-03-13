@@ -2,32 +2,35 @@
 
 public class GameConfigData : MonoBehaviour
 {
-    private static GameConfigData _instance;
+    private static GameConfigData instance;
 
     public static GameConfigData Instance
     {
         get
         {
-            if (_instance == null)
+            if (instance == null)
             {
-                _instance = ((GameObject)Instantiate(Resources.Load("GameConfigData"))).GetComponent<GameConfigData>();
+                instance = ((GameObject)Instantiate(Resources.Load("GameConfigData"))).GetComponent<GameConfigData>();
             }
 
-            return _instance;
+            return instance;
         }
     }
 
-    [Header("Dungeon Variables")] public int DungeonPadding;
+    [Header("Dungeon Variables")]
+    public int DungeonPadding;
     public int DungeonRows, DungeonColumns;
     public int MinRoomSize, MaxRoomSize;
 
-    [Header("Dungeon Tiles")] public GameObject[] FloorTiles;
+    [Header("Dungeon Tiles")]
+    public GameObject[] FloorTiles;
     public GameObject[] BridgeTiles;
     public GameObject[] WaterTiles;
     public GameObject[] WallTiles;
     public GameObject ExitTile;
 
-    [Header("Dungeon Objects")] public GameObject[] LampObjects;
+    [Header("Dungeon Objects")]
+    public GameObject[] LampObjects;
     public GameObject[] Traps;
     public GameObject Key;
     public GameObject[] Weapons; // weapons that can be used by the player

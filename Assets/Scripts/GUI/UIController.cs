@@ -157,7 +157,7 @@ public class UIController : MonoBehaviour
     public async UniTaskVoid ActivateGameOverScreen()
     {
         await UniTask.Delay(TimeSpan.FromSeconds(1f), cancellationToken: this.GetCancellationTokenOnDestroy());
-        GameManager.GameCamera.GetComponent<AudioListener>().enabled = true;
+        GameManager.cam.GetComponent<AudioListener>().enabled = true;
         GameOverUI.SetActive(true);
     }
 }

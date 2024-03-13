@@ -3,12 +3,12 @@
 /// <summary>Manages data for persistance between levels.</summary>
 public class DataManager : Singleton<DataManager>
 {
-    [SerializeField] private int _dungeonLevel = 0;
+    [SerializeField] private int dungeonLevel;
 
     public int DungeonLevel
     {
-        get => _dungeonLevel;
-        set => _dungeonLevel = value;
+        get => dungeonLevel;
+        set => dungeonLevel = value;
     }
 
     [field: SerializeField] public int Health { get; set; } = 100;

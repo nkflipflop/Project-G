@@ -3,14 +3,14 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public Camera GameCamera;
-    public DungeonManager DungeonManager;
-    public PlayerManager PlayerManager;
-    public UIController UIController;
+    public Camera cam;
+    [SerializeField] private DungeonManager dungeonManager;
+    [SerializeField] private PlayerManager playerManager;
+    [SerializeField] private UIController uiController;
 
-    private int _dungeonLevel = 0;
-    private bool _isGameOver = false;
-    public int DungeonLevel => _dungeonLevel;
+    private int dungeonLevel;
+    private bool isGameOver;
+    public int DungeonLevel => dungeonLevel;
 
     private void Start()
     {
@@ -24,17 +24,17 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (!_isGameOver)
+        if (!isGameOver)
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                UIController.TogglePause();
+                uiController.TogglePause();
             }
 
-            if (PlayerManager.HealthController.IsDead)
+            if (playerManager.HealthController.IsDead)
             {
-                _isGameOver = true;
-                UIController.ActivateGameOverScreen();
+                isGameOver = true;
+                uiController.ActivateGameOverScreen();
             }
         }
     }
@@ -48,22 +48,22 @@ public class GameManager : MonoBehaviour
 
     private void LoadDungeon()
     {
-        DungeonManager.CreateDungeon(this);
-        DungeonManager.SpawnEverything(_dungeonLevel);
+        dungeonManager.CreateDungeon(this);
+        dungeonManager.SpawnEverything(dungeonLevel);
     }
 
     /// <summary> Gets the level data from DataManager and makes the assignments </summary>
     private void LoadLevelData()
     {
-        _dungeonLevel = DataManager.instance.DungeonLevel;
-        PlayerManager.LoadPlayerData(); // loading player's data
+        dungeonLevel = DataManager.instance.DungeonLevel;
+        playerManager.LoadPlayerData(); // loading player's data
     }
 
     /// <summary> Gets the level data and saves it in DataManager at the end of the level </summary>
     private void SaveLevelData()
     {
         DataManager.instance.DungeonLevel++;
-        PlayerManager.SavePlayerData();
+        playerManager.SavePlayerData();
     }
 
     /// <summary> Resets everything in DataManager </summary>

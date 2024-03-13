@@ -34,30 +34,29 @@ public class DungeonManager : MonoBehaviour
     {
         public SpawnData(int max, int current)
         {
-            this.Max = max;
-            this.Current = current;
+            Max = max;
+            Current = current;
         }
 
         public int Max { get; }
-
         public int Current { get; set; }
     }
 
-    private GameManager _gameManager;
-    public PlayerManager Player;
-    public GameObject Dungeon;
-    public GameObject[] Enemies;
-    private GameObject[,] _dungeonFloorPositions;
-    private int[,] _objectSpawnPos;
-    private int[,] _enemyIndexes;
-    private ExitController _exitDoor;
-    List<Vector2Int> _bridgeTilesPos;
-    private SpawnData _enemySpawnData = new SpawnData(25, 0);
-    private SpawnData _trapSpawnData = new SpawnData(12, 0);
-    private Vector3 _playerSpawnPos;
-    private Vector3 _randomPos;
-    private SubDungeon _rootSubDungeon;
-    private Vector3 _invalidPos = new Vector3(0, 0, 1);
+    private GameManager gameManager;
+    [SerializeField] private PlayerManager player;
+    [SerializeField] private GameObject dungeon;
+    [SerializeField] private GameObject[] enemies;
+    private GameObject[,] dungeonFloorPositions;
+    private int[,] objectSpawnPos;
+    private int[,] enemyIndexes;
+    private ExitController exitDoor;
+    private List<Vector2Int> bridgeTilesPos;
+    private SpawnData enemySpawnData = new(25, 0);
+    private SpawnData trapSpawnData = new(12, 0);
+    private Vector3 playerSpawnPos;
+    private Vector3 randomPos;
+    private SubDungeon rootSubDungeon;
+    private readonly Vector3 invalidPos = new(0, 0, 1);
 
     public int[,] DungeonMap { get; private set; }
 
@@ -66,10 +65,10 @@ public class DungeonManager : MonoBehaviour
     {
         public SubDungeon left, right;
         public Rect rect;
-        public Rect room = new Rect(-1, -1, 0, 0); // null
-        public Rect removedPiece = new Rect(-1, -1, 0, 0); // null
-        public List<Rect> corridors = new List<Rect>();
-        public List<Rect> bridges = new List<Rect>();
+        public Rect room = new(-1, -1, 0, 0); // null
+        public Rect removedPiece = new(-1, -1, 0, 0); // null
+        public List<Rect> corridors = new();
+        public List<Rect> bridges = new();
         public int debugId;
         public bool hasTurret;
 
@@ -309,9 +308,9 @@ public class DungeonManager : MonoBehaviour
 
     private void Update()
     {
-        if (Player.HasKey && !_exitDoor.IsDoorOpen)
+        if (player.HasKey && !exitDoor.IsDoorOpen)
         {
-            _exitDoor.OpenTheDoor();
+            exitDoor.OpenTheDoor();
         }
     }
 
@@ -357,9 +356,9 @@ public class DungeonManager : MonoBehaviour
                                 GameConfigData.Instance.FloorTiles[
                                     (int)Random.Range(0, GameConfigData.Instance.FloorTiles.Length)],
                                 new Vector3(i, j, 0f), Quaternion.identity) as GameObject;
-                        instance.transform.SetParent(Dungeon.transform.GetChild((int)Tiles.Floors).gameObject
+                        instance.transform.SetParent(dungeon.transform.GetChild((int)Tiles.Floors).gameObject
                             .transform);
-                        _dungeonFloorPositions[i, j] = instance;
+                        dungeonFloorPositions[i, j] = instance;
                         DungeonMap[i, j] = 1;
                     }
                 }
@@ -386,16 +385,16 @@ public class DungeonManager : MonoBehaviour
             {
                 for (int j = (int)corridor.y; j < corridor.yMax; j++)
                 {
-                    if (_dungeonFloorPositions[i, j] == null)
+                    if (dungeonFloorPositions[i, j] == null)
                     {
                         GameObject instance =
                             Instantiate(
                                 GameConfigData.Instance.FloorTiles[
                                     (int)Random.Range(0, GameConfigData.Instance.FloorTiles.Length)],
                                 new Vector3(i, j, 0f), Quaternion.identity) as GameObject;
-                        instance.transform.SetParent(Dungeon.transform.GetChild((int)Tiles.Corridors).gameObject
+                        instance.transform.SetParent(dungeon.transform.GetChild((int)Tiles.Corridors).gameObject
                             .transform);
-                        _dungeonFloorPositions[i, j] = instance;
+                        dungeonFloorPositions[i, j] = instance;
                         DungeonMap[i, j] = 1;
                     }
                 }
@@ -419,9 +418,9 @@ public class DungeonManager : MonoBehaviour
             {
                 for (int j = (int)bridge.y; j < bridge.yMax; j++)
                 {
-                    if (_dungeonFloorPositions[i, j] == null)
+                    if (dungeonFloorPositions[i, j] == null)
                     {
-                        _bridgeTilesPos.Add(new Vector2Int(i, j));
+                        bridgeTilesPos.Add(new Vector2Int(i, j));
                         DungeonMap[i, j] = -1;
                     }
                 }
@@ -433,7 +432,7 @@ public class DungeonManager : MonoBehaviour
     {
         int[,] kernelMatrix = { { 0, 1, 0 }, { 8, 0, 2 }, { 0, 4, 0 } };
 
-        foreach (var bridgePos in _bridgeTilesPos)
+        foreach (var bridgePos in bridgeTilesPos)
         {
             int index = 0;
             for (int j = 1; j >= -1; j--)
@@ -444,12 +443,12 @@ public class DungeonManager : MonoBehaviour
                 }
             }
 
-            if (_dungeonFloorPositions[bridgePos.x, bridgePos.y] == null)
+            if (dungeonFloorPositions[bridgePos.x, bridgePos.y] == null)
             {
                 GameObject instance = Instantiate(GameConfigData.Instance.BridgeTiles[index],
                     new Vector3(bridgePos.x, bridgePos.y, 0f), Quaternion.identity) as GameObject;
-                instance.transform.SetParent(Dungeon.transform.GetChild((int)Tiles.Bridges).gameObject.transform);
-                _dungeonFloorPositions[bridgePos.x, bridgePos.y] = instance;
+                instance.transform.SetParent(dungeon.transform.GetChild((int)Tiles.Bridges).gameObject.transform);
+                dungeonFloorPositions[bridgePos.x, bridgePos.y] = instance;
             }
         }
     }
@@ -479,12 +478,12 @@ public class DungeonManager : MonoBehaviour
 
                 GameObject instance = null;
                 int wallPosX = i + 1, wallPosY = j + 1;
-                if (_dungeonFloorPositions[wallPosX, wallPosY] == null && DungeonMap[wallPosX, wallPosY] == 0)
+                if (dungeonFloorPositions[wallPosX, wallPosY] == null && DungeonMap[wallPosX, wallPosY] == 0)
                 {
                     instance = Instantiate(GameConfigData.Instance.WallTiles[index],
                         new Vector3(wallPosX, wallPosY, 0f), Quaternion.identity) as GameObject;
-                    instance.transform.SetParent(Dungeon.transform.GetChild((int)Tiles.Walls).gameObject.transform);
-                    _dungeonFloorPositions[wallPosX, wallPosY] = instance;
+                    instance.transform.SetParent(dungeon.transform.GetChild((int)Tiles.Walls).gameObject.transform);
+                    dungeonFloorPositions[wallPosX, wallPosY] = instance;
 
                     if (index != 0)
                     {
@@ -493,7 +492,7 @@ public class DungeonManager : MonoBehaviour
                             GameConfigData.Instance.FloorTiles[
                                 (int)Random.Range(0, GameConfigData.Instance.FloorTiles.Length)],
                             new Vector3(wallPosX, wallPosY, 0f), Quaternion.identity) as GameObject;
-                        instance.transform.SetParent(Dungeon.transform.GetChild((int)Tiles.Floors).gameObject
+                        instance.transform.SetParent(dungeon.transform.GetChild((int)Tiles.Floors).gameObject
                             .transform);
                     }
                 }
@@ -503,14 +502,14 @@ public class DungeonManager : MonoBehaviour
 
     private void DrawWaters()
     {
-        _bridgeTilesPos = _bridgeTilesPos.OrderByDescending(pos => pos.y).ToList();
-        foreach (var bridgePos in _bridgeTilesPos)
+        bridgeTilesPos = bridgeTilesPos.OrderByDescending(pos => pos.y).ToList();
+        foreach (var bridgePos in bridgeTilesPos)
         {
             for (int j = 1; j >= -1; j--)
             {
                 for (int i = -1; i <= 1; i++)
                 {
-                    if (_dungeonFloorPositions[bridgePos.x + i, bridgePos.y + j] == null || (i == 0 && j == 0))
+                    if (dungeonFloorPositions[bridgePos.x + i, bridgePos.y + j] == null || (i == 0 && j == 0))
                     {
                         GameObject instance;
                         if (DungeonMap[bridgePos.x + i, bridgePos.y + j + 1] != -1)
@@ -519,18 +518,18 @@ public class DungeonManager : MonoBehaviour
                         else
                             instance = Instantiate(GameConfigData.Instance.WaterTiles[1],
                                 new Vector3(bridgePos.x + i, bridgePos.y + j, 0f), Quaternion.identity) as GameObject;
-                        instance.transform.SetParent(Dungeon.transform.GetChild((int)Tiles.Waters).gameObject
+                        instance.transform.SetParent(dungeon.transform.GetChild((int)Tiles.Waters).gameObject
                             .transform);
                         if (i == 0 && j == 0)
                             instance.gameObject.GetComponent<BoxCollider2D>().enabled = false;
-                        _dungeonFloorPositions[bridgePos.x + i, bridgePos.y + j] = instance;
+                        dungeonFloorPositions[bridgePos.x + i, bridgePos.y + j] = instance;
                         DungeonMap[bridgePos.x + i, bridgePos.y + j] = -1;
                     }
                 }
             }
         }
 
-        foreach (var bridgePos in _bridgeTilesPos)
+        foreach (var bridgePos in bridgeTilesPos)
         {
             DungeonMap[bridgePos.x, bridgePos.y] = 1;
         }
@@ -563,7 +562,7 @@ public class DungeonManager : MonoBehaviour
                 {
                     GameObject lamp = Instantiate(GameConfigData.Instance.LampObjects[(int)LampObjectsTypes.Lamp],
                         new Vector3(i + 1, j + 1, 0f), Quaternion.identity) as GameObject;
-                    lamp.transform.SetParent(Dungeon.transform.GetChild((int)Objects.Lamps).gameObject.transform);
+                    lamp.transform.SetParent(dungeon.transform.GetChild((int)Objects.Lamps).gameObject.transform);
 
                     for (int l = 0; l < matrixSize; l++)
                     {
@@ -580,31 +579,31 @@ public class DungeonManager : MonoBehaviour
     public void CreateDungeon(GameManager gameManager)
     {
         //Debug.Log("Creating dungeon...");
-        _gameManager = gameManager; // assigning Game Manager
-        _rootSubDungeon = new SubDungeon(new Rect(GameConfigData.Instance.DungeonPadding,
+        this.gameManager = gameManager; // assigning Game Manager
+        rootSubDungeon = new SubDungeon(new Rect(GameConfigData.Instance.DungeonPadding,
             GameConfigData.Instance.DungeonPadding, GameConfigData.Instance.DungeonRows,
             GameConfigData.Instance.DungeonColumns));
-        CreateBSP(_rootSubDungeon);
-        _rootSubDungeon.CreateRoom();
+        CreateBSP(rootSubDungeon);
+        rootSubDungeon.CreateRoom();
 
-        _dungeonFloorPositions =
+        dungeonFloorPositions =
             new GameObject[GameConfigData.Instance.DungeonRows + (2 * GameConfigData.Instance.DungeonPadding),
                 GameConfigData.Instance.DungeonColumns + (2 * GameConfigData.Instance.DungeonPadding)];
         DungeonMap = new int[GameConfigData.Instance.DungeonRows + (2 * GameConfigData.Instance.DungeonPadding),
             GameConfigData.Instance.DungeonColumns + (2 * GameConfigData.Instance.DungeonPadding)];
-        _objectSpawnPos = new int[GameConfigData.Instance.DungeonRows + (2 * GameConfigData.Instance.DungeonPadding),
+        objectSpawnPos = new int[GameConfigData.Instance.DungeonRows + (2 * GameConfigData.Instance.DungeonPadding),
             GameConfigData.Instance.DungeonColumns + (2 * GameConfigData.Instance.DungeonPadding)];
-        _bridgeTilesPos = new List<Vector2Int>();
+        bridgeTilesPos = new List<Vector2Int>();
 
-        DrawRooms(_rootSubDungeon);
-        DrawCorridors(_rootSubDungeon);
-        DetermineBridges(_rootSubDungeon);
+        DrawRooms(rootSubDungeon);
+        DrawCorridors(rootSubDungeon);
+        DetermineBridges(rootSubDungeon);
         DrawBridges();
         DrawWaters();
-        _bridgeTilesPos.Clear(); // deleting the list since it completes its purpose
+        bridgeTilesPos.Clear(); // deleting the list since it completes its purpose
         DrawWalls();
         PlaceLamps(DungeonMap);
-        _enemyIndexes = new int[,]
+        enemyIndexes = new int[,]
         {
             { 0, 1 }, { 0, 2 }, { 1, 2 }, { 0, 3 }, { 1, 3 }, { 1, 4 }, { 1, 5 }
         }; // start and end indexes of Enemies array accorcding to the dungeon level
@@ -618,29 +617,29 @@ public class DungeonManager : MonoBehaviour
         RandomTrapSpawner(dungeonLevel);
         RandomChestSpawner(dungeonLevel);
 
-        _objectSpawnPos = null; // after the spawning everything, set it to null
+        objectSpawnPos = null; // after the spawning everything, set it to null
     }
 
     private void PlayerSpawner()
     {
         //Debug.Log("Spawning player...");
-        GetRandomPos(_rootSubDungeon); // getting random position in the dungeon for the player
-        Player.transform.position = _randomPos;
-        _playerSpawnPos = _randomPos;
-        _objectSpawnPos[(int)_randomPos.x, (int)_randomPos.y] = 1;
+        GetRandomPos(rootSubDungeon); // getting random position in the dungeon for the player
+        player.transform.position = randomPos;
+        playerSpawnPos = randomPos;
+        objectSpawnPos[(int)randomPos.x, (int)randomPos.y] = 1;
 
-        GetRandomPos(_rootSubDungeon); // getting random position in the dungeon for the exit
-        _exitDoor = Instantiate(GameConfigData.Instance.ExitTile, new Vector3(_randomPos.x, _randomPos.y, 0f),
+        GetRandomPos(rootSubDungeon); // getting random position in the dungeon for the exit
+        exitDoor = Instantiate(GameConfigData.Instance.ExitTile, new Vector3(randomPos.x, randomPos.y, 0f),
             Quaternion.identity).GetComponent<ExitController>();
-        _exitDoor.transform.SetParent(Dungeon.transform);
-        _exitDoor.GameManager = _gameManager;
-        _objectSpawnPos[(int)_randomPos.x, (int)_randomPos.y] = 1;
+        exitDoor.transform.SetParent(dungeon.transform);
+        exitDoor.GameManager = gameManager;
+        objectSpawnPos[(int)randomPos.x, (int)randomPos.y] = 1;
 
-        GetRandomPos(_rootSubDungeon); // getting random position in the dungeon for the object
-        GameObject key = Instantiate(GameConfigData.Instance.Key, new Vector3(_randomPos.x, _randomPos.y, 0f),
+        GetRandomPos(rootSubDungeon); // getting random position in the dungeon for the object
+        GameObject key = Instantiate(GameConfigData.Instance.Key, new Vector3(randomPos.x, randomPos.y, 0f),
             Quaternion.identity) as GameObject;
-        key.transform.SetParent(Dungeon.transform);
-        _objectSpawnPos[(int)_randomPos.x, (int)_randomPos.y] = 1;
+        key.transform.SetParent(dungeon.transform);
+        objectSpawnPos[(int)randomPos.x, (int)randomPos.y] = 1;
         //Debug.Log("Player spawn ended.");
     }
 
@@ -650,21 +649,21 @@ public class DungeonManager : MonoBehaviour
         // spawning barrels
         for (int i = 0; i < 3; i++)
         {
-            GetRandomPos(_rootSubDungeon); // getting random position in the dungeon
+            GetRandomPos(rootSubDungeon); // getting random position in the dungeon
             GameObject barrel = Instantiate(GameConfigData.Instance.ItemChests[0],
-                new Vector3(_randomPos.x, _randomPos.y, 0f), Quaternion.identity) as GameObject;
-            barrel.transform.SetParent(Dungeon.transform.GetChild((int)Objects.Chests).gameObject.transform);
-            _objectSpawnPos[(int)_randomPos.x, (int)_randomPos.y] = 1;
+                new Vector3(randomPos.x, randomPos.y, 0f), Quaternion.identity) as GameObject;
+            barrel.transform.SetParent(dungeon.transform.GetChild((int)Objects.Chests).gameObject.transform);
+            objectSpawnPos[(int)randomPos.x, (int)randomPos.y] = 1;
         }
 
         //spawning weapon chests if the level is the multiple of 2
         if (dungeonLevel % 2 == 1)
         {
-            GetRandomPos(_rootSubDungeon); // getting random position in the dungeon
+            GetRandomPos(rootSubDungeon); // getting random position in the dungeon
             GameObject weaponChest = Instantiate(GameConfigData.Instance.ItemChests[1],
-                new Vector3(_randomPos.x, _randomPos.y, 0f), Quaternion.identity) as GameObject;
-            weaponChest.transform.SetParent(Dungeon.transform.GetChild((int)Objects.Chests).gameObject.transform);
-            _objectSpawnPos[(int)_randomPos.x, (int)_randomPos.y] = 1;
+                new Vector3(randomPos.x, randomPos.y, 0f), Quaternion.identity) as GameObject;
+            weaponChest.transform.SetParent(dungeon.transform.GetChild((int)Objects.Chests).gameObject.transform);
+            objectSpawnPos[(int)randomPos.x, (int)randomPos.y] = 1;
         }
         //Debug.Log("Chest spawn ended.");
     }
@@ -672,9 +671,9 @@ public class DungeonManager : MonoBehaviour
     private void RandomEnemySpawner(int dungeonLevel)
     {
         //Debug.Log("Spawning enemies...");
-        SpawnEnemies(_rootSubDungeon, dungeonLevel);
+        SpawnEnemies(rootSubDungeon, dungeonLevel);
         // after creating copies, disable the original ones
-        foreach (var enemy in Enemies)
+        foreach (var enemy in enemies)
         {
             enemy.SetActive(false);
         }
@@ -688,35 +687,35 @@ public class DungeonManager : MonoBehaviour
 
         if (subDungeon.IAmLeaf())
         {
-            if (_enemySpawnData.Current <= _enemySpawnData.Max)
+            if (enemySpawnData.Current <= enemySpawnData.Max)
             {
                 int minEnemyNumber = (int)((subDungeon.room.width * subDungeon.room.height) / 8);
                 int enemyNumberForThisRoom = Random.Range(minEnemyNumber, minEnemyNumber + 1);
                 for (int i = 0; i < enemyNumberForThisRoom; i++)
                 {
-                    _randomPos = GetRandomPosInRoom(subDungeon.room);
+                    randomPos = GetRandomPosInRoom(subDungeon.room);
                     // if the randomPos != invalidPos, then spawn the object
-                    if (Vector3.Distance(_randomPos, _invalidPos) != 0)
+                    if (Vector3.Distance(randomPos, invalidPos) != 0)
                     {
                         int enemyIndex = 0;
                         do
                         {
                             // make sure that there is only one turret in a room
                             int enemyIndexRangeMin =
-                                (dungeonLevel < 7) ? _enemyIndexes[dungeonLevel, 0] : _enemyIndexes[6, 0];
+                                (dungeonLevel < 7) ? enemyIndexes[dungeonLevel, 0] : enemyIndexes[6, 0];
                             int enemyIndexRangeMax =
-                                (dungeonLevel < 7) ? _enemyIndexes[dungeonLevel, 1] : _enemyIndexes[6, 1];
+                                (dungeonLevel < 7) ? enemyIndexes[dungeonLevel, 1] : enemyIndexes[6, 1];
                             enemyIndex = (int)Random.Range(enemyIndexRangeMin, enemyIndexRangeMax + 1);
                         } while
                             (subDungeon.hasTurret &&
                              enemyIndex == 2); // check if the room has a turret and new enemy is turret
 
                         GameObject instance =
-                            Instantiate(Enemies[enemyIndex], _randomPos, Quaternion.identity) as GameObject;
-                        instance.transform.SetParent(Dungeon.transform.GetChild((int)Objects.Enemies).gameObject
+                            Instantiate(enemies[enemyIndex], randomPos, Quaternion.identity) as GameObject;
+                        instance.transform.SetParent(dungeon.transform.GetChild((int)Objects.Enemies).gameObject
                             .transform);
-                        _enemySpawnData.Current++;
-                        _objectSpawnPos[(int)_randomPos.x, (int)_randomPos.y] = 1;
+                        enemySpawnData.Current++;
+                        objectSpawnPos[(int)randomPos.x, (int)randomPos.y] = 1;
                         if (enemyIndex == 2)
                             subDungeon.hasTurret = true;
                     }
@@ -733,7 +732,7 @@ public class DungeonManager : MonoBehaviour
     private void RandomTrapSpawner(int dungeonLevel)
     {
         //Debug.Log("Spawning traps...");
-        SpawnTraps(_rootSubDungeon, dungeonLevel);
+        SpawnTraps(rootSubDungeon, dungeonLevel);
         //Debug.Log("Trap spawn ended.");
     }
 
@@ -744,24 +743,24 @@ public class DungeonManager : MonoBehaviour
 
         if (subDungeon.IAmLeaf())
         {
-            if (_trapSpawnData.Current <= _trapSpawnData.Max)
+            if (trapSpawnData.Current <= trapSpawnData.Max)
             {
                 int minTrapNumber = (int)((subDungeon.room.width * subDungeon.room.height) / 12);
                 int trapNumberForThisRoom = Random.Range(minTrapNumber, minTrapNumber + 1);
                 for (int i = 0; i < trapNumberForThisRoom; i++)
                 {
-                    _randomPos = GetRandomPosInRoom(subDungeon.room);
+                    randomPos = GetRandomPosInRoom(subDungeon.room);
                     // if the randomPos != invalidPos, then spawn the object
-                    if (Vector3.Distance(_randomPos, _invalidPos) != 0)
+                    if (Vector3.Distance(randomPos, invalidPos) != 0)
                     {
                         int trapIndex = Random.Range(0, 2);
 
-                        GameObject instance = Instantiate(GameConfigData.Instance.Traps[trapIndex], _randomPos,
+                        GameObject instance = Instantiate(GameConfigData.Instance.Traps[trapIndex], randomPos,
                             Quaternion.identity) as GameObject;
                         instance.transform.SetParent(
-                            Dungeon.transform.GetChild((int)Objects.Traps).gameObject.transform);
-                        _trapSpawnData.Current++;
-                        _objectSpawnPos[(int)_randomPos.x, (int)_randomPos.y] = 1;
+                            dungeon.transform.GetChild((int)Objects.Traps).gameObject.transform);
+                        trapSpawnData.Current++;
+                        objectSpawnPos[(int)randomPos.x, (int)randomPos.y] = 1;
                     }
                 }
             }
@@ -790,10 +789,10 @@ public class DungeonManager : MonoBehaviour
                 randPosX = Random.Range((int)subDungeon.room.x, (int)subDungeon.room.xMax);
                 randPosY = Random.Range((int)subDungeon.room.y, (int)subDungeon.room.yMax);
                 findingPosAttempt++;
-            } while ((DungeonMap[randPosX, randPosY] != 1 || _objectSpawnPos[randPosX, randPosY] == 1) &&
+            } while ((DungeonMap[randPosX, randPosY] != 1 || objectSpawnPos[randPosX, randPosY] == 1) &&
                      findingPosAttempt <= maxAttemptLimit);
 
-            _randomPos = new Vector3(randPosX, randPosY, 0);
+            randomPos = new Vector3(randPosX, randPosY, 0);
         }
         else
         {
@@ -810,10 +809,10 @@ public class DungeonManager : MonoBehaviour
             randPosX = Random.Range((int)room.x, (int)room.xMax);
             randPosY = Random.Range((int)room.y, (int)room.yMax);
             findingPosAttempt++;
-        } while ((DungeonMap[randPosX, randPosY] != 1 || _objectSpawnPos[randPosX, randPosY] == 1) &&
+        } while ((DungeonMap[randPosX, randPosY] != 1 || objectSpawnPos[randPosX, randPosY] == 1) &&
                  findingPosAttempt <= maxAttemptLimit);
 
         if (findingPosAttempt > maxAttemptLimit) Debug.Log("Could not find a pos in the room.");
-        return (findingPosAttempt <= maxAttemptLimit) ? new Vector3(randPosX, randPosY, 0) : _invalidPos;
+        return (findingPosAttempt <= maxAttemptLimit) ? new Vector3(randPosX, randPosY, 0) : invalidPos;
     }
 }

@@ -21,15 +21,15 @@ public static class SoundManager
         MetalHit
     }
 
-    private static Dictionary<Sound, float> _soundTimerDictionary;
-    private static GameObject _oneShotGameObject;
-    private static AudioSource _oneShotAudioSource;
-    private static float _pitch = 1f;
-    private static float _randomPitch = 1f;
+    private static Dictionary<Sound, float> soundTimerDictionary;
+    private static GameObject oneShotGameObject;
+    private static AudioSource oneShotAudioSource;
+    private static float pitch = 1f;
+    private static float randomPitch = 1f;
 
     public static void Initialize()
     {
-        _soundTimerDictionary = new Dictionary<Sound, float>
+        soundTimerDictionary = new Dictionary<Sound, float>
         {
             [Sound.PlayerMove] = 0f,
             [Sound.NoBullet] = 0f
@@ -41,16 +41,16 @@ public static class SoundManager
     {
         if (CanPlaySound(sound))
         {
-            if (_oneShotGameObject == null)
+            if (oneShotGameObject == null)
             {
-                _oneShotGameObject = new GameObject("One Shot Sound");
-                _oneShotAudioSource = _oneShotGameObject.AddComponent<AudioSource>();
+                oneShotGameObject = new GameObject("One Shot Sound");
+                oneShotAudioSource = oneShotGameObject.AddComponent<AudioSource>();
             }
 
             float volume = GameConfigData.Instance.Sounds[(int)sound].volume;
             float randomVolume = volume;
-            _oneShotAudioSource.volume = volume * (1 + Random.Range(-randomVolume / 3f, randomVolume / 3f));
-            _oneShotAudioSource.PlayOneShot(GameConfigData.Instance.Sounds[(int)sound].audioClip);
+            oneShotAudioSource.volume = volume * (1 + Random.Range(-randomVolume / 3f, randomVolume / 3f));
+            oneShotAudioSource.PlayOneShot(GameConfigData.Instance.Sounds[(int)sound].audioClip);
         }
     }
 
@@ -78,7 +78,7 @@ public static class SoundManager
 
     private static bool CanPlaySound(Sound sound)
     {
-        if (_soundTimerDictionary.ContainsKey(sound))
+        if (soundTimerDictionary.ContainsKey(sound))
         {
             return CheckLastTimePlayed(sound, GameConfigData.Instance.Sounds[(int)sound].audioClip.length);
         }
@@ -87,10 +87,10 @@ public static class SoundManager
 
     private static bool CheckLastTimePlayed(Sound sound, float timerMax)
     {
-        float lastTimePlayed = _soundTimerDictionary[sound];
+        float lastTimePlayed = soundTimerDictionary[sound];
         if (lastTimePlayed + timerMax < Time.time)
         {
-            _soundTimerDictionary[sound] = Time.time;
+            soundTimerDictionary[sound] = Time.time;
             return true;
         }
         return false;
@@ -108,6 +108,6 @@ public static class SoundManager
         float volume = GameConfigData.Instance.Sounds[(int)sound].volume;
         float randomVolume = volume;
         audioSource.volume = volume * (1 + Random.Range(-randomVolume / 3f, randomVolume / 3f));
-        audioSource.pitch = _pitch * (1 + Random.Range(-_randomPitch / 3f, _randomPitch / 3f));
+        audioSource.pitch = pitch * (1 + Random.Range(-randomPitch / 3f, randomPitch / 3f));
     }
 }
