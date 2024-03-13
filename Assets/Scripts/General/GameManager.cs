@@ -17,10 +17,10 @@ public class GameManager : MonoBehaviour
     {
         SoundManager.Initialize();
         LoadLevelData();
-        // System.DateTime start = System.DateTime.Now;
+        System.DateTime start = System.DateTime.Now;
         LoadDungeon();
-        // System.DateTime end = System.DateTime.Now;
-        // Debug.Log("Dungeon Loading Time: " + end.Subtract(start).Milliseconds + "ms");
+        System.DateTime end = System.DateTime.Now;
+        Debugger.Log(("Dungeon Loading Time:", end.Subtract(start).Milliseconds, "ms"), color: Color.green);
         Signals.Common.Signal.SetInputState?.Invoke(true);
     }
 

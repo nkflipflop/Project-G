@@ -88,7 +88,6 @@ namespace Utilities
 					}
 					else
 					{
-						Debug.LogError(i * (int)Debugger.LogType.Count + j);
 						Rect rect = GUILayoutUtility.GetRect(18, 18, "Toggle");
 						debuggerSettings.permissions[i * (int)Debugger.LogType.Count + j] = EditorGUI.Toggle(rect,
 							debuggerSettings.permissions[i * (int)Debugger.LogType.Count + j]);

@@ -2,7 +2,7 @@
 using UnityEngine;
 using Utilities;
 
-public class MainMenuController : MonoBehaviour
+public class MenuController : MonoBehaviour
 {
     private void Start()
     {
@@ -24,7 +24,7 @@ public class MainMenuController : MonoBehaviour
 
     public void ExitGame()
     {
-        Debug.Log("Exiting...");
+        Debugger.Log("Exiting...", color: Color.red);
         Application.Quit();
     }
 
