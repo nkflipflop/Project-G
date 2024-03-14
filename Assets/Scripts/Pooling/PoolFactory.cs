@@ -36,7 +36,7 @@ namespace Pooling
         {
             if (!pools.ContainsKey(obj.Type))
             {
-                ObjectPool<PoolObject> objectPool = new ObjectPool<PoolObject>(obj.gameObject, obj.InitialSize);
+                ObjectPool<PoolObject> objectPool = new ObjectPool<PoolObject>(obj, obj.InitialSize);
                 pools.Add(obj.Type, objectPool);
             }
         }

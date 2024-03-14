@@ -18,9 +18,9 @@ namespace Pooling
         public int Count => objects.Count;
         public Transform PoolParent { get; set; }
 
-        public ObjectPool(GameObject poolObject, int numToSpawn = 0)
+        public ObjectPool(PoolObject poolObject, int numToSpawn = 0)
         {
-            prefab = poolObject;
+            prefab = poolObject.gameObject;
             
             if (numToSpawn > 0)
             {
@@ -32,7 +32,7 @@ namespace Pooling
             {
                 if (PoolParent == null)
                 {
-                    Transform parent = new GameObject(prefab.GetComponent<IPoolable>().Type.ToString()).transform;
+                    Transform parent = new GameObject(poolObject.Type.ToString()).transform;
                     parent.SetParent(PoolFactory.instance.transform);
                     PoolParent = parent;
                 }
@@ -60,7 +60,7 @@ namespace Pooling
         
         public T Pull()
         {
-            T t = Count > 0 ? objects.Pop() : Object.Instantiate(prefab).GetComponent<T>();
+            T t = Count > 0 ? objects.Pop() : Object.Instantiate(prefab, PoolParent).GetComponent<T>();
             
             t.gameObject.SetActive(true);
             t.Initialize(ReturnToPool);

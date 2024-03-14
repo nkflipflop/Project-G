@@ -44,15 +44,8 @@ public class SceneViewUIObjectPickerContextWindow : EditorWindow
 
     private const float Padding = 1f;
 
-    private float RowHeight
-    {
-        get { return EditorGUIUtility.singleLineHeight; }
-    }
-
-    private GUIStyle RowGUIStyle
-    {
-        get { return "MenuItem"; }
-    }
+    private float RowHeight => EditorGUIUtility.singleLineHeight;
+    private GUIStyle RowGUIStyle => "MenuItem";
 
     private void ShowContextWindow(List<Entry> results)
     {
@@ -62,7 +55,9 @@ public class SceneViewUIObjectPickerContextWindow : EditorWindow
         GUIStyle rowGUIStyle = RowGUIStyle;
         float preferredWidth = 0f;
         foreach (string label in uiObjectLabels)
+        {
             preferredWidth = Mathf.Max(preferredWidth, rowGUIStyle.CalcSize(new GUIContent(label)).x);
+        }
 
         ShowAsDropDown(new Rect(),
             new Vector2(preferredWidth + Padding * 2f, uiObjects.Count * RowHeight + Padding * 2f));
@@ -87,7 +82,9 @@ public class SceneViewUIObjectPickerContextWindow : EditorWindow
             uiObjectLabels.Add(sb.Append(' ', depth * 4).Append(entry.RectTransform.name).ToString());
 
             if (entry.Children.Count > 0)
+            {
                 InitializeUIObjectsRecursive(entry.Children, depth + 1, sb);
+            }
         }
     }
 
@@ -131,7 +128,9 @@ public class SceneViewUIObjectPickerContextWindow : EditorWindow
             }
 
             if (hoveredRowIndex < 0 && ev.type == EventType.MouseMove && rect.Contains(ev.mousePosition))
+            {
                 hoveredRowIndex = i;
+            }
         }
 
         if (ev.type == EventType.MouseMove || ev.type == EventType.MouseLeaveWindow)
@@ -184,8 +183,9 @@ public class SceneViewUIObjectPickerContextWindow : EditorWindow
                 {
                     if (ev.button == 1 && EditorApplication.timeSinceStartup - lastRightClickTime < 0.2 &&
                         (ev.mousePosition - lastRightPos).magnitude < 2f)
+                    {
                         OnSceneViewRightClicked(sceneView);
-
+                    }
                     break;
                 }
             }
@@ -225,7 +225,9 @@ public class SceneViewUIObjectPickerContextWindow : EditorWindow
         PrefabStage prefabStage = PrefabStageUtility.GetCurrentPrefabStage();
         if (prefabStage != null && prefabStage.stageHandle.IsValid() &&
             prefabStage.prefabContentsRoot.transform is RectTransform prefabStageRoot)
+        {
             CheckRectTransformRecursive(prefabStageRoot, pointerPos, sceneView.camera, false, rootEntry.Children);
+        }
         else
 #endif
         {
@@ -238,8 +240,10 @@ public class SceneViewUIObjectPickerContextWindow : EditorWindow
             foreach (Canvas canvas in canvases)
             {
                 if (canvas != null && canvas.gameObject.activeInHierarchy && canvas.isRootCanvas)
+                {
                     CheckRectTransformRecursive((RectTransform)canvas.transform, pointerPos, sceneView.camera, false,
                         rootEntry.Children);
+                }
             }
         }
 
@@ -249,7 +253,9 @@ public class SceneViewUIObjectPickerContextWindow : EditorWindow
 
         // If any results found, show the context window
         if (rootEntry.Children.Count > 0)
+        {
             CreateInstance<SceneViewUIObjectPickerContextWindow>().ShowContextWindow(rootEntry.Children);
+        }
     }
 
     private static void CheckRectTransformRecursive(RectTransform rectTransform, Vector2 pointerPos, Camera camera,
@@ -267,7 +273,9 @@ public class SceneViewUIObjectPickerContextWindow : EditorWindow
         {
             RectTransform childRectTransform = rectTransform.GetChild(i) as RectTransform;
             if (childRectTransform != null && childRectTransform.gameObject.activeSelf)
+            {
                 CheckRectTransformRecursive(childRectTransform, pointerPos, camera, culledByCanvasGroup, result);
+            }
         }
     }
 
@@ -282,9 +290,13 @@ public class SceneViewUIObjectPickerContextWindow : EditorWindow
         if (canvasGroup != null)
         {
             if (canvasGroup.ignoreParentGroups)
+            {
                 culledByCanvasGroup = canvasGroup.alpha == 0f;
+            }
             else if (canvasGroup.alpha == 0f)
+            {
                 culledByCanvasGroup = true;
+            }
         }
 
         if (!culledByCanvasGroup)
@@ -294,7 +306,9 @@ public class SceneViewUIObjectPickerContextWindow : EditorWindow
             foreach (var raycastFilter in raycastFilters)
             {
                 if (!raycastFilter.IsRaycastLocationValid(pointerPos, camera))
+                {
                     return false;
+                }
             }
         }
 
