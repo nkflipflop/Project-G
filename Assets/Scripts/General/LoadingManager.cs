@@ -1,6 +1,7 @@
 using System;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
+using Pooling;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -16,7 +17,7 @@ namespace General
             Signals.Common.Signal.SetInputState?.Invoke(false);
         
             DOTween.KillAll();
-            // ObjectPoolController.instance.ResetAllActiveObjects();
+            PoolFactory.instance.ResetAll();
 
             await LoadAsyncScene(scene);
         }

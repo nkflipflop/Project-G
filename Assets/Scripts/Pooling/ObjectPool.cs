@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Pooling.Interfaces;
 using UnityEngine;
@@ -7,20 +6,18 @@ using Object = UnityEngine.Object;
 
 namespace Pooling
 {
-    public class ObjectPool<T> : IPool<T> where T : MonoBehaviour, IPoolable
+    public class ObjectPool
     {
-        private Action<T> pullObject;
-        private Action<T> pushObject;
-        private Stack<T> objects = new ();
-        private HashSet<T> activeObjects = new ();
-        private GameObject prefab;
+        private readonly Stack<IPoolable> objects = new ();
+        private readonly HashSet<IPoolable> activeObjects = new ();
+        private readonly IPoolable poolObject;
 
-        public int Count => objects.Count;
-        public Transform PoolParent { get; set; }
+        private int Count => objects.Count;
+        private Transform PoolParent { get; set; }
 
-        public ObjectPool(PoolObject poolObject, int numToSpawn = 0)
+        public ObjectPool(IPoolable poolObject, int numToSpawn = 0)
         {
-            prefab = poolObject.gameObject;
+            this.poolObject = poolObject;
             
             if (numToSpawn > 0)
             {
@@ -39,81 +36,77 @@ namespace Pooling
             }
         }
 
-        public ObjectPool(GameObject poolObject, Action<T> pullObject, Action<T> pushObject)
-        {
-            prefab = poolObject;
-            this.pullObject = pullObject;
-            this.pushObject = pushObject;
-        }
-
         private void Spawn(int number, Transform parent = null)
         {
             for (int i = 0; i < number; i++)
             {
-                T t = Object.Instantiate(prefab, parent).GetComponent<T>();
-                objects.Push(t);
-                t.gameObject.SetActive(false);
+                IPoolable poolableObj = Spawn(parent);
+                objects.Push(poolableObj);
+                poolableObj.GameObject.SetActive(false);
             }
+        }
+
+        private IPoolable Spawn(Transform parent = null)
+        {
+            IPoolable poolableObj = (IPoolable)Object.Instantiate((Object)poolObject, parent);
+            poolableObj.Initialize(((MonoBehaviour)poolableObj).gameObject);
+            return poolableObj;
         }
 
         #region Pull Functions
         
-        public T Pull()
+        public IPoolable Pull()
         {
-            T t = Count > 0 ? objects.Pop() : Object.Instantiate(prefab, PoolParent).GetComponent<T>();
+            IPoolable poolableObj = Count > 0 ? objects.Pop() : Spawn(PoolParent);
+            poolableObj.GameObject.SetActive(true);
             
-            t.gameObject.SetActive(true);
-            t.Initialize(ReturnToPool);
-            
-            pullObject?.Invoke(t);
-            if (activeObjects.Add(t) == false)
+            if (activeObjects.Add(poolableObj) == false)
             {
-                Log.Error(("BUG: Try to adding same object: ", t.Type), t.gameObject);
+                Log.Error(("BUG: Trying to add the same object ->", poolableObj.Type), poolableObj.GameObject);
             }
-            return t;
+            return poolableObj;
         }
 
-        public T Pull(Transform parent)
+        public IPoolable Pull(Transform parent)
         {
-            T t = Pull();
-            t.transform.SetParent(parent);
-            return t;
+            IPoolable poolableObj = Pull();
+            poolableObj.GameObject.transform.SetParent(parent);
+            return poolableObj;
         }
         
-        public T Pull(Vector3 position)
+        public IPoolable Pull(Vector3 position)
         {
-            T t = Pull();
-            t.transform.position = position;
-            return t;
+            IPoolable poolableObj = Pull();
+            poolableObj.GameObject.transform.position = position;
+            return poolableObj;
         }
         
-        public T Pull(Vector3 position, Quaternion rotation)
+        public IPoolable Pull(Vector3 position, Quaternion rotation)
         {
-            T t = Pull();
-            t.transform.position = position;
-            t.transform.rotation = rotation;
-            return t;
+            IPoolable poolableObj = Pull();
+            poolableObj.GameObject.transform.position = position;
+            poolableObj.GameObject.transform.rotation = rotation;
+            return poolableObj;
         }
         
         #endregion
 
-        public void Push(T t)
+        public void Push(IPoolable t)
         {
             objects.Push(t);
-            pushObject?.Invoke(t);
-            t.gameObject.SetActive(false);
+            t.GameObject.SetActive(false);
+            t.GameObject.transform.SetParent(PoolParent);
+            t.GameObject.transform.localPosition = Vector3.zero;
+            t.GameObject.transform.eulerAngles = Vector3.zero;
         }
 
-        private void ReturnToPool(IPoolable obj)
+        public void Reset()
         {
-            if (obj is T t)
+            foreach (IPoolable item in activeObjects)
             {
-                Push(t);
+                PoolFactory.instance.ResetObject(item);
             }
-            else
-            {
-                Log.Error(("Invalid object type:", obj,GetType().Name));
-            }
+            activeObjects.Clear();
         }
     }
 }
