@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
+using Utilities;
 
 public class DungeonManager : MonoBehaviour
 {
@@ -49,7 +49,7 @@ public class DungeonManager : MonoBehaviour
     private GameObject[,] dungeonFloorPositions;
     private int[,] objectSpawnPos;
     private int[,] enemyIndexes;
-    private ExitController exitDoor;
+    private EscapeDoor escapeDoor;
     private List<Vector2Int> bridgeTilesPos;
     private SpawnData enemySpawnData = new(25, 0);
     private SpawnData trapSpawnData = new(12, 0);
@@ -229,30 +229,33 @@ public class DungeonManager : MonoBehaviour
         private Rect GetRoom()
         {
             if (IAmLeaf())
+            {
                 return room;
+            }
 
             if (left != null)
             {
                 Rect lroom = left.GetRoom();
                 if (lroom.x != -1)
+                {
                     return lroom;
+                }
             }
 
             if (right != null)
             {
                 Rect rroom = right.GetRoom();
                 if (rroom.x != -1)
+                {
                     return rroom;
+                }
             }
 
             // workaround non nullable structs
             return new Rect(-1, -1, 0, 0);
         }
 
-        public bool IAmLeaf()
-        {
-            return left == null && right == null;
-        }
+        public bool IAmLeaf() => left == null && right == null;
 
         /*
         choose a vertical or horizontal split depending on the proportion
@@ -262,7 +265,9 @@ public class DungeonManager : MonoBehaviour
         public bool Split(int minRoomSize, int maxRoomSize)
         {
             if (!IAmLeaf())
+            {
                 return false;
+            }
 
             bool splitH;
             if (rect.width / rect.height >= 1.25)
@@ -308,9 +313,9 @@ public class DungeonManager : MonoBehaviour
 
     private void Update()
     {
-        if (player.HasKey && !exitDoor.IsDoorOpen)
+        if (player.HasKey && !escapeDoor.IsDoorOpen)
         {
-            exitDoor.OpenTheDoor();
+            escapeDoor.OpenTheDoor();
         }
     }
 
@@ -502,7 +507,7 @@ public class DungeonManager : MonoBehaviour
 
     private void DrawWaters()
     {
-        bridgeTilesPos = bridgeTilesPos.OrderByDescending(pos => pos.y).ToList();
+        bridgeTilesPos.SortBy((tile1, tile2) => tile2.y.CompareTo(tile1.y));
         foreach (var bridgePos in bridgeTilesPos)
         {
             for (int j = 1; j >= -1; j--)
@@ -511,17 +516,17 @@ public class DungeonManager : MonoBehaviour
                 {
                     if (dungeonFloorPositions[bridgePos.x + i, bridgePos.y + j] == null || (i == 0 && j == 0))
                     {
-                        GameObject instance;
-                        if (DungeonMap[bridgePos.x + i, bridgePos.y + j + 1] != -1)
-                            instance = Instantiate(GameConfigData.Instance.WaterTiles[0],
-                                new Vector3(bridgePos.x + i, bridgePos.y + j, 0f), Quaternion.identity) as GameObject;
-                        else
-                            instance = Instantiate(GameConfigData.Instance.WaterTiles[1],
-                                new Vector3(bridgePos.x + i, bridgePos.y + j, 0f), Quaternion.identity) as GameObject;
+                        GameObject instance = Instantiate(
+                            DungeonMap[bridgePos.x + i, bridgePos.y + j + 1] != -1
+                                ? GameConfigData.Instance.WaterTiles[0]
+                                : GameConfigData.Instance.WaterTiles[1],
+                            new Vector3(bridgePos.x + i, bridgePos.y + j, 0f), Quaternion.identity);
                         instance.transform.SetParent(dungeon.transform.GetChild((int)Tiles.Waters).gameObject
                             .transform);
                         if (i == 0 && j == 0)
+                        {
                             instance.gameObject.GetComponent<BoxCollider2D>().enabled = false;
+                        }
                         dungeonFloorPositions[bridgePos.x + i, bridgePos.y + j] = instance;
                         DungeonMap[bridgePos.x + i, bridgePos.y + j] = -1;
                     }
@@ -529,7 +534,7 @@ public class DungeonManager : MonoBehaviour
             }
         }
 
-        foreach (var bridgePos in bridgeTilesPos)
+        foreach (Vector2Int bridgePos in bridgeTilesPos)
         {
             DungeonMap[bridgePos.x, bridgePos.y] = 1;
         }
@@ -603,10 +608,10 @@ public class DungeonManager : MonoBehaviour
         bridgeTilesPos.Clear(); // deleting the list since it completes its purpose
         DrawWalls();
         PlaceLamps(DungeonMap);
-        enemyIndexes = new int[,]
+        enemyIndexes = new[,]
         {
             { 0, 1 }, { 0, 2 }, { 1, 2 }, { 0, 3 }, { 1, 3 }, { 1, 4 }, { 1, 5 }
-        }; // start and end indexes of Enemies array accorcding to the dungeon level
+        }; // start and end indexes of Enemies array according to the dungeon level
         //Debug.Log("Dungeon creation ended.");
     }
 
@@ -629,10 +634,10 @@ public class DungeonManager : MonoBehaviour
         objectSpawnPos[(int)randomPos.x, (int)randomPos.y] = 1;
 
         GetRandomPos(rootSubDungeon); // getting random position in the dungeon for the exit
-        exitDoor = Instantiate(GameConfigData.Instance.ExitTile, new Vector3(randomPos.x, randomPos.y, 0f),
-            Quaternion.identity).GetComponent<ExitController>();
-        exitDoor.transform.SetParent(dungeon.transform);
-        exitDoor.GameManager = gameManager;
+        escapeDoor = Instantiate(GameConfigData.Instance.ExitTile, new Vector3(randomPos.x, randomPos.y, 0f),
+            Quaternion.identity).GetComponent<EscapeDoor>();
+        escapeDoor.transform.SetParent(dungeon.transform);
+        escapeDoor.gameManager = gameManager;
         objectSpawnPos[(int)randomPos.x, (int)randomPos.y] = 1;
 
         GetRandomPos(rootSubDungeon); // getting random position in the dungeon for the object
@@ -683,7 +688,9 @@ public class DungeonManager : MonoBehaviour
     private void SpawnEnemies(SubDungeon subDungeon, int dungeonLevel)
     {
         if (subDungeon == null)
+        {
             return;
+        }
 
         if (subDungeon.IAmLeaf())
         {
@@ -705,10 +712,8 @@ public class DungeonManager : MonoBehaviour
                                 (dungeonLevel < 7) ? enemyIndexes[dungeonLevel, 0] : enemyIndexes[6, 0];
                             int enemyIndexRangeMax =
                                 (dungeonLevel < 7) ? enemyIndexes[dungeonLevel, 1] : enemyIndexes[6, 1];
-                            enemyIndex = (int)Random.Range(enemyIndexRangeMin, enemyIndexRangeMax + 1);
-                        } while
-                            (subDungeon.hasTurret &&
-                             enemyIndex == 2); // check if the room has a turret and new enemy is turret
+                            enemyIndex = Random.Range(enemyIndexRangeMin, enemyIndexRangeMax + 1);
+                        } while (subDungeon.hasTurret && enemyIndex == 2); // check if the room has a turret and new enemy is turret
 
                         GameObject instance =
                             Instantiate(enemies[enemyIndex], randomPos, Quaternion.identity) as GameObject;
@@ -812,7 +817,10 @@ public class DungeonManager : MonoBehaviour
         } while ((DungeonMap[randPosX, randPosY] != 1 || objectSpawnPos[randPosX, randPosY] == 1) &&
                  findingPosAttempt <= maxAttemptLimit);
 
-        if (findingPosAttempt > maxAttemptLimit) Debug.Log("Could not find a pos in the room.");
+        if (findingPosAttempt > maxAttemptLimit)
+        {
+            Log.Debug("Could not find a pos in the room.");
+        }
         return (findingPosAttempt <= maxAttemptLimit) ? new Vector3(randPosX, randPosY, 0) : invalidPos;
     }
 }

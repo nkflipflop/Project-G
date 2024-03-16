@@ -5,12 +5,10 @@ namespace Pooling.Interfaces
 	public interface IPoolable
 	{
 		ObjectType Type { get; set; }
-		GameObject GameObject { get; set; }
+		GameObject GameObject => ((MonoBehaviour)this).gameObject;
 
-		void Initialize(GameObject gameObject)
-		{
-			GameObject = gameObject;
-		}
+		void OnSpawn();
+		void OnReset();
 	}
 	
 	public static class IPoolableExtensions
@@ -18,11 +16,6 @@ namespace Pooling.Interfaces
 		public static bool ResetObject(this IPoolable poolable)
 		{
 			return PoolFactory.instance.ResetObject(poolable);
-		}
-
-		public static GameObject GameObject(this IPoolable poolable)
-		{
-			return ((MonoBehaviour)poolable).gameObject;
 		}
 	}
 }

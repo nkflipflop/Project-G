@@ -45,7 +45,7 @@ public class UIController : MonoBehaviour
             WeaponUI.WeaponImage.sprite = _weapon.WeaponRenderer.sprite; // Weapon Info
             WeaponUI.WeaponImage.SetNativeSize();
             WeaponUI.WeaponText.text = _weapon.Weapon.Name;
-            WeaponUI.AmmoImage.sprite = _weapon.Weapon.Bullet.Renderer.sprite; // Ammo Info
+            WeaponUI.AmmoImage.sprite = _weapon.Weapon.Bullet.spriteRenderer.sprite; // Ammo Info
             WeaponUI.AmmoImage.SetNativeSize();
         }
 

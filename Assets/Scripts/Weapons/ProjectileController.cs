@@ -1,90 +1,109 @@
 ﻿using System;
 using Cysharp.Threading.Tasks;
+using NaughtyAttributes;
+using Pooling;
+using Pooling.Interfaces;
 using UnityEngine;
 
-public class ProjectileController : MonoBehaviour
+public class ProjectileController : MonoBehaviour, IPoolable
 {
-    public SpriteRenderer Renderer;
-    public GameObject DestroyEffect;
-    public Sprite NoneSprite;
-    public GameObject Light;
+    [field: SerializeField] public ObjectType Type { get; set; }
 
-    [Header("Bullet Properties")] [SerializeField]
-    private int _endurance = 1;
+    [Foldout("Components")] public SpriteRenderer spriteRenderer;
+    [Foldout("Components")] public GameObject lightObject;
+    
+    [Foldout("Properties"), SerializeField] private int endurance = 1;
+    [Foldout("Properties"), SerializeField] private float speed = 10;
+    [Foldout("Properties"), SerializeField] private int damage = 2;
+    [Foldout("Properties"), SerializeField] private bool shotByPlayer;
+    
+    [Foldout("Config"), SerializeField] private LayerMask hittableLayersByPlayer;
+    [Foldout("Config"), SerializeField] private LayerMask hittableLayersByEnemy;
+    
+    private float lifetime = 100;
+    private int cachedEndurance;
+    private float cachedSpeed;
 
-    [SerializeField] private float _speed = 10;
-    [SerializeField] private int _damage = 2;
-    private float _lifetime = 100;
-    public bool ShotByPlayer = false;
-
-
-    private int _enemyLayer = 8;
-    private int _environmentLayer = 9;
-    private int _playerLayer = 10;
-    private int _destructibleObjectLayer = 11;
-    private int _shieldLayer = 12;
-    private LayerMask _hittableLayersByPlayer;
-    private LayerMask _hittableLayersByEnemy;
+    private bool isActive;
 
     private void Start()
     {
-        DestroyProjectile();
-
-        _hittableLayersByPlayer = (1 << _enemyLayer) | (1 << _environmentLayer) | (1 << _destructibleObjectLayer);
-        _hittableLayersByEnemy = (1 << _playerLayer) | (1 << _environmentLayer) | (1 << _shieldLayer);
+        cachedEndurance = endurance;
+        cachedSpeed = speed;
     }
 
     private void FixedUpdate()
     {
+        if (!isActive)
+        {
+            return;
+        }
+        
         // Ray collider controlling
         Vector3 direction = transform.rotation * Vector3.right;
         RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, direction, .25f,
-            ShotByPlayer ? _hittableLayersByPlayer : _hittableLayersByEnemy);
+            shotByPlayer ? hittableLayersByPlayer : hittableLayersByEnemy);
         //Debug.DrawRay(transform.position, direction, Color.green);
         // Range controlling for bullet	
-        if (_lifetime > 0 && _endurance > 0)
+        if (lifetime > 0 && endurance > 0)
         {
-            _lifetime -= 1;
+            lifetime -= 1;
             // When ray collides with another collider
             if (hitInfo.collider != null)
             {
-                _endurance--;
+                endurance--;
                 // If it is damageable
                 if (hitInfo.collider.CompareTag("Player") || hitInfo.collider.CompareTag("Enemy") ||
                     hitInfo.collider.CompareTag("Breakable"))
                 {
-                    hitInfo.collider.gameObject.GetComponent<HealthController>().TakeDamage(_damage);
+                    hitInfo.collider.gameObject.GetComponent<HealthController>().TakeDamage(damage);
                 }
 
-                if (_endurance < 1)
+                if (endurance < 1)
                 {
-                    // Stopping the projectile
-                    _lifetime = 0;
+                    lifetime = 0;       // Stopping the projectile
                 }
                 else
                 {
-                    _speed *= 0.6f; // after hitting an enemy or an object, slow down the bullet
+                    speed *= 0.6f; // after hitting an enemy or an object, slow down the bullet
                 }
             }
             else
             {
-                transform.Translate(Vector3.right * _speed * Time.deltaTime);
+                transform.Translate(Vector3.right * speed * Time.deltaTime);
             }
         }
-        else if (_lifetime == 0)
+        else if (lifetime == 0)
         {
-            _lifetime -= 1;
-            Renderer.sprite = NoneSprite;
-            Light.SetActive(false);
+            lifetime -= 1;
+            spriteRenderer.enabled = false;
+            lightObject.SetActive(false);
 
             // Creating After Effect
-            Instantiate(DestroyEffect, transform.position, transform.rotation, transform);
+            PoolFactory.instance.GetObject(ObjectType.HitEffect, transform.position, transform.rotation);
+            isActive = false;
         }
     }
     
-    private async UniTaskVoid DestroyProjectile()
+    public async UniTaskVoid Activate(bool shotByPlayer)
     {
-        await UniTask.Delay(TimeSpan.FromSeconds(5f), cancellationToken: this.GetCancellationTokenOnDestroy());
-        Destroy(gameObject);
+        this.shotByPlayer = shotByPlayer;
+        isActive = true;
+        await UniTask.WhenAny(UniTask.Delay(TimeSpan.FromSeconds(5f)), UniTask.WaitUntil(() => !isActive))
+            .AttachExternalCancellation(this.GetCancellationTokenOnDestroy());
+        this.ResetObject();
+    }
+    
+    public void OnSpawn()
+    {
+        spriteRenderer.enabled = true;
+        lifetime = 100;
+        lightObject.SetActive(true);
+    }
+
+    public void OnReset()
+    {
+        endurance = cachedEndurance;
+        speed = cachedSpeed;
     }
 }

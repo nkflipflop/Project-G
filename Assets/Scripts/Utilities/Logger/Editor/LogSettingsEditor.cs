@@ -4,7 +4,7 @@ using UnityEditor;
 namespace Utilities
 {
 	[CustomEditor(typeof(LogSettings))]
-	public class LogSettingsEditor : Editor
+	public class LogSettingsEditor : UnityEditor.Editor
 	{
 		private LogSettings logSettings;
 		private SerializedObject so;

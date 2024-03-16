@@ -40,16 +40,15 @@ namespace Pooling
         {
             for (int i = 0; i < number; i++)
             {
-                IPoolable poolableObj = Spawn(parent);
+                IPoolable poolableObj = CreateObject(parent);
                 objects.Push(poolableObj);
                 poolableObj.GameObject.SetActive(false);
             }
         }
 
-        private IPoolable Spawn(Transform parent = null)
+        private IPoolable CreateObject(Transform parent = null)
         {
             IPoolable poolableObj = (IPoolable)Object.Instantiate((Object)poolObject, parent);
-            poolableObj.Initialize(((MonoBehaviour)poolableObj).gameObject);
             return poolableObj;
         }
 
@@ -57,8 +56,9 @@ namespace Pooling
         
         public IPoolable Pull()
         {
-            IPoolable poolableObj = Count > 0 ? objects.Pop() : Spawn(PoolParent);
+            IPoolable poolableObj = Count > 0 ? objects.Pop() : CreateObject(PoolParent);
             poolableObj.GameObject.SetActive(true);
+            poolableObj.OnSpawn();
             
             if (activeObjects.Add(poolableObj) == false)
             {
@@ -81,9 +81,10 @@ namespace Pooling
             return poolableObj;
         }
         
-        public IPoolable Pull(Vector3 position, Quaternion rotation)
+        public IPoolable Pull(Vector3 position, Quaternion rotation, Transform parent = null)
         {
             IPoolable poolableObj = Pull();
+            poolableObj.GameObject.transform.SetParent(parent);
             poolableObj.GameObject.transform.position = position;
             poolableObj.GameObject.transform.rotation = rotation;
             return poolableObj;
@@ -91,13 +92,22 @@ namespace Pooling
         
         #endregion
 
-        public void Push(IPoolable t)
+        public void Push(IPoolable obj)
         {
-            objects.Push(t);
-            t.GameObject.SetActive(false);
-            t.GameObject.transform.SetParent(PoolParent);
-            t.GameObject.transform.localPosition = Vector3.zero;
-            t.GameObject.transform.eulerAngles = Vector3.zero;
+            activeObjects.Remove(obj);
+
+            if (objects.Contains(obj))
+            {
+                Log.Error(("BUG: Trying to add the same object ->", obj.Type), obj.GameObject);
+                return;
+            }
+            objects.Push(obj);
+            
+            obj.OnReset();
+            obj.GameObject.SetActive(false);
+            obj.GameObject.transform.SetParent(PoolParent);
+            obj.GameObject.transform.localPosition = Vector3.zero;
+            obj.GameObject.transform.eulerAngles = Vector3.zero;
         }
 
         public void Reset()

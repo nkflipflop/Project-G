@@ -6,8 +6,11 @@ namespace Pooling
     public class PoolObject : MonoBehaviour, IPoolable
     {
         [field: SerializeField] public ObjectType Type { get; set; }
-        public GameObject GameObject { get; set; }
         
+        public virtual void OnSpawn() { }
+
+        public virtual void OnReset() { }
+
         public void OnParticleSystemStopped()
         {
             if (gameObject.activeInHierarchy)

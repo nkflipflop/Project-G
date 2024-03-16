@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Pooling;
+using UnityEngine;
 
 public class WeaponPrefab : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class WeaponPrefab : MonoBehaviour
     public bool Automatic;
     public int MaxAmmo;
     public int BulletPerShot;
-    public ProjectileController Bullet;
+    public ObjectType BulletType;
+    public ProjectileController Bullet;         // TODO: remove this
     public SoundManager.Sound FireSound;
 }

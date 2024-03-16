@@ -1,22 +1,21 @@
 ﻿using System;
 using Cysharp.Threading.Tasks;
+using Pooling;
 using UnityEngine;
 
 public class WeaponBase : MonoBehaviour
 {
     public WeaponPrefab Weapon;
     public WeaponRecoiler WeaponRecoiler;
-    public GameObject FireEffect;
     public SpriteRenderer WeaponRenderer;
     public SpriteRenderer LeftHandRenderer;
     public SpriteRenderer RightHandRenderer;
     public Transform ShotPoint;
     [NonSerialized] public int CurrentAmmo;
 
-    private float _timeBtwShots;
-    private bool _canTrigger = true;
-    private bool _isReloading = false;
-
+    private float timeBtwShots;
+    private bool canTrigger = true;
+    private bool isReloading = false;
 
     private void Start()
     {
@@ -60,12 +59,18 @@ public class WeaponBase : MonoBehaviour
     private void Fire()
     {
         CurrentAmmo -= 1;
-        _timeBtwShots = Weapon.FireRate;
+        timeBtwShots = Weapon.FireRate;
 
         // Fire Effect
-        Instantiate(FireEffect, ShotPoint.position, ShotPoint.rotation);
+        FireEffect fireEffect = PoolFactory.instance.GetObject(ObjectType.FireEffect, ShotPoint.position, ShotPoint.rotation).GameObject
+            .GetComponent<FireEffect>();
+        fireEffect.Play();
+        
         // Recoiling the weapon
-        if (Weapon.HasRecoil) WeaponRecoiler.AddRecoil();
+        if (Weapon.HasRecoil)
+        {
+            WeaponRecoiler.AddRecoil();
+        }
 
         //Sound effect
         SoundManager.PlaySound(Weapon.FireSound, transform.position);
@@ -75,41 +80,42 @@ public class WeaponBase : MonoBehaviour
         {
             float angelBtwBullets = 10f;
             float zRotation = ((1 - Weapon.BulletPerShot) * angelBtwBullets / 2) + (angelBtwBullets * i);
-            ProjectileController bullet = Instantiate(Weapon.Bullet, ShotPoint.position,
-                Quaternion.Euler(new Vector3(0, 0, ShotPoint.rotation.eulerAngles.z + zRotation)));
-            bullet.ShotByPlayer = transform.root.CompareTag("Player");
+            ProjectileController bullet = PoolFactory.instance
+                .GetObject(Weapon.BulletType, ShotPoint.position,
+                    Quaternion.Euler(new Vector3(0, 0, ShotPoint.rotation.eulerAngles.z + zRotation))).GameObject
+                .GetComponent<ProjectileController>();
+            bullet.Activate(transform.root.CompareTag("Player"));
         }
     }
 
     public void Trigger()
     {
-        if (_canTrigger && _timeBtwShots <= 0)
+        if (canTrigger && timeBtwShots <= 0)
         {
-            _canTrigger = Weapon.Automatic; // if weapon is not automatic, you need to release trigger
+            canTrigger = Weapon.Automatic;  // if weapon is not automatic, you need to release trigger
             if (CurrentAmmo > 0)
             {
                 Fire();
             }
             else
             {
-                SoundManager.PlaySound(SoundManager.Sound.NoBullet, transform.position); // Weapon no bullet sound effect
-                _canTrigger = false;
+                SoundManager.PlaySound(SoundManager.Sound.NoBullet, transform.position);        // Weapon no bullet sound effect
+                canTrigger = false;
             }
         }
     }
 
     public void ReleaseTrigger()
     {
-        _canTrigger = true;
+        canTrigger = true;
     }
     
     public void WeaponUpdate()
     {
-        // For firing
-        _timeBtwShots -= Time.deltaTime;
+        timeBtwShots -= Time.deltaTime;     // For firing
 
         // Reloading
-        if (CurrentAmmo == 0 && !_isReloading)
+        if (CurrentAmmo == 0 && !isReloading)
         {
             ReloadWeapon();
         }
@@ -117,10 +123,10 @@ public class WeaponBase : MonoBehaviour
     
     private async UniTaskVoid ReloadWeapon()
     {
-        _isReloading = true;
+        isReloading = true;
         await UniTask.Delay(TimeSpan.FromSeconds(Weapon.ReloadTime));
         CurrentAmmo = Weapon.MaxAmmo;
-        _isReloading = false;
+        isReloading = false;
         SoundManager.PlaySound(SoundManager.Sound.Reloaded, transform.position);
     }
 }
