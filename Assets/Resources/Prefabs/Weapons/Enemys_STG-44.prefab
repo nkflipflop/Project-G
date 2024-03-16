@@ -95,10 +95,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7293375394824328727}
   - component: {fileID: 8721455964940251424}
-  - component: {fileID: 5261327179409052315}
-  - component: {fileID: 5368964562924698794}
-  - component: {fileID: 2797497119143768875}
   - component: {fileID: 1849421025081075827}
+  - component: {fileID: 2797497119143768875}
+  - component: {fileID: 5368964562924698794}
   m_Layer: 0
   m_Name: Enemys_STG-44
   m_TagString: Weapon
@@ -176,62 +175,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &5261327179409052315
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5425444037710871787}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fdfebb76137225840accc2415a210e2f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ID: 11
-  Name: STG-44
-  ReloadTime: 5
-  FireRate: 0.2
-  HasRecoil: 1
-  Automatic: 1
-  MaxAmmo: 30
-  BulletPerShot: 1
-  BulletType: 6
-  Bullet: {fileID: 4879032053553827530, guid: b8b88776a857d044795aebfae686b187, type: 3}
-  FireSound: 6
---- !u!114 &5368964562924698794
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5425444037710871787}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6126d48a749a9f8459fc9920e4b8befd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxOffsetDistance: 0.2
-  recoilAcceleration: 40
-  weaponRecoilStartSpeed: -7
---- !u!114 &2797497119143768875
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5425444037710871787}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f9e4d030ef3f164a95d1b8aac38b99e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Weapon: {fileID: 5261327179409052315}
-  WeaponRecoiler: {fileID: 5368964562924698794}
-  WeaponRenderer: {fileID: 8721455964940251424}
-  LeftHandRenderer: {fileID: 8708964355551050243}
-  RightHandRenderer: {fileID: 8218867610486116032}
-  ShotPoint: {fileID: 3558602046666362171}
 --- !u!58 &1849421025081075827
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -267,6 +210,39 @@ CircleCollider2D:
   m_Offset: {x: 0.19791669, y: 0}
   serializedVersion: 2
   m_Radius: 0.21875
+--- !u!114 &2797497119143768875
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5425444037710871787}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f9e4d030ef3f164a95d1b8aac38b99e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponInfo: {fileID: 11400000, guid: fb4083f38109e4fdf95660a9e81576d8, type: 2}
+  WeaponRecoiler: {fileID: 5368964562924698794}
+  WeaponRenderer: {fileID: 8721455964940251424}
+  LeftHandRenderer: {fileID: 8708964355551050243}
+  RightHandRenderer: {fileID: 8218867610486116032}
+  ShotPoint: {fileID: 3558602046666362171}
+--- !u!114 &5368964562924698794
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5425444037710871787}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6126d48a749a9f8459fc9920e4b8befd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxOffsetDistance: 0.2
+  recoilAcceleration: 40
+  weaponRecoilStartSpeed: -7
 --- !u!1 &5650558882346445791
 GameObject:
   m_ObjectHideFlags: 0

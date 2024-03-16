@@ -21,15 +21,15 @@ public class UIController : MonoBehaviour
     public Color existColor;
     public Color absentColor;
 
-    private WeaponBase _weapon = null; // Current Weapon
-    private int _ammo = -1; // Current Ammo
-    private int _health = -1; // Current Health
-    private int _medkit = -1; // Current Medkit
-    private int _shield = -1; // Current Shield
-    private bool _hasKey = false; // Having Key
-    private int _level = -1;
+    private WeaponBase weapon; // Current Weapon
+    private int ammo = -1; // Current Ammo
+    private int health = -1; // Current Health
+    private int medKit = -1; // Current MedKit
+    private int shield = -1; // Current Shield
+    private bool hasKey = false; // Having Key
+    private int level = -1;
 
-    private float _reloadTimer = 0f;
+    private float reloadTimer = 0f;
 
     private void Start()
     {
@@ -39,27 +39,27 @@ public class UIController : MonoBehaviour
     private void Update()
     {
         // Weapon Sprite and Name Update
-        if (_weapon != PlayerManager.PlayerHandController.CurrentWeapon)
+        if (weapon != PlayerManager.PlayerHandController.CurrentWeapon)
         {
-            _weapon = PlayerManager.PlayerHandController.CurrentWeapon;
-            WeaponUI.WeaponImage.sprite = _weapon.WeaponRenderer.sprite; // Weapon Info
+            weapon = PlayerManager.PlayerHandController.CurrentWeapon;
+            WeaponUI.WeaponImage.sprite = weapon.WeaponRenderer.sprite; // Weapon Info
             WeaponUI.WeaponImage.SetNativeSize();
-            WeaponUI.WeaponText.text = _weapon.Weapon.Name;
-            WeaponUI.AmmoImage.sprite = _weapon.Weapon.Bullet.spriteRenderer.sprite; // Ammo Info
+            WeaponUI.WeaponText.text = weapon.Name;
+            WeaponUI.AmmoImage.sprite = weapon.BulletIcon; // Ammo Info
             WeaponUI.AmmoImage.SetNativeSize();
         }
 
         // Ammo Count Update
-        if (_ammo != PlayerManager.PlayerHandController.CurrentWeapon.CurrentAmmo)
+        if (ammo != PlayerManager.PlayerHandController.CurrentWeapon.CurrentAmmo)
         {
-            _ammo = PlayerManager.PlayerHandController.CurrentWeapon.CurrentAmmo;
-            WeaponUI.AmmoText.text = _ammo.ToString();
-            if (_ammo == 0)
+            ammo = PlayerManager.PlayerHandController.CurrentWeapon.CurrentAmmo;
+            WeaponUI.AmmoText.text = ammo.ToString();
+            if (ammo == 0)
             {
                 WeaponUI.SetColor(absentColor); // Setting color of ammo bar
-                if (_reloadTimer <= 0)
+                if (reloadTimer <= 0)
                 {
-                    _reloadTimer = _weapon.Weapon.ReloadTime;       // Starts reloading
+                    reloadTimer = weapon.ReloadTime;       // Starts reloading
                 }
             }
             else
@@ -69,52 +69,52 @@ public class UIController : MonoBehaviour
         }
 
         // Setting Reload Slider
-        if (_reloadTimer > 0)
+        if (reloadTimer > 0)
         {
-            _reloadTimer -= Time.deltaTime;
-            WeaponUI.SetReloadSlider(_reloadTimer / _weapon.Weapon.ReloadTime);
-            if (_reloadTimer <= 0)
+            reloadTimer -= Time.deltaTime;
+            WeaponUI.SetReloadSlider(reloadTimer / weapon.ReloadTime);
+            if (reloadTimer <= 0)
             {
                 WeaponUI.SetReloadSlider(1);
             }
         }
 
         // Health Count Update
-        if (_health != PlayerManager.HealthController.Health)
+        if (health != PlayerManager.HealthController.Health)
         {
-            _health = PlayerManager.HealthController.Health;
-            MiscUI.HealthText.text = _health.ToString();
-            MiscUI.SetHealthColor((float)_health / 100);
+            health = PlayerManager.HealthController.Health;
+            MiscUI.HealthText.text = health.ToString();
+            MiscUI.SetHealthColor((float)health / 100);
         }
 
         // MedKit Count Update
-        if (_medkit != PlayerManager.Inventory[(int)GameConfigData.CollectibleType.Medkit].Count)
+        if (medKit != PlayerManager.Inventory[(int)GameConfigData.CollectibleType.Medkit].Count)
         {
-            _medkit = PlayerManager.Inventory[(int)GameConfigData.CollectibleType.Medkit].Count;
-            MiscUI.MedkitText.text = _medkit.ToString();
-            MiscUI.SetMedKitColor(_medkit == 0 ? absentColor : existColor);     // Setting color of medkit bar
+            medKit = PlayerManager.Inventory[(int)GameConfigData.CollectibleType.Medkit].Count;
+            MiscUI.MedkitText.text = medKit.ToString();
+            MiscUI.SetMedKitColor(medKit == 0 ? absentColor : existColor);     // Setting color of medkit bar
         }
 
         // Shield Count Update
-        if (_shield != PlayerManager.Inventory[(int)GameConfigData.CollectibleType.Shield].Count)
+        if (shield != PlayerManager.Inventory[(int)GameConfigData.CollectibleType.Shield].Count)
         {
-            _shield = PlayerManager.Inventory[(int)GameConfigData.CollectibleType.Shield].Count;
-            MiscUI.ShieldText.text = _shield.ToString();
-            MiscUI.SetShieldColor(_shield == 0 ? absentColor : existColor); // Setting color of shield bar
+            shield = PlayerManager.Inventory[(int)GameConfigData.CollectibleType.Shield].Count;
+            MiscUI.ShieldText.text = shield.ToString();
+            MiscUI.SetShieldColor(shield == 0 ? absentColor : existColor); // Setting color of shield bar
         }
 
         // Key Owning Update
-        if (_hasKey != PlayerManager.HasKey)
+        if (hasKey != PlayerManager.HasKey)
         {
-            _hasKey = PlayerManager.HasKey;
+            hasKey = PlayerManager.HasKey;
             MiscUI.KeyUI.SetActive(true);
         }
 
         // Level Value Update
-        if (_level != GameManager.DungeonLevel)
+        if (level != GameManager.DungeonLevel)
         {
-            _level = GameManager.DungeonLevel;
-            LevelUI.LevelText.text = Extensions.ConcatenateString("Level ", _level + 1);
+            level = GameManager.DungeonLevel;
+            LevelUI.LevelText.text = Extensions.ConcatenateString("Level ", level + 1);
         }
     }
 

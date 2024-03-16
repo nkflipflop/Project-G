@@ -30,6 +30,6 @@ public class MenuController : MonoBehaviour
 
     public void WeaponSelect(int weapon)
     {
-        DataManager.instance.WeaponID = weapon;
+        DataManager.instance.WeaponType = (Weapons.Type)weapon;
     }
 }

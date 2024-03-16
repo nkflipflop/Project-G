@@ -42,9 +42,8 @@ GameObject:
   - component: {fileID: 973661467969721925}
   - component: {fileID: 1278090218452267378}
   - component: {fileID: -9025093416191304519}
-  - component: {fileID: 2429578218707014345}
-  - component: {fileID: 2465159388714728696}
   - component: {fileID: 5649433108818703225}
+  - component: {fileID: 2465159388714728696}
   m_Layer: 0
   m_Name: Thompson
   m_TagString: Weapon
@@ -157,7 +156,7 @@ CircleCollider2D:
   m_Offset: {x: 0.21875, y: 0}
   serializedVersion: 2
   m_Radius: 0.23958331
---- !u!114 &2429578218707014345
+--- !u!114 &5649433108818703225
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -166,20 +165,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 2593907559752694969}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fdfebb76137225840accc2415a210e2f, type: 3}
+  m_Script: {fileID: 11500000, guid: 7f9e4d030ef3f164a95d1b8aac38b99e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ID: 5
-  Name: Thompson
-  ReloadTime: 3
-  FireRate: 0.15
-  HasRecoil: 1
-  Automatic: 1
-  MaxAmmo: 30
-  BulletPerShot: 1
-  BulletType: 3
-  Bullet: {fileID: 1097089023656671986, guid: c403557b17ee2a548bf2c0950e060bfa, type: 3}
-  FireSound: 6
+  weaponInfo: {fileID: 11400000, guid: 73fa96eab69304e0d96356bb463a5233, type: 2}
+  WeaponRecoiler: {fileID: 2465159388714728696}
+  WeaponRenderer: {fileID: 1278090218452267378}
+  LeftHandRenderer: {fileID: 1182213893086165585}
+  RightHandRenderer: {fileID: 1926183010029997714}
+  ShotPoint: {fileID: 6473594614468103529}
 --- !u!114 &2465159388714728696
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -195,24 +189,6 @@ MonoBehaviour:
   maxOffsetDistance: 0.2
   recoilAcceleration: 20
   weaponRecoilStartSpeed: -5
---- !u!114 &5649433108818703225
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2593907559752694969}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f9e4d030ef3f164a95d1b8aac38b99e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Weapon: {fileID: 2429578218707014345}
-  WeaponRecoiler: {fileID: 2465159388714728696}
-  WeaponRenderer: {fileID: 1278090218452267378}
-  LeftHandRenderer: {fileID: 1182213893086165585}
-  RightHandRenderer: {fileID: 1926183010029997714}
-  ShotPoint: {fileID: 6473594614468103529}
 --- !u!1 &2800874928062475149
 GameObject:
   m_ObjectHideFlags: 0

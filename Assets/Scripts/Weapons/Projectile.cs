@@ -5,7 +5,7 @@ using Pooling;
 using Pooling.Interfaces;
 using UnityEngine;
 
-public class ProjectileController : MonoBehaviour, IPoolable
+public class Projectile : MonoBehaviour, IPoolable
 {
     [field: SerializeField] public ObjectType Type { get; set; }
 

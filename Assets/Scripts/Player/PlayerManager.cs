@@ -18,12 +18,12 @@ public class PlayerManager : MonoBehaviour
 
     [SerializeField] private Inventory[] _inventory = null; // Inventory
     public event Action<Inventory[], HealthController> CollectPUB; // Item collection Publisher
-    private bool _hasKey = false;
-    private float _shieldTime;
+    private bool hasKey;
+    private float shieldTime;
 
     public Inventory[] Inventory => _inventory;
 
-    public bool HasKey => _hasKey;
+    public bool HasKey => hasKey;
     
     private void Update()
     {
@@ -39,8 +39,8 @@ public class PlayerManager : MonoBehaviour
 
         if (_shield.activeSelf)
         {
-            _shieldTime -= Time.deltaTime;
-            if (_shieldTime <= 0)
+            shieldTime -= Time.deltaTime;
+            if (shieldTime <= 0)
             {
                 _shield.SetActive(false);
             }
@@ -64,7 +64,7 @@ public class PlayerManager : MonoBehaviour
         {
             inventory.Count -= 1;
             _shield.SetActive(true);
-            _shieldTime = inventory.Item.Value;
+            shieldTime = inventory.Item.Value;
         }
     }
 
@@ -74,7 +74,7 @@ public class PlayerManager : MonoBehaviour
         _inventory[(int)GameConfigData.CollectibleType.Medkit].Count = DataManager.instance.MedKits;
         _inventory[(int)GameConfigData.CollectibleType.Shield].Count = DataManager.instance.Shields;
 
-        GameObject weapon = Instantiate(GameConfigData.Instance.Weapons[DataManager.instance.WeaponID]); // instantiating player's weapon
+        GameObject weapon = Instantiate(GameConfigData.Instance.Weapons[(int)DataManager.instance.WeaponType]); // instantiating player's weapon
         PlayerHandController.EquipWeapon(weapon.GetComponent<WeaponBase>());
     }
 
@@ -83,9 +83,7 @@ public class PlayerManager : MonoBehaviour
         DataManager.instance.Health = HealthController.Health; // storing player's health
         DataManager.instance.MedKits = _inventory[(int)GameConfigData.CollectibleType.Medkit].Count;
         DataManager.instance.Shields = _inventory[(int)GameConfigData.CollectibleType.Shield].Count;
-        DataManager.instance.WeaponID =
-            PlayerHandController.transform.GetChild(0).gameObject.GetComponent<WeaponPrefab>()
-                .ID; // storing player's weapon
+        DataManager.instance.WeaponType = PlayerHandController.CurrentWeapon.WeaponType; // storing player's weapon
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -99,7 +97,7 @@ public class PlayerManager : MonoBehaviour
         else if (other.gameObject.CompareTag("Key"))
         {
             // If there are Key
-            _hasKey = true;
+            hasKey = true;
             other.gameObject.SetActive(false);
         }
     }

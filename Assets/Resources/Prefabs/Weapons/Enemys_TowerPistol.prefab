@@ -44,7 +44,6 @@ GameObject:
   - component: {fileID: 827960770257164601}
   - component: {fileID: 3529954891360486526}
   - component: {fileID: -2171701435749290827}
-  - component: {fileID: 4344405640485440540}
   - component: {fileID: 3314771608762817132}
   - component: {fileID: 762648450}
   m_Layer: 0
@@ -195,29 +194,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _walkingObject: 0
---- !u!114 &4344405640485440540
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6355700462619779414}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fdfebb76137225840accc2415a210e2f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ID: 12
-  Name: Tower Pistol
-  ReloadTime: 0
-  FireRate: 0.25
-  HasRecoil: 1
-  Automatic: 1
-  MaxAmmo: 30
-  BulletPerShot: 1
-  BulletType: 6
-  Bullet: {fileID: 4879032053553827530, guid: b8b88776a857d044795aebfae686b187, type: 3}
-  FireSound: 5
 --- !u!114 &3314771608762817132
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -230,7 +206,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f9e4d030ef3f164a95d1b8aac38b99e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Weapon: {fileID: 4344405640485440540}
+  weaponInfo: {fileID: 11400000, guid: 886bca255c50041aea8956515f1362ff, type: 2}
   WeaponRecoiler: {fileID: 762648450}
   WeaponRenderer: {fileID: 7741170184100664110}
   LeftHandRenderer: {fileID: 0}

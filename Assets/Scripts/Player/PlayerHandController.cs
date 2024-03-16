@@ -4,10 +4,9 @@ public class PlayerHandController : HandControllerBase
 {
     public PlayerController PlayerController;
 
-    private WeaponBase _newWeapon;
-    private bool _takeWeapon;
-    private bool _canTake = false;
-
+    private WeaponBase newWeapon;
+    private bool takeWeapon;
+    private bool canTake;
 
     protected override void SpecialStart()
     {
@@ -28,16 +27,16 @@ public class PlayerHandController : HandControllerBase
 
     private void InteractWithNewWeapon()
     {
-        if (_canTake)
+        if (canTake)
         {
-            _takeWeapon = Input.GetKeyDown(KeyCode.E);
+            takeWeapon = Input.GetKeyDown(KeyCode.E);
             //Debug.Log("Çok istiyorsan 'E' ye bas. ;(");
-            if (_takeWeapon)
+            if (takeWeapon)
             {
                 // Dropping the current weapon
                 DropCurrentWeapon();
                 // Equipping the new weapon
-                EquipWeapon(_newWeapon);
+                EquipWeapon(newWeapon);
             }
         }
     }
@@ -69,8 +68,8 @@ public class PlayerHandController : HandControllerBase
     {
         if (other.gameObject.CompareTag("Weapon"))
         {
-            _canTake = true;
-            _newWeapon = other.gameObject.GetComponent<WeaponBase>();
+            canTake = true;
+            newWeapon = other.gameObject.GetComponent<WeaponBase>();
         }
     }
 
@@ -78,8 +77,8 @@ public class PlayerHandController : HandControllerBase
     {
         if (other.gameObject.CompareTag("Weapon"))
         {
-            _canTake = false;
-            _newWeapon = null;
+            canTake = false;
+            newWeapon = null;
         }
     }
 }

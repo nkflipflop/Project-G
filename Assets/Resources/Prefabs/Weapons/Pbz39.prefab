@@ -127,9 +127,8 @@ GameObject:
   - component: {fileID: 1831725530732086773}
   - component: {fileID: 383944032337879746}
   - component: {fileID: -5414405560727470145}
-  - component: {fileID: 3845832036217520505}
-  - component: {fileID: 3953802303555874632}
   - component: {fileID: 6525269609097388233}
+  - component: {fileID: 3953802303555874632}
   m_Layer: 0
   m_Name: Pbz39
   m_TagString: Weapon
@@ -242,7 +241,7 @@ CircleCollider2D:
   m_Offset: {x: 0.32291663, y: 0}
   serializedVersion: 2
   m_Radius: 0.34375
---- !u!114 &3845832036217520505
+--- !u!114 &6525269609097388233
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -251,20 +250,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 3969873003748830985}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fdfebb76137225840accc2415a210e2f, type: 3}
+  m_Script: {fileID: 11500000, guid: 7f9e4d030ef3f164a95d1b8aac38b99e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ID: 1
-  Name: Pbz39
-  ReloadTime: 3
-  FireRate: 0.5
-  HasRecoil: 1
-  Automatic: 0
-  MaxAmmo: 4
-  BulletPerShot: 1
-  BulletType: 5
-  Bullet: {fileID: 8725514770492500741, guid: b7dfe1dfe4603c946852d72fbe3ac28f, type: 3}
-  FireSound: 9
+  weaponInfo: {fileID: 11400000, guid: 4bde5d8cc1d064021951f28c6f90142e, type: 2}
+  WeaponRecoiler: {fileID: 3953802303555874632}
+  WeaponRenderer: {fileID: 383944032337879746}
+  LeftHandRenderer: {fileID: 324446217678383585}
+  RightHandRenderer: {fileID: 1032334104926215458}
+  ShotPoint: {fileID: 5566008616711757529}
 --- !u!114 &3953802303555874632
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -280,24 +274,6 @@ MonoBehaviour:
   maxOffsetDistance: 0.5
   recoilAcceleration: 30
   weaponRecoilStartSpeed: -10
---- !u!114 &6525269609097388233
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3969873003748830985}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f9e4d030ef3f164a95d1b8aac38b99e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Weapon: {fileID: 3845832036217520505}
-  WeaponRecoiler: {fileID: 3953802303555874632}
-  WeaponRenderer: {fileID: 383944032337879746}
-  LeftHandRenderer: {fileID: 324446217678383585}
-  RightHandRenderer: {fileID: 1032334104926215458}
-  ShotPoint: {fileID: 5566008616711757529}
 --- !u!1 &8024042598457707856
 GameObject:
   m_ObjectHideFlags: 0

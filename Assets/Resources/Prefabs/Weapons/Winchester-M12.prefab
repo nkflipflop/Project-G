@@ -181,9 +181,8 @@ GameObject:
   - component: {fileID: 8262376398248273973}
   - component: {fileID: 7968635981375295234}
   - component: {fileID: 5539389853419033962}
-  - component: {fileID: 6817712032867167417}
-  - component: {fileID: 6709511441599529608}
   - component: {fileID: 3552259318856469769}
+  - component: {fileID: 6709511441599529608}
   m_Layer: 0
   m_Name: Winchester-M12
   m_TagString: Weapon
@@ -296,7 +295,7 @@ CircleCollider2D:
   m_Offset: {x: 0.21415564, y: 0.010416657}
   serializedVersion: 2
   m_Radius: 0.23498902
---- !u!114 &6817712032867167417
+--- !u!114 &3552259318856469769
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -305,20 +304,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 6689412603249722057}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fdfebb76137225840accc2415a210e2f, type: 3}
+  m_Script: {fileID: 11500000, guid: 7f9e4d030ef3f164a95d1b8aac38b99e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ID: 6
-  Name: Winchester
-  ReloadTime: 3.5
-  FireRate: 0.7
-  HasRecoil: 1
-  Automatic: 0
-  MaxAmmo: 3
-  BulletPerShot: 3
-  BulletType: 2
-  Bullet: {fileID: 3965427938998873271, guid: fb83bf975619b5244a73294a493f4c29, type: 3}
-  FireSound: 8
+  weaponInfo: {fileID: 11400000, guid: 881ad18d699c2467cbb10f2a19050fb1, type: 2}
+  WeaponRecoiler: {fileID: 6709511441599529608}
+  WeaponRenderer: {fileID: 7968635981375295234}
+  LeftHandRenderer: {fileID: 8017226717864412193}
+  RightHandRenderer: {fileID: 7318865351696052450}
+  ShotPoint: {fileID: 2809169180618273561}
 --- !u!114 &6709511441599529608
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -334,24 +328,6 @@ MonoBehaviour:
   maxOffsetDistance: 0.3
   recoilAcceleration: 25
   weaponRecoilStartSpeed: -5
---- !u!114 &3552259318856469769
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6689412603249722057}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f9e4d030ef3f164a95d1b8aac38b99e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Weapon: {fileID: 6817712032867167417}
-  WeaponRecoiler: {fileID: 6709511441599529608}
-  WeaponRenderer: {fileID: 7968635981375295234}
-  LeftHandRenderer: {fileID: 8017226717864412193}
-  RightHandRenderer: {fileID: 7318865351696052450}
-  ShotPoint: {fileID: 2809169180618273561}
 --- !u!1 &8317844000304462299
 GameObject:
   m_ObjectHideFlags: 0

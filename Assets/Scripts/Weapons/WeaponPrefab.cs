@@ -12,6 +12,6 @@ public class WeaponPrefab : MonoBehaviour
     public int MaxAmmo;
     public int BulletPerShot;
     public ObjectType BulletType;
-    public ProjectileController Bullet;         // TODO: remove this
+    public Projectile Bullet;         // TODO: remove this
     public SoundManager.Sound FireSound;
 }
