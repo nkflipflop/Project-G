@@ -80,7 +80,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30ecbb3321aaa61448339ecc85f9a4dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damage: 15
+  attackRangeCollider: {fileID: 8402075265458640466}
+  damage: 15
 --- !u!1 &4222677927441472681
 GameObject:
   m_ObjectHideFlags: 0
@@ -96,7 +97,6 @@ GameObject:
   - component: {fileID: 6852844814520285863}
   - component: {fileID: 2289882403702756393}
   - component: {fileID: 8942488862166178267}
-  - component: {fileID: 31761145795441955}
   m_Layer: 8
   m_Name: ExplosiveRobot
   m_TagString: Enemy
@@ -241,13 +241,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cbf3ad887f6716448346f4ee343c01e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Target: {fileID: 0}
-  _speed: 1.9
-  DistanceBtwTarget: 0
+  <Type>k__BackingField: 24
+  animator: {fileID: 7480063835886603154}
+  speed: 1.9
+  distanceBtwTarget: 0
   HealthController: {fileID: 2289882403702756393}
-  AttackController: {fileID: 7258634812795383236}
-  Renderer: {fileID: 3440077010818967514}
-  EmissionMaterial: {fileID: 2100000, guid: 1d894cf0c20fcf14e9659a67842e8fb8, type: 2}
+  attackController: {fileID: 7258634812795383236}
+  spiteRenderer: {fileID: 3440077010818967514}
+  emissionMaterial: {fileID: 2100000, guid: 1d894cf0c20fcf14e9659a67842e8fb8, type: 2}
 --- !u!114 &2289882403702756393
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -280,18 +281,3 @@ MonoBehaviour:
   Renderer: {fileID: 3440077010818967514}
   DissolveMaterial: {fileID: 2100000, guid: 8731b3bef0b12044381118bb5f69a921, type: 2}
   _weaponDissolve: {fileID: 0}
---- !u!114 &31761145795441955
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4222677927441472681}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 188f90afc342df349bb75a5d2cde1d2b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DungeonManager: {fileID: 0}
-  StartPos: {x: 0, y: 0, z: 0}
-  GoalPos: {x: 0, y: 0, z: 0}

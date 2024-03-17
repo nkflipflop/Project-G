@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using Pooling;
+using Pooling.Interfaces;
 using UnityEngine;
 using Utilities;
 
@@ -704,25 +706,29 @@ public class DungeonManager : MonoBehaviour
                     // if the randomPos != invalidPos, then spawn the object
                     if (Vector3.Distance(randomPos, invalidPos) != 0)
                     {
-                        int enemyIndex = 0;
+                        int enemyIndex;
                         do
                         {
                             // make sure that there is only one turret in a room
-                            int enemyIndexRangeMin =
-                                (dungeonLevel < 7) ? enemyIndexes[dungeonLevel, 0] : enemyIndexes[6, 0];
-                            int enemyIndexRangeMax =
-                                (dungeonLevel < 7) ? enemyIndexes[dungeonLevel, 1] : enemyIndexes[6, 1];
+                            int enemyIndexRangeMin = (dungeonLevel < 7) ? enemyIndexes[dungeonLevel, 0] : enemyIndexes[6, 0];
+                            int enemyIndexRangeMax = (dungeonLevel < 7) ? enemyIndexes[dungeonLevel, 1] : enemyIndexes[6, 1];
                             enemyIndex = Random.Range(enemyIndexRangeMin, enemyIndexRangeMax + 1);
-                        } while (subDungeon.hasTurret && enemyIndex == 2); // check if the room has a turret and new enemy is turret
-
-                        GameObject instance =
-                            Instantiate(enemies[enemyIndex], randomPos, Quaternion.identity) as GameObject;
-                        instance.transform.SetParent(dungeon.transform.GetChild((int)Objects.Enemies).gameObject
-                            .transform);
+                        } while (subDungeon.hasTurret && enemyIndex == 3); // check if the room has a turret and new enemy is turret
+                        
+                        IPoolable enemyObject = PoolFactory.instance.GetObject(
+                            (ObjectType)((int)ObjectType.Beetle + enemyIndex), randomPos, Quaternion.identity,
+                            dungeon.transform.GetChild((int)Objects.Enemies).gameObject.transform);
+                        if (enemyObject.GameObject.TryGetComponent(out Enemy enemy) && enemy is IPathfinder pathfinderEnemy)
+                        {
+                            pathfinderEnemy.SetupPathfinding(player.transform, DungeonMap);
+                        }
+                        
                         enemySpawnData.Current++;
                         objectSpawnPos[(int)randomPos.x, (int)randomPos.y] = 1;
-                        if (enemyIndex == 2)
+                        if (enemyIndex == 3)
+                        {
                             subDungeon.hasTurret = true;
+                        }
                     }
                 }
             }

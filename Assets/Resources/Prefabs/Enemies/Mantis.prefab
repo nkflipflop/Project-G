@@ -12,11 +12,10 @@ GameObject:
   - component: {fileID: 724460742775453840}
   - component: {fileID: 3858294292749626457}
   - component: {fileID: 8269241967138903345}
-  - component: {fileID: 5991206384774071471}
   - component: {fileID: 4025608703390574238}
+  - component: {fileID: 5991206384774071471}
   - component: {fileID: 8745209927170539040}
   - component: {fileID: 7066947243637713369}
-  - component: {fileID: 8642076549620509494}
   m_Layer: 8
   m_Name: Mantis
   m_TagString: Enemy
@@ -150,6 +149,24 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &4025608703390574238
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1481178417710471637}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d66e7836fb21dbe499ab3e1f84202432, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Type>k__BackingField: 21
+  animator: {fileID: 8269241967138903345}
+  speed: 2
+  distanceBtwTarget: 0
+  HealthController: {fileID: 5991206384774071471}
+  attackController: {fileID: 5251608607320774765}
 --- !u!114 &5991206384774071471
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -167,23 +184,6 @@ MonoBehaviour:
   Renderer: {fileID: 724460742775453840}
   HitboxCollider: {fileID: 3858294292749626457}
   SoundEffect: 1
---- !u!114 &4025608703390574238
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1481178417710471637}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d66e7836fb21dbe499ab3e1f84202432, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Target: {fileID: 0}
-  _speed: 2
-  DistanceBtwTarget: 0
-  HealthController: {fileID: 5991206384774071471}
-  AttackController: {fileID: 5251608607320774765}
 --- !u!114 &8745209927170539040
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -212,21 +212,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _walkingObject: 1
---- !u!114 &8642076549620509494
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1481178417710471637}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 188f90afc342df349bb75a5d2cde1d2b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DungeonManager: {fileID: 0}
-  StartPos: {x: 0, y: 0, z: 0}
-  GoalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &8756088191481842777
 GameObject:
   m_ObjectHideFlags: 0
@@ -307,7 +292,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30ecbb3321aaa61448339ecc85f9a4dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damage: 3
+  attackRangeCollider: {fileID: 128254909581022476}
+  damage: 3
 --- !u!1 &9151035153676584346
 GameObject:
   m_ObjectHideFlags: 0

@@ -9,13 +9,13 @@ public class HandControllerBase : MonoBehaviour
     [NonSerialized] public WeaponBase CurrentWeapon;
 
     protected bool CharacterIsRunning = false;
-    protected Vector3 WeaponPosition = new Vector3(0, 0, 0);
+    protected Vector3 WeaponPosition = new (0, 0, 0);
     protected float AimDeviation; // ability to hit the bull's eye (if 0, you are the best)
     protected Vector3 TargetObjectPosition;
 
     protected Vector3 AimPosition;
-    private float _verticalTrigger = 1; // for inverse scaling of the weapon
-    private bool _canShoot = false;
+    private float verticalTrigger = 1; // for inverse scaling of the weapon
+    private bool canShoot = false;
     private const float FIRE_DELAY = 1f;
 
     private void Start()
@@ -85,8 +85,8 @@ public class HandControllerBase : MonoBehaviour
     {
         // Flipping hand position and weapon direction
         float verticalAxis = Mathf.Sign(AimPosition.x - transform.position.x);
-        bool scale = !(_verticalTrigger * verticalAxis > 0);
-        _verticalTrigger = verticalAxis;
+        bool scale = !(verticalTrigger * verticalAxis > 0);
+        verticalTrigger = verticalAxis;
         if (scale) CurrentWeapon.ScaleInverse();
 
         // Getting mouse position and direction of player to mouse
@@ -103,7 +103,7 @@ public class HandControllerBase : MonoBehaviour
         {
             AimWeapon();
             AdjustSortingOrder();
-            if (_canShoot)
+            if (canShoot)
             {
                 CurrentWeapon.WeaponUpdate();
                 UseWeapon();
@@ -133,6 +133,6 @@ public class HandControllerBase : MonoBehaviour
     private async UniTaskVoid GivePermissionToFire(float waitTime)
     {
         await UniTask.Delay(TimeSpan.FromSeconds(waitTime));
-        _canShoot = true;
+        canShoot = true;
     }
 }

@@ -2,32 +2,27 @@
 
 public class EnemyCloseRangeAttackController : MonoBehaviour
 {
-    [SerializeField] private int _damage = 3;
-    private bool _canAttack = true;
-    private CircleCollider2D _attackRangeCollider;
-
-    private void Start()
-    {
-        _attackRangeCollider = gameObject.GetComponent<CircleCollider2D>();
-    }
+    [SerializeField] private CircleCollider2D attackRangeCollider;
+    [SerializeField] private int damage = 3;
+    private bool canAttack = true;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (_canAttack && other.gameObject.CompareTag("Player"))
+        if (canAttack && other.gameObject.CompareTag("Player"))
         {
-            _canAttack = false;
-            other.gameObject.GetComponent<HealthController>().TakeDamage(_damage);
+            canAttack = false;
+            other.gameObject.GetComponent<HealthController>().TakeDamage(damage);
         }
     }
 
     public void EnableCollider()
     {
-        _attackRangeCollider.enabled = true;
+        attackRangeCollider.enabled = true;
     }
 
     public void DisableCollider()
     {
-        _attackRangeCollider.enabled = false;
-        _canAttack = true;
+        attackRangeCollider.enabled = false;
+        canAttack = true;
     }
 }

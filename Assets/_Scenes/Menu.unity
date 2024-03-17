@@ -2391,7 +2391,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 4.7916665
+  orthographic size: 2.8125
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -6247,6 +6247,12 @@ MonoBehaviour:
   - {fileID: 6299611338768158524, guid: c403557b17ee2a548bf2c0950e060bfa, type: 3}
   - {fileID: 2396569148800147147, guid: fcddc0e02cf24184bb2470ed4ad3a2e5, type: 3}
   - {fileID: 2396569148800147147, guid: b7dfe1dfe4603c946852d72fbe3ac28f, type: 3}
+  - {fileID: 1720542317387614879, guid: ee4835f7f79fc49a885704d02d5e23e6, type: 3}
+  - {fileID: 1481178417710471637, guid: 125cedb84a86b49cf991435bbb5eca7b, type: 3}
+  - {fileID: 821287447008539312, guid: 95a67f594d80f4905a30de5e9bdc3b96, type: 3}
+  - {fileID: 4222677927441472681, guid: e59427ae37a384a6c9ef8c7d3701eab5, type: 3}
+  - {fileID: 1774692839119170209, guid: aef238f92159f42e18b61b24c73199dc, type: 3}
+  - {fileID: 7560082752215411159, guid: 6e8b5e81bc82c4a849f9a3a53fdf7285, type: 3}
   presets:
   - obj: {fileID: 6678322572294115953, guid: fef352fae64d1f446bc6f97fe2b9cc81, type: 3}
     initialSize: 10
@@ -7630,7 +7636,7 @@ MonoBehaviour:
   isPersistent: 1
   dungeonLevel: 0
   <Health>k__BackingField: 100
-  <WeaponID>k__BackingField: 4
+  <WeaponType>k__BackingField: 4
   <MedKits>k__BackingField: 1
   <Shields>k__BackingField: 1
 --- !u!1 &1542928789

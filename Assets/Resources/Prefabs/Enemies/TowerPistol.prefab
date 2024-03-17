@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 9121615945204144954}
   - component: {fileID: 3466921183661341554}
   - component: {fileID: 9032202858467178367}
+  - component: {fileID: 3056304295453858086}
   - component: {fileID: 8191087442810863949}
   - component: {fileID: 3684385434586695644}
   - component: {fileID: 2388392583798474470}
-  - component: {fileID: 3056304295453858086}
   m_Layer: 8
   m_Name: TowerPistol
   m_TagString: Enemy
@@ -126,6 +126,25 @@ CapsuleCollider2D:
   m_Offset: {x: -0.000008866191, y: 0.19311967}
   m_Size: {x: 0.33330896, y: 0.6653642}
   m_Direction: 0
+--- !u!114 &3056304295453858086
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1774692839119170209}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4ca2a21f7e2ec842800d7d8bdc559bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CharacterRenderer: {fileID: 3466921183661341554}
+  TargetObject: {fileID: 0}
+  <Type>k__BackingField: 0
+  HealthController: {fileID: 8191087442810863949}
+  hittableLayersByEnemy:
+    serializedVersion: 2
+    m_Bits: 5632
 --- !u!114 &8191087442810863949
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -171,21 +190,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _walkingObject: 0
---- !u!114 &3056304295453858086
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1774692839119170209}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4ca2a21f7e2ec842800d7d8bdc559bd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CharacterRenderer: {fileID: 3466921183661341554}
-  TargetObject: {fileID: 0}
-  HealthController: {fileID: 8191087442810863949}
 --- !u!1 &8390802929227459542
 GameObject:
   m_ObjectHideFlags: 0

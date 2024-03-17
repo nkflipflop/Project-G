@@ -83,7 +83,6 @@ GameObject:
   - component: {fileID: 722676524132550431}
   - component: {fileID: 2461307085421787622}
   - component: {fileID: 6679584396537447848}
-  - component: {fileID: 152487291895762766}
   m_Layer: 8
   m_Name: Beetle
   m_TagString: Enemy
@@ -229,11 +228,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d66e7836fb21dbe499ab3e1f84202432, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Target: {fileID: 0}
-  _speed: 1.8
-  DistanceBtwTarget: 0
+  <Type>k__BackingField: 20
+  animator: {fileID: 3376340390538088097}
+  speed: 1.8
+  distanceBtwTarget: 0
   HealthController: {fileID: 722676524132550431}
-  AttackController: {fileID: 2222595855943126019}
+  attackController: {fileID: 2222595855943126019}
 --- !u!114 &722676524132550431
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -279,21 +279,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _walkingObject: 1
---- !u!114 &152487291895762766
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1720542317387614879}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 188f90afc342df349bb75a5d2cde1d2b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DungeonManager: {fileID: 0}
-  StartPos: {x: 0, y: 0, z: 0}
-  GoalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &1980059638639654146
 GameObject:
   m_ObjectHideFlags: 0
@@ -374,4 +359,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30ecbb3321aaa61448339ecc85f9a4dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damage: 3
+  attackRangeCollider: {fileID: 8870155691579795870}
+  damage: 3

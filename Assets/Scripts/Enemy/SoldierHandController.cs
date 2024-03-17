@@ -1,6 +1,6 @@
 ﻿public class SoldierHandController : HandControllerBase
 {
-    public EnemyController EnemyController;
+    public Enemy enemy;
 
     protected override void SpecialStart()
     {
@@ -11,14 +11,12 @@
 
     protected override void SpecialUpdate()
     {
-        CharacterIsRunning = EnemyController.IsRunning;
+        CharacterIsRunning = enemy.IsRunning;
     }
 
     protected override void UseWeapon()
     {
-        if (!EnemyController.HealthController.IsDead &&
-            EnemyController.IsRunning &&
-            EnemyController.DistanceBtwTarget < 3f)
+        if (!enemy.HealthController.IsDead && enemy.IsRunning && enemy.distanceBtwTarget < 3f)
         {
             CurrentWeapon.Trigger();
         }

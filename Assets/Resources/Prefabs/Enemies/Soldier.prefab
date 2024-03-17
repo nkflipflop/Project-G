@@ -16,7 +16,6 @@ GameObject:
   - component: {fileID: 8271123726165884815}
   - component: {fileID: 1349111167931984164}
   - component: {fileID: 2458338385610872375}
-  - component: {fileID: 9107150815074537355}
   m_Layer: 8
   m_Name: Soldier
   m_TagString: Enemy
@@ -162,11 +161,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d66e7836fb21dbe499ab3e1f84202432, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Target: {fileID: 0}
-  _speed: 1.5
-  DistanceBtwTarget: 0
+  <Type>k__BackingField: 22
+  animator: {fileID: 1648727802529027997}
+  speed: 1.5
+  distanceBtwTarget: 0
   HealthController: {fileID: 8271123726165884815}
-  AttackController: {fileID: 0}
+  attackController: {fileID: 0}
 --- !u!114 &8271123726165884815
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -212,21 +212,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _walkingObject: 1
---- !u!114 &9107150815074537355
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 821287447008539312}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 188f90afc342df349bb75a5d2cde1d2b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DungeonManager: {fileID: 0}
-  StartPos: {x: 0, y: 0, z: 0}
-  GoalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &2940745512934284033
 GameObject:
   m_ObjectHideFlags: 0
@@ -341,7 +326,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CharacterRenderer: {fileID: 774306411032083329}
   TargetObject: {fileID: 0}
-  EnemyController: {fileID: 8102162738674747145}
+  enemy: {fileID: 8102162738674747145}
 --- !u!1001 &467405539786861892
 PrefabInstance:
   m_ObjectHideFlags: 0
