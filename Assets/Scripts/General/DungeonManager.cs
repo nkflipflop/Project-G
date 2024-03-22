@@ -715,10 +715,10 @@ public class DungeonManager : MonoBehaviour
                             enemyIndex = Random.Range(enemyIndexRangeMin, enemyIndexRangeMax + 1);
                         } while (subDungeon.hasTurret && enemyIndex == 3); // check if the room has a turret and new enemy is turret
                         
-                        IPoolable enemyObject = PoolFactory.instance.GetObject(
+                        Enemy enemy = PoolFactory.instance.GetObject<Enemy>(
                             (ObjectType)((int)ObjectType.Beetle + enemyIndex), randomPos, Quaternion.identity,
                             dungeon.transform.GetChild((int)Objects.Enemies).gameObject.transform);
-                        if (enemyObject.GameObject.TryGetComponent(out Enemy enemy) && enemy is IPathfinder pathfinderEnemy)
+                        if (enemy is IPathfinder pathfinderEnemy)
                         {
                             pathfinderEnemy.SetupPathfinding(player.transform, DungeonMap);
                         }

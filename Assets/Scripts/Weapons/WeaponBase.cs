@@ -69,8 +69,7 @@ public class WeaponBase : MonoBehaviour
         timeBtwShots = weaponInfo.fireRate;
 
         // Fire Effect
-        FireEffect fireEffect = PoolFactory.instance.GetObject(ObjectType.FireEffect, ShotPoint.position, ShotPoint.rotation).GameObject
-            .GetComponent<FireEffect>();
+        FireEffect fireEffect = PoolFactory.instance.GetObject<FireEffect>(ObjectType.FireEffect, ShotPoint.position, ShotPoint.rotation);
         fireEffect.Play();
         
         // Recoiling the weapon
@@ -88,9 +87,8 @@ public class WeaponBase : MonoBehaviour
             float angelBtwBullets = 10f;
             float zRotation = ((1 - weaponInfo.bulletPerShot) * angelBtwBullets / 2) + (angelBtwBullets * i);
             Projectile bullet = PoolFactory.instance
-                .GetObject(weaponInfo.bulletType, ShotPoint.position,
-                    Quaternion.Euler(new Vector3(0, 0, ShotPoint.rotation.eulerAngles.z + zRotation))).GameObject
-                .GetComponent<Projectile>();
+                .GetObject<Projectile>(weaponInfo.bulletType, ShotPoint.position,
+                    Quaternion.Euler(new Vector3(0, 0, ShotPoint.rotation.eulerAngles.z + zRotation)));
             bullet.Activate(transform.root.CompareTag("Player"));
         }
     }
