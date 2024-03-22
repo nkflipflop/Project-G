@@ -12,7 +12,6 @@ namespace Pooling
         
         [SerializeField] private GameObject[] prefabs;
         [SerializeField] private List<PoolPreset> presets;
-        [SerializeField] private Transform activeObjects;
         
 #if UNITY_EDITOR
         [SerializeField] private List<ObjectPoolOnInspector> poolsOnInspector;
@@ -82,16 +81,26 @@ namespace Pooling
             return pools.GetValueOrDefault(type);
         }
         
-        public IPoolable GetObject(ObjectType type)
+        public IPoolable GetObject(ObjectType type, Transform parent = null)
         {
             ObjectPool pool = GetPool(type);
-            return pool?.Pull();
+            return pool?.Pull(parent);
+        }
+        
+        public T GetObject<T>(ObjectType type, Transform parent = null) where T : IPoolable
+        {
+            return (T)GetObject(type, parent);
         }
         
         public IPoolable GetObject(ObjectType type, Vector3 position, Quaternion rotation, Transform parent = null)
         {
             ObjectPool pool = GetPool(type);
-            return pool?.Pull(position, rotation, parent != null ? parent : activeObjects);
+            return pool?.Pull(position, rotation, parent);
+        }
+        
+        public T GetObject<T>(ObjectType type, Vector3 position, Quaternion rotation, Transform parent = null) where T : IPoolable
+        {
+            return (T)GetObject(type, position, rotation, parent);
         }
         
         #endregion
