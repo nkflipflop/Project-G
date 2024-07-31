@@ -70,7 +70,7 @@ public class WeaponBase : MonoBehaviour
 
         // Fire Effect
         FireEffect fireEffect = PoolFactory.instance.GetObject<FireEffect>(ObjectType.FireEffect, ShotPoint.position, ShotPoint.rotation);
-        fireEffect.Play();
+        _ = fireEffect.Play();
         
         // Recoiling the weapon
         if (weaponInfo.hasRecoil)
@@ -89,7 +89,7 @@ public class WeaponBase : MonoBehaviour
             Projectile bullet = PoolFactory.instance
                 .GetObject<Projectile>(weaponInfo.bulletType, ShotPoint.position,
                     Quaternion.Euler(new Vector3(0, 0, ShotPoint.rotation.eulerAngles.z + zRotation)));
-            bullet.Activate(transform.root.CompareTag("Player"));
+            _ = bullet.Activate(transform.root.CompareTag("Player"));
         }
     }
 

@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using LootSystem;
 using Pooling;
-using Pooling.Interfaces;
 using UnityEngine;
 using Utilities;
 
@@ -62,7 +61,6 @@ public class DungeonManager : MonoBehaviour
     private readonly Vector3 invalidPos = new(0, 0, 1);
 
     public int[,] DungeonMap { get; private set; }
-
 
     public class SubDungeon
     {
@@ -312,8 +310,7 @@ public class DungeonManager : MonoBehaviour
             return true;
         }
     }
-
-
+    
     private void Update()
     {
         if (player.HasKey && !escapeDoor.IsDoorOpen)
@@ -359,11 +356,12 @@ public class DungeonManager : MonoBehaviour
                     if (!(i >= subDungeon.removedPiece.x && i <= subDungeon.removedPiece.xMax &&
                           j >= subDungeon.removedPiece.y && j <= subDungeon.removedPiece.yMax))
                     {
+                        // TODO: pool objects
                         GameObject instance =
                             Instantiate(
                                 GameConfigData.Instance.FloorTiles[
-                                    (int)Random.Range(0, GameConfigData.Instance.FloorTiles.Length)],
-                                new Vector3(i, j, 0f), Quaternion.identity) as GameObject;
+                                    Random.Range(0, GameConfigData.Instance.FloorTiles.Length)],
+                                new Vector3(i, j, 0f), Quaternion.identity);
                         instance.transform.SetParent(dungeon.transform.GetChild((int)Tiles.Floors).gameObject
                             .transform);
                         dungeonFloorPositions[i, j] = instance;
@@ -395,11 +393,12 @@ public class DungeonManager : MonoBehaviour
                 {
                     if (dungeonFloorPositions[i, j] == null)
                     {
+                        // TODO: pool objects
                         GameObject instance =
                             Instantiate(
                                 GameConfigData.Instance.FloorTiles[
-                                    (int)Random.Range(0, GameConfigData.Instance.FloorTiles.Length)],
-                                new Vector3(i, j, 0f), Quaternion.identity) as GameObject;
+                                    Random.Range(0, GameConfigData.Instance.FloorTiles.Length)],
+                                new Vector3(i, j, 0f), Quaternion.identity);
                         instance.transform.SetParent(dungeon.transform.GetChild((int)Tiles.Corridors).gameObject
                             .transform);
                         dungeonFloorPositions[i, j] = instance;
@@ -453,8 +452,9 @@ public class DungeonManager : MonoBehaviour
 
             if (dungeonFloorPositions[bridgePos.x, bridgePos.y] == null)
             {
+                // TODO: pool objects
                 GameObject instance = Instantiate(GameConfigData.Instance.BridgeTiles[index],
-                    new Vector3(bridgePos.x, bridgePos.y, 0f), Quaternion.identity) as GameObject;
+                    new Vector3(bridgePos.x, bridgePos.y, 0f), Quaternion.identity);
                 instance.transform.SetParent(dungeon.transform.GetChild((int)Tiles.Bridges).gameObject.transform);
                 dungeonFloorPositions[bridgePos.x, bridgePos.y] = instance;
             }
@@ -488,6 +488,7 @@ public class DungeonManager : MonoBehaviour
                 int wallPosX = i + 1, wallPosY = j + 1;
                 if (dungeonFloorPositions[wallPosX, wallPosY] == null && DungeonMap[wallPosX, wallPosY] == 0)
                 {
+                    // TODO: pool objects
                     instance = Instantiate(GameConfigData.Instance.WallTiles[index],
                         new Vector3(wallPosX, wallPosY, 0f), Quaternion.identity) as GameObject;
                     instance.transform.SetParent(dungeon.transform.GetChild((int)Tiles.Walls).gameObject.transform);
@@ -496,6 +497,7 @@ public class DungeonManager : MonoBehaviour
                     if (index != 0)
                     {
                         // placing floor tile under the walls
+                        // TODO: pool objects
                         instance = Instantiate(
                             GameConfigData.Instance.FloorTiles[
                                 (int)Random.Range(0, GameConfigData.Instance.FloorTiles.Length)],
@@ -519,6 +521,7 @@ public class DungeonManager : MonoBehaviour
                 {
                     if (dungeonFloorPositions[bridgePos.x + i, bridgePos.y + j] == null || (i == 0 && j == 0))
                     {
+                        // TODO: pool objects
                         GameObject instance = Instantiate(
                             DungeonMap[bridgePos.x + i, bridgePos.y + j + 1] != -1
                                 ? GameConfigData.Instance.WaterTiles[0]
@@ -677,11 +680,6 @@ public class DungeonManager : MonoBehaviour
     {
         //Debug.Log("Spawning enemies...");
         SpawnEnemies(rootSubDungeon, dungeonLevel);
-        // after creating copies, disable the original ones
-        foreach (var enemy in enemies)
-        {
-            enemy.SetActive(false);
-        }
         //Debug.Log("Enemy spawn ended.");
     }
 

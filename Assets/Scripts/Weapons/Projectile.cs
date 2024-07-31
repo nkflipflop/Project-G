@@ -93,10 +93,7 @@ public class Projectile : MonoBehaviour, IPoolable
         isActive = true;
         await UniTask.WhenAny(UniTask.Delay(TimeSpan.FromSeconds(5f)), UniTask.WaitUntil(() => !isActive))
             .AttachExternalCancellation(this.GetCancellationTokenOnDestroy());
-        if (isActive)
-        {
-            this.ResetObject();
-        }
+        isActive = false;
     }
     
     public void OnSpawn()

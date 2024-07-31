@@ -21,13 +21,29 @@ namespace Pooling
             
             if (numToSpawn > 0)
             {
-                SetParent();
-                Spawn(numToSpawn, PoolParent);
+                Spawn(numToSpawn);
             }
+        }
 
-            void SetParent()
+        private void Spawn(int number)
+        {
+            for (int i = 0; i < number; i++)
             {
-                if (PoolParent == null)
+                IPoolable poolableObj = CreateObject();
+                objects.Push(poolableObj);
+                poolableObj.GameObject.SetActive(false);
+            }
+        }
+
+        private IPoolable CreateObject()
+        {
+            SetPoolParent();
+            IPoolable poolableObj = (IPoolable)Object.Instantiate((Object)poolObject, PoolParent);
+            return poolableObj;
+            
+            void SetPoolParent()
+            {
+                if (!PoolParent)
                 {
                     Transform parent = new GameObject(poolObject.Type.ToString()).transform;
                     parent.SetParent(PoolFactory.instance.transform);
@@ -36,27 +52,11 @@ namespace Pooling
             }
         }
 
-        private void Spawn(int number, Transform parent = null)
-        {
-            for (int i = 0; i < number; i++)
-            {
-                IPoolable poolableObj = CreateObject(parent);
-                objects.Push(poolableObj);
-                poolableObj.GameObject.SetActive(false);
-            }
-        }
-
-        private IPoolable CreateObject(Transform parent = null)
-        {
-            IPoolable poolableObj = (IPoolable)Object.Instantiate((Object)poolObject, parent);
-            return poolableObj;
-        }
-
         #region Pull Functions
         
         public IPoolable Pull()
         {
-            IPoolable poolableObj = Count > 0 ? objects.Pop() : CreateObject(PoolParent);
+            IPoolable poolableObj = Count > 0 ? objects.Pop() : CreateObject();
             poolableObj.GameObject.SetActive(true);
             poolableObj.OnSpawn();
             
@@ -92,13 +92,16 @@ namespace Pooling
         
         #endregion
 
-        public void Push(IPoolable obj)
+        public void Push(IPoolable obj, bool removeFromActiveObjects = true)
         {
-            activeObjects.Remove(obj);
+            if (removeFromActiveObjects)
+            {
+                activeObjects.Remove(obj);
+            }
 
             if (objects.Contains(obj))
             {
-                Log.Error(("BUG: Trying to add the same object ->", obj.Type), obj.GameObject);
+                Log.Error(("BUG: Trying to add the same object ->", obj.Type), obj: obj.GameObject);
                 return;
             }
             objects.Push(obj);
@@ -115,7 +118,7 @@ namespace Pooling
             Log.Debug("~~ type: " + poolObject.Type);
             foreach (IPoolable item in activeObjects)
             {
-                item.ResetObject();
+                item.ResetObject(false);
             }
             activeObjects.Clear();
         }

@@ -13,9 +13,9 @@ namespace Pooling.Interfaces
 	
 	public static class IPoolableExtensions
 	{
-		public static bool ResetObject(this IPoolable poolable)
+		public static bool ResetObject(this IPoolable poolable, bool removeFromActiveObjects = true)
 		{
-			return PoolFactory.instance.ResetObject(poolable);
+			return PoolFactory.instance.ResetObject(poolable, removeFromActiveObjects);
 		}
 	}
 }

@@ -107,15 +107,15 @@ namespace Pooling
 
         #region Reset Methods
         
-        public bool ResetObject(IPoolable obj)
+        public bool ResetObject(IPoolable obj, bool removeFromActiveObjects = true)
         {
             ObjectPool pool = GetPool(obj.Type);
             if (pool != null)
             {
-                pool.Push(obj);
+                pool.Push(obj, removeFromActiveObjects);
                 return true;
             }
-            Log.Error(("The object you are trying to reset doesn't in any pool ->", obj.Type), obj.GameObject);
+            Log.Error(("The object you are trying to reset doesn't exist in any pool ->", obj.Type), obj.GameObject);
             return false;
         }
 

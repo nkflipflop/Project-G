@@ -6242,6 +6242,7 @@ MonoBehaviour:
   isPersistent: 1
   prefabs:
   - {fileID: 6678322572294115953, guid: fef352fae64d1f446bc6f97fe2b9cc81, type: 3}
+  - {fileID: 2008849835424725764, guid: b8b88776a857d044795aebfae686b187, type: 3}
   - {fileID: 8386142174366488335, guid: 8ca38b1ea12c45541b2bcd676ebeb4ce, type: 3}
   - {fileID: 8024592333845191033, guid: fb83bf975619b5244a73294a493f4c29, type: 3}
   - {fileID: 6299611338768158524, guid: c403557b17ee2a548bf2c0950e060bfa, type: 3}
@@ -6270,6 +6271,8 @@ MonoBehaviour:
   - obj: {fileID: 2396569148800147147, guid: fcddc0e02cf24184bb2470ed4ad3a2e5, type: 3}
     initialSize: 20
   - obj: {fileID: 2396569148800147147, guid: b7dfe1dfe4603c946852d72fbe3ac28f, type: 3}
+    initialSize: 20
+  - obj: {fileID: 2008849835424725764, guid: b8b88776a857d044795aebfae686b187, type: 3}
     initialSize: 20
   poolsOnInspector: []
 --- !u!4 &1224392810

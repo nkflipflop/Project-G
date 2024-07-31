@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Pooling.Interfaces;
+using UnityEngine;
 
 public class Dissolve : MonoBehaviour
 {
@@ -37,7 +38,10 @@ public class Dissolve : MonoBehaviour
             {
                 fade = 0f;
                 IsDissolving = false;
-                Destroy(gameObject);
+                if (TryGetComponent(out IPoolable poolObject))
+                {
+                    poolObject.ResetObject();
+                }
             }
 
             Renderer.material.SetFloat(FadePropertyID, fade); // setting the property
