@@ -1,7 +1,10 @@
-﻿/// <summary>
-/// When inheriting first we have to insert GenericLootDropItemGameObject instead of T and a GameObject instead of U
-/// </summary>
-[System.Serializable]
-public class GenericLootDropTableConsumable : GenericLootDropTable<GenericLootDropItemConsumable, Consumable>
+﻿namespace LootSystem
 {
+    /// <summary>
+    /// When inheriting first we have to insert GenericLootDropItemGameObject instead of T and a GameObject instead of U
+    /// </summary>
+    [System.Serializable]
+    public class GenericLootDropTableConsumable : GenericLootDropTable<GenericLootDropItemConsumable, Consumable>
+    {
+    }
 }

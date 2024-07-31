@@ -80,7 +80,6 @@ GameObject:
   - component: {fileID: 2866590550120015873}
   - component: {fileID: 3376340390538088097}
   - component: {fileID: 3790438164153648351}
-  - component: {fileID: 722676524132550431}
   - component: {fileID: 2461307085421787622}
   - component: {fileID: 6679584396537447848}
   m_Layer: 8
@@ -232,25 +231,14 @@ MonoBehaviour:
   animator: {fileID: 3376340390538088097}
   speed: 1.8
   distanceBtwTarget: 0
-  HealthController: {fileID: 722676524132550431}
+  HealthController: {fileID: 0}
   attackController: {fileID: 2222595855943126019}
---- !u!114 &722676524132550431
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1720542317387614879}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df6fb28ad9cbb484c9d905d52d4dfa92, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _health: 10
-  DissolveEffect: {fileID: 2461307085421787622}
-  Renderer: {fileID: 4111487190189749276}
-  HitboxCollider: {fileID: 2866590550120015873}
-  SoundEffect: 1
+  <CurrentHealth>k__BackingField: 10
+  <MaxHealth>k__BackingField: 10
+  <DissolveEffect>k__BackingField: {fileID: 2461307085421787622}
+  <HealthEffectRenderer>k__BackingField: {fileID: 4111487190189749276}
+  <HitBoxCollider>k__BackingField: {fileID: 2866590550120015873}
+  <HitSound>k__BackingField: 1
 --- !u!114 &2461307085421787622
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,4 +1,6 @@
 ﻿using System.Threading;
+using General;
+using NaughtyAttributes;
 using Pathfinding;
 using Pooling;
 using Pooling.Interfaces;
@@ -6,7 +8,7 @@ using UnityEngine;
 using Utilities;
 using Random = UnityEngine.Random;
 
-public class Enemy : MonoBehaviour, IPoolable, IPathfinder
+public class Enemy : MonoBehaviour, IPoolable, IPathfinder, IHealthInteractable
 {
     [field: SerializeField] public ObjectType Type { get; set; }
     
@@ -16,7 +18,6 @@ public class Enemy : MonoBehaviour, IPoolable, IPathfinder
     public float distanceBtwTarget;
     private Vector3? targetPos;
 
-    public HealthController HealthController;
     private Vector2 sightDir;
     private bool isAttacking;
     private bool isRunning;
@@ -41,7 +42,7 @@ public class Enemy : MonoBehaviour, IPoolable, IPathfinder
 
     private void FixedUpdate()
     {
-        if (!HealthController.IsDead)
+        if (!(this as IHealthInteractable).IsDead)
         {
             EnemyAnimate();
             Movement();
@@ -130,13 +131,20 @@ public class Enemy : MonoBehaviour, IPoolable, IPathfinder
     {
         attackController.DisableCollider();
     }
+
+    #region Pooling
     
-    public void OnSpawn() { }
+    public void OnSpawn()
+    {
+        CurrentHealth = MaxHealth;
+    }
 
     public void OnReset()
     {
         TriggerCancellationToken();
     }
+    
+    #endregion
     
     #region A Star Setup
     
@@ -181,6 +189,17 @@ public class Enemy : MonoBehaviour, IPoolable, IPathfinder
             CancellationTokenSource.Cancel();
         }
     }
+    
+    #endregion
+
+    #region Health Operations
+    
+    [field: SerializeField, Foldout("Health")] public int CurrentHealth { get; set; }
+    [field: SerializeField, Foldout("Health")] public int MaxHealth { get; set; }
+    [field: SerializeField, Foldout("Health")] public Dissolve DissolveEffect { get; set; }
+    [field: SerializeField, Foldout("Health")] public SpriteRenderer HealthEffectRenderer { get; set; }
+    [field: SerializeField, Foldout("Health")] public CapsuleCollider2D HitBoxCollider { get; set; }
+    [field: SerializeField, Foldout("Health")] public SoundManager.Sound HitSound { get; set; }
     
     #endregion
 }

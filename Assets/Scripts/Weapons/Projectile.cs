@@ -1,5 +1,6 @@
 ﻿using System;
 using Cysharp.Threading.Tasks;
+using General;
 using NaughtyAttributes;
 using Pooling;
 using Pooling.Interfaces;
@@ -56,7 +57,7 @@ public class Projectile : MonoBehaviour, IPoolable
                 if (hitInfo.collider.CompareTag("Player") || hitInfo.collider.CompareTag("Enemy") ||
                     hitInfo.collider.CompareTag("Breakable"))
                 {
-                    hitInfo.collider.gameObject.GetComponent<HealthController>().TakeDamage(damage);
+                    hitInfo.collider.GetComponent<IHealthInteractable>().TakeDamage(damage);
                 }
 
                 if (endurance < 1)
@@ -82,6 +83,7 @@ public class Projectile : MonoBehaviour, IPoolable
             // Creating After Effect
             PoolFactory.instance.GetObject(ObjectType.HitEffect, transform.position, transform.rotation);
             isActive = false;
+            this.ResetObject();
         }
     }
     
@@ -91,7 +93,10 @@ public class Projectile : MonoBehaviour, IPoolable
         isActive = true;
         await UniTask.WhenAny(UniTask.Delay(TimeSpan.FromSeconds(5f)), UniTask.WaitUntil(() => !isActive))
             .AttachExternalCancellation(this.GetCancellationTokenOnDestroy());
-        this.ResetObject();
+        if (isActive)
+        {
+            this.ResetObject();
+        }
     }
     
     public void OnSpawn()

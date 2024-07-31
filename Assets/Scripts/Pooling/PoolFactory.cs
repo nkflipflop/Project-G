@@ -14,7 +14,7 @@ namespace Pooling
         [SerializeField] private List<PoolPreset> presets;
         
 #if UNITY_EDITOR
-        [SerializeField] private List<ObjectPoolOnInspector> poolsOnInspector;
+        [SerializeField, NaughtyAttributes.ReadOnly] private List<ObjectPoolOnInspector> poolsOnInspector;
 #endif
         
         public override void Awake()

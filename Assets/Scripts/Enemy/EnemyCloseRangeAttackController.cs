@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using General;
+using UnityEngine;
 
 public class EnemyCloseRangeAttackController : MonoBehaviour
 {
@@ -11,7 +12,7 @@ public class EnemyCloseRangeAttackController : MonoBehaviour
         if (canAttack && other.gameObject.CompareTag("Player"))
         {
             canAttack = false;
-            other.gameObject.GetComponent<HealthController>().TakeDamage(damage);
+            other.gameObject.GetComponent<IHealthInteractable>().TakeDamage(damage);
         }
     }
 

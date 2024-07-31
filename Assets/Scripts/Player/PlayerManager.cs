@@ -1,4 +1,6 @@
 ﻿using System;
+using General;
+using NaughtyAttributes;
 using UnityEngine;
 
 [Serializable]
@@ -9,15 +11,14 @@ public class Inventory
     public int Count;
 }
 
-public class PlayerManager : MonoBehaviour
+public class PlayerManager : MonoBehaviour, IHealthInteractable
 {
     public PlayerController PlayerController;
     public PlayerHandController PlayerHandController;
-    public HealthController HealthController;
     [SerializeField] private GameObject _shield = null;
 
     [SerializeField] private Inventory[] _inventory = null; // Inventory
-    public event Action<Inventory[], HealthController> CollectPUB; // Item collection Publisher
+    public event Action<Inventory[], IHealthInteractable> CollectPUB; // Item collection Publisher
     private bool hasKey;
     private float shieldTime;
 
@@ -50,10 +51,9 @@ public class PlayerManager : MonoBehaviour
     private void UseMedKit()
     {
         Inventory inventory = _inventory[(int)GameConfigData.CollectibleType.Medkit];
-        if (inventory.Count > 0 && HealthController.Health < 100)
+        if (inventory.Count > 0 && (this as IHealthInteractable).GainHealth(inventory.Item.Value))
         {
             inventory.Count -= 1;
-            HealthController.Heal(inventory.Item.Value);
         }
     }
     
@@ -70,7 +70,7 @@ public class PlayerManager : MonoBehaviour
 
     public void LoadPlayerData()
     {
-        HealthController.Health = DataManager.instance.Health;
+        (this as IHealthInteractable).CurrentHealth = DataManager.instance.Health;
         _inventory[(int)GameConfigData.CollectibleType.Medkit].Count = DataManager.instance.MedKits;
         _inventory[(int)GameConfigData.CollectibleType.Shield].Count = DataManager.instance.Shields;
 
@@ -80,7 +80,7 @@ public class PlayerManager : MonoBehaviour
 
     public void SavePlayerData()
     {
-        DataManager.instance.Health = HealthController.Health; // storing player's health
+        DataManager.instance.Health = (this as IHealthInteractable).CurrentHealth; // storing player's health
         DataManager.instance.MedKits = _inventory[(int)GameConfigData.CollectibleType.Medkit].Count;
         DataManager.instance.Shields = _inventory[(int)GameConfigData.CollectibleType.Shield].Count;
         DataManager.instance.WeaponType = PlayerHandController.CurrentWeapon.WeaponType; // storing player's weapon
@@ -92,7 +92,7 @@ public class PlayerManager : MonoBehaviour
         if (other.gameObject.CompareTag("Item"))
         {
             // If there are items
-            CollectPUB?.Invoke(_inventory, HealthController);
+            CollectPUB?.Invoke(_inventory, this);
         }
         else if (other.gameObject.CompareTag("Key"))
         {
@@ -101,4 +101,15 @@ public class PlayerManager : MonoBehaviour
             other.gameObject.SetActive(false);
         }
     }
+    
+    #region Health Operations
+    
+    [field: SerializeField, Foldout("Health")] public int CurrentHealth { get; set; }
+    [field: SerializeField, Foldout("Health")] public int MaxHealth { get; set; }
+    [field: SerializeField, Foldout("Health")] public Dissolve DissolveEffect { get; set; }
+    [field: SerializeField, Foldout("Health")] public SpriteRenderer HealthEffectRenderer { get; set; }
+    [field: SerializeField, Foldout("Health")] public CapsuleCollider2D HitBoxCollider { get; set; }
+    [field: SerializeField, Foldout("Health")] public SoundManager.Sound HitSound { get; set; }
+    
+    #endregion
 }

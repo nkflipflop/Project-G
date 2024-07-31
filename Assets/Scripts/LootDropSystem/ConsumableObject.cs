@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using General;
+using UnityEngine;
 
 public class ConsumableObject : MonoBehaviour
 {
@@ -24,17 +25,15 @@ public class ConsumableObject : MonoBehaviour
     }
 
     // Collection Subscriber
-    private void CollectSUB(Inventory[] inventory, HealthController playerHealthController)
+    private void CollectSUB(Inventory[] inventory, IHealthInteractable healthInteractable)
     {
         bool collected = false;
 
         if (Item.Type == GameConfigData.CollectibleType.Snack)
         {
             // Snacks
-            if (playerHealthController.Health < 100)
+            if (healthInteractable.GainHealth(Item.Value))
             {
-                // If Health is not full
-                playerHealthController.Heal(Item.Value);
                 collected = true;
             }
         }

@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 3466921183661341554}
   - component: {fileID: 9032202858467178367}
   - component: {fileID: 3056304295453858086}
-  - component: {fileID: 8191087442810863949}
   - component: {fileID: 3684385434586695644}
   - component: {fileID: 2388392583798474470}
   m_Layer: 8
@@ -140,28 +139,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CharacterRenderer: {fileID: 3466921183661341554}
   TargetObject: {fileID: 0}
-  <Type>k__BackingField: 0
-  HealthController: {fileID: 8191087442810863949}
+  <Type>k__BackingField: 23
   hittableLayersByEnemy:
     serializedVersion: 2
     m_Bits: 5632
---- !u!114 &8191087442810863949
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1774692839119170209}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df6fb28ad9cbb484c9d905d52d4dfa92, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _health: 30
-  DissolveEffect: {fileID: 3684385434586695644}
-  Renderer: {fileID: 3466921183661341554}
-  HitboxCollider: {fileID: 9032202858467178367}
-  SoundEffect: 13
+  <CurrentHealth>k__BackingField: 30
+  <MaxHealth>k__BackingField: 30
+  <DissolveEffect>k__BackingField: {fileID: 3684385434586695644}
+  <HealthEffectRenderer>k__BackingField: {fileID: 3466921183661341554}
+  <HitBoxCollider>k__BackingField: {fileID: 9032202858467178367}
+  <HitSound>k__BackingField: 13
 --- !u!114 &3684385434586695644
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -95,7 +95,6 @@ GameObject:
   - component: {fileID: 7480063835886603154}
   - component: {fileID: 4099467745395226624}
   - component: {fileID: 6852844814520285863}
-  - component: {fileID: 2289882403702756393}
   - component: {fileID: 8942488862166178267}
   m_Layer: 8
   m_Name: ExplosiveRobot
@@ -241,31 +240,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cbf3ad887f6716448346f4ee343c01e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Type>k__BackingField: 24
+  <Type>k__BackingField: 25
   animator: {fileID: 7480063835886603154}
   speed: 1.9
   distanceBtwTarget: 0
-  HealthController: {fileID: 2289882403702756393}
+  HealthController: {fileID: 0}
   attackController: {fileID: 7258634812795383236}
+  <CurrentHealth>k__BackingField: 35
+  <MaxHealth>k__BackingField: 35
+  <DissolveEffect>k__BackingField: {fileID: 8942488862166178267}
+  <HealthEffectRenderer>k__BackingField: {fileID: 3440077010818967514}
+  <HitBoxCollider>k__BackingField: {fileID: 4099467745395226624}
+  <HitSound>k__BackingField: 1
   spiteRenderer: {fileID: 3440077010818967514}
   emissionMaterial: {fileID: 2100000, guid: 1d894cf0c20fcf14e9659a67842e8fb8, type: 2}
---- !u!114 &2289882403702756393
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4222677927441472681}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df6fb28ad9cbb484c9d905d52d4dfa92, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _health: 35
-  DissolveEffect: {fileID: 8942488862166178267}
-  Renderer: {fileID: 3440077010818967514}
-  HitboxCollider: {fileID: 4099467745395226624}
-  SoundEffect: 1
 --- !u!114 &8942488862166178267
 MonoBehaviour:
   m_ObjectHideFlags: 0

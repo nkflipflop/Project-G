@@ -1,9 +1,12 @@
 ﻿using UnityEngine;
 
-/// <summary>
-/// When inheriting first we have to insert GenericLootDropItemGameObject instead of T and a GameObject instead of U
-/// </summary>
-[System.Serializable]
-public class GenericLootDropTableGameObject : GenericLootDropTable<GenericLootDropItemGameObject, GameObject>
+namespace LootSystem
 {
+    /// <summary>
+    /// When inheriting first we have to insert GenericLootDropItemGameObject instead of T and a GameObject instead of TU
+    /// </summary>
+    [System.Serializable]
+    public class GenericLootDropTableGameObject : GenericLootDropTable<GenericLootDropItemGameObject, GameObject>
+    {
+    }
 }

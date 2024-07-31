@@ -17,6 +17,12 @@ namespace Pooling
         [InspectorName("Enemy/Soldier")] Soldier = 22,
         [InspectorName("Enemy/TowerPistol")] TowerPistol = 23,
         [InspectorName("Enemy/TowerShotgun")] TowerShotgun = 24,
-        [InspectorName("Enemy/ExplosiveRobot")] ExplosiveRobot = 24,
+        [InspectorName("Enemy/ExplosiveRobot")] ExplosiveRobot = 25,
+        
+        [InspectorName("Object/Chest/Barrel")] Barrel = 50,
+        [InspectorName("Object/Chest/WeaponCrate")] WeaponCrate = 51,
+        [InspectorName("Object/Trap/Spike")] SpikeTrap = 52,
+        [InspectorName("Object/Trap/Fire")] FireTrap = 53,
+        [InspectorName("Object/Prop/Lamp")] Lamp = 54, 
     }
 }

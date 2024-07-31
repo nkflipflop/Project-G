@@ -90,7 +90,6 @@ GameObject:
   - component: {fileID: 5267767945480442307}
   - component: {fileID: 1516673698771313398}
   - component: {fileID: 1516673698771313387}
-  - component: {fileID: 1516673698771313386}
   - component: {fileID: 1516673698771313397}
   - component: {fileID: 1516673698771313384}
   m_Layer: 11
@@ -207,14 +206,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2318f5f1ad84a1d4a80c8afdc66f0bfa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Type>k__BackingField: 1
-  <InitialSize>k__BackingField: 0
-  HealthController: {fileID: 1516673698771313386}
-  Type: 1
-  NumItemsToDrop: 1
-  ConsumableDropTable:
+  <Type>k__BackingField: 51
+  type: 1
+  numItemsToDrop: 1
+  consumableDropTable:
     LootDropItems: []
-  WeaponDropTable:
+  weaponDropTable:
     LootDropItems:
     - item: {fileID: 6689412603249722057, guid: b7fb4c0c3d5cb0e4aa11e58d970455e0,
         type: 3}
@@ -251,6 +248,12 @@ MonoBehaviour:
       probabilityPercent: 11.111111
       probabilityRangeFrom: 200
       probabilityRangeTo: 225
+  <CurrentHealth>k__BackingField: 25
+  <MaxHealth>k__BackingField: 25
+  <DissolveEffect>k__BackingField: {fileID: 1516673698771313397}
+  <HealthEffectRenderer>k__BackingField: {fileID: 1516673698771313399}
+  <HitBoxCollider>k__BackingField: {fileID: 1516673698771313387}
+  <HitSound>k__BackingField: 1
 --- !u!70 &1516673698771313387
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -286,23 +289,6 @@ CapsuleCollider2D:
   m_Offset: {x: 0.00012638149, y: 0.16472515}
   m_Size: {x: 0.49987274, y: 0.36222184}
   m_Direction: 1
---- !u!114 &1516673698771313386
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1516673698771313393}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df6fb28ad9cbb484c9d905d52d4dfa92, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _health: 25
-  DissolveEffect: {fileID: 1516673698771313397}
-  Renderer: {fileID: 1516673698771313399}
-  HitboxCollider: {fileID: 1516673698771313387}
-  SoundEffect: 1
 --- !u!114 &1516673698771313397
 MonoBehaviour:
   m_ObjectHideFlags: 0

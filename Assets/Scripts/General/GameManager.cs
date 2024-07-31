@@ -33,10 +33,10 @@ public class GameManager : MonoBehaviour
                 uiController.TogglePause();
             }
 
-            if (playerManager.HealthController.IsDead)
+            if ((playerManager as IHealthInteractable).IsDead)
             {
                 isGameOver = true;
-                uiController.ActivateGameOverScreen();
+                _ = uiController.ActivateGameOverScreen();
             }
         }
     }
@@ -45,7 +45,7 @@ public class GameManager : MonoBehaviour
     public void LoadNextLevel()
     {
         SaveLevelData();
-        LoadingManager.instance.LoadScene(Constants.DUNGEON);
+        _ = LoadingManager.instance.LoadScene(Constants.DUNGEON);
     }
 
     private void LoadDungeon()

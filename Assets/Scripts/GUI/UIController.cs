@@ -1,5 +1,6 @@
 ﻿using System;
 using Cysharp.Threading.Tasks;
+using General;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Utilities;
@@ -80,9 +81,9 @@ public class UIController : MonoBehaviour
         }
 
         // Health Count Update
-        if (health != PlayerManager.HealthController.Health)
+        if (health != (PlayerManager as IHealthInteractable).CurrentHealth)
         {
-            health = PlayerManager.HealthController.Health;
+            health = (PlayerManager as IHealthInteractable).CurrentHealth;
             MiscUI.HealthText.text = health.ToString();
             MiscUI.SetHealthColor((float)health / 100);
         }

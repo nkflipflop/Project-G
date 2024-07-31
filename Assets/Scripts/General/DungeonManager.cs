@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using LootSystem;
 using Pooling;
 using Pooling.Interfaces;
 using UnityEngine;
@@ -567,9 +568,8 @@ public class DungeonManager : MonoBehaviour
 
                 if (mulResult >= 6)
                 {
-                    GameObject lamp = Instantiate(GameConfigData.Instance.LampObjects[(int)LampObjectsTypes.Lamp],
-                        new Vector3(i + 1, j + 1, 0f), Quaternion.identity) as GameObject;
-                    lamp.transform.SetParent(dungeon.transform.GetChild((int)Objects.Lamps).gameObject.transform);
+                    PoolFactory.instance.GetObject(ObjectType.Lamp, new Vector3(i + 1, j + 1, 0f), Quaternion.identity,
+                        dungeon.transform.GetChild((int)Objects.Lamps).gameObject.transform);
 
                     for (int l = 0; l < matrixSize; l++)
                     {
@@ -657,9 +657,8 @@ public class DungeonManager : MonoBehaviour
         for (int i = 0; i < 3; i++)
         {
             GetRandomPos(rootSubDungeon); // getting random position in the dungeon
-            GameObject barrel = Instantiate(GameConfigData.Instance.ItemChests[0],
-                new Vector3(randomPos.x, randomPos.y, 0f), Quaternion.identity) as GameObject;
-            barrel.transform.SetParent(dungeon.transform.GetChild((int)Objects.Chests).gameObject.transform);
+            PoolFactory.instance.GetObject<Chest>(ObjectType.Barrel, new Vector3(randomPos.x, randomPos.y, 0f),
+                Quaternion.identity, dungeon.transform.GetChild((int)Objects.Chests).gameObject.transform);
             objectSpawnPos[(int)randomPos.x, (int)randomPos.y] = 1;
         }
 
@@ -667,9 +666,8 @@ public class DungeonManager : MonoBehaviour
         if (dungeonLevel % 2 == 1)
         {
             GetRandomPos(rootSubDungeon); // getting random position in the dungeon
-            GameObject weaponChest = Instantiate(GameConfigData.Instance.ItemChests[1],
-                new Vector3(randomPos.x, randomPos.y, 0f), Quaternion.identity) as GameObject;
-            weaponChest.transform.SetParent(dungeon.transform.GetChild((int)Objects.Chests).gameObject.transform);
+            PoolFactory.instance.GetObject<Chest>(ObjectType.WeaponCrate, new Vector3(randomPos.x, randomPos.y, 0f),
+                Quaternion.identity, dungeon.transform.GetChild((int)Objects.Chests).gameObject.transform);
             objectSpawnPos[(int)randomPos.x, (int)randomPos.y] = 1;
         }
         //Debug.Log("Chest spawn ended.");
@@ -764,11 +762,9 @@ public class DungeonManager : MonoBehaviour
                     // if the randomPos != invalidPos, then spawn the object
                     if (Vector3.Distance(randomPos, invalidPos) != 0)
                     {
-                        int trapIndex = Random.Range(0, 2);
+                        ObjectType trapType = Random.Range(0, 2) == 0 ? ObjectType.SpikeTrap : ObjectType.FireTrap;
 
-                        GameObject instance = Instantiate(GameConfigData.Instance.Traps[trapIndex], randomPos,
-                            Quaternion.identity) as GameObject;
-                        instance.transform.SetParent(
+                        PoolFactory.instance.GetObject<Trap>(trapType, randomPos, Quaternion.identity,
                             dungeon.transform.GetChild((int)Objects.Traps).gameObject.transform);
                         trapSpawnData.Current++;
                         objectSpawnPos[(int)randomPos.x, (int)randomPos.y] = 1;

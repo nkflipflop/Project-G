@@ -1,13 +1,14 @@
-﻿using Pooling;
+﻿using General;
+using NaughtyAttributes;
+using Pooling;
 using Pooling.Interfaces;
 using UnityEngine;
 
-public class TurretController : HandControllerBase, IPoolable
+public class Turret : HandControllerBase, IPoolable, IHealthInteractable
 {
     [field: SerializeField] public ObjectType Type { get; set; }
     
     [SerializeField] private LayerMask hittableLayersByEnemy;
-    public HealthController HealthController;
     private bool targetInRange;
 
     protected override void SpecialStart()
@@ -24,7 +25,7 @@ public class TurretController : HandControllerBase, IPoolable
 
     protected override void UseWeapon()
     {
-        if (!HealthController.IsDead && targetInRange)
+        if (!(this as IHealthInteractable).IsDead && targetInRange)
         {
             CurrentWeapon.Trigger();
         }
@@ -52,10 +53,26 @@ public class TurretController : HandControllerBase, IPoolable
         }
     }
 
+    #region Pooling
+    
     public void OnSpawn()
     {
+        CurrentHealth = MaxHealth;
         WeaponPosition = new Vector3(0f, 0.497f, 0f);
     }
 
     public void OnReset() { }
+    
+    #endregion
+    
+    #region Health Operations
+    
+    [field: SerializeField, Foldout("Health")] public int CurrentHealth { get; set; }
+    [field: SerializeField, Foldout("Health")] public int MaxHealth { get; set; }
+    [field: SerializeField, Foldout("Health")] public Dissolve DissolveEffect { get; set; }
+    [field: SerializeField, Foldout("Health")] public SpriteRenderer HealthEffectRenderer { get; set; }
+    [field: SerializeField, Foldout("Health")] public CapsuleCollider2D HitBoxCollider { get; set; }
+    [field: SerializeField, Foldout("Health")] public SoundManager.Sound HitSound { get; set; }
+    
+    #endregion
 }

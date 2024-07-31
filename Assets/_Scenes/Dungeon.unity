@@ -6210,12 +6210,12 @@ MonoBehaviour:
   m_RequiresColorTexture: 0
   m_Version: 2
   m_TaaSettings:
-    quality: 3
-    frameInfluence: 0.1
-    jitterScale: 1
-    mipBias: 0
-    varianceClampScale: 0.9
-    contrastAdaptiveSharpening: 0
+    m_Quality: 3
+    m_FrameInfluence: 0.1
+    m_JitterScale: 1
+    m_MipBias: 0
+    m_VarianceClampScale: 0.9
+    m_ContrastAdaptiveSharpening: 0
 --- !u!1 &524441921
 GameObject:
   m_ObjectHideFlags: 0
@@ -12709,7 +12709,6 @@ GameObject:
   - component: {fileID: 8005256322282322024}
   - component: {fileID: 8005256322282322025}
   - component: {fileID: 8005256322282322020}
-  - component: {fileID: 8005256322282322027}
   - component: {fileID: 8005256322282322026}
   - component: {fileID: 8005256322282322019}
   - component: {fileID: 8005256322282322029}
@@ -12883,7 +12882,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerController: {fileID: 8005256322282322020}
   PlayerHandController: {fileID: 1923094853}
-  HealthController: {fileID: 8005256322282322027}
+  HealthController: {fileID: 0}
   _shield: {fileID: 1455230347}
   _inventory:
   - Type: 0
@@ -12892,6 +12891,12 @@ MonoBehaviour:
   - Type: 1
     Item: {fileID: 11400000, guid: eac7a88d95f099342b7139a205af431b, type: 2}
     Count: 1
+  <CurrentHealth>k__BackingField: 100
+  <MaxHealth>k__BackingField: 100
+  <DissolveEffect>k__BackingField: {fileID: 8005256322282322026}
+  <HealthEffectRenderer>k__BackingField: {fileID: 8005256322282322023}
+  <HitBoxCollider>k__BackingField: {fileID: 8005256322282322028}
+  <HitSound>k__BackingField: 1
 --- !u!114 &8005256322282322026
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12907,23 +12912,6 @@ MonoBehaviour:
   Renderer: {fileID: 8005256322282322023}
   DissolveMaterial: {fileID: 2100000, guid: 8731b3bef0b12044381118bb5f69a921, type: 2}
   _weaponDissolve: {fileID: 0}
---- !u!114 &8005256322282322027
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8005256322282322018}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df6fb28ad9cbb484c9d905d52d4dfa92, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _health: 100
-  DissolveEffect: {fileID: 8005256322282322026}
-  Renderer: {fileID: 8005256322282322023}
-  HitboxCollider: {fileID: 8005256322282322028}
-  SoundEffect: 1
 --- !u!70 &8005256322282322028
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

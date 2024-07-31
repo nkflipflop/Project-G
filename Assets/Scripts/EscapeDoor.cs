@@ -25,7 +25,7 @@ public class EscapeDoor : MonoBehaviour, IPoolable
     {
         if (other.CompareTag("Player"))
         {
-            PlayerOnTheExit(0.25f);
+            _ = PlayerOnTheExit(0.25f);
         }
     }
 

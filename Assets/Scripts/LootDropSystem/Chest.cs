@@ -1,89 +1,117 @@
-﻿using UnityEngine;
+﻿using General;
+using NaughtyAttributes;
+using Pooling;
+using Pooling.Interfaces;
+using UnityEngine;
 
-[System.Serializable]
-public class Chest : MonoBehaviour
+namespace LootSystem
 {
-    public enum ChestType
+    [System.Serializable]
+    public class Chest : MonoBehaviour, IHealthInteractable, IPoolable
     {
-        Consumable,
-        Weapon
-    }
-
-    public HealthController HealthController;
-
-    [Header("Chest Properties")] public ChestType Type;
-    public int NumItemsToDrop; // How many items treasure will spawn
-
-    [Header("Loot Drop Tables")] public GenericLootDropTableConsumable ConsumableDropTable;
-    public GenericLootDropTableGameObject WeaponDropTable;
-    private bool _lootDropped = false;
-
-    private void Start()
-    {
-        switch (Type)
+        [field: SerializeField] public ObjectType Type { get; set; }
+        public enum ChestType
         {
-            case ChestType.Consumable:
-                ConsumableDropTable.ValidateTable();
-                break;
-            case ChestType.Weapon:
-                WeaponDropTable.ValidateTable();
-                break;
+            Consumable,
+            Weapon
         }
-    }
 
-    private void Update()
-    {
-        if (HealthController.IsDead && !_lootDropped)
+        [Foldout("Chest Properties"), SerializeField] private ChestType type;
+        [Foldout("Chest Properties"), SerializeField] private int numItemsToDrop; // How many items treasure will spawn
+
+        [Foldout("Loot Drop Tables")] public GenericLootDropTableConsumable consumableDropTable;
+        [Foldout("Loot Drop Tables")] public GenericLootDropTableGameObject weaponDropTable;
+
+        private void Start()
         {
-            switch (Type)
+            switch (type)
             {
                 case ChestType.Consumable:
-                    DropConsumableNearChest(NumItemsToDrop);
+                    consumableDropTable.ValidateTable();
                     break;
                 case ChestType.Weapon:
-                    DropWeaponNearChest();
+                    weaponDropTable.ValidateTable();
                     break;
             }
         }
-    }
 
-    private void OnValidate()
-    {
-        switch (Type)
+        private void Update()
         {
-            // Validate table and notify the programmer / designer if something went wrong.
-            case ChestType.Consumable:
-                ConsumableDropTable.ValidateTable();
-                break;
-            case ChestType.Weapon:
-                WeaponDropTable.ValidateTable();
-                break;
-        }
-    }
-
-    /// <summary> Spawning consumable objects around the chest </summary>
-    /// <param name="numItemsToDrop"></param>
-    private void DropConsumableNearChest(int numItemsToDrop)
-    {
-        for (int i = 0; i < numItemsToDrop; i++)
-        {
-            GenericLootDropItemConsumable selectedItem = ConsumableDropTable.PickLootDropItem();
-            GameObject collectibleObject = Instantiate(GameConfigData.Instance.Consumable);
-            collectibleObject.GetComponent<ConsumableObject>().Item = selectedItem.item;
-            collectibleObject.transform.position = new Vector2(transform.position.x, transform.position.y) +
-                                                   Random.insideUnitCircle / 2.8f;
+            if ((this as IHealthInteractable).IsDead)
+            {
+                switch (type)
+                {
+                    case ChestType.Consumable:
+                        DropConsumableNearChest(numItemsToDrop);
+                        break;
+                    case ChestType.Weapon:
+                        DropWeaponNearChest();
+                        break;
+                }
+            }
         }
 
-        _lootDropped = true;
-    }
+        private void OnValidate()
+        {
+            switch (type)
+            {
+                // Validate table and notify the programmer / designer if something went wrong.
+                case ChestType.Consumable:
+                    consumableDropTable.ValidateTable();
+                    break;
+                case ChestType.Weapon:
+                    weaponDropTable.ValidateTable();
+                    break;
+            }
+        }
 
-    /// <summary> Spawning weapon around the chest </summary>
-    private void DropWeaponNearChest()
-    {
-        GenericLootDropItemGameObject selectedItem = WeaponDropTable.PickLootDropItem();
-        GameObject weaponObject = Instantiate(selectedItem.item);
-        weaponObject.transform.position =
-            new Vector2(transform.position.x, transform.position.y) + Random.insideUnitCircle / 2.8f;
-        _lootDropped = true;
+        /// <summary> Spawning consumable objects around the chest </summary>
+        private void DropConsumableNearChest(int numberOfItems)
+        {
+            // TODO: consumable items should be pool objects
+            for (int i = 0; i < numberOfItems; i++)
+            {
+                GenericLootDropItemConsumable selectedItem = consumableDropTable.PickLootDropItem();
+                GameObject collectibleObject = Instantiate(GameConfigData.Instance.Consumable);
+                collectibleObject.GetComponent<ConsumableObject>().Item = selectedItem.item;
+                collectibleObject.transform.position = new Vector2(transform.position.x, transform.position.y) +
+                                                       Random.insideUnitCircle / 2.8f;
+            }
+            enabled = false;
+        }
+
+        /// <summary> Spawning weapon around the chest </summary>
+        private void DropWeaponNearChest()
+        {
+            // TODO: consumable items should be pool objects
+            GenericLootDropItemGameObject selectedItem = weaponDropTable.PickLootDropItem();
+            GameObject weaponObject = Instantiate(selectedItem.item);
+            weaponObject.transform.position =
+                new Vector2(transform.position.x, transform.position.y) + Random.insideUnitCircle / 2.8f;
+            enabled = false;
+        }
+
+        #region Health Operations
+
+        [field: SerializeField, Foldout("Health")] public int CurrentHealth { get; set; }
+
+        [field: SerializeField, Foldout("Health")] public int MaxHealth { get; set; }
+        [field: SerializeField, Foldout("Health")] public Dissolve DissolveEffect { get; set; }
+        [field: SerializeField, Foldout("Health")] public SpriteRenderer HealthEffectRenderer { get; set; }
+        [field: SerializeField, Foldout("Health")] public CapsuleCollider2D HitBoxCollider { get; set; }
+        [field: SerializeField, Foldout("Health")] public SoundManager.Sound HitSound { get; set; }
+
+        #endregion
+
+        #region Pooling
+    
+        public void OnSpawn()
+        {
+            CurrentHealth = MaxHealth;
+        }
+
+        public void OnReset() { }
+    
+        #endregion
     }
 }
