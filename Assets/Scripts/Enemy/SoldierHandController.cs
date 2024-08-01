@@ -9,6 +9,11 @@ public class SoldierHandController : HandControllerBase
         AimDeviation = 2f;
         CurrentWeapon = transform.GetChild(0).GetComponent<WeaponBase>();
         CurrentWeapon.transform.localPosition = WeaponPosition;
+
+        if (TargetObject == null)
+        {   // TODO: this is just temporary fix this code ASAP !!!
+            TargetObject = FindObjectOfType<PlayerManager>().gameObject;
+        }
     }
 
     protected override void SpecialUpdate()
