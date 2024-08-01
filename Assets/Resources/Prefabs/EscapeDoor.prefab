@@ -15,7 +15,7 @@ GameObject:
   m_Layer: 0
   m_Name: EscapeDoor
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -150,4 +150,4 @@ MonoBehaviour:
     type: 3}
   doorClosedSprite: {fileID: -865330490481585202, guid: 7b0e09f1db71944438ecbb4ba47658b3,
     type: 3}
-  <Type>k__BackingField: 2
+  <Type>k__BackingField: 1020

@@ -23,18 +23,11 @@ public class GameConfigData : MonoBehaviour
     public int MinRoomSize, MaxRoomSize;
 
     [Header("Dungeon Tiles")]
-    public GameObject[] FloorTiles;
     public GameObject[] BridgeTiles;
-    public GameObject[] WaterTiles;
     public GameObject[] WallTiles;
-    public GameObject ExitTile;
 
     [Header("Dungeon Objects")]
-    public GameObject[] LampObjects;
-    public GameObject[] Traps;
-    public GameObject Key;
     public GameObject[] Weapons; // weapons that can be used by the player
-    public GameObject[] ItemChests;
 
     public enum CollectibleType
     {

@@ -389,15 +389,12 @@ public class DungeonManager : MonoBehaviour
                 {
                     if (dungeonFloorPositions[i, j] == null)
                     {
-                        // TODO: pool objects
-                        GameObject instance =
-                            Instantiate(
-                                GameConfigData.Instance.FloorTiles[
-                                    Random.Range(0, GameConfigData.Instance.FloorTiles.Length)],
-                                new Vector3(i, j, 0f), Quaternion.identity);
-                        instance.transform.SetParent(dungeon.transform.GetChild((int)Tiles.Corridors).gameObject
+                        PoolObject floorObj = PoolFactory.instance.GetObject<PoolObject>(
+                            (ObjectType)Random.Range((int)ObjectType.DungeonFloor1, (int)ObjectType.DungeonFloor5 + 1),
+                            new Vector3(i, j, 0f), Quaternion.identity);
+                        floorObj.transform.SetParent(dungeon.transform.GetChild((int)Tiles.Corridors).gameObject
                             .transform);
-                        dungeonFloorPositions[i, j] = instance;
+                        dungeonFloorPositions[i, j] = floorObj.gameObject;
                         DungeonMap[i, j] = 1;
                     }
                 }
@@ -493,13 +490,10 @@ public class DungeonManager : MonoBehaviour
                     if (index != 0)
                     {
                         // placing floor tile under the walls
-                        // TODO: pool objects
-                        instance = Instantiate(
-                            GameConfigData.Instance.FloorTiles[
-                                (int)Random.Range(0, GameConfigData.Instance.FloorTiles.Length)],
-                            new Vector3(wallPosX, wallPosY, 0f), Quaternion.identity) as GameObject;
-                        instance.transform.SetParent(dungeon.transform.GetChild((int)Tiles.Floors).gameObject
-                            .transform);
+                        PoolObject floorObj = PoolFactory.instance.GetObject<PoolObject>(
+                            (ObjectType)Random.Range((int)ObjectType.DungeonFloor1, (int)ObjectType.DungeonFloor5 + 1),
+                            new Vector3(wallPosX, wallPosY, 0f), Quaternion.identity);
+                        floorObj.transform.SetParent(dungeon.transform.GetChild((int)Tiles.Floors).gameObject.transform);
                     }
                 }
             }
@@ -517,19 +511,18 @@ public class DungeonManager : MonoBehaviour
                 {
                     if (dungeonFloorPositions[bridgePos.x + i, bridgePos.y + j] == null || (i == 0 && j == 0))
                     {
-                        // TODO: pool objects
-                        GameObject instance = Instantiate(
-                            DungeonMap[bridgePos.x + i, bridgePos.y + j + 1] != -1
-                                ? GameConfigData.Instance.WaterTiles[0]
-                                : GameConfigData.Instance.WaterTiles[1],
+                        ObjectType waterTileType = DungeonMap[bridgePos.x + i, bridgePos.y + j + 1] != -1
+                            ? ObjectType.WaterTile1
+                            : ObjectType.WaterTile2;
+                        PoolObject waterTileObj = PoolFactory.instance.GetObject<PoolObject>(waterTileType,
                             new Vector3(bridgePos.x + i, bridgePos.y + j, 0f), Quaternion.identity);
-                        instance.transform.SetParent(dungeon.transform.GetChild((int)Tiles.Waters).gameObject
+                        waterTileObj.transform.SetParent(dungeon.transform.GetChild((int)Tiles.Waters).gameObject
                             .transform);
                         if (i == 0 && j == 0)
                         {
-                            instance.gameObject.GetComponent<BoxCollider2D>().enabled = false;
+                            waterTileObj.gameObject.GetComponent<BoxCollider2D>().enabled = false;
                         }
-                        dungeonFloorPositions[bridgePos.x + i, bridgePos.y + j] = instance;
+                        dungeonFloorPositions[bridgePos.x + i, bridgePos.y + j] = waterTileObj.gameObject;
                         DungeonMap[bridgePos.x + i, bridgePos.y + j] = -1;
                     }
                 }
@@ -635,15 +628,15 @@ public class DungeonManager : MonoBehaviour
         objectSpawnPos[(int)randomPos.x, (int)randomPos.y] = 1;
 
         GetRandomPos(rootSubDungeon); // getting random position in the dungeon for the exit
-        escapeDoor = Instantiate(GameConfigData.Instance.ExitTile, new Vector3(randomPos.x, randomPos.y, 0f),
-            Quaternion.identity).GetComponent<EscapeDoor>();
+        escapeDoor = PoolFactory.instance.GetObject<EscapeDoor>(ObjectType.EscapeDoor,
+            new Vector3(randomPos.x, randomPos.y, 0f), Quaternion.identity);
         escapeDoor.transform.SetParent(dungeon.transform);
         escapeDoor.gameManager = gameManager;
         objectSpawnPos[(int)randomPos.x, (int)randomPos.y] = 1;
 
         GetRandomPos(rootSubDungeon); // getting random position in the dungeon for the object
-        GameObject key = Instantiate(GameConfigData.Instance.Key, new Vector3(randomPos.x, randomPos.y, 0f),
-            Quaternion.identity) as GameObject;
+        PoolObject key = PoolFactory.instance.GetObject<PoolObject>(ObjectType.Key,
+            new Vector3(randomPos.x, randomPos.y, 0f), Quaternion.identity);
         key.transform.SetParent(dungeon.transform);
         objectSpawnPos[(int)randomPos.x, (int)randomPos.y] = 1;
         //Debug.Log("Player spawn ended.");
