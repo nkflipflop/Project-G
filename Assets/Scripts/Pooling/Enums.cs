@@ -26,6 +26,22 @@ namespace Pooling
         [InspectorName("Object/Prop/Lamp")] Lamp = 54,
         [InspectorName("Object/Collectible/Key")] Key = 55,
         
+        #region Weapons
+        
+        [InspectorName("Object/Weapon/M1")] M1 = 100,
+        [InspectorName("Object/Weapon/Pbz39")] Pbz39 = 101,
+        [InspectorName("Object/Weapon/PPS43")] PPS43 = 102,
+        [InspectorName("Object/Weapon/PPSh41")] PPSh41 = 103,
+        [InspectorName("Object/Weapon/Sterling")] Sterling = 104,
+        [InspectorName("Object/Weapon/Thompson")] Thompson = 105,
+        [InspectorName("Object/Weapon/WinchesterM12")] WinchesterM12 = 106,
+        
+        [InspectorName("Object/Weapon/EnemySTG44")] EnemySTG44 = 130,
+        [InspectorName("Object/Weapon/EnemyTowerPistol")] EnemyTowerPistol = 131,
+        [InspectorName("Object/Weapon/EnemyTowerShotgun")] EnemyTowerShotgun = 132,
+        
+        #endregion
+        
         #region Dungeon
         
         [InspectorName("Dungeon/Floor/Type1")] DungeonFloor1 = 1000,

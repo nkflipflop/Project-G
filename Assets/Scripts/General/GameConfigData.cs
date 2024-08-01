@@ -26,9 +26,6 @@ public class GameConfigData : MonoBehaviour
     public GameObject[] BridgeTiles;
     public GameObject[] WallTiles;
 
-    [Header("Dungeon Objects")]
-    public GameObject[] Weapons; // weapons that can be used by the player
-
     public enum CollectibleType
     {
         Medkit,

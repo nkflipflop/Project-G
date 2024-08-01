@@ -1,12 +1,15 @@
 ﻿using System;
 using Cysharp.Threading.Tasks;
 using Pooling;
+using Pooling.Interfaces;
 using UnityEngine;
 using Weapons;
 using Type = Weapons.Type;
 
-public class WeaponBase : MonoBehaviour
+public class WeaponBase : MonoBehaviour, IPoolable
 {
+    [field: SerializeField] public ObjectType Type { get; set; }
+    
     [SerializeField] private WeaponInfo weaponInfo;
     public WeaponRecoiler WeaponRecoiler;
     public SpriteRenderer WeaponRenderer;
@@ -23,11 +26,6 @@ public class WeaponBase : MonoBehaviour
     public string Name => weaponInfo.name;
     public Sprite BulletIcon => weaponInfo.bulletIcon;
     public float ReloadTime => weaponInfo.reloadTime;
-
-    private void Start()
-    {
-        CurrentAmmo = weaponInfo.ammoCapacity;
-    }
 
     public void OnHand(bool active)
     {
@@ -134,4 +132,17 @@ public class WeaponBase : MonoBehaviour
         isReloading = false;
         SoundManager.PlaySound(SoundManager.Sound.Reloaded, transform.position);
     }
+
+    #region Pooling
+    
+    public void OnSpawn()
+    {
+        CurrentAmmo = weaponInfo.ammoCapacity;
+    }
+
+    public void OnReset()
+    {
+    }
+    
+    #endregion
 }

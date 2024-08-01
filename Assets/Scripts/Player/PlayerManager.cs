@@ -1,6 +1,7 @@
 ﻿using System;
 using General;
 using NaughtyAttributes;
+using Pooling;
 using UnityEngine;
 
 [Serializable]
@@ -74,8 +75,9 @@ public class PlayerManager : MonoBehaviour, IHealthInteractable
         _inventory[(int)GameConfigData.CollectibleType.Medkit].Count = DataManager.instance.MedKits;
         _inventory[(int)GameConfigData.CollectibleType.Shield].Count = DataManager.instance.Shields;
 
-        GameObject weapon = Instantiate(GameConfigData.Instance.Weapons[(int)DataManager.instance.WeaponType]); // instantiating player's weapon
-        PlayerHandController.EquipWeapon(weapon.GetComponent<WeaponBase>());
+        WeaponBase weapon =
+            PoolFactory.instance.GetObject<WeaponBase>(ObjectType.M1 + (int)DataManager.instance.WeaponType);
+        PlayerHandController.EquipWeapon(weapon);
     }
 
     public void SavePlayerData()

@@ -338,6 +338,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f9e4d030ef3f164a95d1b8aac38b99e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <Type>k__BackingField: 104
   weaponInfo: {fileID: 11400000, guid: 4bc4e6708b1024c798db4ca706913b8c, type: 2}
   WeaponRecoiler: {fileID: 8391859256396091744}
   WeaponRenderer: {fileID: 5187986959361957098}
