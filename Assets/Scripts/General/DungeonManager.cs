@@ -47,7 +47,6 @@ public class DungeonManager : MonoBehaviour
     private GameManager gameManager;
     [SerializeField] private PlayerManager player;
     [SerializeField] private GameObject dungeon;
-    [SerializeField] private GameObject[] enemies;
     private GameObject[,] dungeonFloorPositions;
     private int[,] objectSpawnPos;
     private int[,] enemyIndexes;
@@ -356,15 +355,12 @@ public class DungeonManager : MonoBehaviour
                     if (!(i >= subDungeon.removedPiece.x && i <= subDungeon.removedPiece.xMax &&
                           j >= subDungeon.removedPiece.y && j <= subDungeon.removedPiece.yMax))
                     {
-                        // TODO: pool objects
-                        GameObject instance =
-                            Instantiate(
-                                GameConfigData.Instance.FloorTiles[
-                                    Random.Range(0, GameConfigData.Instance.FloorTiles.Length)],
-                                new Vector3(i, j, 0f), Quaternion.identity);
-                        instance.transform.SetParent(dungeon.transform.GetChild((int)Tiles.Floors).gameObject
+                        PoolObject floorObj = PoolFactory.instance.GetObject<PoolObject>(
+                            (ObjectType)Random.Range((int)ObjectType.DungeonFloor1, (int)ObjectType.DungeonFloor5 + 1),
+                            new Vector3(i, j, 0f), Quaternion.identity);
+                        floorObj.transform.SetParent(dungeon.transform.GetChild((int)Tiles.Floors).gameObject
                             .transform);
-                        dungeonFloorPositions[i, j] = instance;
+                        dungeonFloorPositions[i, j] = floorObj.gameObject;
                         DungeonMap[i, j] = 1;
                     }
                 }
