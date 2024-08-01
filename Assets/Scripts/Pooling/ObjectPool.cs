@@ -115,7 +115,6 @@ namespace Pooling
 
         public void Reset()
         {
-            Log.Debug("~~ type: " + poolObject.Type);
             foreach (IPoolable item in activeObjects)
             {
                 item.ResetObject(false);

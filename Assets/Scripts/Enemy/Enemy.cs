@@ -35,11 +35,6 @@ public class Enemy : MonoBehaviour, IPoolable, IPathfinder, IHealthInteractable
 
     public bool IsRunning => isRunning;
 
-    private void OnDestroy()
-    {
-        TriggerCancellationToken();
-    }
-
     private void FixedUpdate()
     {
         if (!(this as IHealthInteractable).IsDead)
@@ -137,6 +132,8 @@ public class Enemy : MonoBehaviour, IPoolable, IPathfinder, IHealthInteractable
     public void OnSpawn()
     {
         CurrentHealth = MaxHealth;
+        DissolveEffect.IsDissolving = false;
+        HitBoxCollider.enabled = true;
     }
 
     public void OnReset()
