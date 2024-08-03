@@ -132,8 +132,8 @@ public class Enemy : MonoBehaviour, IPoolable, IPathfinder, IHealthInteractable
     public void OnSpawn()
     {
         CurrentHealth = MaxHealth;
-        DissolveEffect.IsDissolving = false;
         HitBoxCollider.enabled = true;
+        DissolveEffect.Reset();
     }
 
     public void OnReset()

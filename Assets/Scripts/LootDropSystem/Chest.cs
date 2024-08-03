@@ -108,6 +108,7 @@ namespace LootSystem
         public void OnSpawn()
         {
             CurrentHealth = MaxHealth;
+            DissolveEffect.Reset();
         }
 
         public void OnReset() { }

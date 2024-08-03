@@ -8,13 +8,26 @@ public class Dissolve : MonoBehaviour
 
     private bool initted = false;
     private bool childDissolveStarted = false;
-    [SerializeField] private Dissolve _weaponDissolve = null;
+    public Dissolve _weaponDissolve = null;
 
     private float fade = 1f;
     private static readonly int FadePropertyID = Shader.PropertyToID("_Fade");
 
     public bool IsDissolving { get; set; }
-    
+
+    private Material defaultMaterial;
+
+    public void Reset()
+    {
+        defaultMaterial ??= Renderer.material;
+        IsDissolving = false;
+        Renderer.material = defaultMaterial;
+        initted = false;
+        childDissolveStarted = false;
+        fade = 1f;
+        _weaponDissolve?.Reset();
+    }
+
     private void Update()
     {
         if (IsDissolving)

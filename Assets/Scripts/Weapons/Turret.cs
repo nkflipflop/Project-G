@@ -59,6 +59,7 @@ public class Turret : HandControllerBase, IPoolable, IHealthInteractable
     {
         CurrentHealth = MaxHealth;
         WeaponPosition = new Vector3(0f, 0.497f, 0f);
+        DissolveEffect.Reset();
     }
 
     public void OnReset() { }
