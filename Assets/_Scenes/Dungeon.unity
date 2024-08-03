@@ -617,6 +617,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86d17ed9e7459ad4db613106c89863f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <Config>k__BackingField: {fileID: 11400000, guid: 001059d16a9a845f7a120fc60ae813ff,
+    type: 2}
   player: {fileID: 8005256322282322025}
   dungeon: {fileID: 1575737062}
 --- !u!4 &229953797
@@ -6086,7 +6088,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 2.8125
+  orthographic size: 4.4479165
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2

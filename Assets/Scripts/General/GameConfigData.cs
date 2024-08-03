@@ -17,15 +17,6 @@ public class GameConfigData : MonoBehaviour
         }
     }
 
-    [Header("Dungeon Variables")]
-    public int DungeonPadding;
-    public int DungeonRows, DungeonColumns;
-    public int MinRoomSize, MaxRoomSize;
-
-    [Header("Dungeon Tiles")]
-    public GameObject[] BridgeTiles;
-    public GameObject[] WallTiles;
-
     public enum CollectibleType
     {
         Medkit,
