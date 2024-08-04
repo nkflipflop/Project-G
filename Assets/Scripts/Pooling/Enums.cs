@@ -25,6 +25,7 @@ namespace Pooling
         [InspectorName("Object/Trap/Fire")] FireTrap = 53,
         [InspectorName("Object/Prop/Lamp")] Lamp = 54,
         [InspectorName("Object/Collectible/Key")] Key = 55,
+        [InspectorName("Object/Collectible/ConsumableObject")] ConsumableObject = 56,
         
         #region Weapons
         
