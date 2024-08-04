@@ -7,6 +7,11 @@ namespace LootSystem
 	{
 		public GenericLootDropTablePoolObject dropTable;
 		public int numItemsToDrop;
+		
+		private void OnValidate()
+		{
+			dropTable?.ValidateTable();
+		}
 	}
 	
 		

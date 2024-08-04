@@ -13,24 +13,12 @@ namespace LootSystem
         
         [SerializeField] private PoolObjectLootDropInfo lootDropInfo;
         
-        [Foldout("Chest Properties"), SerializeField] private int numItemsToDrop; // How many items treasure will spawn
-
-        private void Start()
-        {
-            lootDropInfo.dropTable.ValidateTable();
-        }
-
         private void Update()
         {
             if ((this as IHealthInteractable).IsDead)
             {
                 DropItems();
             }
-        }
-
-        private void OnValidate()
-        {
-            lootDropInfo?.dropTable.ValidateTable();
         }
 
         private void DropItems()

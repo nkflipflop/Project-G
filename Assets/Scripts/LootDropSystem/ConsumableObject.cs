@@ -48,14 +48,14 @@ public class ConsumableObject : MonoBehaviour, IPoolable
         }
         else if (inventory[(int)Item.Type].Count < 3)
         {
-            inventory[(int)Item.Type].Count += 1;       // Medkit or Shield, If inventory is not full
+            inventory[(int)Item.Type].Count += 1;       // MedKit or Shield, If inventory is not full
             collected = true;
         }
         
         if (collected)      // If object is collected, destroy it
         {
             player.CollectPUB -= CollectSUB;
-            Destroy(gameObject);
+            this.ResetObject();
         }
     }
         

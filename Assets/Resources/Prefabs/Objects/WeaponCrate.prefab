@@ -207,47 +207,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Type>k__BackingField: 51
-  type: 1
+  lootDropInfo: {fileID: 11400000, guid: f65c9384ee8a64c799cceddbd98d36f1, type: 2}
   numItemsToDrop: 1
-  consumableDropTable:
-    LootDropItems: []
-  weaponDropTable:
-    LootDropItems:
-    - item: {fileID: 6689412603249722057, guid: b7fb4c0c3d5cb0e4aa11e58d970455e0,
-        type: 3}
-      probabilityWeight: 50
-      probabilityPercent: 22.222221
-      probabilityRangeFrom: 0
-      probabilityRangeTo: 50
-    - item: {fileID: 3969873003748830985, guid: 43c12e3919ac7fd4484f2ada81c8da8f,
-        type: 3}
-      probabilityWeight: 45
-      probabilityPercent: 20
-      probabilityRangeFrom: 50
-      probabilityRangeTo: 95
-    - item: {fileID: 395089684474149627, guid: 4985d8912b1d41842ae6c8bf150a0c77, type: 3}
-      probabilityWeight: 40
-      probabilityPercent: 17.777779
-      probabilityRangeFrom: 95
-      probabilityRangeTo: 135
-    - item: {fileID: 5307221495290090934, guid: b79e868e4b2c4d34b958661a90631a2e,
-        type: 3}
-      probabilityWeight: 35
-      probabilityPercent: 15.555555
-      probabilityRangeFrom: 135
-      probabilityRangeTo: 170
-    - item: {fileID: 8483857839878377761, guid: f25459e8ea15b7449b9388714fbb987d,
-        type: 3}
-      probabilityWeight: 30
-      probabilityPercent: 13.333333
-      probabilityRangeFrom: 170
-      probabilityRangeTo: 200
-    - item: {fileID: 2593907559752694969, guid: ae8c98d6377e041469926b292888f629,
-        type: 3}
-      probabilityWeight: 25
-      probabilityPercent: 11.111111
-      probabilityRangeFrom: 200
-      probabilityRangeTo: 225
   <CurrentHealth>k__BackingField: 25
   <MaxHealth>k__BackingField: 25
   <DissolveEffect>k__BackingField: {fileID: 1516673698771313397}

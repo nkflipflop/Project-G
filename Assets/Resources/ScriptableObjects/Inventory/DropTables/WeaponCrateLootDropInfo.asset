@@ -13,30 +13,47 @@ MonoBehaviour:
   m_Name: WeaponCrateLootDropInfo
   m_EditorClassIdentifier: 
   dropTable:
-    LootDropItems:
-    - item: {fileID: 0}
-      probabilityWeight: 0
-      probabilityPercent: 0
+    lootDropItems:
+    - item:
+        type: 100
+        consumable: {fileID: 0}
+      probabilityWeight: 50
+      probabilityPercent: 22.222221
       probabilityRangeFrom: 0
-      probabilityRangeTo: 0
-    - item: {fileID: 0}
-      probabilityWeight: 0
-      probabilityPercent: 0
-      probabilityRangeFrom: 0
-      probabilityRangeTo: 0
-    - item: {fileID: 0}
-      probabilityWeight: 0
-      probabilityPercent: 0
-      probabilityRangeFrom: 0
-      probabilityRangeTo: 0
-    - item: {fileID: 0}
-      probabilityWeight: 0
-      probabilityPercent: 0
-      probabilityRangeFrom: 0
-      probabilityRangeTo: 0
-    - item: {fileID: 0}
-      probabilityWeight: 0
-      probabilityPercent: 0
-      probabilityRangeFrom: 0
-      probabilityRangeTo: 0
+      probabilityRangeTo: 50
+    - item:
+        type: 101
+        consumable: {fileID: 0}
+      probabilityWeight: 45
+      probabilityPercent: 20
+      probabilityRangeFrom: 50
+      probabilityRangeTo: 95
+    - item:
+        type: 102
+        consumable: {fileID: 0}
+      probabilityWeight: 40
+      probabilityPercent: 17.777779
+      probabilityRangeFrom: 95
+      probabilityRangeTo: 135
+    - item:
+        type: 103
+        consumable: {fileID: 0}
+      probabilityWeight: 35
+      probabilityPercent: 15.555555
+      probabilityRangeFrom: 135
+      probabilityRangeTo: 170
+    - item:
+        type: 104
+        consumable: {fileID: 0}
+      probabilityWeight: 30
+      probabilityPercent: 13.333333
+      probabilityRangeFrom: 170
+      probabilityRangeTo: 200
+    - item:
+        type: 105
+        consumable: {fileID: 0}
+      probabilityWeight: 25
+      probabilityPercent: 11.111111
+      probabilityRangeFrom: 200
+      probabilityRangeTo: 225
   numItemsToDrop: 1

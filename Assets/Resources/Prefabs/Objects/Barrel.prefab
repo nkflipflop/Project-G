@@ -197,62 +197,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Type>k__BackingField: 50
-  type: 0
+  lootDropInfo: {fileID: 11400000, guid: 44b6ba0f003ae42a29e0447907daf682, type: 2}
   numItemsToDrop: 2
-  consumableDropTable:
-    LootDropItems:
-    - item: {fileID: 11400000, guid: 047d4bbb78e4bbd438d0e802ed8ec409, type: 2}
-      probabilityWeight: 18
-      probabilityPercent: 5.4545455
-      probabilityRangeFrom: 0
-      probabilityRangeTo: 18
-    - item: {fileID: 11400000, guid: eac7a88d95f099342b7139a205af431b, type: 2}
-      probabilityWeight: 16
-      probabilityPercent: 4.848485
-      probabilityRangeFrom: 18
-      probabilityRangeTo: 34
-    - item: {fileID: 11400000, guid: d0fe69fc199f5f14daa022eb891cb853, type: 2}
-      probabilityWeight: 41
-      probabilityPercent: 12.424242
-      probabilityRangeFrom: 34
-      probabilityRangeTo: 75
-    - item: {fileID: 11400000, guid: 0dbfeefb2c7c96c42890143d1b042059, type: 2}
-      probabilityWeight: 29
-      probabilityPercent: 8.787879
-      probabilityRangeFrom: 75
-      probabilityRangeTo: 104
-    - item: {fileID: 11400000, guid: 53a150a2e0e8c384ea25e4eda4db3643, type: 2}
-      probabilityWeight: 49
-      probabilityPercent: 14.848485
-      probabilityRangeFrom: 104
-      probabilityRangeTo: 153
-    - item: {fileID: 11400000, guid: 3068855dea4467e44843f80b73e5742b, type: 2}
-      probabilityWeight: 37
-      probabilityPercent: 11.212121
-      probabilityRangeFrom: 153
-      probabilityRangeTo: 190
-    - item: {fileID: 11400000, guid: 52b411126dc850647be8a16fb01bd3b3, type: 2}
-      probabilityWeight: 37
-      probabilityPercent: 11.212121
-      probabilityRangeFrom: 190
-      probabilityRangeTo: 227
-    - item: {fileID: 11400000, guid: 69df8516df738544cbd35f3a8086e635, type: 2}
-      probabilityWeight: 33
-      probabilityPercent: 10
-      probabilityRangeFrom: 227
-      probabilityRangeTo: 260
-    - item: {fileID: 11400000, guid: 994300d770e52a349a87e6154b4f4094, type: 2}
-      probabilityWeight: 45
-      probabilityPercent: 13.636364
-      probabilityRangeFrom: 260
-      probabilityRangeTo: 305
-    - item: {fileID: 11400000, guid: f1f1408b54b092b4cbe28e359455dcc8, type: 2}
-      probabilityWeight: 25
-      probabilityPercent: 7.5757575
-      probabilityRangeFrom: 305
-      probabilityRangeTo: 330
-  weaponDropTable:
-    LootDropItems: []
   <CurrentHealth>k__BackingField: 15
   <MaxHealth>k__BackingField: 15
   <DissolveEffect>k__BackingField: {fileID: 1516673698771313397}
