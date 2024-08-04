@@ -2,7 +2,7 @@
 
 public class PlayerHandController : HandControllerBase
 {
-    public PlayerController PlayerController;
+    public Player.Player player;
 
     private WeaponBase newWeapon;
     private bool takeWeapon;
@@ -17,7 +17,7 @@ public class PlayerHandController : HandControllerBase
     {
         InteractWithNewWeapon();
         //InterractWithExitDoor();
-        CharacterIsRunning = PlayerController.IsRun;
+        CharacterIsRunning = player.IsRunning;
     }
 
     protected override Vector3 GetTargetPosition()

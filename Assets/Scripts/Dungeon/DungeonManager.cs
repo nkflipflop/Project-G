@@ -49,7 +49,7 @@ namespace Dungeon
         [field: SerializeField] private DungeonConfig Config { get; set; }
 
         private GameManager gameManager;
-        [SerializeField] private PlayerManager player;
+        [SerializeField] private Player.Player player;
         [SerializeField] private GameObject dungeon;
         private GameObject[,] dungeonFloorPositions;
         private int[,] objectSpawnPos;

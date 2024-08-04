@@ -1,4 +1,5 @@
 ﻿using General;
+using Player;
 using UnityEngine;
 
 public class ConsumableObject : MonoBehaviour
@@ -6,7 +7,7 @@ public class ConsumableObject : MonoBehaviour
     public Consumable Item;
 
     [SerializeField] private SpriteRenderer _spriteRenderer = null;
-    private PlayerManager _playerManager;
+    private Player.Player player;
 
     private void Start()
     {
@@ -17,10 +18,10 @@ public class ConsumableObject : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         // If collide with an Player, Subscribe the playerManager
-        if (other.gameObject.CompareTag("Player") && !_playerManager)
+        if (other.gameObject.CompareTag("Player") && !player)
         {
-            _playerManager = other.gameObject.GetComponent<PlayerManager>();
-            _playerManager.CollectPUB += CollectSUB;
+            player = other.gameObject.GetComponent<Player.Player>();
+            player.CollectPUB += CollectSUB;
         }
     }
 
@@ -45,9 +46,9 @@ public class ConsumableObject : MonoBehaviour
         }
 
         // If object is collected, destroy it
-        if (collected == true)
+        if (collected)
         {
-            _playerManager.CollectPUB -= CollectSUB;
+            player.CollectPUB -= CollectSUB;
             Destroy(gameObject);
         }
     }

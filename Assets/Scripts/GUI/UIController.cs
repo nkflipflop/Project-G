@@ -16,7 +16,7 @@ public class UIController : MonoBehaviour
     public GameObject PauseMenuUI;
     public GameObject GameOverUI;
 
-    public PlayerManager PlayerManager;
+    public Player.Player player;
     public GameManager GameManager;
 
     public Color existColor;
@@ -40,9 +40,9 @@ public class UIController : MonoBehaviour
     private void Update()
     {
         // Weapon Sprite and Name Update
-        if (weapon != PlayerManager.PlayerHandController.CurrentWeapon)
+        if (weapon != player.handController.CurrentWeapon)
         {
-            weapon = PlayerManager.PlayerHandController.CurrentWeapon;
+            weapon = player.handController.CurrentWeapon;
             WeaponUI.WeaponImage.sprite = weapon.WeaponRenderer.sprite; // Weapon Info
             WeaponUI.WeaponImage.SetNativeSize();
             WeaponUI.WeaponText.text = weapon.Name;
@@ -51,9 +51,9 @@ public class UIController : MonoBehaviour
         }
 
         // Ammo Count Update
-        if (ammo != PlayerManager.PlayerHandController.CurrentWeapon.CurrentAmmo)
+        if (ammo != player.handController.CurrentWeapon.CurrentAmmo)
         {
-            ammo = PlayerManager.PlayerHandController.CurrentWeapon.CurrentAmmo;
+            ammo = player.handController.CurrentWeapon.CurrentAmmo;
             WeaponUI.AmmoText.text = ammo.ToString();
             if (ammo == 0)
             {
@@ -81,33 +81,33 @@ public class UIController : MonoBehaviour
         }
 
         // Health Count Update
-        if (health != (PlayerManager as IHealthInteractable).CurrentHealth)
+        if (health != (player as IHealthInteractable).CurrentHealth)
         {
-            health = (PlayerManager as IHealthInteractable).CurrentHealth;
+            health = (player as IHealthInteractable).CurrentHealth;
             MiscUI.HealthText.text = health.ToString();
             MiscUI.SetHealthColor((float)health / 100);
         }
 
         // MedKit Count Update
-        if (medKit != PlayerManager.Inventory[(int)GameConfigData.CollectibleType.Medkit].Count)
+        if (medKit != player.Inventory[(int)GameConfigData.CollectibleType.Medkit].Count)
         {
-            medKit = PlayerManager.Inventory[(int)GameConfigData.CollectibleType.Medkit].Count;
+            medKit = player.Inventory[(int)GameConfigData.CollectibleType.Medkit].Count;
             MiscUI.MedkitText.text = medKit.ToString();
             MiscUI.SetMedKitColor(medKit == 0 ? absentColor : existColor);     // Setting color of medkit bar
         }
 
         // Shield Count Update
-        if (shield != PlayerManager.Inventory[(int)GameConfigData.CollectibleType.Shield].Count)
+        if (shield != player.Inventory[(int)GameConfigData.CollectibleType.Shield].Count)
         {
-            shield = PlayerManager.Inventory[(int)GameConfigData.CollectibleType.Shield].Count;
+            shield = player.Inventory[(int)GameConfigData.CollectibleType.Shield].Count;
             MiscUI.ShieldText.text = shield.ToString();
             MiscUI.SetShieldColor(shield == 0 ? absentColor : existColor); // Setting color of shield bar
         }
 
         // Key Owning Update
-        if (hasKey != PlayerManager.HasKey)
+        if (hasKey != player.HasKey)
         {
-            hasKey = PlayerManager.HasKey;
+            hasKey = player.HasKey;
             MiscUI.KeyUI.SetActive(true);
         }
 

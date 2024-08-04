@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
 {
     public Camera cam;
     [SerializeField] private DungeonManager dungeonManager;
-    [SerializeField] private PlayerManager playerManager;
+    [SerializeField] private Player.Player player;
     [SerializeField] private UIController uiController;
 
     private int dungeonLevel;
@@ -34,7 +34,7 @@ public class GameManager : MonoBehaviour
                 uiController.TogglePause();
             }
 
-            if ((playerManager as IHealthInteractable).IsDead)
+            if ((player as IHealthInteractable).IsDead)
             {
                 isGameOver = true;
                 _ = uiController.ActivateGameOverScreen();
@@ -59,14 +59,14 @@ public class GameManager : MonoBehaviour
     private void LoadLevelData()
     {
         dungeonLevel = DataManager.instance.DungeonLevel;
-        playerManager.LoadPlayerData(); // loading player's data
+        player.LoadPlayerData(); // loading player's data
     }
 
     /// <summary> Gets the level data and saves it in DataManager at the end of the level </summary>
     private void SaveLevelData()
     {
         DataManager.instance.DungeonLevel++;
-        playerManager.SavePlayerData();
+        player.SavePlayerData();
     }
 
     /// <summary> Resets everything in DataManager </summary>

@@ -12,7 +12,7 @@ public class SoldierHandController : HandControllerBase
 
         if (TargetObject == null)
         {   // TODO: this is just temporary fix this code ASAP !!!
-            TargetObject = FindObjectOfType<PlayerManager>().gameObject;
+            TargetObject = FindObjectOfType<Player.Player>().gameObject;
         }
     }
 
