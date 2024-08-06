@@ -39,7 +39,7 @@ public class Enemy : MonoBehaviour, IPoolable, IPathfinder, IHealthInteractable
     {
         if (!(this as IHealthInteractable).IsDead)
         {
-            EnemyAnimate();
+            UpdateAnimator();
             Movement();
         }
     }
@@ -65,7 +65,7 @@ public class Enemy : MonoBehaviour, IPoolable, IPathfinder, IHealthInteractable
                     // get closer to attack
                     targetPos = Target.position;
                 }
-                else if (AStar.Path?.Count > 0 && AStar.Path.Count <= MAX_PATH_LENGTH)
+                else if (AStar.Path?.Count is > 0 and <= MAX_PATH_LENGTH)
                 {
                     if (!targetPos.HasValue || transform.position == targetPos.Value)
                     {
@@ -73,8 +73,10 @@ public class Enemy : MonoBehaviour, IPoolable, IPathfinder, IHealthInteractable
                         targetPos = new Vector2(targetPos.Value.x, targetPos.Value.y) + Random.insideUnitCircle * 0.15f;
                     }
                 }
-                else if (AStar.Path != null && AStar.Path.Count > MAX_PATH_LENGTH)
+                else if (AStar.Path is { Count: > MAX_PATH_LENGTH })
+                {
                     targetPos = Vector3Int.RoundToInt(transform.position); // if not chasing the Target, stay where you are
+                }
             }
 
             if (targetPos.HasValue)
@@ -109,7 +111,7 @@ public class Enemy : MonoBehaviour, IPoolable, IPathfinder, IHealthInteractable
         }
     }
 
-    private void EnemyAnimate()
+    private void UpdateAnimator()
     {
         animator.SetBool(runningHash, isRunning);
         animator.SetBool(isAttackingHash, isAttacking);
@@ -134,11 +136,16 @@ public class Enemy : MonoBehaviour, IPoolable, IPathfinder, IHealthInteractable
         CurrentHealth = MaxHealth;
         HitBoxCollider.enabled = true;
         DissolveEffect.Reset();
+        
+        sightDir = default;
+        isAttacking = false;
+        isRunning = false;
     }
 
     public void OnReset()
     {
         TriggerCancellationToken();
+        Target = null;
     }
     
     #endregion
@@ -168,7 +175,7 @@ public class Enemy : MonoBehaviour, IPoolable, IPathfinder, IHealthInteractable
     {
         Target = target;
         AStarSetup(grid);
-        Extensions.PeriodicAsync(async () => CheckTargetPosition(), 0.5f, 1.2f,
+        _ = Extensions.PeriodicAsync(async () => CheckTargetPosition(), 0.5f, 1.2f,
             CancellationTokenSource.Token);     // run this function every 0.5 sec && wait 1.2 sec at the start
     }
     

@@ -9,12 +9,15 @@ namespace Utilities
         public static async UniTask PeriodicAsync(Func<UniTask> action, float interval, float initialDelay = 0f,
             CancellationToken cancellationToken = default)
         {
-            await UniTask.Delay(TimeSpan.FromSeconds(initialDelay), cancellationToken: cancellationToken);
+            if (initialDelay > 0f)
+            {
+                await UniTask.Delay(TimeSpan.FromSeconds(initialDelay), cancellationToken: cancellationToken);
+            }
+            
             while (true)
             {
-                UniTask delayTask = UniTask.Delay(TimeSpan.FromSeconds(interval), cancellationToken: cancellationToken);
-                await action();
-                await delayTask;
+                await action().AttachExternalCancellation(cancellationToken);
+                await UniTask.Delay(TimeSpan.FromSeconds(interval), cancellationToken: cancellationToken);
             }
         }
     }
