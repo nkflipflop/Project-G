@@ -39,6 +39,19 @@ namespace Pathfinding
 			sortedOpenList.Clear();
 		}
 
+		public void Reset()
+		{
+			current = null;
+			Path = null;
+			grid = null;
+			
+			openList?.Clear();
+			closedList?.Clear();
+			allNodes?.Clear();
+			neighbors?.Clear();
+			sortedOpenList?.Clear();
+		}
+
 		public void UpdateObjective(Vector3 seekerPos, Vector3Int targetPos)
 		{
 			current = null;

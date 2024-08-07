@@ -136,16 +136,18 @@ public class Enemy : MonoBehaviour, IPoolable, IPathfinder, IHealthInteractable
         CurrentHealth = MaxHealth;
         HitBoxCollider.enabled = true;
         DissolveEffect.Reset();
-        
-        sightDir = default;
-        isAttacking = false;
-        isRunning = false;
     }
 
     public void OnReset()
     {
-        TriggerCancellationToken();
+        AStar.Reset();
         Target = null;
+        targetPos = null;
+        sightDir = default;
+        isAttacking = false;
+        isRunning = false;
+        distanceBtwTarget = float.MaxValue;
+        TriggerCancellationToken();
     }
     
     #endregion
