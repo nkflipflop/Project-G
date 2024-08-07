@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Numerics;
 using Cysharp.Threading.Tasks;
 using Pooling;
 using Pooling.Interfaces;
 using UnityEngine;
 using Weapons;
+using Quaternion = UnityEngine.Quaternion;
 using Type = Weapons.Type;
+using Vector3 = UnityEngine.Vector3;
 
 public class WeaponBase : MonoBehaviour, IPoolable
 {
@@ -67,7 +70,7 @@ public class WeaponBase : MonoBehaviour, IPoolable
         timeBtwShots = weaponInfo.fireRate;
 
         // Fire Effect
-        FireEffect fireEffect = PoolFactory.instance.GetObject<FireEffect>(ObjectType.FireEffect, ShotPoint.position, ShotPoint.rotation);
+        FireEffect fireEffect = PoolFactory.instance.GetObject<FireEffect>(ObjectType.FireEffect, position: ShotPoint.position, rotation: ShotPoint.eulerAngles);
         _ = fireEffect.Play();
         
         // Recoiling the weapon
@@ -84,9 +87,9 @@ public class WeaponBase : MonoBehaviour, IPoolable
         {
             float angelBtwBullets = 10f;
             float zRotation = ((1 - weaponInfo.bulletPerShot) * angelBtwBullets / 2) + (angelBtwBullets * i);
-            Projectile bullet = PoolFactory.instance
-                .GetObject<Projectile>(weaponInfo.bulletType, ShotPoint.position,
-                    Quaternion.Euler(new Vector3(0, 0, ShotPoint.rotation.eulerAngles.z + zRotation)));
+            Projectile bullet = PoolFactory.instance.GetObject<Projectile>(weaponInfo.bulletType,
+                position: ShotPoint.position,
+                rotation: Vector3.forward * (ShotPoint.rotation.eulerAngles.z + zRotation));
             _ = bullet.Activate(transform.root.CompareTag("Player"));
         }
     }

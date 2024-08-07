@@ -360,10 +360,10 @@ namespace Dungeon
                               j >= subDungeon.removedPiece.y && j <= subDungeon.removedPiece.yMax))
                         {
                             PoolObject floorObj = PoolFactory.instance.GetObject<PoolObject>(
-                                (ObjectType)Random.Range((int)ObjectType.DungeonFloor1, (int)ObjectType.DungeonFloor5 + 1),
-                                new Vector3(i, j, 0f), Quaternion.identity);
-                            floorObj.transform.SetParent(dungeon.transform.GetChild((int)Tiles.Floors).gameObject
-                                .transform);
+                                (ObjectType)Random.Range((int)ObjectType.DungeonFloor1,
+                                    (int)ObjectType.DungeonFloor5 + 1),
+                                dungeon.transform.GetChild((int)Tiles.Floors).gameObject.transform,
+                                new Vector3(i, j, 0f));
                             dungeonFloorPositions[i, j] = floorObj.gameObject;
                             DungeonMap[i, j] = 1;
                         }
@@ -394,10 +394,10 @@ namespace Dungeon
                         if (dungeonFloorPositions[i, j] == null)
                         {
                             PoolObject floorObj = PoolFactory.instance.GetObject<PoolObject>(
-                                (ObjectType)Random.Range((int)ObjectType.DungeonFloor1, (int)ObjectType.DungeonFloor5 + 1),
-                                new Vector3(i, j, 0f), Quaternion.identity);
-                            floorObj.transform.SetParent(dungeon.transform.GetChild((int)Tiles.Corridors).gameObject
-                                .transform);
+                                (ObjectType)Random.Range((int)ObjectType.DungeonFloor1,
+                                    (int)ObjectType.DungeonFloor5 + 1),
+                                dungeon.transform.GetChild((int)Tiles.Corridors).gameObject.transform,
+                                new Vector3(i, j, 0f));
                             dungeonFloorPositions[i, j] = floorObj.gameObject;
                             DungeonMap[i, j] = 1;
                         }
@@ -450,8 +450,8 @@ namespace Dungeon
                 if (dungeonFloorPositions[bridgePos.x, bridgePos.y] == null)
                 {
                     PoolObject instance = PoolFactory.instance.GetObject<PoolObject>(Config.bridgeTilesMapping[index],
-                        new Vector3(bridgePos.x, bridgePos.y, 0f), Quaternion.identity);
-                    instance.transform.SetParent(dungeon.transform.GetChild((int)Tiles.Bridges).gameObject.transform);
+                        dungeon.transform.GetChild((int)Tiles.Bridges).gameObject.transform,
+                        new Vector3(bridgePos.x, bridgePos.y, 0f));
                     dungeonFloorPositions[bridgePos.x, bridgePos.y] = instance.gameObject;
                 }
             }
@@ -480,17 +480,18 @@ namespace Dungeon
                     if (dungeonFloorPositions[wallPosX, wallPosY] == null && DungeonMap[wallPosX, wallPosY] == 0)
                     {
                         PoolObject instance = PoolFactory.instance.GetObject<PoolObject>(Config.wallTilesMapping[index],
-                            new Vector3(wallPosX, wallPosY, 0f), Quaternion.identity);
-                        instance.transform.SetParent(dungeon.transform.GetChild((int)Tiles.Walls).gameObject.transform);
+                            dungeon.transform.GetChild((int)Tiles.Walls).gameObject.transform,
+                            new Vector3(wallPosX, wallPosY, 0f));
                         dungeonFloorPositions[wallPosX, wallPosY] = instance.gameObject;
 
                         if (index != 0)
                         {
                             // placing floor tile under the walls
-                            PoolObject floorObj = PoolFactory.instance.GetObject<PoolObject>(
-                                (ObjectType)Random.Range((int)ObjectType.DungeonFloor1, (int)ObjectType.DungeonFloor5 + 1),
-                                new Vector3(wallPosX, wallPosY, 0f), Quaternion.identity);
-                            floorObj.transform.SetParent(dungeon.transform.GetChild((int)Tiles.Floors).gameObject.transform);
+                            PoolFactory.instance.GetObject<PoolObject>(
+                                (ObjectType)Random.Range((int)ObjectType.DungeonFloor1,
+                                    (int)ObjectType.DungeonFloor5 + 1),
+                                dungeon.transform.GetChild((int)Tiles.Floors).gameObject.transform,
+                                new Vector3(wallPosX, wallPosY, 0f));
                         }
                     }
                 }
@@ -512,9 +513,8 @@ namespace Dungeon
                                 ? ObjectType.WaterTile1
                                 : ObjectType.WaterTile2;
                             PoolObject waterTileObj = PoolFactory.instance.GetObject<PoolObject>(waterTileType,
-                                new Vector3(bridgePos.x + i, bridgePos.y + j, 0f), Quaternion.identity);
-                            waterTileObj.transform.SetParent(dungeon.transform.GetChild((int)Tiles.Waters).gameObject
-                                .transform);
+                                dungeon.transform.GetChild((int)Tiles.Waters).gameObject.transform,
+                                new Vector3(bridgePos.x + i, bridgePos.y + j, 0f));
                             if (i == 0 && j == 0)
                             {
                                 waterTileObj.gameObject.GetComponent<BoxCollider2D>().enabled = false;
@@ -557,8 +557,9 @@ namespace Dungeon
 
                     if (mulResult >= 6)
                     {
-                        PoolFactory.instance.GetObject(ObjectType.Lamp, new Vector3(i + 1, j + 1, 0f), Quaternion.identity,
-                            dungeon.transform.GetChild((int)Objects.Lamps).gameObject.transform);
+                        PoolFactory.instance.GetObject(ObjectType.Lamp,
+                            dungeon.transform.GetChild((int)Objects.Lamps).gameObject.transform,
+                            new Vector3(i + 1, j + 1, 0f));
 
                         for (int l = 0; l < matrixSize; l++)
                         {
@@ -623,16 +624,14 @@ namespace Dungeon
             objectSpawnPos[(int)randomPos.x, (int)randomPos.y] = 1;
 
             GetRandomPos(rootSubDungeon); // getting random position in the dungeon for the exit
-            escapeDoor = PoolFactory.instance.GetObject<EscapeDoor>(ObjectType.EscapeDoor,
-                new Vector3(randomPos.x, randomPos.y, 0f), Quaternion.identity);
-            escapeDoor.transform.SetParent(dungeon.transform);
+            escapeDoor = PoolFactory.instance.GetObject<EscapeDoor>(ObjectType.EscapeDoor, dungeon.transform,
+                new Vector3(randomPos.x, randomPos.y, 0f));
             escapeDoor.gameManager = gameManager;
             objectSpawnPos[(int)randomPos.x, (int)randomPos.y] = 1;
 
             GetRandomPos(rootSubDungeon); // getting random position in the dungeon for the object
-            PoolObject key = PoolFactory.instance.GetObject<PoolObject>(ObjectType.Key,
-                new Vector3(randomPos.x, randomPos.y, 0f), Quaternion.identity);
-            key.transform.SetParent(dungeon.transform);
+            PoolFactory.instance.GetObject<PoolObject>(ObjectType.Key, dungeon.transform,
+                new Vector3(randomPos.x, randomPos.y, 0f));
             objectSpawnPos[(int)randomPos.x, (int)randomPos.y] = 1;
             //Debug.Log("Player spawn ended.");
         }
@@ -644,8 +643,9 @@ namespace Dungeon
             for (int i = 0; i < 3; i++)
             {
                 GetRandomPos(rootSubDungeon); // getting random position in the dungeon
-                PoolFactory.instance.GetObject<Chest>(ObjectType.Barrel, new Vector3(randomPos.x, randomPos.y, 0f),
-                    Quaternion.identity, dungeon.transform.GetChild((int)Objects.Chests).gameObject.transform);
+                PoolFactory.instance.GetObject<Chest>(ObjectType.Barrel,
+                    dungeon.transform.GetChild((int)Objects.Chests).gameObject.transform,
+                    new Vector3(randomPos.x, randomPos.y, 0f));
                 objectSpawnPos[(int)randomPos.x, (int)randomPos.y] = 1;
             }
 
@@ -653,8 +653,9 @@ namespace Dungeon
             if (dungeonLevel % 2 == 1)
             {
                 GetRandomPos(rootSubDungeon); // getting random position in the dungeon
-                PoolFactory.instance.GetObject<Chest>(ObjectType.WeaponCrate, new Vector3(randomPos.x, randomPos.y, 0f),
-                    Quaternion.identity, dungeon.transform.GetChild((int)Objects.Chests).gameObject.transform);
+                PoolFactory.instance.GetObject<Chest>(ObjectType.WeaponCrate,
+                    dungeon.transform.GetChild((int)Objects.Chests).gameObject.transform,
+                    new Vector3(randomPos.x, randomPos.y, 0f));
                 objectSpawnPos[(int)randomPos.x, (int)randomPos.y] = 1;
             }
             //Debug.Log("Chest spawn ended.");
@@ -696,8 +697,8 @@ namespace Dungeon
                             } while (subDungeon.hasTurret && enemyIndex == 3); // check if the room has a turret and new enemy is turret
                         
                             Enemy enemy = PoolFactory.instance.GetObject<Enemy>(
-                                (ObjectType)((int)ObjectType.Beetle + enemyIndex), randomPos, Quaternion.identity,
-                                dungeon.transform.GetChild((int)Objects.Enemies).gameObject.transform);
+                                (ObjectType)((int)ObjectType.Beetle + enemyIndex),
+                                dungeon.transform.GetChild((int)Objects.Enemies).gameObject.transform, randomPos);
                             if (enemy is IPathfinder pathfinderEnemy)
                             {
                                 pathfinderEnemy.SetupPathfinding(player.transform, DungeonMap);
@@ -746,8 +747,8 @@ namespace Dungeon
                         {
                             ObjectType trapType = Random.Range(0, 2) == 0 ? ObjectType.SpikeTrap : ObjectType.FireTrap;
 
-                            PoolFactory.instance.GetObject<Trap>(trapType, randomPos, Quaternion.identity,
-                                dungeon.transform.GetChild((int)Objects.Traps).gameObject.transform);
+                            PoolFactory.instance.GetObject<Trap>(trapType,
+                                dungeon.transform.GetChild((int)Objects.Traps).gameObject.transform, randomPos);
                             trapSpawnData.Current++;
                             objectSpawnPos[(int)randomPos.x, (int)randomPos.y] = 1;
                         }

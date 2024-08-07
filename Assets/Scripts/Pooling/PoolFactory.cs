@@ -81,26 +81,15 @@ namespace Pooling
             return pools.GetValueOrDefault(type);
         }
         
-        public IPoolable GetObject(ObjectType type, Transform parent = null)
+        public IPoolable GetObject(ObjectType type, Transform parent = null, Vector3? position = null, Vector3? scale = null, Vector3? rotation = null)
         {
             ObjectPool pool = GetPool(type);
-            return pool?.Pull(parent);
+            return pool?.Pull(parent, position, scale, rotation);
         }
         
-        public T GetObject<T>(ObjectType type, Transform parent = null) where T : IPoolable
+        public T GetObject<T>(ObjectType type, Transform parent = null, Vector3? position = null, Vector3? scale = null, Vector3? rotation = null) where T : IPoolable
         {
-            return (T)GetObject(type, parent);
-        }
-        
-        public IPoolable GetObject(ObjectType type, Vector3 position, Quaternion rotation, Transform parent = null)
-        {
-            ObjectPool pool = GetPool(type);
-            return pool?.Pull(position, rotation, parent);
-        }
-        
-        public T GetObject<T>(ObjectType type, Vector3 position, Quaternion rotation, Transform parent = null) where T : IPoolable
-        {
-            return (T)GetObject(type, position, rotation, parent);
+            return (T)GetObject(type, parent, position, scale, rotation);
         }
         
         #endregion

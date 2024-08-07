@@ -27,8 +27,7 @@ namespace LootSystem
             {
                 GenericLootDropItemPoolObject selectedItem = lootDropInfo.dropTable.PickLootDropItem();
                 IPoolable collectibleObject = PoolFactory.instance.GetObject(selectedItem.item.type,
-                    new Vector2(transform.position.x, transform.position.y) + Random.insideUnitCircle / 2.8f,
-                    Quaternion.identity);
+                    position: new Vector2(transform.position.x, transform.position.y) + Random.insideUnitCircle / 2.8f);
                 if (collectibleObject.GameObject.TryGetComponent(out ConsumableObject consumableObject))
                 {
                     consumableObject.SetItem(selectedItem.item.consumable);

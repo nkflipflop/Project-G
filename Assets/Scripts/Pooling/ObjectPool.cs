@@ -52,45 +52,26 @@ namespace Pooling
             }
         }
 
-        #region Pull Functions
-        
-        public IPoolable Pull()
+        public IPoolable Pull(Transform parent = null, Vector3? position = null, Vector3? scale = null, Vector3? rotation = null)
         {
             IPoolable poolableObj = Count > 0 ? objects.Pop() : CreateObject();
             poolableObj.GameObject.SetActive(true);
+            if (parent)
+            {
+                poolableObj.GameObject.transform.SetParent(parent);
+            }
+            poolableObj.GameObject.transform.localScale = scale ?? Vector3.one;
+            poolableObj.GameObject.transform.position = position ?? Vector3.zero;
+            poolableObj.GameObject.transform.localRotation =
+                rotation.HasValue ? Quaternion.Euler(rotation.Value) : Quaternion.identity;
             poolableObj.OnSpawn();
             
             if (activeObjects.Add(poolableObj) == false)
             {
-                Log.Error(("BUG: Trying to add the same object ->", poolableObj.Type), poolableObj.GameObject);
+                Log.Error(("BUG: Trying to add the same object ->", poolableObj.Type), obj: poolableObj.GameObject);
             }
             return poolableObj;
         }
-
-        public IPoolable Pull(Transform parent)
-        {
-            IPoolable poolableObj = Pull();
-            poolableObj.GameObject.transform.SetParent(parent);
-            return poolableObj;
-        }
-        
-        public IPoolable Pull(Vector3 position)
-        {
-            IPoolable poolableObj = Pull();
-            poolableObj.GameObject.transform.position = position;
-            return poolableObj;
-        }
-        
-        public IPoolable Pull(Vector3 position, Quaternion rotation, Transform parent = null)
-        {
-            IPoolable poolableObj = Pull();
-            poolableObj.GameObject.transform.SetParent(parent);
-            poolableObj.GameObject.transform.position = position;
-            poolableObj.GameObject.transform.rotation = rotation;
-            return poolableObj;
-        }
-        
-        #endregion
 
         public void Push(IPoolable obj, bool removeFromActiveObjects = true)
         {

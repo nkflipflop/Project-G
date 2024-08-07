@@ -81,7 +81,8 @@ public class Projectile : MonoBehaviour, IPoolable
             lightObject.SetActive(false);
 
             // Creating After Effect
-            PoolFactory.instance.GetObject(ObjectType.HitEffect, transform.position, transform.rotation);
+            PoolFactory.instance.GetObject(ObjectType.HitEffect, position: transform.position,
+                rotation: transform.eulerAngles);
             isActive = false;
             this.ResetObject();
         }
