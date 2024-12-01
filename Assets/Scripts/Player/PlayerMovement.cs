@@ -88,13 +88,13 @@ namespace Player
                 moveLatency -= Time.deltaTime;
                 if (moveLatency <= 0)
                 {
-                    rb2D.velocity = new Vector2(horizontalInput, verticalInput) * unitSpeed;
+                    rb2D.linearVelocity = new Vector2(horizontalInput, verticalInput) * unitSpeed;
                     IsRunning = true;
                 }
             }
             else
             {
-                rb2D.velocity = new Vector2(0f, 0f);
+                rb2D.linearVelocity = new Vector2(0f, 0f);
                 moveLatency = 0.05f;
                 IsRunning = false;
             }
