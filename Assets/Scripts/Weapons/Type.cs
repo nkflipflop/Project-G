@@ -14,4 +14,10 @@ namespace Weapons
         TowerPistol = 51,
         TowerShotgun = 52,
     }
+
+    public enum TriggerSource
+    {
+        Player = 0,
+        NPC = 1
+    }
 }

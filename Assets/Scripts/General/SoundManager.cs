@@ -21,24 +21,21 @@ public static class SoundManager
         MetalHit
     }
 
-    private static Dictionary<Sound, float> soundTimerDictionary;
+    private static Dictionary<Sound, float> soundTimerDictionary = new()
+    {
+        [Sound.PlayerMove] = 0f,
+        [Sound.NoBullet] = 0f
+    };
+    
     private static GameObject oneShotGameObject;
     private static AudioSource oneShotAudioSource;
     private static float pitch = 1f;
     private static float randomPitch = 1f;
 
-    public static void Initialize()
-    {
-        soundTimerDictionary = new Dictionary<Sound, float>
-        {
-            [Sound.PlayerMove] = 0f,
-            [Sound.NoBullet] = 0f
-        };
-    }
-
     /// <summary> Plays a general sound </summary>
     public static void PlaySound(Sound sound)
     {
+        return;
         if (CanPlaySound(sound))
         {
             if (oneShotGameObject == null)
@@ -57,6 +54,7 @@ public static class SoundManager
     /// <summary> Plays a sound at an exact position </summary>
     public static void PlaySound(Sound sound, Vector3 position)
     {
+        return;
         if (CanPlaySound(sound))
         {
             GameObject soundGameObject = new GameObject("Sound")

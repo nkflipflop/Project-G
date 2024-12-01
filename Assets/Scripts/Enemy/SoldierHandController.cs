@@ -6,30 +6,30 @@ public class SoldierHandController : HandControllerBase
 
     protected override void SpecialStart()
     {
-        AimDeviation = 2f;
-        CurrentWeapon = transform.GetChild(0).GetComponent<WeaponBase>();
-        CurrentWeapon.transform.localPosition = WeaponPosition;
+        aimDeviation = 2f;
+        currentWeapon = transform.GetChild(0).GetComponent<WeaponBase>();
+        currentWeapon.transform.localPosition = weaponPosition;
 
         if (TargetObject == null)
         {   // TODO: this is just temporary fix this code ASAP !!!
-            TargetObject = FindObjectOfType<Player.Player>().gameObject;
+            TargetObject = FindObjectOfType<Gameplay.Runtime.Player.Player>().gameObject;
         }
     }
 
     protected override void SpecialUpdate()
     {
-        CharacterIsRunning = enemy.IsRunning;
+        characterIsRunning = enemy.IsRunning;
     }
 
     protected override void UseWeapon()
     {
         if (!(enemy as IHealthInteractable).IsDead && enemy.IsRunning && enemy.distanceBtwTarget < 3f)
         {
-            CurrentWeapon.Trigger();
+            currentWeapon.Trigger();
         }
         else
         {
-            CurrentWeapon.ReleaseTrigger();
+            currentWeapon.ReleaseTrigger();
         }
     }
 }

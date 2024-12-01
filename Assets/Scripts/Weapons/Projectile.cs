@@ -5,6 +5,7 @@ using NaughtyAttributes;
 using Pooling;
 using Pooling.Interfaces;
 using UnityEngine;
+using Weapons;
 
 public class Projectile : MonoBehaviour, IPoolable
 {
@@ -88,9 +89,9 @@ public class Projectile : MonoBehaviour, IPoolable
         }
     }
     
-    public async UniTaskVoid Activate(bool shotByPlayer)
+    public async UniTaskVoid Activate(TriggerSource triggerSource)
     {
-        this.shotByPlayer = shotByPlayer;
+        shotByPlayer = triggerSource == TriggerSource.Player;
         isActive = true;
         await UniTask.WhenAny(UniTask.Delay(TimeSpan.FromSeconds(5f)), UniTask.WaitUntil(() => !isActive))
             .AttachExternalCancellation(this.GetCancellationTokenOnDestroy());

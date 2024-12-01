@@ -1,10 +1,10 @@
 using Pooling;
 using UnityEngine;
 
-namespace Dungeon
+namespace Gameplay.Runtime.Dungeon
 {
 	[CreateAssetMenu(fileName = "DungeonConfig", menuName = "Gameplay/Dungeon/Config", order = 0)]
-	public class DungeonConfig : ScriptableObject
+	public class DungeonConfig : SingletonScriptableObject<DungeonConfig>
 	{
 		public int dungeonPadding;
 		public int dungeonRows, dungeonColumns;

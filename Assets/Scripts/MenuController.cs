@@ -19,7 +19,7 @@ public class MenuController : MonoBehaviour
 
     public void PlayGame()
     {
-        LoadingManager.instance.LoadScene(Constants.DUNGEON);
+        _ = SceneLoader.instance.LoadScene(Constants.DUNGEON_SCENE_INDEX);
     }
 
     public void ExitGame()

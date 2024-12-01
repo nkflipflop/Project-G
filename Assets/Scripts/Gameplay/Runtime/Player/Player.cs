@@ -4,7 +4,7 @@ using NaughtyAttributes;
 using Pooling;
 using UnityEngine;
 
-namespace Player
+namespace Gameplay.Runtime.Player
 {
 	[Serializable]
 	public class Inventory
@@ -89,7 +89,7 @@ namespace Player
         DataManager.instance.Health = (this as IHealthInteractable).CurrentHealth; // storing player's health
         DataManager.instance.MedKits = inventory[(int)GameConfigData.CollectibleType.Medkit].Count;
         DataManager.instance.Shields = inventory[(int)GameConfigData.CollectibleType.Shield].Count;
-        DataManager.instance.WeaponType = handController.CurrentWeapon.WeaponType; // storing player's weapon
+        DataManager.instance.WeaponType = handController.currentWeapon.WeaponType; // storing player's weapon
     }
 
     private void OnTriggerEnter2D(Collider2D other)

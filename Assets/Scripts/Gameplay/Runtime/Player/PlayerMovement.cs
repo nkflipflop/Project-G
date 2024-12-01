@@ -1,9 +1,10 @@
 using System;
 using Cysharp.Threading.Tasks;
+using Gameplay.Runtime.Controllers;
 using NaughtyAttributes;
 using UnityEngine;
 
-namespace Player
+namespace Gameplay.Runtime.Player
 {
 	public partial class Player
 	{
@@ -41,7 +42,7 @@ namespace Player
             verticalInput = Input.GetAxisRaw("Vertical");
 
             mousePosition = Input.mousePosition; // for determining player direction
-            mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);        // bro WTF? calling Camera.main in Update. Fix this ASAP !!!
+            mousePosition = GameManager.instance.MainCamera.ScreenToWorldPoint(mousePosition);
 
             if (horizontalInput != 0 || verticalInput != 0)
             {

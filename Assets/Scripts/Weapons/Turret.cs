@@ -13,9 +13,9 @@ public class Turret : HandControllerBase, IPoolable, IHealthInteractable
 
     protected override void SpecialStart()
     {
-        CurrentWeapon = transform.GetChild(0).GetComponent<WeaponBase>();
-        CurrentWeapon.transform.localPosition = WeaponPosition;
-        AimDeviation = 2f;
+        currentWeapon = transform.GetChild(0).GetComponent<WeaponBase>();
+        currentWeapon.transform.localPosition = weaponPosition;
+        aimDeviation = 2f;
     }
 
     protected override void SpecialUpdate()
@@ -27,11 +27,11 @@ public class Turret : HandControllerBase, IPoolable, IHealthInteractable
     {
         if (!(this as IHealthInteractable).IsDead && targetInRange)
         {
-            CurrentWeapon.Trigger();
+            currentWeapon.Trigger();
         }
         else
         {
-            CurrentWeapon.ReleaseTrigger();
+            currentWeapon.ReleaseTrigger();
         }
     }
 
@@ -58,7 +58,7 @@ public class Turret : HandControllerBase, IPoolable, IHealthInteractable
     public void OnSpawn()
     {
         CurrentHealth = MaxHealth;
-        WeaponPosition = new Vector3(0f, 0.497f, 0f);
+        weaponPosition = new Vector3(0f, 0.497f, 0f);
         DissolveEffect.Reset();
     }
 

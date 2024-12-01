@@ -1,5 +1,6 @@
 ﻿using System;
 using Cysharp.Threading.Tasks;
+using Gameplay.Runtime.Controllers;
 using General;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -15,9 +16,6 @@ public class UIController : MonoBehaviour
 
     public GameObject PauseMenuUI;
     public GameObject GameOverUI;
-
-    public Player.Player player;
-    public GameManager GameManager;
 
     public Color existColor;
     public Color absentColor;
@@ -39,10 +37,11 @@ public class UIController : MonoBehaviour
 
     private void Update()
     {
+        return;
         // Weapon Sprite and Name Update
-        if (weapon != player.handController.CurrentWeapon)
+        if (weapon != Gameplay.Runtime.Controllers.GameManager.instance.Player.handController.currentWeapon)
         {
-            weapon = player.handController.CurrentWeapon;
+            weapon = Gameplay.Runtime.Controllers.GameManager.instance.Player.handController.currentWeapon;
             WeaponUI.WeaponImage.sprite = weapon.WeaponRenderer.sprite; // Weapon Info
             WeaponUI.WeaponImage.SetNativeSize();
             WeaponUI.WeaponText.text = weapon.Name;
@@ -51,9 +50,9 @@ public class UIController : MonoBehaviour
         }
 
         // Ammo Count Update
-        if (ammo != player.handController.CurrentWeapon.CurrentAmmo)
+        if (ammo != Gameplay.Runtime.Controllers.GameManager.instance.Player.handController.currentWeapon.CurrentAmmo)
         {
-            ammo = player.handController.CurrentWeapon.CurrentAmmo;
+            ammo = Gameplay.Runtime.Controllers.GameManager.instance.Player.handController.currentWeapon.CurrentAmmo;
             WeaponUI.AmmoText.text = ammo.ToString();
             if (ammo == 0)
             {
@@ -81,42 +80,42 @@ public class UIController : MonoBehaviour
         }
 
         // Health Count Update
-        if (health != (player as IHealthInteractable).CurrentHealth)
+        if (health != (Gameplay.Runtime.Controllers.GameManager.instance.Player as IHealthInteractable).CurrentHealth)
         {
-            health = (player as IHealthInteractable).CurrentHealth;
+            health = (Gameplay.Runtime.Controllers.GameManager.instance.Player as IHealthInteractable).CurrentHealth;
             MiscUI.HealthText.text = health.ToString();
             MiscUI.SetHealthColor((float)health / 100);
         }
 
         // MedKit Count Update
-        if (medKit != player.Inventory[(int)GameConfigData.CollectibleType.Medkit].Count)
+        if (medKit != Gameplay.Runtime.Controllers.GameManager.instance.Player.Inventory[(int)GameConfigData.CollectibleType.Medkit].Count)
         {
-            medKit = player.Inventory[(int)GameConfigData.CollectibleType.Medkit].Count;
+            medKit = Gameplay.Runtime.Controllers.GameManager.instance.Player.Inventory[(int)GameConfigData.CollectibleType.Medkit].Count;
             MiscUI.MedkitText.text = medKit.ToString();
             MiscUI.SetMedKitColor(medKit == 0 ? absentColor : existColor);     // Setting color of medkit bar
         }
 
         // Shield Count Update
-        if (shield != player.Inventory[(int)GameConfigData.CollectibleType.Shield].Count)
+        if (shield != Gameplay.Runtime.Controllers.GameManager.instance.Player.Inventory[(int)GameConfigData.CollectibleType.Shield].Count)
         {
-            shield = player.Inventory[(int)GameConfigData.CollectibleType.Shield].Count;
+            shield = Gameplay.Runtime.Controllers.GameManager.instance.Player.Inventory[(int)GameConfigData.CollectibleType.Shield].Count;
             MiscUI.ShieldText.text = shield.ToString();
             MiscUI.SetShieldColor(shield == 0 ? absentColor : existColor); // Setting color of shield bar
         }
 
         // Key Owning Update
-        if (hasKey != player.HasKey)
+        if (hasKey != Gameplay.Runtime.Controllers.GameManager.instance.Player.HasKey)
         {
-            hasKey = player.HasKey;
+            hasKey = Gameplay.Runtime.Controllers.GameManager.instance.Player.HasKey;
             MiscUI.KeyUI.SetActive(true);
         }
 
-        // Level Value Update
-        if (level != GameManager.DungeonLevel)
-        {
-            level = GameManager.DungeonLevel;
-            LevelUI.LevelText.text = Extensions.ConcatenateString("Level ", level + 1);
-        }
+        // // Level Value Update
+        // if (level != GameManager.DungeonLevel)
+        // {
+        //     level = GameManager.DungeonLevel;
+        //     LevelUI.LevelText.text = Extensions.ConcatenateString("Level ", level + 1);
+        // }
     }
 
     /// <summary> Pauses/Resumes the game by toggling the current situation </summary>
@@ -131,7 +130,7 @@ public class UIController : MonoBehaviour
     public void NextLevel()
     {
         TogglePause();
-        GameManager.LoadNextLevel();
+        GameManager.instance.LoadNextLevel();
     }
 
     public void ResumeGame()
@@ -141,7 +140,7 @@ public class UIController : MonoBehaviour
 
     public void ReturnMainMenu()
     {
-        GameManager.ResetLevelData(); // before going back to the main menu, reset al data
+        GameManager.instance.ResetLevelData(); // before going back to the main menu, reset all data
         if (Time.timeScale == 0) // if the game is paused, resume it and then, go to main menu
         {
             TogglePause();
@@ -158,7 +157,7 @@ public class UIController : MonoBehaviour
     public async UniTaskVoid ActivateGameOverScreen()
     {
         await UniTask.Delay(TimeSpan.FromSeconds(1f), cancellationToken: this.GetCancellationTokenOnDestroy());
-        GameManager.cam.GetComponent<AudioListener>().enabled = true;
+        GameManager.instance.MainCamera.GetComponent<AudioListener>().enabled = true;
         GameOverUI.SetActive(true);
     }
 }

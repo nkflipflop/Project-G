@@ -1,19 +1,20 @@
 ﻿using System;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
+using Weapons;
 
 public class HandControllerBase : MonoBehaviour
 {
     public SpriteRenderer CharacterRenderer;
     public GameObject TargetObject;
-    [NonSerialized] public WeaponBase CurrentWeapon;
+    [NonSerialized] public WeaponBase currentWeapon;
 
-    protected bool CharacterIsRunning = false;
-    protected Vector3 WeaponPosition = new (0, 0, 0);
-    protected float AimDeviation; // ability to hit the bull's eye (if 0, you are the best)
-    protected Vector3 TargetObjectPosition;
+    protected bool characterIsRunning = false;
+    protected Vector3 weaponPosition = new (0, 0, 0);
+    protected float aimDeviation; // ability to hit the bull's eye (if 0, you are the best)
+    protected Vector3 targetObjectPosition;
 
-    protected Vector3 AimPosition;
+    protected Vector3 aimPosition;
     private float verticalTrigger = 1; // for inverse scaling of the weapon
     private bool canShoot = false;
     private const float FIRE_DELAY = 1f;
@@ -21,7 +22,7 @@ public class HandControllerBase : MonoBehaviour
     private void Start()
     {
         SpecialStart();
-        GivePermissionToFire(FIRE_DELAY);
+        _ = GivePermissionToFire(FIRE_DELAY);
     }
 
     protected virtual void SpecialStart() { }
@@ -43,9 +44,9 @@ public class HandControllerBase : MonoBehaviour
     private void AdjustSortingOrder()
     {
         int sortingOrder = CharacterRenderer.sortingOrder;
-        if (CharacterIsRunning)
+        if (characterIsRunning)
         {
-            Vector2 mouseDir = AimPosition - transform.parent.position;
+            Vector2 mouseDir = aimPosition - transform.parent.position;
             float horizontal = mouseDir.x;
             float vertical = mouseDir.y;
             float slope = horizontal / vertical;
@@ -64,7 +65,7 @@ public class HandControllerBase : MonoBehaviour
             sortingOrder += 4;
         }
 
-        CurrentWeapon.SetSortingOrder(sortingOrder);
+        currentWeapon.SetSortingOrder(sortingOrder);
     }
 
     // This is default Trigger the weapon fitting to player, you must override for NPCs
@@ -72,11 +73,11 @@ public class HandControllerBase : MonoBehaviour
     {
         if (Input.GetMouseButton(0))
         {
-            CurrentWeapon.Trigger();
+            currentWeapon.Trigger(TriggerSource.Player);
         }
         else
         {
-            CurrentWeapon.ReleaseTrigger();
+            currentWeapon.ReleaseTrigger();
         }
     }
 
@@ -84,28 +85,31 @@ public class HandControllerBase : MonoBehaviour
     private void AimWeapon()
     {
         // Flipping hand position and weapon direction
-        float verticalAxis = Mathf.Sign(AimPosition.x - transform.position.x);
+        float verticalAxis = Mathf.Sign(aimPosition.x - transform.position.x);
         bool scale = !(verticalTrigger * verticalAxis > 0);
         verticalTrigger = verticalAxis;
-        if (scale) CurrentWeapon.ScaleInverse();
+        if (scale)
+        {
+            currentWeapon.ScaleInverse();
+        }
 
         // Getting mouse position and direction of player to mouse
-        Vector3 aimDirection = (AimPosition - CurrentWeapon.transform.position).normalized;
+        Vector3 aimDirection = (aimPosition - currentWeapon.transform.position).normalized;
 
         // Rotating the current weapon
         float angle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
-        CurrentWeapon.transform.eulerAngles = new Vector3(0, 0, angle);
+        currentWeapon.transform.eulerAngles = new Vector3(0, 0, angle);
     }
 
     private void ControlWeapon()
     {
-        if (CurrentWeapon != null)
+        if (currentWeapon != null)
         {
             AimWeapon();
             AdjustSortingOrder();
             if (canShoot)
             {
-                CurrentWeapon.WeaponUpdate();
+                currentWeapon.WeaponUpdate();
                 UseWeapon();
             }
         }
@@ -122,11 +126,11 @@ public class HandControllerBase : MonoBehaviour
         // Taking aim position
         if (TargetObject)
         {
-            float distance = Vector3.Distance(AimPosition, transform.position) / 16;
+            float distance = Vector3.Distance(aimPosition, transform.position) / 16;
 
-            AimPosition = GetTargetPosition() + UnityEngine.Random.insideUnitSphere *
-                UnityEngine.Random.Range(0, distance) * AimDeviation;
-            AimPosition.z = 0f;
+            aimPosition = GetTargetPosition() + UnityEngine.Random.insideUnitSphere *
+                UnityEngine.Random.Range(0, distance) * aimDeviation;
+            aimPosition.z = 0f;
         }
     }
 

@@ -1,5 +1,7 @@
 using System;
 using System.Reflection;
+using Gameplay;
+using General;
 
 namespace Signals
 {
@@ -33,9 +35,25 @@ namespace Signals
             public static Action OnAllCommandsCompleted;
             #endregion
             
+            #region Common
+            public static Action<int, SceneLoader.LoadingStep> OnSceneLoadStepCompleted;
+            #endregion
+            
             #region GameUIEventSystem
             public static Action<bool> SetInputState;
             #endregion
         }    
+    }
+
+    namespace Gameplay
+    {
+        public static class Signal
+        {
+            #region GameManager
+            public static Action OnLevelStarted = delegate { };
+            public static Action OnLevelFinished = delegate { };
+            public static Action<GameStatus> OnGameStatusChanged = delegate { };
+            #endregion
+        }
     }
 }

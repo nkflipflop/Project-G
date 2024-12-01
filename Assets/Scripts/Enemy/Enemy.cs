@@ -1,4 +1,6 @@
 ﻿using System.Threading;
+using Gameplay;
+using Gameplay.Runtime.Controllers;
 using General;
 using NaughtyAttributes;
 using Pathfinding;
@@ -35,6 +37,10 @@ public class Enemy : MonoBehaviour, IPoolable, IPathfinder, IHealthInteractable
 
     public bool IsRunning => isRunning;
 
+    private bool CanMove => GameManager.instance.GameStatus == GameStatus.Playing &&
+                            !(this as IHealthInteractable).IsDead &&
+                            !(GameManager.instance.Player as IHealthInteractable).IsDead;
+
     private void FixedUpdate()
     {
         if (!(this as IHealthInteractable).IsDead)
@@ -46,7 +52,7 @@ public class Enemy : MonoBehaviour, IPoolable, IPathfinder, IHealthInteractable
 
     private void Movement()
     {
-        if (Target != null)
+        if (CanMove)
         {
             distanceBtwTarget = Vector3.Distance(Target.position, transform.position);
             sightDir = Target.position - transform.position;
@@ -100,7 +106,7 @@ public class Enemy : MonoBehaviour, IPoolable, IPathfinder, IHealthInteractable
 
     private void CheckTargetPosition()
     {
-        if (Target != null && gameObject.activeSelf)
+        if (CanMove)
         {
             if (distanceBtwTarget < SIGHT_RANGE)
             {

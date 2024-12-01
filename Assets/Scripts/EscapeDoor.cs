@@ -1,12 +1,12 @@
 ﻿using System;
 using Cysharp.Threading.Tasks;
+using Gameplay.Runtime.Controllers;
 using Pooling;
 using Pooling.Interfaces;
 using UnityEngine;
 
 public class EscapeDoor : MonoBehaviour, IPoolable
 {
-    [NonSerialized] public GameManager gameManager;
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private BoxCollider2D boxCollider2D ;
     [SerializeField] private Sprite doorOpenSprite, doorClosedSprite;
@@ -32,7 +32,7 @@ public class EscapeDoor : MonoBehaviour, IPoolable
     private async UniTaskVoid PlayerOnTheExit(float time)
     {
         await UniTask.Delay(TimeSpan.FromSeconds(time));
-        gameManager.LoadNextLevel();        // next level
+        GameManager.instance.LoadNextLevel();        // next level
     }
 
     public void OnSpawn()

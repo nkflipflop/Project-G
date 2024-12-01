@@ -64,7 +64,7 @@ public class WeaponBase : MonoBehaviour, IPoolable
     }
 
     // Fires the Weapon	
-    private void Fire()
+    private void Fire(TriggerSource triggerSource)
     {
         CurrentAmmo -= 1;
         timeBtwShots = weaponInfo.fireRate;
@@ -90,18 +90,18 @@ public class WeaponBase : MonoBehaviour, IPoolable
             Projectile bullet = PoolFactory.instance.GetObject<Projectile>(weaponInfo.bulletType,
                 position: ShotPoint.position,
                 rotation: Vector3.forward * (ShotPoint.rotation.eulerAngles.z + zRotation));
-            _ = bullet.Activate(transform.root.CompareTag("Player"));
+            _ = bullet.Activate(triggerSource);
         }
     }
 
-    public void Trigger()
+    public void Trigger(TriggerSource source = TriggerSource.NPC)
     {
         if (canTrigger && timeBtwShots <= 0)
         {
             canTrigger = weaponInfo.automatic;  // if weapon is not automatic, you need to release trigger
             if (CurrentAmmo > 0)
             {
-                Fire();
+                Fire(source);
             }
             else
             {
